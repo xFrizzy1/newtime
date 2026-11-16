@@ -7,7 +7,6 @@
   <style>
     :root {
       --bg: #0b101b;
-      --nav: #111827;
       --card: #121a2b;
       --card-hdr: linear-gradient(180deg, #1b2842 0%, #152036 100%);
       --hov: #172238;
@@ -38,16 +37,15 @@
     ::-webkit-scrollbar-thumb { background: #26395c; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--blue); }
 
-    /* ================= HERO BANNER (SKYTIME STYLE) ================= */
+    /* ================= HERO БАННЕР ================= */
     .hero-banner {
       position: relative;
-      height: 230px;
+      height: 225px;
       width: 100%;
       overflow: hidden;
       background:
         radial-gradient(circle at 50% 45%, rgba(0, 229, 255, 0.22), transparent 55%),
         radial-gradient(circle at 20% 80%, rgba(30, 120, 255, 0.25), transparent 50%),
-        radial-gradient(circle at 80% 30%, rgba(0, 140, 255, 0.22), transparent 50%),
         linear-gradient(180deg, #091326 0%, #0d1d3a 60%, #0b101b 100%);
       display: flex;
       flex-direction: column;
@@ -56,598 +54,198 @@
       text-align: center;
       padding: 20px;
     }
-    .hero-bg-svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.45;
-      pointer-events: none;
-    }
-    .hero-vignette {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(8, 13, 24, 0.25) 0%, rgba(11, 16, 27, 0.88) 100%);
-      pointer-events: none;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-    .hero-logo-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .hero-title {
-      margin: 0;
-      font-size: clamp(34px, 5vw, 50px);
-      font-weight: 900;
-      letter-spacing: 0.06em;
-      color: #ffffff;
-      text-shadow: 0 4px 24px rgba(0, 229, 255, 0.35), 0 2px 0 #071226;
-      line-height: 1;
-    }
+    .hero-bg-svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.45; pointer-events: none; }
+    .hero-vignette { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8, 13, 24, 0.25) 0%, rgba(11, 16, 27, 0.9) 100%); pointer-events: none; }
+    .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .hero-logo-row { display: flex; align-items: center; gap: 12px; }
+    .hero-title { margin: 0; font-size: clamp(34px, 5vw, 50px); font-weight: 900; letter-spacing: 0.06em; color: #fff; text-shadow: 0 4px 24px rgba(0, 229, 255, 0.35), 0 2px 0 #071226; line-height: 1; }
     .hero-title span { color: var(--cyan); }
     .hero-sub {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-top: 6px;
-      background: rgba(15, 23, 42, 0.72);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(0, 229, 255, 0.3);
-      padding: 5px 14px;
-      border-radius: 999px;
-      font-size: 12.5px;
-      font-weight: 700;
-      color: #dbeafe;
-      cursor: pointer;
-      transition: 0.2s;
+      display: inline-flex; align-items: center; gap: 10px; margin-top: 6px;
+      background: rgba(15, 23, 42, 0.72); backdrop-filter: blur(8px);
+      border: 1px solid rgba(0, 229, 255, 0.3); padding: 5px 14px; border-radius: 999px;
+      font-size: 12.5px; font-weight: 700; color: #dbeafe; cursor: pointer; transition: 0.2s;
     }
     .hero-sub:hover { border-color: var(--cyan); transform: translateY(-1px); }
-    .dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: #10b981;
-      box-shadow: 0 0 8px #10b981;
-      display: inline-block;
-    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 8px #10b981; display: inline-block; }
 
-    /* ================= NAVBAR (SKYTIME STYLE) ================= */
+    /* ================= НАВИГАЦИЯ ================= */
     .navbar-wrap {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(16, 23, 38, 0.94);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(16, 23, 38, 0.94); backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255, 255, 255, 0.06); border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
     }
-    .navbar {
-      max-width: 1220px;
-      margin: 0 auto;
-      padding: 8px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
+    .navbar { max-width: 1220px; margin: 0 auto; padding: 8px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .nav-left { display: flex; align-items: center; gap: 8px; overflow-x: auto; scrollbar-width: none; }
     .nav-left::-webkit-scrollbar { display: none; }
-
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 900;
-      font-size: 14px;
-      letter-spacing: 0.04em;
-      color: #fff;
-      margin-right: 10px;
-      cursor: pointer;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
+    .nav-brand { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 14px; letter-spacing: 0.04em; color: #fff; margin-right: 10px; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
     .nav-brand span { color: var(--cyan); }
-
-    .nav-btn {
-      background: transparent;
-      border: none;
-      color: #cbd5e1;
-      font-size: 12.5px;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      padding: 9px 15px;
-      border-radius: 7px;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: background 0.15s, color 0.15s;
-    }
+    .nav-btn { background: transparent; border: none; color: #cbd5e1; font-size: 12.5px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; padding: 9px 15px; border-radius: 7px; cursor: pointer; white-space: nowrap; transition: 0.15s; }
     .nav-btn:hover { background: rgba(255, 255, 255, 0.06); color: #fff; }
-    .nav-btn.act {
-      background: var(--blue);
-      color: #ffffff;
-      box-shadow: 0 4px 14px rgba(30, 120, 255, 0.4);
-    }
+    .nav-btn.act { background: var(--blue); color: #fff; box-shadow: 0 4px 14px rgba(30, 120, 255, 0.4); }
+    .nav-search { background: #0c121e; border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 7px 12px; border-radius: 7px; font-size: 12.5px; width: 220px; outline: none; transition: 0.2s; }
+    .nav-search:focus { border-color: var(--cyan); width: 255px; }
 
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .nav-search {
-      background: #0c121e;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #fff;
-      padding: 7px 12px;
-      border-radius: 7px;
-      font-size: 12.5px;
-      width: 210px;
-      outline: none;
-      transition: border-color 0.2s, width 0.2s;
-    }
-    .nav-search:focus { border-color: var(--cyan); width: 245px; }
-
-    /* ================= CONTAINER ================= */
-    .container {
-      flex: 1;
-      width: 100%;
-      max-width: 1220px;
-      margin: 0 auto;
-      padding: 22px 20px 36px;
-    }
+    /* ================= ОСНОВНОЙ КОНТЕЙНЕР ================= */
+    .container { flex: 1; width: 100%; max-width: 1220px; margin: 0 auto; padding: 22px 20px 36px; }
     .view { display: none; }
     .view.act { display: block; animation: fadeIn 0.18s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
 
-    .page-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 18px;
-    }
-    .page-title {
-      margin: 0;
-      font-size: 22px;
-      font-weight: 800;
-      color: #fff;
-    }
+    .page-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 18px; }
+    .page-title { margin: 0; font-size: 22px; font-weight: 800; color: #fff; }
     .page-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-    .p-btn {
-      background: #182338;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #e2e8f0;
-      padding: 7px 14px;
-      border-radius: 7px;
-      font-size: 12.5px;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      transition: 0.15s;
-    }
+    .p-btn { background: #182338; border: 1px solid rgba(255, 255, 255, 0.08); color: #e2e8f0; padding: 7px 14px; border-radius: 7px; font-size: 12.5px; font-weight: 600; cursor: pointer; text-decoration: none; transition: 0.15s; }
     .p-btn:hover { background: #20304d; border-color: rgba(0, 229, 255, 0.35); }
-    .p-btn.primary {
-      background: var(--blue);
-      border-color: transparent;
-      color: #fff;
-    }
+    .p-btn.primary { background: var(--blue); border-color: transparent; color: #fff; }
     .p-btn.primary:hover { background: var(--blue-hov); }
 
-    /* ================= SKYTIME CARD ================= */
-    .st-card {
-      background: var(--card);
-      border: 1px solid var(--brd);
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-      margin-bottom: 18px;
-    }
-    .st-card-hdr {
-      background: var(--card-hdr);
-      padding: 12px 18px;
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: #ffffff;
-      border-bottom: 1px solid var(--brd);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
+    .st-card { background: var(--card); border: 1px solid var(--brd); border-radius: 10px; overflow: hidden; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); margin-bottom: 18px; }
+    .st-card-hdr { background: var(--card-hdr); padding: 12px 18px; font-size: 13px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; color: #fff; border-bottom: 1px solid var(--brd); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
     .st-card-hdr.center { justify-content: center; }
 
-    /* ================= DONATE SHOP (OLD + SKYTIME HYBRID) ================= */
-    .shop-grid {
-      display: grid;
-      grid-template-columns: 370px 1fr;
-      gap: 20px;
-      align-items: stretch;
-      margin-bottom: 20px;
-    }
-    .rank-list {
-      max-height: 455px;
-      overflow-y: auto;
-      padding: 6px 0;
-    }
-    .rank-div {
-      font-size: 10.5px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--mut);
-      padding: 10px 18px 4px;
-    }
-    .rank-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 18px;
-      cursor: pointer;
-      border-left: 3px solid transparent;
-      transition: background 0.14s;
-    }
+    /* ================= МАГАЗИН ================= */
+    .shop-grid { display: grid; grid-template-columns: 370px 1fr; gap: 20px; align-items: stretch; margin-bottom: 20px; }
+    .rank-list { max-height: 455px; overflow-y: auto; padding: 6px 0; }
+    .rank-div { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mut); padding: 10px 18px 4px; }
+    .rank-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 18px; cursor: pointer; border-left: 3px solid transparent; transition: 0.14s; }
     .rank-item:hover { background: var(--hov); }
-    .rank-item.act {
-      background: linear-gradient(90deg, rgba(0, 229, 255, 0.16) 0%, rgba(30, 120, 255, 0.04) 100%);
-      border-left-color: var(--cyan);
-    }
+    .rank-item.act { background: linear-gradient(90deg, rgba(0, 229, 255, 0.16) 0%, rgba(30, 120, 255, 0.04) 100%); border-left-color: var(--cyan); }
     .rank-left { display: flex; align-items: center; gap: 12px; }
     .rank-icon { width: 24px; height: 24px; flex-shrink: 0; }
     .rank-name { font-weight: 700; font-size: 14px; color: #fff; }
     .rank-from { font-weight: 700; font-size: 13px; color: var(--cyan); white-space: nowrap; }
 
-    .detail-card {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 500px;
-    }
+    .detail-card { display: flex; flex-direction: column; justify-content: space-between; min-height: 500px; }
     .term-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
-    .term-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: var(--mut);
-      font-size: 12px;
-      font-weight: 700;
-      padding: 5px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.15s;
-    }
+    .term-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); color: var(--mut); font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: 0.15s; }
     .term-btn:hover { color: #fff; }
-    .term-btn.act {
-      background: var(--blue);
-      border-color: var(--blue);
-      color: #fff;
-      box-shadow: 0 2px 10px rgba(30, 120, 255, 0.4);
-    }
+    .term-btn.act { background: var(--blue); border-color: var(--blue); color: #fff; box-shadow: 0 2px 10px rgba(30, 120, 255, 0.4); }
     .detail-body { padding: 20px 24px; flex: 1; }
-    .d-sec-title {
-      color: var(--cyan);
-      font-size: 13.5px;
-      font-weight: 800;
-      margin: 0 0 10px;
-    }
-    .perm-list, .other-list {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 18px;
-      font-size: 13.5px;
-    }
+    .d-sec-title { color: var(--cyan); font-size: 13.5px; font-weight: 800; margin: 0 0 10px; }
+    .perm-list, .other-list { list-style: none; padding: 0; margin: 0 0 18px; font-size: 13.5px; }
     .perm-list li, .other-list li { padding: 3px 0; color: #e2e8f0; }
     .cmd { color: var(--cyan); font-weight: 700; }
     .arrow { color: var(--mut); margin: 0 4px; }
     .other-list strong { color: var(--cyan); }
 
-    .detail-foot {
-      padding: 16px 24px;
-      border-top: 1px solid var(--brd);
-      background: rgba(0, 0, 0, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
+    .detail-foot { padding: 16px 24px; border-top: 1px solid var(--brd); background: rgba(0, 0, 0, 0.15); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
     .price-wrap { display: flex; align-items: baseline; gap: 10px; }
     .price-lbl { color: var(--mut); font-weight: 700; font-size: 13px; }
     .price-val { color: #fff; font-weight: 900; font-size: 24px; }
-
-    .buy-btn {
-      background: linear-gradient(135deg, var(--blue) 0%, #00b4ff 100%);
-      border: none;
-      color: #fff;
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 11px 28px;
-      border-radius: 8px;
-      cursor: pointer;
-      box-shadow: 0 4px 16px rgba(30, 120, 255, 0.35);
-      transition: transform 0.15s, box-shadow 0.2s;
-    }
+    .buy-btn { background: linear-gradient(135deg, var(--blue) 0%, #00b4ff 100%); border: none; color: #fff; font-size: 13px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; padding: 11px 28px; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 16px rgba(30, 120, 255, 0.35); transition: 0.15s; }
     .buy-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(0, 229, 255, 0.45); }
 
-    /* ================= FORUM-STYLE 2-COL PORTAL / RULES ================= */
-    .portal-grid {
-      display: grid;
-      grid-template-columns: 1fr 310px;
-      gap: 20px;
-      align-items: start;
-    }
-
-    .rule-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 12px 18px;
-      border-bottom: 1px solid var(--brd);
-      transition: background 0.12s;
-    }
+    /* ================= ПРАВИЛА И САЙДБАР ================= */
+    .portal-grid { display: grid; grid-template-columns: 1fr 310px; gap: 20px; align-items: start; }
+    .rule-row { display: flex; align-items: flex-start; gap: 14px; padding: 12px 18px; border-bottom: 1px solid var(--brd); transition: 0.12s; }
     .rule-row:last-child { border-bottom: none; }
     .rule-row:hover { background: var(--hov); }
     .rule-row.sub { padding-left: 36px; background: rgba(255, 255, 255, 0.012); }
-    .r-badge {
-      min-width: 48px;
-      text-align: center;
-      font-size: 12px;
-      font-weight: 800;
-      color: var(--cyan);
-      background: rgba(0, 229, 255, 0.09);
-      border: 1px solid rgba(0, 229, 255, 0.25);
-      border-radius: 6px;
-      padding: 2px 6px;
-      flex-shrink: 0;
-    }
-    .r-info {
-      margin-top: 8px;
-      padding: 9px 12px;
-      border-radius: 7px;
-      background: rgba(30, 120, 255, 0.12);
-      border: 1px solid rgba(30, 120, 255, 0.35);
-      color: #bfdbfe;
-      font-size: 12.5px;
-    }
-    .r-alert {
-      padding: 12px 16px;
-      border-radius: 9px;
-      background: rgba(239, 68, 68, 0.12);
-      border: 1px solid rgba(239, 68, 68, 0.35);
-      color: #fca5a5;
-      font-size: 13px;
-      margin-bottom: 18px;
-    }
+    .r-badge { min-width: 48px; text-align: center; font-size: 12px; font-weight: 800; color: var(--cyan); background: rgba(0, 229, 255, 0.09); border: 1px solid rgba(0, 229, 255, 0.25); border-radius: 6px; padding: 2px 6px; flex-shrink: 0; }
+    .r-info { margin-top: 8px; padding: 9px 12px; border-radius: 7px; background: rgba(30, 120, 255, 0.12); border: 1px solid rgba(30, 120, 255, 0.35); color: #bfdbfe; font-size: 12.5px; }
+    .r-alert { padding: 12px 16px; border-radius: 9px; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.35); color: #fca5a5; font-size: 13px; margin-bottom: 18px; }
 
-    /* Sidebar */
     .sb-body { padding: 14px 16px; font-size: 13px; }
-    .sb-stat {
-      display: flex;
-      justify-content: space-between;
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    }
+    .sb-stat { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
     .sb-stat:last-child { border-bottom: none; }
     .sb-stat span { color: var(--mut); }
     .sb-stat strong { color: #fff; }
-    .sb-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 7px 10px;
-      border-radius: 7px;
-      color: #e2e8f0;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background 0.14s;
-    }
+    .sb-link { display: flex; align-items: center; justify-content: space-between; padding: 7px 10px; border-radius: 7px; color: #e2e8f0; cursor: pointer; transition: 0.14s; }
     .sb-link:hover { background: var(--hov); color: var(--cyan); }
-    .online-names { font-size: 12.5px; line-height: 1.7; }
 
-    /* Mods */
-    .mods-filter {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-    .mf-btn {
-      background: var(--card);
-      border: 1px solid var(--brd);
-      color: var(--mut);
-      padding: 7px 14px;
-      border-radius: 7px;
-      font-size: 12.5px;
-      font-weight: 700;
-      cursor: pointer;
-    }
+    /* ================= МОДЫ И КОНТАКТЫ ================= */
+    .mods-filter { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .mf-btn { background: var(--card); border: 1px solid var(--brd); color: var(--mut); padding: 7px 14px; border-radius: 7px; font-size: 12.5px; font-weight: 700; cursor: pointer; }
     .mf-btn.act { background: var(--blue); border-color: var(--blue); color: #fff; }
-
     .mgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
     .tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 16px; }
-    .tag {
-      font-size: 12px;
-      padding: 4px 9px;
-      border-radius: 6px;
-      background: #0d1320;
-      border: 1px solid var(--brd);
-    }
+    .tag { font-size: 12px; padding: 4px 9px; border-radius: 6px; background: #0d1320; border: 1px solid var(--brd); }
     .tok { border-color: rgba(16, 185, 129, 0.4); color: #34d399; }
     .tno { border-color: rgba(239, 68, 68, 0.4); color: #f87171; }
 
-    /* Contacts */
     .cgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
     .c-body { padding: 18px; }
     .c-body p { color: var(--mut); margin: 0 0 14px; font-size: 13.5px; }
 
-    /* Modal */
-    .modal-bg {
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      background: rgba(5, 8, 15, 0.8);
-      backdrop-filter: blur(6px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
+    /* ================= МОДАЛЬНОЕ ОКНО ================= */
+    .modal-bg { position: fixed; inset: 0; z-index: 200; background: rgba(5, 8, 15, 0.82); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; padding: 16px; }
     .modal-bg.open { display: flex; }
-    .modal {
-      width: 100%;
-      max-width: 440px;
-      background: var(--card);
-      border: 1px solid rgba(0, 229, 255, 0.3);
-      border-radius: 12px;
-      padding: 22px;
-      position: relative;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
-    }
-    .m-close {
-      position: absolute;
-      top: 14px; right: 14px;
-      background: #182338;
-      border: 1px solid var(--brd);
-      color: var(--mut);
-      width: 30px; height: 30px;
-      border-radius: 7px;
-      cursor: pointer;
-    }
+    .modal { width: 100%; max-width: 460px; background: var(--card); border: 1px solid rgba(0, 229, 255, 0.3); border-radius: 12px; padding: 22px; position: relative; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7); }
+    .m-close { position: absolute; top: 14px; right: 14px; background: #182338; border: 1px solid var(--brd); color: var(--mut); width: 30px; height: 30px; border-radius: 7px; cursor: pointer; }
     .m-close:hover { color: #fff; border-color: var(--cyan); }
-    .m-inp {
-      width: 100%;
-      background: #0b101b;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      color: #fff;
-      padding: 10px 12px;
-      border-radius: 8px;
-      font-size: 13.5px;
-      outline: none;
-      margin: 8px 0 16px;
-    }
+    .m-inp { width: 100%; background: #0b101b; border: 1px solid rgba(255, 255, 255, 0.14); color: #fff; padding: 10px 12px; border-radius: 8px; font-size: 13.5px; outline: none; margin: 8px 0 14px; }
     .m-inp:focus { border-color: var(--cyan); }
 
-    /* Footer */
-    .footer {
-      background: #080c15;
-      border-top: 1px solid var(--brd);
-      padding: 18px 20px;
-      font-size: 12px;
-      color: var(--mut);
+    .pay-methods { display: grid; gap: 9px; }
+    .pm-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; padding: 11px 14px; border-radius: 8px;
+      background: #172238; border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff; font-weight: 700; font-size: 13px; cursor: pointer; transition: 0.15s;
     }
-    .footer-inner {
-      max-width: 1220px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
+    .pm-btn:hover { border-color: var(--cyan); background: #1d2c48; }
+    .pm-btn small { color: var(--cyan); font-weight: 800; }
+    .sbp-box {
+      margin-top: 12px; padding: 13px; border-radius: 8px;
+      background: #0b101b; border: 1px solid rgba(0, 229, 255, 0.3);
+      display: none; font-size: 13px;
     }
+    .sbp-box.open { display: block; }
+
+    /* ================= ФУТЕР И УВЕДОМЛЕНИЯ ================= */
+    .footer { background: #080c15; border-top: 1px solid var(--brd); padding: 18px 20px; font-size: 12px; color: var(--mut); }
+    .footer-inner { max-width: 1220px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
     .footer a { color: var(--cyan); text-decoration: none; }
 
-    .toast {
-      position: fixed;
-      bottom: 20px; right: 20px;
-      z-index: 300;
-      background: #121a2b;
-      border: 1px solid var(--cyan);
-      color: #fff;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-      opacity: 0;
-      transform: translateY(10px);
-      pointer-events: none;
-      transition: 0.2s;
-    }
+    .toast { position: fixed; bottom: 20px; right: 20px; z-index: 300; background: #121a2b; border: 1px solid var(--cyan); color: #fff; padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); opacity: 0; transform: translateY(10px); pointer-events: none; transition: 0.2s; }
     .toast.show { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 960px) {
-      .portal-grid { grid-template-columns: 1fr; }
-      .shop-grid { grid-template-columns: 1fr; }
-      .mgrid { grid-template-columns: 1fr; }
+      .portal-grid, .shop-grid, .mgrid { grid-template-columns: 1fr; }
       .detail-card { min-height: auto; }
       .nav-search { width: 100%; }
-      .nav-right { width: 100%; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ВЕРХНИЙ БАННЕР КАК НА SKYTIME -->
   <header class="hero-banner">
     <svg class="hero-bg-svg" viewBox="0 0 1440 320" preserveAspectRatio="xMidYMid slice">
       <defs>
-        <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#0b2447"/>
-          <stop offset="100%" stop-color="#0b101b"/>
-        </linearGradient>
+        <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0b2447"/><stop offset="100%" stop-color="#0b101b"/></linearGradient>
       </defs>
       <rect width="1440" height="320" fill="url(#skyG)"/>
-      <!-- Пиксельные горы и острова -->
       <path d="M0 240H120V190H210V150H320V210H450V170H580V220H720V160H860V200H990V140H1120V190H1280V160H1440V320H0Z" fill="#0f294a" opacity="0.7"/>
       <path d="M0 270H180V230H340V250H520V210H680V260H890V220H1080V250H1260V215H1440V320H0Z" fill="#13345e" opacity="0.65"/>
-      <!-- Парящие кубические частицы -->
       <rect x="140" y="60" width="22" height="22" fill="#00e5ff" opacity="0.25"/>
       <rect x="260" y="105" width="14" height="14" fill="#1e78ff" opacity="0.35"/>
       <rect x="1150" y="75" width="26" height="26" fill="#00e5ff" opacity="0.22"/>
       <rect x="1260" y="120" width="16" height="16" fill="#38bdf8" opacity="0.3"/>
-      <rect x="440" y="45" width="12" height="12" fill="#00e5ff" opacity="0.35"/>
-      <rect x="980" y="55" width="16" height="16" fill="#1e78ff" opacity="0.35"/>
     </svg>
     <div class="hero-vignette"></div>
-
     <div class="hero-content">
       <div class="hero-logo-row">
         <svg width="46" height="34" viewBox="0 0 32 24" fill="none">
           <path d="M4 20L2 7L9 12L16 2L23 12L30 7L28 20H4Z" fill="url(#crG)" stroke="#041529" stroke-width="2" stroke-linejoin="round"/>
           <rect x="14" y="11" width="4" height="4" transform="rotate(45 16 11)" fill="#0088ff" stroke="#e0f7ff" stroke-width="1"/>
-          <defs>
-            <linearGradient id="crG" x1="16" y1="2" x2="16" y2="20" gradientUnits="userSpaceOnUse">
-              <stop stop-color="#bdf8ff"/>
-              <stop offset="1" stop-color="#00b4ff"/>
-            </linearGradient>
-          </defs>
+          <defs><linearGradient id="crG" x1="16" y1="2" x2="16" y2="20" gradientUnits="userSpaceOnUse"><stop stop-color="#bdf8ff"/><stop offset="1" stop-color="#00b4ff"/></linearGradient></defs>
         </svg>
         <h1 class="hero-title">NEW<span>TIME</span></h1>
       </div>
       <div class="hero-sub" onclick="copyIP()" title="Нажмите, чтобы скопировать IP">
         <span class="dot"></span>
-        <span>CYAN ANARCHY • IP: <strong id="heroIp">newtime.mcsh.gg</strong></span>
+        <span>CYAN ANARCHY • IP: <strong>newtime.mcsh.gg</strong></span>
       </div>
     </div>
   </header>
 
-  <!-- НАВИГАЦИЯ КАК НА SKYTIME -->
   <div class="navbar-wrap">
     <nav class="navbar">
       <div class="nav-left">
         <div class="nav-brand" onclick="switchView('shop')">
-          <svg width="20" height="15" viewBox="0 0 32 24" fill="none">
-            <path d="M4 20L2 7L9 12L16 2L23 12L30 7L28 20H4Z" fill="#00e5ff"/>
-          </svg>
+          <svg width="20" height="15" viewBox="0 0 32 24" fill="none"><path d="M4 20L2 7L9 12L16 2L23 12L30 7L28 20H4Z" fill="#00e5ff"/></svg>
           NEW<span>TIME</span>
         </div>
         <button class="nav-btn act" data-view="shop" onclick="switchView('shop')">Магазин</button>
@@ -655,17 +253,14 @@
         <button class="nav-btn" data-view="mods" onclick="switchView('mods')">Модификации</button>
         <button class="nav-btn" data-view="contacts" onclick="switchView('contacts')">Контакты</button>
       </div>
-
-      <div class="nav-right">
+      <div>
         <input type="text" id="globalSearch" class="nav-search" oninput="onSearch()" placeholder="🔍 Поиск доната, правил, модов...">
       </div>
     </nav>
   </div>
 
-  <!-- ОСНОВНОЙ КОНТЕНТ -->
   <main class="container">
-
-    <!-- ==================== ВКЛАДКА 1: МАГАЗИН (2-КОЛОНОЧНЫЙ + ИНФО) ==================== -->
+    <!-- МАГАЗИН -->
     <section class="view act" id="view-shop">
       <div class="page-head">
         <h2 class="page-title">NewTime — Магазин привилегий</h2>
@@ -676,19 +271,17 @@
       </div>
 
       <div class="shop-grid">
-        <!-- Левая колонка: Список рангов -->
         <div class="st-card">
           <div class="st-card-hdr">Выберите товар:</div>
           <div class="rank-list" id="rankList"></div>
         </div>
 
-        <!-- Правая колонка: Детали выбранного ранга -->
         <div class="st-card detail-card">
           <div class="st-card-hdr">
             <span id="termLabel">Выберите срок:</span>
             <div class="term-tabs" id="termTabs">
               <button class="term-btn act" data-term="p30" onclick="selectTerm('p30')">30 дней</button>
-              <button class="term-btn" data-term="p90" onclick="selectTerm('p90')">90 дней (-25%)</button>
+              <button class="term-btn" data-term="p90" onclick="selectTerm('p90')">90 дней</button>
               <button class="term-btn" data-term="pFor" onclick="selectTerm('pFor')">Навсегда [ХИТ]</button>
             </div>
           </div>
@@ -696,7 +289,6 @@
           <div class="detail-body">
             <div class="d-sec-title">Возможности привилегии:</div>
             <ul class="perm-list" id="detailPerms"></ul>
-
             <div class="d-sec-title">Прочее:</div>
             <ul class="other-list" id="detailOther"></ul>
           </div>
@@ -704,23 +296,22 @@
           <div class="detail-foot">
             <div class="price-wrap">
               <span class="price-lbl">Стоимость:</span>
-              <span class="price-val" id="detailPrice">10 руб</span>
+              <span class="price-val" id="detailPrice">5 руб</span>
             </div>
             <button class="buy-btn" id="buyBtn" onclick="openBuyModal()">ПРИОБРЕСТИ</button>
           </div>
         </div>
       </div>
 
-      <!-- Нижний блок условий как форумные карточки -->
       <div class="st-card">
-        <div class="st-card-hdr center">Важная информация о платных услугах (Раздел 6)</div>
+        <div class="st-card-hdr center">Платные услуги (Раздел 6)</div>
         <div class="rule-row"><span class="r-badge">6.1</span><div>Попытки махинаций оплатами, или ввод Администрации в заблуждение наказываются баном без возврата средств;</div></div>
         <div class="rule-row"><span class="r-badge">6.2</span><div>Предоставьте чек оплаты, если хотите написать Администрации о пропаже, непоявлении доната после покупки. Без данного подтверждения администрация вправе отказать Вам в предоставлении купленной услуги;</div></div>
         <div class="rule-row"><span class="r-badge">6.3</span><div>Администрация не обязана предоставлять доказательства нарушений донатера у которого сняли привилегию за нарушение выше указанных правил.</div></div>
       </div>
     </section>
 
-    <!-- ==================== ВКЛАДКА 2: ПРАВИЛА ПРОЕКТА (SKYTIME ПОРТАЛ + САЙДБАР) ==================== -->
+    <!-- ПРАВИЛА ПРОЕКТА -->
     <section class="view" id="view-rules">
       <div class="page-head">
         <h2 class="page-title">NewTime — Правила проекта</h2>
@@ -731,7 +322,6 @@
       </div>
 
       <div class="portal-grid">
-        <!-- Левая широкая колонка со сводом правил -->
         <div>
           <div class="st-card">
             <div class="st-card-hdr center">1. Основные правила</div>
@@ -780,7 +370,7 @@
             <div class="rule-row"><span class="r-badge">4.2</span><div>Запрещено продавать/покупать у игроков игровые ценности за реальную валюту;</div></div>
             <div class="rule-row"><span class="r-badge">4.3</span><div>Запрещено пользоваться всем, что упрощает процесс игры, а именно:</div></div>
             <div class="rule-row sub"><span class="r-badge">4.3.1</span><div>Сторонними программами, читами, кликерами, автоматизациями и некоторыми модами (Кроме разрешенных пунктом 4.4);</div></div>
-            <div class="rule-row"><span class="r-badge">4.4</span><div>Полный список разрешённых (61) и запрещённых (66) модификаций находится во вкладке <a href="#" onclick="switchView('mods');return false;" style="color:var(--cyan);font-weight:700;">Модификации</a>.</div></div>
+            <div class="rule-row"><span class="r-badge">4.4</span><div>Список разрешённых (61) и запрещённых (66) модификаций во вкладке <a href="#" onclick="switchView('mods');return false;" style="color:var(--cyan);font-weight:700;">Модификации</a>.</div></div>
             <div class="rule-row"><span class="r-badge">4.5</span><div>На сервере допускается одновременное использование не более 4 аккаунтов включительно на всех игровых режимах.</div></div>
             <div class="rule-row sub"><span class="r-badge">4.5.1</span><div>Запрещено как-либо помогать, укрывать нарушителя или способствовать в его неправомерных действиях;</div></div>
             <div class="rule-row"><span class="r-badge">4.6</span><div>Запрещено играть на проекте, если Ваши аккаунты были неоднократно блокированы пунктом 1.4 и его подпунктам;</div></div>
@@ -824,7 +414,6 @@
           </div>
         </div>
 
-        <!-- Правый сайдбар как на SkyTime -->
         <aside>
           <div class="st-card">
             <div class="st-card-hdr">Информация о сервере</div>
@@ -839,43 +428,35 @@
           <div class="st-card">
             <div class="st-card-hdr">Популярные привилегии</div>
             <div class="sb-body" style="padding:8px;">
-              <div class="sb-link" onclick="jumpToRank('god')"><span>⚡ Бог</span><strong style="color:var(--cyan);">от 499 ₽</strong></div>
-              <div class="sb-link" onclick="jumpToRank('absolute')"><span>⚡ Абсолют</span><strong style="color:var(--cyan);">от 349 ₽</strong></div>
-              <div class="sb-link" onclick="jumpToRank('knyaz')"><span>⚡ Князь</span><strong style="color:var(--cyan);">от 279 ₽</strong></div>
-              <div class="sb-link" onclick="jumpToRank('baron')"><span>⚡ Барон</span><strong style="color:var(--cyan);">от 10 ₽</strong></div>
+              <div class="sb-link" onclick="jumpToRank('god')"><span>⚡ Бог</span><strong style="color:var(--cyan);">от 249 ₽</strong></div>
+              <div class="sb-link" onclick="jumpToRank('absolute')"><span>⚡ Абсолют</span><strong style="color:var(--cyan);">от 169 ₽</strong></div>
+              <div class="sb-link" onclick="jumpToRank('knyaz')"><span>⚡ Князь</span><strong style="color:var(--cyan);">от 129 ₽</strong></div>
+              <div class="sb-link" onclick="jumpToRank('baron')"><span>⚡ Барон</span><strong style="color:var(--cyan);">от 5 ₽</strong></div>
             </div>
           </div>
 
           <div class="st-card">
             <div class="st-card-hdr">Команда проекта</div>
             <div class="sb-body">
-              <div class="online-names">
-                <strong style="color:#ef4444;">xFrizzy</strong> (Создатель),
-                <span style="color:#38bdf8;">Staff</span> (Набор открыт),
-                <span style="color:#00e5ff;">TikTok</span> (Медиа)
-              </div>
-              <div style="margin-top:10px;color:var(--mut);font-size:12px;">
-                Поддержка и оплата: <a href="https://t.me/newtime_tg" target="_blank" style="color:var(--cyan);text-decoration:none;">@newtime_tg</a>
-              </div>
+              <div><strong style="color:#ef4444;">xFrizzy</strong> (Создатель), <span style="color:#38bdf8;">Staff</span>, <span style="color:#00e5ff;">TikTok</span></div>
+              <div style="margin-top:10px;color:var(--mut);font-size:12px;">Поддержка: <a href="https://t.me/newtime_tg" target="_blank" style="color:var(--cyan);text-decoration:none;">@newtime_tg</a></div>
             </div>
           </div>
         </aside>
       </div>
     </section>
 
-    <!-- ==================== ВКЛАДКА 3: МОДИФИКАЦИИ (4.4) ==================== -->
+    <!-- МОДИФИКАЦИИ -->
     <section class="view" id="view-mods">
       <div class="page-head">
         <h2 class="page-title">Модификации сервера (Пункт 4.4)</h2>
-        <div class="page-actions">
-          <button class="p-btn" onclick="switchView('rules')">К правилам проекта</button>
-        </div>
+        <div class="page-actions"><button class="p-btn" onclick="switchView('rules')">К правилам проекта</button></div>
       </div>
 
       <div class="mods-filter">
         <button class="mf-btn act" onclick="filterModGroup('all', this)">Все моды (127)</button>
-        <button class="mf-btn" onclick="filterModGroup('ok', this)">✅ Только разрешённые (61)</button>
-        <button class="mf-btn" onclick="filterModGroup('no', this)">⛔ Только запрещённые (66)</button>
+        <button class="mf-btn" onclick="filterModGroup('ok', this)">✅ Разрешённые (61)</button>
+        <button class="mf-btn" onclick="filterModGroup('no', this)">⛔ Запрещённые (66)</button>
       </div>
 
       <div class="mgrid" id="modsGrid">
@@ -889,318 +470,217 @@
         </div>
       </div>
 
-      <div class="r-alert">
-        <strong>Примечание:</strong> За многочисленное и постоянное нарушение пунктов 4.3 и 4.4 настоящих правил мы вправе полностью обнулить все Ваши аккаунты.
-      </div>
+      <div class="r-alert"><strong>Примечание:</strong> За многочисленное и постоянное нарушение пунктов 4.3 и 4.4 настоящих правил мы вправе полностью обнулить все Ваши аккаунты.</div>
     </section>
 
-    <!-- ==================== ВКЛАДКА 4: КОНТАКТЫ ==================== -->
+    <!-- КОНТАКТЫ -->
     <section class="view" id="view-contacts">
-      <div class="page-head">
-        <h2 class="page-title">Контакты и связь с администрацией</h2>
-      </div>
+      <div class="page-head"><h2 class="page-title">Контакты и связь</h2></div>
       <div class="cgrid">
         <div class="st-card">
-          <div class="st-card-hdr">Подключение к серверу</div>
-          <div class="c-body">
-            <p>Режим: <strong style="color:#fff;">Cyan Anarchy</strong>. Скопируйте IP-адрес ниже и добавьте сервер в список Minecraft Java Edition.</p>
-            <button class="buy-btn" style="width:100%;" onclick="copyIP()">IP: newtime.mcsh.gg</button>
-          </div>
+          <div class="st-card-hdr">Подключение</div>
+          <div class="c-body"><p>Режим: <strong style="color:#fff;">Cyan Anarchy</strong>. Minecraft Java Edition.</p><button class="buy-btn" style="width:100%;" onclick="copyIP()">IP: newtime.mcsh.gg</button></div>
         </div>
         <div class="st-card">
-          <div class="st-card-hdr">Официальный Telegram</div>
-          <div class="c-body">
-            <p>Покупка привилегий, предоставление чека оплаты (п. 6.2), вопросы по донату и техническая поддержка проекта.</p>
-            <a href="https://t.me/newtime_tg" target="_blank" class="buy-btn" style="display:block;text-align:center;text-decoration:none;">@newtime_tg</a>
-          </div>
+          <div class="st-card-hdr">Telegram проекта</div>
+          <div class="c-body"><p>Вопросы по оплате, чекам (п. 6.2) и техподдержка NewTime.</p><a href="https://t.me/newtime_tg" target="_blank" class="buy-btn" style="display:block;text-align:center;text-decoration:none;">@newtime_tg</a></div>
         </div>
         <div class="st-card">
-          <div class="st-card-hdr">Владелец и персонал</div>
-          <div class="c-body">
-            <p>Создатель сервера: <strong style="color:#ef4444;">xFrizzy</strong>.<br>Набор в команду модерации (<strong>STAFF</strong>) и выдача статуса <strong>TIKTOK</strong> — через тикеты Discord.</p>
-            <button class="p-btn primary" style="width:100%;padding:10px;" onclick="switchView('rules')">Открыть свод правил</button>
-          </div>
+          <div class="st-card-hdr">Администрация</div>
+          <div class="c-body"><p>Создатель: <strong style="color:#ef4444;">xFrizzy</strong>.<br>Заявки в <strong>STAFF</strong> и <strong>TIKTOK</strong> — через тикеты Discord.</p><button class="p-btn primary" style="width:100%;padding:10px;" onclick="switchView('rules')">Открыть правила</button></div>
         </div>
       </div>
     </section>
-
   </main>
 
   <footer class="footer">
     <div class="footer-inner">
-      <div>
-        Сервер NewTime никак не относится к Mojang, AB.<br>
-        Режим Cyan Anarchy • IP: <strong>newtime.mcsh.gg</strong> • Telegram: <a href="https://t.me/newtime_tg" target="_blank">@newtime_tg</a>
-      </div>
-      <div style="text-align:right;">
-        © 2026 NewTime<br>
-        Все Права Защищены
-      </div>
+      <div>Сервер NewTime никак не относится к Mojang, AB. • IP: <strong>newtime.mcsh.gg</strong> • <a href="https://t.me/newtime_tg" target="_blank">@newtime_tg</a></div>
+      <div>© 2026 NewTime • Все Права Защищены</div>
     </div>
   </footer>
 
-  <!-- Модальное окно покупки -->
+  <!-- МОДАЛЬНОЕ ОКНО ОПЛАТЫ -->
   <div class="modal-bg" id="modalBg" onclick="if(event.target===this) closeModal()">
     <div class="modal">
       <button class="m-close" onclick="closeModal()">✕</button>
-      <div style="font-size:11px;font-weight:800;color:var(--cyan);letter-spacing:.08em;text-transform:uppercase;">Оформление доната</div>
+      <div style="font-size:11px;font-weight:800;color:var(--cyan);letter-spacing:.08em;text-transform:uppercase;">Оплата привилегии</div>
       <h3 id="mRankName" style="margin:6px 0 4px;font-size:21px;">Барон</h3>
-      <div id="mSummary" style="color:var(--mut);font-size:13px;margin-bottom:14px;">Срок: 30 дней • Стоимость: 10 руб</div>
+      <div id="mSummary" style="color:var(--mut);font-size:13px;margin-bottom:12px;">Срок: 30 дней • Стоимость: 5 руб</div>
 
       <label style="font-size:12.5px;color:var(--mut);">Ваш игровой ник на сервере:</label>
       <input type="text" id="mNick" class="m-inp" placeholder="Например: Steve_228">
 
-      <a href="https://t.me/newtime_tg" target="_blank" class="buy-btn" style="display:block;text-align:center;text-decoration:none;" onclick="sendOrder()">ПЕРЕЙТИ К ОПЛАТЕ (@newtime_tg)</a>
+      <div class="pay-methods">
+        <button class="pm-btn" onclick="payCrypto()">
+          <span>💎 CryptoBot (USDT / TON / BTC)</span>
+          <small>АВТО</small>
+        </button>
+        <button class="pm-btn" onclick="payStars()">
+          <span>⭐ Telegram Stars (в боте)</span>
+          <small id="starsEst">АВТО</small>
+        </button>
+        <button class="pm-btn" onclick="toggleSbp()">
+          <span>🏦 СБП (Перевод по номеру)</span>
+          <small id="sbpPriceLbl">5 ₽</small>
+        </button>
+      </div>
+
+      <div class="sbp-box" id="sbpBox">
+        <div style="color:var(--cyan);font-weight:700;margin-bottom:4px;">Реквизиты для перевода по СБП:</div>
+        <div id="sbpDetails" style="color:#fff;font-weight:700;margin-bottom:6px;">Загрузка реквизитов...</div>
+        <div style="color:var(--mut);font-size:12px;margin-bottom:10px;">Укажите ваш ник в комментарии к переводу, затем нажмите кнопку ниже:</div>
+        <button class="buy-btn" style="width:100%;padding:9px;" onclick="sendSbpRequest()">✅ Я ОПЛАТИЛ ПО СБП</button>
+      </div>
     </div>
   </div>
 
   <div class="toast" id="toast">Скопировано!</div>
 
   <script>
+    // ====== НАСТРОЙКИ ПОДКЛЮЧЕНИЯ ======
+    const WORKER_URL   = "https://newtime-bot.ВАШ-НИК.workers.dev"; // Ссылка на ваш Cloudflare Worker
+    const BOT_USERNAME = "newtime_donate_bot";                      // Юзернейм вашего ТГ-бота без @
+    const SBP_FALLBACK = "Напишите в @newtime_tg для оплаты по СБП"; // Запасной текст СБП (пока Worker не подключён)
+    // ===================================
+
     const ranks = [
       {
         id: "baron", name: "Барон", color: "#84FF00", prefix: "[Барон]",
-        p30: "10 руб", p90: "25 руб", pFor: "49 руб", from: "от 10 РУБ",
+        p30: 5, p90: 12, pFor: 25,
         cmds: [
           { c: "/kit baron", d: "Стартовый набор" },
           { c: "/salary", d: "Зарплата 100.000$" },
           { c: "/near 105м", d: "Поиск игроков рядом (кд 2м 30с)" }
         ],
-        other: [
-          ["Доступно Точек домов:", "1 дом"],
-          ["Регионов:", "3 блока привата"],
-          ["Слотов на Аукционе:", "6"],
-          ["Задержка телепорта:", "7 сек"],
-          ["Особенности:", "Базовые привилегии"]
-        ]
+        other: [["Доступно Точек домов:", "1 дом"], ["Регионов:", "3 блока привата"], ["Слотов на Аукционе:", "6"], ["Задержка телепорта:", "7 сек"], ["Особенности:", "Базовые привилегии"]]
       },
       {
         id: "fighter", name: "Боец", color: "#FF7700", prefix: "[Боец]",
-        p30: "19 руб", p90: "45 руб", pFor: "89 руб", from: "от 19 РУБ",
+        p30: 10, p90: 22, pFor: 45,
         cmds: [
           { c: "/kit fighter", d: "Боевой набор" },
-          { c: "/dchat", d: "Донат-чат" },
-          { c: "/suicide", d: "Самоубийство" },
+          { c: "/dchat | /suicide", d: "Донат-чат и самоубийство" },
           { c: "/near 110м", d: "Поиск игроков рядом (кд 2м 20с)" }
         ],
-        other: [
-          ["Доступно Точек домов:", "2 дома"],
-          ["Регионов:", "3 блока привата"],
-          ["Слотов на Аукционе:", "7"],
-          ["Задержка телепорта:", "6 сек"],
-          ["Особенности:", "Все права ранга Барон"]
-        ]
+        other: [["Доступно Точек домов:", "2 дома"], ["Регионов:", "3 блока привата"], ["Слотов на Аукционе:", "7"], ["Задержка телепорта:", "6 сек"], ["Особенности:", "Все права ранга Барон"]]
       },
       {
         id: "guardian", name: "Страж", color: "#7C4DFF", prefix: "[Страж]",
-        p30: "35 руб", p90: "85 руб", pFor: "149 руб", from: "от 35 РУБ",
+        p30: 15, p90: 35, pFor: 69,
         cmds: [
           { c: "/kit guardian", d: "Защитный кит" },
-          { c: "/stonecutter | /anvil", d: "Переносной камнерез и наковальня" },
-          { c: "/hat | /craft", d: "Надеть блок на голову и верстак" },
+          { c: "/stonecutter | /anvil | /hat | /craft", d: "Камнерез, наковальня, верстак" },
           { c: "/near 120м", d: "Поиск игроков рядом (кд 2м 10с)" }
         ],
-        other: [
-          ["Доступно Точек домов:", "2 дома"],
-          ["Регионов:", "4 блока привата"],
-          ["Слотов на Аукционе:", "8"],
-          ["Задержка телепорта:", "5 сек"],
-          ["Особенности:", "Иммунитет к яду пещерных пауков"]
-        ]
+        other: [["Доступно Точек домов:", "2 дома"], ["Регионов:", "4 блока привата"], ["Слотов на Аукционе:", "8"], ["Задержка телепорта:", "5 сек"], ["Особенности:", "Иммунитет к яду пещерных пауков"]]
       },
       {
         id: "knight", name: "Рыцарь", color: "#FF4081", prefix: "[Рыцарь]",
-        p30: "69 руб", p90: "160 руб", pFor: "279 руб", from: "от 69 РУБ",
+        p30: 25, p90: 59, pFor: 109,
         cmds: [
           { c: "/kit knight", d: "Рыцарский кит" },
           { c: "/ec | /condense | /clear | /me", d: "Эндер-сундук, сжатие и очистка" },
-          { c: "/eext (1м) | /feed и /heal (2м)", d: "Тушение, пополнение еды и здоровья" },
+          { c: "/eext (1м) | /feed и /heal (2м)", d: "Тушение, еда и здоровье" },
           { c: "/near 130м", d: "Поиск игроков рядом (кд 1м 50с)" }
         ],
-        other: [
-          ["Доступно Точек домов:", "3 дома"],
-          ["Регионов:", "5 блоков привата"],
-          ["Слотов на Аукционе:", "9"],
-          ["Задержка телепорта:", "5 сек"],
-          ["Особенности:", "Иммунитет к иссушению"]
-        ]
+        other: [["Доступно Точек домов:", "3 дома"], ["Регионов:", "5 блоков привата"], ["Слотов на Аукционе:", "9"], ["Задержка телепорта:", "5 сек"], ["Особенности:", "Иммунитет к иссушению"]]
       },
       {
         id: "berserk", name: "Берсерк", color: "#FF0033", prefix: "[Берсерк]",
-        p30: "109 руб", p90: "249 руб", pFor: "449 руб", from: "от 109 РУБ",
+        p30: 39, p90: 89, pFor: 169,
         cmds: [
           { c: "/kit berserk", d: "Топор и зелья" },
-          { c: "/back | /ad | /buy | /name", d: "Возврат на точку, объявления и имя" },
+          { c: "/back | /ad | /buy | /name", d: "Возврат, объявления и имя" },
           { c: "/near 140м", d: "Поиск игроков рядом (кд 1м 25с)" }
         ],
-        other: [
-          ["Доступно Точек домов:", "4 дома"],
-          ["Регионов:", "5 блоков привата"],
-          ["Слотов на Аукционе:", "10"],
-          ["Задержка телепорта:", "4 сек"],
-          ["Особенности:", "Сохранение 25% опыта • Цветной чат (&b, &l)"]
-        ]
+        other: [["Доступно Точек домов:", "4 дома"], ["Регионов:", "5 блоков привата"], ["Слотов на Аукционе:", "10"], ["Задержка телепорта:", "4 сек"], ["Особенности:", "Сохранение 25% опыта • Цветной чат (&b, &l)"]]
       },
       {
         id: "champion", name: "Чемпион", color: "#F72585", prefix: "[Чемпион]",
-        p30: "139 руб", p90: "319 руб", pFor: "569 руб", from: "от 139 РУБ",
+        p30: 55, p90: 125, pFor: 229,
         cmds: [
           { c: "/kit champion", d: "Набор чемпиона" },
-          { c: "/smithtable", d: "Переносной стол кузнеца" },
-          { c: "/feed и /heal", d: "Пополнение еды и здоровья (кд 1м 30с)" },
+          { c: "/smithtable | /feed и /heal (1м 30с)", d: "Стол кузнеца, еда и здоровье" },
           { c: "/near 145м", d: "Поиск игроков рядом (кд 1м 10с)" }
         ],
-        other: [
-          ["Доступно Точек домов:", "4 дома"],
-          ["Регионов:", "6 блоков привата"],
-          ["Слотов на Аукционе:", "11"],
-          ["Задержка телепорта:", "4 сек"],
-          ["Особенности:", "Префикс Чемпиона в чате и TAB"]
-        ]
+        other: [["Доступно Точек домов:", "4 дома"], ["Регионов:", "6 блоков привата"], ["Слотов на Аукционе:", "11"], ["Задержка телепорта:", "4 сек"], ["Особенности:", "Префикс Чемпиона в чате и TAB"]]
       },
       {
         id: "milord", name: "Милорд", color: "#FF85A1", prefix: "[Милорд]",
-        p30: "169 руб", p90: "389 руб", pFor: "699 руб", from: "от 169 РУБ",
+        p30: 75, p90: 169, pFor: 299,
         cmds: [
           { c: "/kit milord", d: "Незерит и яблоки" },
           { c: "/time | /weather | /loom | /firework", d: "Погода, время и фейерверки" },
-          { c: "/name цветной | /fix 3 вещи (2ч)", d: "Починка предметов и цветное имя" },
+          { c: "/name цветной | /fix 3 вещи (2ч)", d: "Починка и цветное имя" },
           { c: "/near 150м", d: "Поиск игроков рядом (кд 1м)" }
         ],
-        other: [
-          ["Доступно Точек домов:", "4 дома"],
-          ["Регионов:", "7 блоков привата"],
-          ["Слотов на Аукционе:", "12"],
-          ["Задержка телепорта:", "4 сек"],
-          ["Особенности:", "Вход на полный сервер"]
-        ]
+        other: [["Доступно Точек домов:", "4 дома"], ["Регионов:", "7 блоков привата"], ["Слотов на Аукционе:", "12"], ["Задержка телепорта:", "4 сек"], ["Особенности:", "Вход на полный сервер"]]
       },
       {
         id: "duke", name: "Герцог", color: "#C77DFF", prefix: "[Герцог]",
-        p30: "219 руб", p90: "499 руб", pFor: "899 руб", from: "от 219 РУБ",
+        p30: 99, p90: 219, pFor: 399,
         cmds: [
           { c: "/kit duke", d: "Броня Герцога" },
-          { c: "/repair all", d: "Починка всех вещей (кд 2ч)" },
-          { c: "/feed и /heal", d: "Пополнение еды и здоровья (кд 1м 15с)" },
+          { c: "/repair all (кд 2ч) | /feed и /heal (1м 15с)", d: "Починка всех вещей, еда и здоровье" },
           { c: "/near 158м", d: "Поиск игроков рядом (кд 50с)" }
         ],
-        other: [
-          ["Доступно Точек домов:", "4 дома"],
-          ["Регионов:", "8 блоков привата"],
-          ["Слотов на Аукционе:", "13"],
-          ["Задержка телепорта:", "3 сек"],
-          ["Особенности:", "Сохранение 65% опыта"]
-        ]
+        other: [["Доступно Точек домов:", "4 дома"], ["Регионов:", "8 блоков привата"], ["Слотов на Аукционе:", "13"], ["Задержка телепорта:", "3 сек"], ["Особенности:", "Сохранение 65% опыта"]]
       },
       {
         id: "knyaz", name: "Князь", color: "#FF9E00", prefix: "[Князь]",
-        p30: "279 руб", p90: "629 руб", pFor: "1149 руб", from: "от 279 РУБ",
+        p30: 129, p90: 289, pFor: 499,
         cmds: [
           { c: "/kit knyaz", d: "Элитры и бур 3x3" },
           { c: "/jump | /afk | /fly | /speed", d: "Полёт, прыжок и скорость" },
-          { c: "/fix 9 вещей (3ч)", d: "Массовая починка предметов" },
-          { c: "/near 165м", d: "Поиск игроков рядом (кд 45с)" }
+          { c: "/fix 9 вещей (3ч) | /near 165м (45с)", d: "Массовая починка и радар" }
         ],
-        other: [
-          ["Доступно Точек домов:", "5 домов"],
-          ["Регионов:", "9 блоков привата"],
-          ["Слотов на Аукционе:", "15"],
-          ["Задержка телепорта:", "2 сек"],
-          ["Особенности:", "Сохранение 75% опыта"]
-        ]
+        other: [["Доступно Точек домов:", "5 домов"], ["Регионов:", "9 блоков привата"], ["Слотов на Аукционе:", "15"], ["Задержка телепорта:", "2 сек"], ["Особенности:", "Сохранение 75% опыта"]]
       },
       {
         id: "absolute", name: "Абсолют", color: "#FFE259", prefix: "[Абсолют]",
-        p30: "349 руб", p90: "799 руб", pFor: "1499 руб", from: "от 349 РУБ",
+        p30: 169, p90: 379, pFor: 699,
         cmds: [
           { c: "/kit absolute", d: "Топ-сет" },
           { c: "/salary 5.000.000$ (5ч) | /exp 25 lvl (2ч)", d: "Крупная зарплата и опыт" },
           { c: "/msgtoggle | /paytoggle | /feeds | /heals", d: "Настройки чата и лечение" },
           { c: "/fix 18 вещей (3ч 45м) | /near 175м (25с)", d: "Починка 18 вещей и радар" }
         ],
-        other: [
-          ["Доступно Точек домов:", "7 домов"],
-          ["Регионов:", "12 блоков привата"],
-          ["Слотов на Аукционе:", "20"],
-          ["Задержка телепорта:", "0 сек"],
-          ["Особенности:", "Сохранение 100% опыта при смерти"]
-        ]
+        other: [["Доступно Точек домов:", "7 домов"], ["Регионов:", "12 блоков привата"], ["Слотов на Аукционе:", "20"], ["Задержка телепорта:", "0 сек"], ["Особенности:", "Сохранение 100% опыта при смерти"]]
       },
       {
         id: "god", name: "Бог", color: "#FF0033", prefix: "[Бог]",
-        p30: "499 руб", p90: "1149 руб", pFor: "2199 руб", from: "от 499 РУБ",
+        p30: 249, p90: 549, pFor: 999,
         cmds: [
           { c: "Все честные команды сервера!", d: "Полный игровой функционал" },
-          { c: "/salary 15.000.000$ (3ч)", d: "Максимальная зарплата" },
-          { c: "/exp 50 lvl (1ч)", d: "Быстрое получение опыта" },
+          { c: "/salary 15.000.000$ (3ч) | /exp 50 lvl (1ч)", d: "Максимальная зарплата и опыт" },
           { c: "/fix all (кд 1ч) | /near 200м (15с)", d: "Полная починка и максимальный радар" }
         ],
-        other: [
-          ["Доступно Точек домов:", "8 домов"],
-          ["Регионов:", "15 блоков привата"],
-          ["Слотов на Аукционе:", "25"],
-          ["Задержка телепорта:", "0 сек"],
-          ["Особенности:", "Максимальный статус Анархии"]
-        ]
+        other: [["Доступно Точек домов:", "8 домов"], ["Регионов:", "15 блоков привата"], ["Слотов на Аукционе:", "25"], ["Задержка телепорта:", "0 сек"], ["Особенности:", "Максимальный статус Анархии"]]
       },
       {
         id: "player", name: "Игрок", color: "#94a3b8", prefix: "[Игрок]",
-        special: true, priceLabel: "Бесплатно", from: "БЕСПЛАТНО",
-        note: "Базовый статус каждого выживающего",
-        cmds: [
-          { c: "/kit player", d: "Стартовый набор" },
-          { c: "/salary 50.000$", d: "Базовая зарплата" },
-          { c: "/spawn | /home | /tpa", d: "Базовые телепорты" }
-        ],
-        other: [
-          ["Доступно Точек домов:", "1 дом"],
-          ["Регионов:", "1 блок привата"],
-          ["Слотов на Аукционе:", "3"],
-          ["Задержка телепорта:", "8 сек"]
-        ]
+        special: true, priceLabel: "Бесплатно", from: "БЕСПЛАТНО", note: "Базовый статус каждого выживающего",
+        cmds: [{ c: "/kit player", d: "Стартовый набор" }, { c: "/salary 50.000$ | /spawn | /home | /tpa", d: "Базовые команды" }],
+        other: [["Доступно Точек домов:", "1 дом"], ["Регионов:", "1 блок привата"], ["Слотов на Аукционе:", "3"], ["Задержка телепорта:", "8 сек"]]
       },
       {
         id: "tiktok", name: "TikTok • Медиа", color: "#00E5FF", prefix: "[TikTok]",
-        special: true, priceLabel: "За контент", from: "МЕДИА",
-        note: "Выдаётся за съёмку контента (тикеты Discord)",
-        cmds: [
-          { c: "/kit tiktok", d: "Медиа-набор" },
-          { c: "/salary 10kk (4.5ч)", d: "Медиа-зарплата" },
-          { c: "/exp 50 lvl | /fix 22 вещи | /near 200м", d: "Расширенные возможности" }
-        ],
-        other: [
-          ["Доступно Точек домов:", "10 домов"],
-          ["Регионов:", "13 блоков привата"],
-          ["Слотов на Аукционе:", "20"],
-          ["Получение:", "Тикеты в Discord проекта"]
-        ]
+        special: true, priceLabel: "За контент", from: "МЕДИА", note: "Выдаётся за съёмку контента (тикеты Discord)",
+        cmds: [{ c: "/kit tiktok | /salary 10kk (4.5ч)", d: "Медиа-набор" }, { c: "/exp 50 lvl | /fix 22 вещи | /near 200м", d: "Расширенные возможности" }],
+        other: [["Доступно Точек домов:", "10 домов"], ["Регионов:", "13 блоков привата"], ["Слотов на Аукционе:", "20"], ["Получение:", "Тикеты Discord"]]
       },
       {
         id: "staff", name: "Staff • Модерация", color: "#38bdf8", prefix: "[Staff]",
-        special: true, priceLabel: "Набор", from: "ПЕРСОНАЛ",
-        note: "Набор в команду открыт в Discord",
-        cmds: [
-          { c: "/kit staff | /salary 15kk | /exp 75 lvl", d: "Набор персонала" },
-          { c: "/spec | /revise | /push | /ban | /mute", d: "Инструменты модерации" },
-          { c: "/near 215м", d: "Радар (кд 15с)" }
-        ],
-        other: [
-          ["Должность:", "Модерация сервера"],
-          ["Заявка:", "Через форум / Discord проекта"]
-        ]
+        special: true, priceLabel: "Набор", from: "ПЕРСОНАЛ", note: "Набор в команду открыт в Discord",
+        cmds: [{ c: "/kit staff | /salary 15kk | /exp 75 lvl", d: "Набор персонала" }, { c: "/spec | /revise | /push | /ban | /mute", d: "Модерация" }],
+        other: [["Должность:", "Модерация сервера"], ["Радар:", "/near 215м (кд 15с)"]]
       },
       {
         id: "admin", name: "Admin • Владелец", color: "#ef4444", prefix: "[Admin]",
-        special: true, priceLabel: "xFrizzy", from: "ВЛАДЕЛЕЦ",
-        note: "Статус Создателя закреплён исключительно за xFrizzy",
-        cmds: [
-          { c: "/kit admin | /salary 30kk | /exp 100 lvl", d: "Права основателя" },
-          { c: "/near 250м (5с) | Полный доступ", d: "Управление проектом" }
-        ],
-        other: [
-          ["Создатель сервера:", "xFrizzy"],
-          ["Режим:", "Cyan Anarchy NewTime"]
-        ]
+        special: true, priceLabel: "xFrizzy", from: "ВЛАДЕЛЕЦ", note: "Статус Создателя закреплён за xFrizzy",
+        cmds: [{ c: "/kit admin | /salary 30kk | /exp 100 lvl", d: "Права основателя" }, { c: "/near 250м (5с) | Полный доступ", d: "Управление" }],
+        other: [["Создатель сервера:", "xFrizzy"], ["Режим:", "Cyan Anarchy NewTime"]]
       }
     ];
 
@@ -1244,41 +724,25 @@
     let selectedTerm = "p30";
 
     function chestplateSVG(color) {
-      return `
-        <svg class="rank-icon" viewBox="0 0 16 16" shape-rendering="crispEdges">
-          <path d="M2 2h4v2h4V2h4v5h-2v7H4V7H2V2z" fill="${color}" stroke="#070a0f" stroke-width="1"/>
-          <rect x="4" y="3" width="2" height="4" fill="#ffffff" fill-opacity="0.24"/>
-          <rect x="6" y="5" width="4" height="8" fill="#000000" fill-opacity="0.16"/>
-        </svg>
-      `;
+      return `<svg class="rank-icon" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M2 2h4v2h4V2h4v5h-2v7H4V7H2V2z" fill="${color}" stroke="#070a0f" stroke-width="1"/><rect x="4" y="3" width="2" height="4" fill="#fff" fill-opacity="0.24"/><rect x="6" y="5" width="4" height="8" fill="#000" fill-opacity="0.16"/></svg>`;
     }
 
     function renderList() {
       const q = document.getElementById("globalSearch").value.trim().toLowerCase();
       let html = "";
       ranks.forEach((r, idx) => {
-        if (idx === 11 && !q) {
-          html += `<div class="rank-div">Особые статусы</div>`;
-        }
+        if (idx === 11 && !q) html += `<div class="rank-div">Особые статусы</div>`;
         const match = !q || r.name.toLowerCase().includes(q) || r.cmds.some(c => c.c.toLowerCase().includes(q) || c.d.toLowerCase().includes(q));
         if (!match) return;
-        html += `
-          <div class="rank-item ${r.id === selectedId ? "act" : ""}" onclick="selectRank('${r.id}')">
-            <div class="rank-left">
-              ${chestplateSVG(r.color)}
-              <span class="rank-name">${r.name}</span>
-            </div>
-            <span class="rank-from">${r.from}</span>
-          </div>
-        `;
+        const fromText = r.special ? r.from : `от ${r.p30} РУБ`;
+        html += `<div class="rank-item ${r.id === selectedId ? "act" : ""}" onclick="selectRank('${r.id}')"><div class="rank-left">${chestplateSVG(r.color)}<span class="rank-name">${r.name}</span></div><span class="rank-from">${fromText}</span></div>`;
       });
-      document.getElementById("rankList").innerHTML = html || `<div style="padding:18px;color:var(--mut);text-align:center;">Привилегии не найдены</div>`;
+      document.getElementById("rankList").innerHTML = html || `<div style="padding:18px;color:var(--mut);text-align:center;">Не найдено</div>`;
     }
 
     function renderDetails() {
       const r = ranks.find(x => x.id === selectedId);
       if (!r) return;
-
       const termTabs = document.getElementById("termTabs");
       const termLabel = document.getElementById("termLabel");
       const buyBtn = document.getElementById("buyBtn");
@@ -1291,36 +755,22 @@
       } else {
         termLabel.textContent = "Выберите срок:";
         termTabs.style.display = "flex";
-        document.getElementById("detailPrice").textContent = r[selectedTerm];
+        document.getElementById("detailPrice").textContent = `${r[selectedTerm]} руб`;
         buyBtn.textContent = "ПРИОБРЕСТИ";
       }
 
-      document.getElementById("detailPerms").innerHTML = `
-        <li>§ Префикс в чате и табе: <strong style="color:${r.color}">${r.prefix}</strong> ВашНик</li>
-        ${r.cmds.map(i => `<li><span class="cmd">› ${i.c}</span> <span class="arrow">⇒</span> ${i.d}</li>`).join("")}
-      `;
+      document.getElementById("detailPerms").innerHTML = `<li>§ Префикс в чате и табе: <strong style="color:${r.color}">${r.prefix}</strong> ВашНик</li>` +
+        r.cmds.map(i => `<li><span class="cmd">› ${i.c}</span> <span class="arrow">⇒</span> ${i.d}</li>`).join("");
       document.getElementById("detailOther").innerHTML = r.other.map(o => `<li>${o[0]} <strong>${o[1]}</strong></li>`).join("");
     }
 
-    function selectRank(id) {
-      selectedId = id;
-      renderList();
-      renderDetails();
-    }
-
+    function selectRank(id) { selectedId = id; renderList(); renderDetails(); }
     function selectTerm(term) {
       selectedTerm = term;
       document.querySelectorAll(".term-btn").forEach(b => b.classList.toggle("act", b.dataset.term === term));
       renderDetails();
     }
-
-    function jumpToRank(id) {
-      selectedId = id;
-      renderList();
-      renderDetails();
-      switchView("shop");
-    }
-
+    function jumpToRank(id) { selectedId = id; renderList(); renderDetails(); switchView("shop"); }
     function switchView(view) {
       document.querySelectorAll(".view").forEach(v => v.classList.remove("act"));
       document.getElementById("view-" + view).classList.add("act");
@@ -1328,33 +778,114 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
+    function getNick() {
+      const nick = document.getElementById("mNick").value.trim();
+      if (!/^[a-zA-Z0-9_]{3,16}$/.test(nick)) {
+        showToast("Введите корректный ник (3–16 латинских букв, цифр или _)");
+        document.getElementById("mNick").focus();
+        return null;
+      }
+      return nick;
+    }
+
     function openBuyModal() {
       const r = ranks.find(x => x.id === selectedId);
       if (!r) return;
-      if (r.special) {
-        if (r.id === "player") copyIP();
-        else showToast(r.note);
-        return;
-      }
+      if (r.special) { r.id === "player" ? copyIP() : showToast(r.note); return; }
       const termNames = { p30: "30 дней", p90: "90 дней", pFor: "Навсегда" };
+      const price = r[selectedTerm];
+      const stars = Math.max(1, Math.ceil(price / 1.8));
       document.getElementById("mRankName").textContent = r.name;
       document.getElementById("mRankName").style.color = r.color;
-      document.getElementById("mSummary").textContent = `Срок: ${termNames[selectedTerm]} • Стоимость: ${r[selectedTerm]}`;
+      document.getElementById("mSummary").textContent = `Срок: ${termNames[selectedTerm]} • Стоимость: ${price} руб`;
+      document.getElementById("starsEst").textContent = `~${stars} ⭐`;
+      document.getElementById("sbpPriceLbl").textContent = `${price} ₽`;
+      document.getElementById("sbpBox").classList.remove("open");
       document.getElementById("modalBg").classList.add("open");
     }
 
-    function closeModal() {
-      document.getElementById("modalBg").classList.remove("open");
+    function closeModal() { document.getElementById("modalBg").classList.remove("open"); }
+
+    function isWorkerReady() {
+      return WORKER_URL && !WORKER_URL.includes("ВАШ-НИК");
     }
 
-    function sendOrder() {
-      const r = ranks.find(x => x.id === selectedId);
-      const nick = document.getElementById("mNick").value.trim() || "не указан";
-      const termNames = { p30: "30 дней", p90: "90 дней", pFor: "Навсегда" };
-      const msg = `NewTime Донат: ${r.name} (${termNames[selectedTerm]} — ${r[selectedTerm]}), Ник: ${nick}`;
-      if (navigator.clipboard) navigator.clipboard.writeText(msg);
-      showToast("Данные заказа скопированы! Отправьте их в @newtime_tg");
+    async function payCrypto() {
+      const nick = getNick();
+      if (!nick) return;
+      if (!isWorkerReady()) return showToast("Подключите WORKER_URL в коде сайта для авто-счёта CryptoBot!");
+      showToast("Создаём счёт в CryptoBot...");
+      try {
+        const res = await fetch(`${WORKER_URL}/api/order`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nick, rank: selectedId, term: selectedTerm })
+        });
+        const data = await res.json();
+        if (data.ok && data.pay_url) {
+          window.open(data.pay_url, "_blank");
+          closeModal();
+        } else {
+          showToast(data.error || "Ошибка создания счёта");
+        }
+      } catch {
+        showToast("Не удалось связаться с ботом");
+      }
+    }
+
+    function payStars() {
+      const nick = getNick();
+      if (!nick) return;
+      window.open(`https://t.me/${BOT_USERNAME}?start=stars-${selectedId}-${selectedTerm}-${nick}`, "_blank");
       closeModal();
+    }
+
+    async function toggleSbp() {
+      const box = document.getElementById("sbpBox");
+      box.classList.toggle("open");
+      if (!box.classList.contains("open")) return;
+      if (!isWorkerReady()) {
+        document.getElementById("sbpDetails").textContent = SBP_FALLBACK;
+        return;
+      }
+      try {
+        const res = await fetch(`${WORKER_URL}/api/config`);
+        const cfg = await res.json();
+        document.getElementById("sbpDetails").textContent = cfg.sbp_info || SBP_FALLBACK;
+      } catch {
+        document.getElementById("sbpDetails").textContent = SBP_FALLBACK;
+      }
+    }
+
+    async function sendSbpRequest() {
+      const nick = getNick();
+      if (!nick) return;
+      const r = ranks.find(x => x.id === selectedId);
+      const termNames = { p30: "30 дней", p90: "90 дней", pFor: "Навсегда" };
+      if (!isWorkerReady()) {
+        const msg = `NewTime СБП: ${r.name} (${termNames[selectedTerm]} — ${r[selectedTerm]} ₽), Ник: ${nick}`;
+        if (navigator.clipboard) navigator.clipboard.writeText(msg);
+        showToast("Заявка скопирована! Отправьте чек в @newtime_tg");
+        window.open("https://t.me/newtime_tg", "_blank");
+        closeModal();
+        return;
+      }
+      try {
+        const res = await fetch(`${WORKER_URL}/api/sbp`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nick, rank: selectedId, term: selectedTerm })
+        });
+        const data = await res.json();
+        if (data.ok) {
+          showToast("Заявка отправлена! Донат выдастся после подтверждения.");
+          closeModal();
+        } else {
+          showToast(data.error || "Ошибка отправки");
+        }
+      } catch {
+        showToast("Ошибка соединения с сервером");
+      }
     }
 
     let toastTimer;
@@ -1363,16 +894,14 @@
       t.textContent = msg;
       t.classList.add("show");
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => t.classList.remove("show"), 2400);
+      toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
     }
 
     function copyIP() {
-      const ip = "newtime.mcsh.gg";
-      if (navigator.clipboard) navigator.clipboard.writeText(ip);
+      if (navigator.clipboard) navigator.clipboard.writeText("newtime.mcsh.gg");
       showToast("IP newtime.mcsh.gg скопирован!");
     }
 
-    // Моды
     document.getElementById("okList").innerHTML = ok.map(m => `<span class="tag tok">${m}</span>`).join("");
     document.getElementById("noList").innerHTML = no.map(m => `<span class="tag tno">${m}</span>`).join("");
     document.getElementById("okCount").textContent = ok.length + " шт.";
@@ -1382,31 +911,21 @@
     function filterModGroup(grp, btn) {
       document.querySelectorAll(".mf-btn").forEach(b => b.classList.remove("act"));
       btn.classList.add("act");
-      const okBox = document.getElementById("okBox");
-      const noBox = document.getElementById("noBox");
-      const grid = document.getElementById("modsGrid");
-      okBox.style.display = grp === "no" ? "none" : "block";
-      noBox.style.display = grp === "ok" ? "none" : "block";
-      grid.style.gridTemplateColumns = grp === "all" ? "" : "1fr";
+      document.getElementById("okBox").style.display = grp === "no" ? "none" : "block";
+      document.getElementById("noBox").style.display = grp === "ok" ? "none" : "block";
+      document.getElementById("modsGrid").style.gridTemplateColumns = grp === "all" ? "" : "1fr";
     }
 
     function onSearch() {
       const v = document.getElementById("globalSearch").value.trim().toLowerCase();
       renderList();
-      document.querySelectorAll(".rule-row").forEach(r => {
-        r.style.display = r.innerText.toLowerCase().includes(v) ? "flex" : "none";
-      });
-      document.querySelectorAll(".tag").forEach(t => {
-        t.style.display = t.innerText.toLowerCase().includes(v) ? "inline-block" : "none";
-      });
+      document.querySelectorAll(".rule-row").forEach(r => r.style.display = r.innerText.toLowerCase().includes(v) ? "flex" : "none");
+      document.querySelectorAll(".tag").forEach(t => t.style.display = t.innerText.toLowerCase().includes(v) ? "inline-block" : "none");
     }
 
-    document.addEventListener("keydown", e => {
-      if (e.key === "Escape") closeModal();
-    });
-
+    document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
     renderList();
     renderDetails();
   </script>
 </body>
-</html> 
+</html>
