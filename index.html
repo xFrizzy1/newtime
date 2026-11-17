@@ -11,16 +11,15 @@
     @property --border-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
     :root {
       --bg: #040813; --bg-grad: radial-gradient(ellipse at 50% 0%, #0e2244 0%, #050b18 55%, #03060d 100%);
-      --card: rgba(11, 18, 34, 0.86); --card-solid: #0b1222;
-      --card-hdr: linear-gradient(180deg, rgba(24, 41, 74, 0.96) 0%, rgba(13, 23, 44, 0.96) 100%);
-      --hov: rgba(31, 53, 94, 0.65); --brd: rgba(255, 255, 255, 0.1); --brd-strong: rgba(255, 255, 255, 0.2);
+      --card: rgba(11,18,34,0.86); --card-solid: #0b1222;
+      --card-hdr: linear-gradient(180deg, rgba(24,41,74,0.96) 0%, rgba(13,23,44,0.96) 100%);
+      --hov: rgba(31,53,94,0.65); --brd: rgba(255,255,255,0.1); --brd-strong: rgba(255,255,255,0.2);
       --blue: #1e78ff; --blue-dark: #0a3c99; --blue-hov: #3b8bff;
-      --cyan: #00e5ff; --cyan-dim: rgba(0, 229, 255, 0.16); --cyan-brd: rgba(0, 229, 255, 0.42);
+      --cyan: #00e5ff; --cyan-dim: rgba(0,229,255,0.16); --cyan-brd: rgba(0,229,255,0.42);
       --txt: #eef2f9; --mut: #94a3b8; --ok: #10b981; --warn: #f59e0b; --no: #ef4444;
       --rank-accent: #00e5ff; --glow-mult: 1; --blur-px: 14px; --base-fs: 14px;
       --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-      --radius: 16px; --shadow: 0 18px 46px rgba(0, 0, 0, 0.58);
-      --bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --radius: 16px; --shadow: 0 18px 46px rgba(0,0,0,0.58); --bounce: cubic-bezier(0.34,1.56,0.64,1);
     }
     body[data-theme="crimson"] { --bg-grad: radial-gradient(ellipse at 50% 0%, #310a1f 0%, #0f0611 55%, #060309 100%); --blue: #e11d48; --blue-dark: #881337; --blue-hov: #f43f5e; --cyan: #ff477e; --cyan-dim: rgba(255,71,126,0.16); --cyan-brd: rgba(255,71,126,0.44); }
     body[data-theme="emerald"] { --bg-grad: radial-gradient(ellipse at 50% 0%, #072b20 0%, #050f0d 55%, #030807 100%); --blue: #059669; --blue-dark: #064e3b; --blue-hov: #10b981; --cyan: #34d399; --cyan-dim: rgba(52,211,153,0.16); --cyan-brd: rgba(52,211,153,0.44); }
@@ -38,34 +37,29 @@
     .scroll-progress { position: fixed; top: 0; left: 0; height: 4px; width: 0%; z-index: 999; background: linear-gradient(90deg, var(--blue), var(--cyan), #fff); box-shadow: 0 0 14px var(--cyan); transition: width 0.08s linear; }
     ::-webkit-scrollbar { width: 7px; height: 7px; } ::-webkit-scrollbar-track { background: #050912; } ::-webkit-scrollbar-thumb { background: #263a60; border-radius: 6px; } ::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
 
-    /* 3D МУЛЬТЯШНЫЕ КНОПКИ */
     .buy-btn, .p-btn, .nav-btn.act, .subtab-btn, .rf-btn, .mf-btn, .term-btn, .rule-tab-btn { position: relative; overflow: hidden; border-radius: 14px; border-bottom-style: solid; transition: transform 0.2s var(--bounce), filter 0.15s, box-shadow 0.18s, background 0.16s; user-select: none; }
     .buy-btn { background: linear-gradient(180deg, var(--cyan) 0%, var(--blue) 92%); border: 2px solid rgba(255,255,255,0.35); border-bottom: 6px solid var(--blue-dark); color: #fff; font-size: 13.5px; font-weight: 900; letter-spacing: 0.05em; text-transform: uppercase; padding: 11px 26px; cursor: pointer; box-shadow: inset 0 3px 0 rgba(255,255,255,0.45), 0 8px 24px var(--cyan-dim); text-shadow: 0 2px 0 rgba(0,0,0,0.36); }
     .buy-btn::before { content: ""; position: absolute; top: 2px; left: 8%; right: 8%; height: 38%; background: linear-gradient(180deg, rgba(255,255,255,0.28), transparent); border-radius: 99px; pointer-events: none; }
     .buy-btn::after { content: ""; position: absolute; top: -50%; left: -75%; width: 45%; height: 200%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.42), transparent); transform: skewX(-22deg); animation: btnShine 4s infinite; }
     @keyframes btnShine { 0%, 75% { left: -75%; } 100% { left: 135%; } }
-    .buy-btn:hover { transform: translateY(-4px) scale(1.04, 1.03); filter: brightness(1.08); }
-    .buy-btn:active { transform: translateY(3px) scale(1.03, 0.94); border-bottom-width: 2px; }
+    .buy-btn:hover { transform: translateY(-4px) scale(1.04,1.03); filter: brightness(1.08); }
+    .buy-btn:active { transform: translateY(3px) scale(1.03,0.94); border-bottom-width: 2px; }
     .buy-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
-
     .p-btn { background: linear-gradient(180deg, #25385c 0%, #152138 100%); border: 2px solid rgba(255,255,255,0.18); border-bottom: 5px solid #09101e; color: #eef2f9; padding: 8px 14px; font-size: 12.5px; font-weight: 800; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 7px; box-shadow: inset 0 2px 0 rgba(255,255,255,0.22); }
-    .p-btn:hover { transform: translateY(-3px) scale(1.03); border-color: var(--cyan); color: #fff; }
-    .p-btn:active { transform: translateY(2px) scale(1.02, 0.95); border-bottom-width: 2px; }
+    .p-btn:hover { transform: translateY(-3px) scale(1.03); border-color: var(--cyan); color: #fff; } .p-btn:active { transform: translateY(2px) scale(1.02,0.95); border-bottom-width: 2px; }
     .p-btn.primary { background: linear-gradient(180deg, var(--blue-hov) 0%, var(--blue) 100%); border-color: rgba(255,255,255,0.28); border-bottom: 5px solid var(--blue-dark); color: #fff; }
-
     .subtab-btn, .rf-btn, .mf-btn, .term-btn, .rule-tab-btn { background: linear-gradient(180deg, #192845 0%, #0f1728 100%); border: 2px solid var(--brd-strong); border-bottom: 5px solid #060a14; color: #cbd5e1; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.14); }
     .subtab-btn { padding: 9px 16px; font-size: 13px; } .rule-tab-btn { padding: 7px 13px; font-size: 12px; } .rf-btn { padding: 6px 12px; font-size: 12px; } .mf-btn { padding: 8px 15px; font-size: 12.5px; } .term-btn { padding: 6px 12px; font-size: 12px; }
     .subtab-btn:hover, .rf-btn:hover, .mf-btn:hover, .term-btn:hover, .rule-tab-btn:hover { transform: translateY(-3px) scale(1.04); color: #fff; border-color: var(--cyan); }
-    .subtab-btn:active, .rf-btn:active, .mf-btn:active, .term-btn:active, .rule-tab-btn:active { transform: translateY(2px) scale(1.02, 0.94); border-bottom-width: 2px; }
+    .subtab-btn:active, .rf-btn:active, .mf-btn:active, .term-btn:active, .rule-tab-btn:active { transform: translateY(2px) scale(1.02,0.94); border-bottom-width: 2px; }
     .subtab-btn.act, .rf-btn.act, .mf-btn.act, .term-btn.act, .rule-tab-btn.act { background: linear-gradient(180deg, var(--cyan) 0%, var(--blue) 100%); border-color: rgba(255,255,255,0.34); border-bottom: 5px solid var(--blue-dark); color: #fff; text-shadow: 0 1.5px 0 rgba(0,0,0,0.35); box-shadow: inset 0 2px 0 rgba(255,255,255,0.4), 0 6px 18px var(--cyan-dim); }
     body.flat-btns .buy-btn, body.flat-btns .p-btn, body.flat-btns .subtab-btn, body.flat-btns .rf-btn, body.flat-btns .mf-btn, body.flat-btns .term-btn, body.flat-btns .rule-tab-btn, body.flat-btns .nav-btn.act { border-bottom-width: 1.5px !important; border-radius: 9px; }
     .ripple-wave { position: absolute; border-radius: 50%; background: rgba(255,255,255,0.45); transform: scale(0); animation: rippleAnim 0.55s ease-out forwards; pointer-events: none; }
     @keyframes rippleAnim { to { transform: scale(3.8); opacity: 0; } }
 
-    /* HERO */
     .promo-strip { background: linear-gradient(90deg, rgba(30,120,255,0.24), var(--cyan-dim), rgba(30,120,255,0.24)); border-bottom: 1px solid var(--cyan-brd); padding: 6px 16px; font-size: 11.5px; font-weight: 700; font-family: var(--mono); color: #dbeafe; display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; text-align: center; }
     .promo-strip strong { color: var(--cyan); } .promo-close { background: none; border: none; color: var(--mut); cursor: pointer; font-size: 13px; }
-    .hero-banner { position: relative; min-height: 335px; width: 100%; overflow: hidden; background: linear-gradient(180deg, rgba(8,18,40,0.72) 0%, rgba(10,24,52,0.45) 55%, rgba(4,8,19,0.96) 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 34px 20px 30px; border-bottom: 1px solid rgba(0,229,255,0.16); }
+    .hero-banner { position: relative; min-height: 330px; width: 100%; overflow: hidden; background: linear-gradient(180deg, rgba(8,18,40,0.72) 0%, rgba(10,24,52,0.45) 55%, rgba(4,8,19,0.96) 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 34px 20px 30px; border-bottom: 1px solid rgba(0,229,255,0.16); }
     .hero-glow-orb { position: absolute; width: 650px; height: 300px; top: 45%; left: 50%; transform: translate(-50%,-50%); background: radial-gradient(ellipse at center, var(--cyan-dim) 0%, rgba(30,120,255,0.18) 45%, transparent 72%); filter: blur(28px); pointer-events: none; animation: orbPulse 6s ease-in-out infinite; }
     @keyframes orbPulse { 0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 0.9; } 50% { transform: translate(-50%,-50%) scale(1.14); opacity: 1; } }
     .hero-skyline { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.68; pointer-events: none; }
@@ -96,7 +90,6 @@
     .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 10px var(--ok); display: inline-block; animation: pulseDot 2s infinite; }
     @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(1.35); } }
 
-    /* НАВИГАЦИЯ */
     .navbar-wrap { position: sticky; top: 0; z-index: 100; background: rgba(7,12,23,0.9); backdrop-filter: blur(var(--blur-px)); border-top: 1px solid rgba(255,255,255,0.06); border-bottom: 1px solid var(--cyan-brd); box-shadow: 0 10px 35px rgba(0,0,0,0.65); }
     .navbar { max-width: 1280px; margin: 0 auto; padding: 9px 20px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
     .nav-left { display: flex; align-items: center; gap: 5px; overflow-x: auto; scrollbar-width: none; padding-bottom: 3px; }
@@ -107,20 +100,16 @@
     .nav-btn:hover { background: rgba(255,255,255,0.08); color: #fff; transform: translateY(-2px); }
     .nav-btn.act { background: linear-gradient(180deg, var(--cyan), var(--blue)); color: #fff; border-color: rgba(255,255,255,0.32); border-bottom: 5px solid var(--blue-dark); box-shadow: inset 0 2px 0 rgba(255,255,255,0.38), 0 4px 18px var(--cyan-dim); text-shadow: 0 1px 2px rgba(0,0,0,0.35); }
     .nav-count { display: none; font-size: 10px; font-weight: 800; font-family: var(--mono); background: var(--cyan-dim); color: var(--cyan); border: 1px solid var(--cyan-brd); padding: 1px 6px; border-radius: 999px; }
-    .nav-btn.act .nav-count { background: rgba(5,8,16,0.45); color: #fff; border-color: rgba(255,255,255,0.35); }
-    .nav-count.show { display: inline-block; }
+    .nav-btn.act .nav-count { background: rgba(5,8,16,0.45); color: #fff; border-color: rgba(255,255,255,0.35); } .nav-count.show { display: inline-block; }
     .nav-right { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
     .icon-pill-btn { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(180deg, #1b2a47 0%, #0e1628 100%); border: 2px solid var(--cyan-brd); border-bottom: 4.5px solid #060a14; color: var(--cyan); padding: 6px 11px; border-radius: 12px; font-size: 12px; font-weight: 800; cursor: pointer; transition: 0.16s var(--bounce); white-space: nowrap; box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.18); }
-    .icon-pill-btn:hover { transform: translateY(-2px) scale(1.05); background: var(--cyan-dim); }
-    .icon-pill-btn:active { transform: translateY(2px) scale(0.96); border-bottom-width: 2px; }
+    .icon-pill-btn:hover { transform: translateY(-2px) scale(1.05); background: var(--cyan-dim); } .icon-pill-btn:active { transform: translateY(2px) scale(0.96); border-bottom-width: 2px; }
     .icon-pill-btn.muted { color: var(--mut); border-color: var(--brd-strong); }
     .search-box { position: relative; display: flex; align-items: center; }
     .nav-search { background: #060a12; border: 1.5px solid var(--brd-strong); color: #fff; padding: 8px 32px 8px 12px; border-radius: 11px; font-size: 12.5px; width: 165px; outline: none; transition: 0.2s; }
     .nav-search:focus { border-color: var(--cyan); width: 210px; box-shadow: 0 0 0 3px var(--cyan-dim); }
-    .search-clear { position: absolute; right: 8px; background: none; border: none; color: var(--mut); cursor: pointer; font-size: 13px; display: none; }
-    .search-clear.show { display: block; }
+    .search-clear { position: absolute; right: 8px; background: none; border: none; color: var(--mut); cursor: pointer; font-size: 13px; display: none; } .search-clear.show { display: block; }
 
-    /* ОСНОВНОЙ КОНТЕЙНЕР */
     .container { flex: 1; width: 100%; max-width: 1280px; margin: 0 auto; padding: 26px 20px 52px; }
     .view { display: none; } .view.act { display: block; animation: viewPop 0.36s var(--bounce); }
     @keyframes viewPop { from { opacity: 0; transform: translateY(16px) scale(0.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
@@ -140,19 +129,13 @@
     .subtabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
     .subview { display: none; } .subview.act { display: block; animation: viewPop 0.28s var(--bounce); }
 
-    /* ПРЕДМЕТЫ 1.21.4+ (ТУЛТИПЫ MINECRAFT) */
+    /* ПРЕДМЕТЫ И КИТЫ */
     .mc-items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; margin-bottom: 20px; }
-    .mc-tooltip-card {
-      position: relative; background: #0c0712; border: 2px solid #4c1d95;
-      box-shadow: inset 0 0 0 2px #1a0b2e, 0 12px 28px rgba(0,0,0,0.65);
-      border-radius: 10px; padding: 14px 16px; font-family: var(--mono);
-      transition: transform 0.2s var(--bounce), border-color 0.2s;
-    }
+    .mc-tooltip-card { position: relative; background: #0c0712; border: 2px solid #4c1d95; box-shadow: inset 0 0 0 2px #1a0b2e, 0 12px 28px rgba(0,0,0,0.65); border-radius: 10px; padding: 14px 16px; font-family: var(--mono); transition: transform 0.2s var(--bounce), border-color 0.2s; }
     .mc-tooltip-card.gold-frame { border-color: #b45309; box-shadow: inset 0 0 0 2px #2e1805, 0 12px 28px rgba(0,0,0,0.65); }
     .mc-tooltip-card:hover { transform: translateY(-4px) scale(1.015); border-color: var(--cyan); }
     .mc-tt-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
-    .mc-tt-title { font-size: 14px; font-weight: 800; }
-    .mc-tt-tag { font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 5px; background: rgba(255,255,255,0.08); color: var(--mut); }
+    .mc-tt-title { font-size: 14px; font-weight: 800; } .mc-tt-tag { font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 5px; background: rgba(255,255,255,0.08); color: var(--mut); }
     .mc-tt-lore { font-size: 12px; color: #94a3b8; margin-bottom: 8px; line-height: 1.4; }
     .mc-tt-stats { display: grid; gap: 3px; font-size: 12px; line-height: 1.45; }
     .st-pos { color: #60a5fa; } .st-neg { color: #f87171; } .st-ok { color: #34d399; } .st-gold { color: #fbbf24; }
@@ -161,51 +144,30 @@
     .kit-pill { background: #070b14; border: 1.5px solid var(--brd-strong); padding: 6px 12px; border-radius: 9px; font-family: var(--mono); font-size: 12px; color: #e2e8f0; }
 
     /* ПРОФИЛЬ КАК НА 1-М СКРИНШОТЕ */
-    .carbon-profile {
-      background: #111318; border: 1px solid rgba(255,255,255,0.09); border-radius: 16px;
-      padding: 20px; display: grid; grid-template-columns: 200px 1fr; gap: 22px; align-items: stretch;
-    }
-    .carbon-skin-pedestal {
-      background: radial-gradient(circle at 50% 45%, rgba(0, 229, 255, 0.16), #0d0f14 72%);
-      border: 1px solid rgba(255,255,255,0.06); border-radius: 14px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 12px;
-      position: relative; min-height: 220px;
-    }
+    .carbon-profile { background: #111318; border: 1px solid rgba(255,255,255,0.09); border-radius: 16px; padding: 20px; display: grid; grid-template-columns: 200px 1fr; gap: 22px; align-items: stretch; }
+    .carbon-skin-pedestal { background: radial-gradient(circle at 50% 45%, rgba(0,229,255,0.16), #0d0f14 72%); border: 1px solid rgba(255,255,255,0.06); border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 12px; position: relative; min-height: 220px; }
     .carbon-skin-shadow { width: 78px; height: 12px; background: radial-gradient(ellipse, rgba(0,0,0,0.75), transparent 70%); margin-top: 6px; }
-    .carbon-nick-pill {
-      display: inline-block; padding: 5px 14px; border-radius: 8px; font-weight: 900; font-size: 18px; color: #fff;
-      background: linear-gradient(135deg, #f43f5e, #be123c); box-shadow: 0 4px 16px rgba(244,63,94,0.35);
-    }
+    .carbon-nick-pill { display: inline-block; padding: 5px 14px; border-radius: 8px; font-weight: 900; font-size: 18px; color: #fff; background: linear-gradient(135deg, #f43f5e, #be123c); box-shadow: 0 4px 16px rgba(244,63,94,0.35); }
     .carbon-top-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
-    .carbon-copy-btn {
-      background: #1a1d24; border: 1px solid rgba(255,255,255,0.12); color: #e2e8f0;
-      padding: 7px 13px; border-radius: 9px; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: 0.15s;
-    }
+    .carbon-copy-btn { background: #1a1d24; border: 1px solid rgba(255,255,255,0.12); color: #e2e8f0; padding: 7px 13px; border-radius: 9px; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: 0.15s; }
     .carbon-copy-btn:hover { border-color: var(--cyan); color: #fff; background: #222630; }
-    .carbon-stat-strip {
-      display: grid; grid-template-columns: repeat(4, 1fr); background: #16181f;
-      border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; overflow: hidden; margin-bottom: 16px;
-    }
+    .carbon-stat-strip { display: grid; grid-template-columns: repeat(4, 1fr); background: #16181f; border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; overflow: hidden; margin-bottom: 16px; }
     .carbon-stat-cell { padding: 12px 14px; border-right: 1px solid rgba(255,255,255,0.06); }
     .carbon-stat-cell:last-child { border-right: none; }
-    .carbon-stat-lbl { font-size: 11px; color: #8b949e; margin-bottom: 4px; }
-    .carbon-stat-val { font-size: 21px; font-weight: 900; color: #fff; font-family: var(--mono); line-height: 1.1; }
+    .carbon-stat-lbl { font-size: 11px; color: #8b949e; margin-bottom: 4px; } .carbon-stat-val { font-size: 21px; font-weight: 900; color: #fff; font-family: var(--mono); line-height: 1.1; }
     .carbon-stat-sub { font-size: 10.5px; color: #6e7681; margin-top: 4px; }
     .carbon-bottom-grid { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: center; margin-bottom: 12px; }
-    .form-squares { display: flex; gap: 5px; margin-top: 6px; }
-    .f-sq { width: 13px; height: 13px; border-radius: 3px; background: #10b981; }
-    .f-sq.empty { background: transparent; border: 1.5px solid #f43f5e; }
+    .form-squares { display: flex; gap: 5px; margin-top: 6px; } .f-sq { width: 13px; height: 13px; border-radius: 3px; background: #10b981; } .f-sq.empty { background: transparent; border: 1.5px solid #f43f5e; }
     .lvl-bar-bg { height: 6px; background: #21252e; border-radius: 999px; overflow: hidden; margin-top: 7px; }
     .lvl-bar-fill { height: 100%; background: linear-gradient(90deg, #be123c, #f43f5e); border-radius: 999px; transition: width 0.4s ease; }
 
-    /* ПРАВИЛА ПО ВКЛАДКАМ */
+    /* ПРАВИЛА */
     .rules-nav-bar { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 18px; align-items: center; }
     .rule-sec { --sec-clr: var(--cyan); position: relative; border: 1.5px solid color-mix(in srgb, var(--sec-clr) 42%, transparent); border-left: 4px solid var(--sec-clr); box-shadow: var(--shadow), inset 0 0 32px -18px var(--sec-clr); margin-bottom: 20px; overflow: visible; display: none; }
     .rule-sec.act-sec { display: block; animation: viewPop 0.28s var(--bounce); }
     .rule-sec::after { content: ""; position: absolute; inset: -1.5px; border-radius: var(--radius); pointer-events: none; background: linear-gradient(var(--sec-clr),var(--sec-clr)) 0 0/24px 2.5px no-repeat, linear-gradient(var(--sec-clr),var(--sec-clr)) 0 0/2.5px 24px no-repeat, linear-gradient(var(--sec-clr),var(--sec-clr)) 100% 0/24px 2.5px no-repeat, linear-gradient(var(--sec-clr),var(--sec-clr)) 100% 0/2.5px 24px no-repeat, linear-gradient(var(--sec-clr),var(--sec-clr)) 0 100%/24px 2.5px no-repeat, linear-gradient(var(--sec-clr),var(--sec-clr)) 0 100%/2.5px 24px no-repeat, linear-gradient(var(--sec-clr),var(--sec-clr)) 100% 100%/24px 2.5px no-repeat, linear-gradient(var(--sec-clr),var(--sec-clr)) 100% 100%/2.5px 24px no-repeat; filter: drop-shadow(0 0 calc(7px * var(--glow-mult)) var(--sec-clr)); }
     .rule-sec .st-card-hdr { border-radius: var(--radius) var(--radius) 0 0; background: linear-gradient(90deg, color-mix(in srgb, var(--sec-clr) 24%, #0d1629) 0%, rgba(11,18,33,0.96) 100%); border-bottom: 1px solid color-mix(in srgb, var(--sec-clr) 35%, transparent); justify-content: space-between; }
     .sec-tag { font-family: var(--mono); font-size: 10.5px; font-weight: 800; color: var(--sec-clr); background: rgba(4,7,14,0.78); border: 1px solid color-mix(in srgb, var(--sec-clr) 55%, transparent); padding: 2px 10px; border-radius: 999px; }
-    #sec-1 { --sec-clr: #00e5ff; } #sec-2 { --sec-clr: #3b82f6; } #sec-3 { --sec-clr: #a855f7; } #sec-4 { --sec-clr: #f59e0b; } #sec-5 { --sec-clr: #10b981; } #sec-6 { --sec-clr: #facc15; }
     .rule-pager { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 18px; }
     .rule-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; padding: 12px 18px; border-bottom: 1px solid rgba(255,255,255,0.055); border-left: 3px solid transparent; transition: background 0.16s, border-color 0.16s, padding-left 0.18s var(--bounce); }
     .rule-row:last-child { border-bottom: none; border-radius: 0 0 var(--radius) var(--radius); }
@@ -220,7 +182,7 @@
     .r-info { margin-top: 8px; padding: 10px 13px; border-radius: 8px; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.35); color: #a7f3d0; font-size: 12.5px; }
     .r-alert { padding: 13px 16px; border-radius: 12px; background: rgba(239,68,68,0.11); border: 1.5px solid rgba(239,68,68,0.4); color: #fca5a5; font-size: 13px; margin-bottom: 20px; }
 
-    /* МАГАЗИН, РУЛЕТКА И ПРОЧЕЕ */
+    /* МАГАЗИН, РУЛЕТКА, ДУЭЛЬ, МОДЫ, FAQ */
     .shop-tools-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
     .rank-filters { display: flex; gap: 7px; flex-wrap: wrap; }
     .nick-live-box { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--brd); padding: 5px 12px; border-radius: 10px; }
@@ -399,7 +361,6 @@
     .set-toggles { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 8px; }
     .set-row { display: flex; align-items: center; justify-content: space-between; background: #070b14; border: 1px solid var(--brd); padding: 9px 12px; border-radius: 9px; font-size: 12.5px; cursor: pointer; }
     .set-row input { accent-color: var(--cyan); width: 16px; height: 16px; cursor: pointer; }
-
     .acc-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-bottom: 16px; }
     .acc-log-list { max-height: 250px; overflow-y: auto; display: grid; gap: 7px; }
     .acc-log-item { background: #070b14; border: 1px solid var(--brd); border-radius: 10px; padding: 9px 12px; font-size: 12px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
@@ -432,8 +393,7 @@
   </div>
 
   <header class="hero-banner">
-    <div class="hero-glow-orb"></div>
-    <div class="hero-beams"></div>
+    <div class="hero-glow-orb"></div><div class="hero-beams"></div>
     <svg class="hero-skyline" viewBox="0 0 1440 360" preserveAspectRatio="xMidYMid slice">
       <defs>
         <linearGradient id="skyBack" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0b2247" stop-opacity="0.82"/><stop offset="100%" stop-color="#040813" stop-opacity="0.95"/></linearGradient>
@@ -447,22 +407,12 @@
       <rect x="935" y="155" width="12" height="12" fill="#00e5ff" opacity="0.72"/><rect x="960" y="178" width="12" height="12" fill="#38bdf8" opacity="0.45"/>
       <rect x="1175" y="175" width="10" height="10" fill="#00e5ff" opacity="0.55"/>
     </svg>
-    <div class="hero-float-cubes">
-      <span style="width:20px;height:20px;left:10%;top:25%;animation-delay:0s;"></span>
-      <span style="width:14px;height:14px;left:21%;top:64%;animation-delay:1.4s;"></span>
-      <span style="width:22px;height:22px;right:12%;top:26%;animation-delay:0.7s;"></span>
-      <span style="width:15px;height:15px;right:22%;top:62%;animation-delay:2.1s;"></span>
-    </div>
+    <div class="hero-float-cubes"><span style="width:20px;height:20px;left:10%;top:25%;animation-delay:0s;"></span><span style="width:14px;height:14px;left:21%;top:64%;animation-delay:1.4s;"></span><span style="width:22px;height:22px;right:12%;top:26%;animation-delay:0.7s;"></span><span style="width:15px;height:15px;right:22%;top:62%;animation-delay:2.1s;"></span></div>
     <div class="secret-rune" onclick="revealSecretPromo()" title="Что-то светится...">✦</div>
-
     <div class="hero-content">
       <div class="hero-top-badges"><span class="hero-badge">Cyan Anarchy</span><span class="hero-badge ver">Java Edition • 1.21.4+</span></div>
       <div class="hero-brand-plate">
-        <svg class="hero-crown" onclick="crownSecretTap()" width="54" height="40" viewBox="0 0 32 24" fill="none">
-          <path d="M4 20L2 7L9 12L16 2L23 12L30 7L28 20H4Z" fill="url(#crG)" stroke="#041529" stroke-width="2" stroke-linejoin="round"/>
-          <rect x="14" y="11" width="4" height="4" transform="rotate(45 16 11)" fill="#0088ff" stroke="#e0f7ff" stroke-width="1"/>
-          <defs><linearGradient id="crG" x1="16" y1="2" x2="16" y2="20" gradientUnits="userSpaceOnUse"><stop stop-color="#bdf8ff"/><stop offset="1" stop-color="#00b4ff"/></linearGradient></defs>
-        </svg>
+        <svg class="hero-crown" onclick="crownSecretTap()" width="54" height="40" viewBox="0 0 32 24" fill="none"><path d="M4 20L2 7L9 12L16 2L23 12L30 7L28 20H4Z" fill="url(#crG)" stroke="#041529" stroke-width="2" stroke-linejoin="round"/><rect x="14" y="11" width="4" height="4" transform="rotate(45 16 11)" fill="#0088ff" stroke="#e0f7ff" stroke-width="1"/><defs><linearGradient id="crG" x1="16" y1="2" x2="16" y2="20" gradientUnits="userSpaceOnUse"><stop stop-color="#bdf8ff"/><stop offset="1" stop-color="#00b4ff"/></linearGradient></defs></svg>
         <h1 class="hero-title">NEW<span>TIME</span></h1>
       </div>
       <div class="hero-subtitle-card" id="heroTicker">Анархия нового поколения 1.21.4+: уникальные сферы, талисманы и честный PvP</div>
@@ -476,10 +426,7 @@
   <div class="navbar-wrap">
     <nav class="navbar">
       <div class="nav-left">
-        <div class="nav-brand" onclick="switchView('shop')">
-          <svg width="20" height="15" viewBox="0 0 32 24" fill="none"><path d="M4 20L2 7L9 12L16 2L23 12L30 7L28 20H4Z" fill="currentColor" style="color:var(--cyan)"/></svg>
-          NEW<span>TIME</span>
-        </div>
+        <div class="nav-brand" onclick="switchView('shop')"><svg width="20" height="15" viewBox="0 0 32 24" fill="none"><path d="M4 20L2 7L9 12L16 2L23 12L30 7L28 20H4Z" fill="currentColor" style="color:var(--cyan)"/></svg>NEW<span>TIME</span></div>
         <button class="nav-btn act" data-view="shop" onclick="switchView('shop')">Магазин <span class="nav-count" id="cnt-shop"></span></button>
         <button class="nav-btn" data-view="items" onclick="switchView('items')">Предметы и Киты</button>
         <button class="nav-btn" data-view="rules" onclick="switchView('rules')">Правила <span class="nav-count" id="cnt-rules"></span></button>
@@ -490,10 +437,7 @@
         <button class="icon-pill-btn" id="sfxBtn" onclick="toggleSfx()" title="Звуки GUI">🔊 Звук</button>
         <button class="icon-pill-btn" id="accNavBtn" onclick="openAccountModal()">👤 Аккаунт</button>
         <button class="icon-pill-btn" onclick="openSettings()" title="Настройки сайта">⚙️ Настройки</button>
-        <div class="search-box">
-          <input type="text" id="globalSearch" class="nav-search" oninput="onSearch()" placeholder="🔍 Поиск...">
-          <button class="search-clear" id="searchClear" onclick="clearSearch()" title="Очистить поиск">✕</button>
-        </div>
+        <div class="search-box"><input type="text" id="globalSearch" class="nav-search" oninput="onSearch()" placeholder="🔍 Поиск..."><button class="search-clear" id="searchClear" onclick="clearSearch()" title="Очистить поиск">✕</button></div>
       </div>
     </nav>
   </div>
@@ -505,47 +449,24 @@
         <div><h2 class="page-title">Магазин привилегий</h2><div class="page-sub">Версия 1.21.4+ • Мгновенная автовыдача после оплаты</div></div>
         <div class="page-actions"><button class="p-btn" onclick="copyIP()">📋 IP: newtime.mcsh.gg</button><a href="https://t.me/newtime_tg" target="_blank" class="p-btn primary">✈️ Telegram: @newtime_tg</a></div>
       </div>
-
       <div class="subtabs">
         <button class="subtab-btn act" onclick="switchShopTab('catalog', this)">💎 Каталог привилегий</button>
         <button class="subtab-btn" onclick="switchShopTab('compare', this)">📊 Сравнение и Дуэль</button>
         <button class="subtab-btn" onclick="switchShopTab('wizard', this)">🎯 Подбор по бюджету</button>
         <button class="subtab-btn" onclick="switchShopTab('roulette', this)">🎰 Рулетка кейса</button>
       </div>
-
       <div class="subview act" id="shop-catalog">
         <div class="shop-tools-bar">
-          <div class="rank-filters">
-            <button class="rf-btn act" onclick="setRankFilter('all', this)">Все (15)</button>
-            <button class="rf-btn" onclick="setRankFilter('paid', this)">Платные (11)</button>
-            <button class="rf-btn" onclick="setRankFilter('fly', this)">🕊️ С /fly</button>
-            <button class="rf-btn" onclick="setRankFilter('tp0', this)">⚡ 0 сек ТП</button>
-            <button class="rf-btn" onclick="setRankFilter('special', this)">👑 Особые (4)</button>
-          </div>
+          <div class="rank-filters"><button class="rf-btn act" onclick="setRankFilter('all', this)">Все (15)</button><button class="rf-btn" onclick="setRankFilter('paid', this)">Платные (11)</button><button class="rf-btn" onclick="setRankFilter('fly', this)">🕊️ С /fly</button><button class="rf-btn" onclick="setRankFilter('tp0', this)">⚡ 0 сек ТП</button><button class="rf-btn" onclick="setRankFilter('special', this)">👑 Особые (4)</button></div>
           <div class="nick-live-box"><span>Ник для превью:</span><input type="text" id="liveNickInp" class="nick-live-inp" maxlength="16" oninput="onLiveNickChange()" placeholder="Steve_228"></div>
         </div>
         <div class="recent-strip" id="recentStrip"></div>
-
         <div class="shop-grid">
-          <div class="st-card hud-corners">
-            <div class="st-card-hdr"><span>Выберите товар</span><span style="color:var(--cyan);font-size:11px;font-family:var(--mono);" id="ranksFoundHint">15 статусов</span></div>
-            <div class="rank-list" id="rankList"></div>
-          </div>
-
+          <div class="st-card hud-corners"><div class="st-card-hdr"><span>Выберите товар</span><span style="color:var(--cyan);font-size:11px;font-family:var(--mono);" id="ranksFoundHint">15 статусов</span></div><div class="rank-list" id="rankList"></div></div>
           <div class="st-card detail-card ai-frame hud-corners" id="detailCard">
-            <div class="st-card-hdr">
-              <span id="termLabel">Выберите срок:</span>
-              <div class="term-tabs" id="termTabs">
-                <button class="term-btn act" data-term="p30" onclick="selectTerm('p30')">30 дней</button>
-                <button class="term-btn" data-term="p90" onclick="selectTerm('p90')">90 дней <span class="term-save" id="save90"></span></button>
-                <button class="term-btn" data-term="pFor" onclick="selectTerm('pFor')">Навсегда [ХИТ]</button>
-              </div>
-            </div>
+            <div class="st-card-hdr"><span id="termLabel">Выберите срок:</span><div class="term-tabs" id="termTabs"><button class="term-btn act" data-term="p30" onclick="selectTerm('p30')">30 дней</button><button class="term-btn" data-term="p90" onclick="selectTerm('p90')">90 дней <span class="term-save" id="save90"></span></button><button class="term-btn" data-term="pFor" onclick="selectTerm('pFor')">Навсегда [ХИТ]</button></div></div>
             <div class="detail-body">
-              <div class="rank-hero-strip">
-                <div class="rank-hero-title"><span id="detailIcon"></span><div><h3 id="detailRankTitle">Барон</h3><div class="rank-tier-sub" id="detailTierSub">Привилегия NewTime</div></div></div>
-                <div class="mc-previews"><div class="mc-bar" id="chatPreview"></div><div class="mc-bar" id="tabPreview"></div></div>
-              </div>
+              <div class="rank-hero-strip"><div class="rank-hero-title"><span id="detailIcon"></span><div><h3 id="detailRankTitle">Барон</h3><div class="rank-tier-sub" id="detailTierSub">Привилегия NewTime</div></div></div><div class="mc-previews"><div class="mc-bar" id="chatPreview"></div><div class="mc-bar" id="tabPreview"></div></div></div>
               <div class="mc-bossbar-wrap"><div class="mc-bossbar-txt" id="bossbarTxt"></div><div class="mc-bossbar-track"><div class="mc-bossbar-fill" id="bossbarFill"></div></div></div>
               <div class="power-meters" id="powerMeters"></div>
               <div class="d-sec-title">Возможности и команды</div><ul class="perm-list" id="detailPerms"></ul>
@@ -553,191 +474,42 @@
             </div>
             <div class="detail-foot">
               <div class="price-col"><div class="price-wrap"><span class="price-lbl">Стоимость:</span><span class="price-val" id="detailPrice">5 руб</span></div><div class="price-per-day" id="pricePerDay"></div></div>
-              <div class="foot-actions">
-                <button class="p-btn" onclick="switchView('items')" title="Посмотреть предметы и киты">🎒 База китов</button>
-                <button class="p-btn" id="wishBtn" onclick="toggleWishlist()" title="Сохранить в желаемое">🤍</button>
-                <button class="p-btn" id="nextTierBtn" onclick="jumpNextRank()" style="display:none;"></button>
-                <button class="buy-btn" id="buyBtn" onclick="openBuyModal()">ПРИОБРЕСТИ</button>
-              </div>
+              <div class="foot-actions"><button class="p-btn" onclick="switchView('items')" title="Посмотреть предметы и киты">🎒 База китов</button><button class="p-btn" id="wishBtn" onclick="toggleWishlist()" title="Сохранить в желаемое">🤍</button><button class="p-btn" id="nextTierBtn" onclick="jumpNextRank()" style="display:none;"></button><button class="buy-btn" id="buyBtn" onclick="openBuyModal()">ПРИОБРЕСТИ</button></div>
             </div>
           </div>
         </div>
       </div>
-
       <div class="subview" id="shop-compare">
-        <div class="st-card ai-frame">
-          <div class="st-card-hdr"><span>⚔️ Дуэль двух привилегий</span><span style="color:var(--mut);font-size:11px;">Сравните любые 2 ранга лицом к лицу</span></div>
-          <div class="duel-bar"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><select id="duelA" class="duel-select" onchange="renderDuel()"></select><strong style="color:var(--cyan);font-family:var(--mono);">VS</strong><select id="duelB" class="duel-select" onchange="renderDuel()"></select></div><span style="font-size:12px;color:var(--mut);">Зелёным отмечен лучший показатель</span></div>
-          <div class="duel-grid" id="duelGrid"></div>
-        </div>
+        <div class="st-card ai-frame"><div class="st-card-hdr"><span>⚔️ Дуэль двух привилегий</span><span style="color:var(--mut);font-size:11px;">Сравните любые 2 ранга лицом к лицу</span></div><div class="duel-bar"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;"><select id="duelA" class="duel-select" onchange="renderDuel()"></select><strong style="color:var(--cyan);font-family:var(--mono);">VS</strong><select id="duelB" class="duel-select" onchange="renderDuel()"></select></div><span style="font-size:12px;color:var(--mut);">Зелёным отмечен лучший показатель</span></div><div class="duel-grid" id="duelGrid"></div></div>
         <div class="st-card"><div class="st-card-hdr"><span>Общая матрица привилегий</span><span style="color:var(--mut);font-size:11px;">Кликните по строке для выбора</span></div><div class="table-wrap"><table class="cmp-table"><thead><tr><th>Привилегия</th><th>30 дней</th><th>Навсегда</th><th>Дома</th><th>Приваты</th><th>Аукцион</th><th>ТП задержка</th><th>Полёт /fly</th><th>Починка /fix</th></tr></thead><tbody id="compareBody"></tbody></table></div></div>
       </div>
-
       <div class="subview" id="shop-wizard">
-        <div class="wizard-grid">
-          <div class="st-card hud-corners"><div class="st-card-hdr">Фильтры подбора</div><div class="wizard-body"><div class="range-wrap"><label><span>Бюджет (за 30 дней):</span><strong style="color:var(--cyan);font-family:var(--mono);" id="wizBudgetVal">до 150 ₽</strong></label><input type="range" id="wizBudget" min="5" max="249" value="150" oninput="updateWizard()"></div><div class="wiz-checks"><label class="wiz-chk"><input type="checkbox" id="wFly" onchange="updateWizard()"> Нужен /fly и /speed</label><label class="wiz-chk"><input type="checkbox" id="wFix" onchange="updateWizard()"> Нужна починка /fix</label><label class="wiz-chk"><input type="checkbox" id="wTp0" onchange="updateWizard()"> Телепорт без задержки (0 сек)</label><label class="wiz-chk"><input type="checkbox" id="wExp" onchange="updateWizard()"> Сохранение 100% опыта</label></div></div></div>
-          <div class="st-card"><div class="st-card-hdr"><span>Подходящие привилегии</span><span id="wizCount" style="color:var(--cyan);font-family:var(--mono);"></span></div><div class="wiz-results" id="wizResults"></div></div>
-        </div>
+        <div class="wizard-grid"><div class="st-card hud-corners"><div class="st-card-hdr">Фильтры подбора</div><div class="wizard-body"><div class="range-wrap"><label><span>Бюджет (за 30 дней):</span><strong style="color:var(--cyan);font-family:var(--mono);" id="wizBudgetVal">до 150 ₽</strong></label><input type="range" id="wizBudget" min="5" max="249" value="150" oninput="updateWizard()"></div><div class="wiz-checks"><label class="wiz-chk"><input type="checkbox" id="wFly" onchange="updateWizard()"> Нужен /fly и /speed</label><label class="wiz-chk"><input type="checkbox" id="wFix" onchange="updateWizard()"> Нужна починка /fix</label><label class="wiz-chk"><input type="checkbox" id="wTp0" onchange="updateWizard()"> Телепорт без задержки (0 сек)</label><label class="wiz-chk"><input type="checkbox" id="wExp" onchange="updateWizard()"> Сохранение 100% опыта</label></div></div></div><div class="st-card"><div class="st-card-hdr"><span>Подходящие привилегии</span><span id="wizCount" style="color:var(--cyan);font-family:var(--mono);"></span></div><div class="wiz-results" id="wizResults"></div></div></div>
       </div>
-
       <div class="subview" id="shop-roulette">
-        <div class="st-card ai-frame">
-          <div class="st-card-hdr"><span>🎰 Донат-кейс NewTime • Шансы и Редкости</span><span style="color:var(--cyan);font-family:var(--mono);font-size:11px;" id="spinCountLbl">Прокрутов: 0</span></div>
-          <div class="roulette-wrap">
-            <div style="color:var(--mut);font-size:13.5px;">Реалистичные шансы дропа: от <strong style="color:#94a3b8;">Обычных (65%)</strong> до <strong style="color:#ff2a55;">МИФИЧЕСКОГО Бога (0.1%)</strong>!</div>
-            <div class="roulette-stage"><div class="roulette-pointer" id="rPointer"></div><div class="roulette-track" id="rouletteTrack"></div></div>
-            <button class="buy-btn" id="spinBtn" onclick="spinRoulette()">🎲 КРУТИТЬ КЕЙС</button>
-            <div class="roulette-drop" id="rouletteDrop"></div>
-            <div class="spin-history" id="spinHistory"></div>
-            <div class="d-sec-title" style="margin-top:24px;text-align:left;">Таблица редкостей и шансов выпадения</div>
-            <div class="drop-table" id="dropTable"></div>
-          </div>
-        </div>
+        <div class="st-card ai-frame"><div class="st-card-hdr"><span>🎰 Донат-кейс NewTime • Шансы и Редкости</span><span style="color:var(--cyan);font-family:var(--mono);font-size:11px;" id="spinCountLbl">Прокрутов: 0</span></div><div class="roulette-wrap"><div style="color:var(--mut);font-size:13.5px;">Реалистичные шансы дропа: от <strong style="color:#94a3b8;">Обычных (65%)</strong> до <strong style="color:#ff2a55;">МИФИЧЕСКОГО Бога (0.1%)</strong>!</div><div class="roulette-stage"><div class="roulette-pointer" id="rPointer"></div><div class="roulette-track" id="rouletteTrack"></div></div><button class="buy-btn" id="spinBtn" onclick="spinRoulette()">🎲 КРУТИТЬ КЕЙС</button><div class="roulette-drop" id="rouletteDrop"></div><div class="spin-history" id="spinHistory"></div><div class="d-sec-title" style="margin-top:24px;text-align:left;">Таблица редкостей и шансов выпадения</div><div class="drop-table" id="dropTable"></div></div></div>
       </div>
     </section>
 
-    <!-- 2. БАЗА ПРЕДМЕТОВ, БАФФОВ И КИТОВ (ПО ВАШИМ СКРИНШОТАМ) -->
+    <!-- 2. БАЗА ПРЕДМЕТОВ И КИТОВ -->
     <section class="view" id="view-items">
-      <div class="page-head">
-        <div><h2 class="page-title">Кастомные предметы, баффы и киты (1.21.4+)</h2><div class="page-sub">Реальные характеристики сфер, талисманов, зелий, способностей, стрел и брони сервера NewTime</div></div>
-        <div class="page-actions"><button class="p-btn primary" onclick="switchView('shop')">💎 В магазин доната</button></div>
-      </div>
-
-      <div class="subtabs">
-        <button class="rf-btn act" onclick="filterCustomItems('all', this)">Все (25)</button>
-        <button class="rf-btn" onclick="filterCustomItems('ability', this)">⚡ Способности [ПКМ]</button>
-        <button class="rf-btn" onclick="filterCustomItems('talisman', this)">🗿 Талисманы</button>
-        <button class="rf-btn" onclick="filterCustomItems('sphere', this)">🔮 Сферы</button>
-        <button class="rf-btn" onclick="filterCustomItems('potion', this)">🧪 Зелья и Мешок</button>
-        <button class="rf-btn" onclick="filterCustomItems('gear', this)">⚔️ Оружие, Броня, Стрелы</button>
-      </div>
-
+      <div class="page-head"><div><h2 class="page-title">Кастомные предметы, баффы и киты (1.21.4+)</h2><div class="page-sub">Реальные характеристики сфер, талисманов, зелий, способностей, стрел и брони сервера NewTime</div></div><div class="page-actions"><button class="p-btn primary" onclick="switchView('shop')">💎 В магазин доната</button></div></div>
+      <div class="subtabs"><button class="rf-btn act" onclick="filterCustomItems('all', this)">Все (27)</button><button class="rf-btn" onclick="filterCustomItems('ability', this)">⚡ Способности [ПКМ]</button><button class="rf-btn" onclick="filterCustomItems('talisman', this)">🗿 Талисманы</button><button class="rf-btn" onclick="filterCustomItems('sphere', this)">🔮 Сферы</button><button class="rf-btn" onclick="filterCustomItems('potion', this)">🧪 Зелья и Мешок</button><button class="rf-btn" onclick="filterCustomItems('gear', this)">⚔️ Оружие, Броня, Стрелы</button></div>
       <div class="mc-items-grid" id="customItemsGrid"></div>
-
-      <div class="st-card ai-frame">
-        <div class="st-card-hdr">
-          <span>🎒 Состав наборов (/kit) по привилегиям</span>
-          <select id="kitRankSelect" class="duel-select" onchange="renderKitBreakdown()"></select>
-        </div>
-        <div class="kit-preview-box" id="kitBreakdownBox"></div>
-      </div>
+      <div class="st-card ai-frame"><div class="st-card-hdr"><span>🎒 Состав наборов (/kit) по привилегиям</span><select id="kitRankSelect" class="duel-select" onchange="renderKitBreakdown()"></select></div><div class="kit-preview-box" id="kitBreakdownBox"></div></div>
     </section>
 
     <!-- 3. ПРАВИЛА ПРОЕКТА -->
     <section class="view" id="view-rules">
-      <div class="page-head">
-        <div><h2 class="page-title">Правила проекта NewTime</h2><div class="page-sub">Переключайте разделы кнопками ниже — без долгой прокрутки • ⭐ закладки • 📋 копировать</div></div>
-        <div class="page-actions"><button class="p-btn" onclick="switchView('mods')">Список модов (4.4)</button><button class="p-btn primary" onclick="switchView('shop')">💎 Донат-магазин</button></div>
-      </div>
+      <div class="page-head"><div><h2 class="page-title">Правила проекта NewTime</h2><div class="page-sub">Переключайте разделы кнопками ниже — без долгой прокрутки • ⭐ закладки • 📋 копировать</div></div><div class="page-actions"><button class="p-btn" onclick="switchView('mods')">Список модов (4.4)</button><button class="p-btn primary" onclick="switchView('shop')">💎 Донат-магазин</button></div></div>
       <div class="search-banner" id="rulesSearchBanner"><span id="rulesSearchMsg">Найдено совпадений: 0</span><button class="p-btn" style="padding:4px 10px;" onclick="clearSearch()">Сбросить поиск</button></div>
-      <div class="rules-nav-bar" id="rulesTabs">
-        <button class="rule-tab-btn act" data-sec="sec-1" onclick="selectRuleSec('sec-1')">1. Основные</button>
-        <button class="rule-tab-btn" data-sec="sec-2" onclick="selectRuleSec('sec-2')">2. Чат</button>
-        <button class="rule-tab-btn" data-sec="sec-3" onclick="selectRuleSec('sec-3')">3. Аккаунт</button>
-        <button class="rule-tab-btn" data-sec="sec-4" onclick="selectRuleSec('sec-4')">4. Игровые</button>
-        <button class="rule-tab-btn" data-sec="sec-5" onclick="selectRuleSec('sec-5')">5. Проверка ПО</button>
-        <button class="rule-tab-btn" data-sec="sec-6" onclick="selectRuleSec('sec-6')">6. Платные услуги</button>
-        <button class="rule-tab-btn" data-sec="all" onclick="selectRuleSec('all')">📜 Показать все</button>
-      </div>
-
+      <div class="rules-nav-bar" id="rulesTabs"><button class="rule-tab-btn act" data-sec="sec-1" onclick="selectRuleSec('sec-1')">1. Основные</button><button class="rule-tab-btn" data-sec="sec-2" onclick="selectRuleSec('sec-2')">2. Чат</button><button class="rule-tab-btn" data-sec="sec-3" onclick="selectRuleSec('sec-3')">3. Аккаунт</button><button class="rule-tab-btn" data-sec="sec-4" onclick="selectRuleSec('sec-4')">4. Игровые</button><button class="rule-tab-btn" data-sec="sec-5" onclick="selectRuleSec('sec-5')">5. Проверка ПО</button><button class="rule-tab-btn" data-sec="sec-6" onclick="selectRuleSec('sec-6')">6. Платные услуги</button><button class="rule-tab-btn" data-sec="all" onclick="selectRuleSec('all')">📜 Показать все</button></div>
       <div class="portal-grid">
         <div>
-          <div class="st-card rule-sec act-sec" id="sec-1">
-            <div class="st-card-hdr"><span>1. Основные правила</span><span class="sec-tag">PROTOCOL // 01</span></div>
-            <div class="rule-body">
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">1.1</span><div class="r-text">Незнание правил не освобождает вас от ответственности;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">1.2</span><div class="r-text">Начав играть на наших серверах, Вы автоматически подтверждаете своё согласие с данным сводом правил;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">1.3</span><div class="r-text">Администрация не несет ответственности за временную или постоянную невозможность игры на сервере конкретным лицом или группой лиц;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">1.4</span><div class="r-text">Администрация не несет ответственности за потерю игровых ценностей в следствии нарушения работоспособности сервера или его плагинов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">1.5</span><div class="r-text">Администрация не гарантирует работоспособность сервера, а также сохранность информации на нем и продолжение работы над ним;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">1.6</span><div class="r-text">Администрация сервера не гарантирует надёжную работу в предоставлении услуг и сервисов, а также не несёт ответственность за ущерб, который может быть причинён пользователям вследствие сбоев в линиях связи, ошибочного использования предоставляемых услуг, дефектов программного обеспечения или других действий, которые могут привести к возникновению нежелательных ситуаций;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">1.7</span><div class="r-text">Администрация имеет право корректировать данный свод правил без уведомления игрока;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">1.8</span><div class="r-text">Оскорбление, провоцирование администрации запрещено.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            </div>
-          </div>
-
-          <div class="st-card rule-sec" id="sec-2">
-            <div class="st-card-hdr"><span>2. Правила чата</span><span class="sec-tag">COMMS // 02</span></div>
-            <div class="rule-body">
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.1</span><div class="r-text">Запрещен Капс/Спам/Флуд в любом из чатов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.2</span><div class="r-text">Запрещены унижения, оскорбления игроков;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.3</span><div class="r-text">Запрещена нецензурная лексика (маты, скрытые маты);</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.4</span><div class="r-text">Запрещено рекламировать/упоминать посторонние ресурсы, которые не связаны с проектом или его ресурсами;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.5</span><div class="r-text">Чатами для рекламы/покупки/продажи разрешено пользоваться только в их тематичных целях;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.6</span><div class="r-text">Запрещено упоминать/оскорблять родных и близких игроков;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.7</span><div class="r-text">Запрещается розжиг межнациональной розни, подстрекательство на конфликт этой темы, расизм;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.8</span><div class="r-text">Запрещено как-либо обходить блокировку чата;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.9</span><div class="r-text">Запрещено вызывать игроков на проверку читов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.10</span><div class="r-text">Запрещено отправлять свои контактные данные (дискорд, вк и т.д) в чатах (исключение: личные сообщения);</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.11</span><div class="r-text">Запрещено продавать ресурсы или услуги ВНЕ серверного чата, например через дискорд;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.12</span><div class="r-text">Самопризнание в нарушении правил проекта является поводом для бана.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            </div>
-          </div>
-
-          <div class="st-card rule-sec" id="sec-3">
-            <div class="st-card-hdr"><span>3. Аккаунт</span><span class="sec-tag">IDENTITY // 03</span></div>
-            <div class="rule-body">
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">3.1</span><div class="r-text"><strong>Ник не должен содержать:</strong></div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.1</span><div class="r-text">Мата, скрытого мата, унижений, оскорблений;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.2</span><div class="r-text">Схожесть с названием других проектов/чит клиентов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.3</span><div class="r-text">Схожесть с Администраторами, Ютуберами проекта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.4</span><div class="r-text">Схожесть с никами пользователей из ЧС Проекта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">3.2</span><div class="r-text">Запрещается предоставлять свой аккаунт другим людям;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">3.3</span><div class="r-text">Ответственность несет владелец аккаунта, независимо от того, кто совершал действия под данным аккаунтом;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">3.4</span><div class="r-text">Запрещена продажа/передача аккаунтов, продажа привилегий;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">3.5</span><div class="r-text">Донат невозможно перенести на другой аккаунт.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            </div>
-          </div>
-
-          <div class="st-card rule-sec" id="sec-4">
-            <div class="st-card-hdr"><span>4. Игровые правила</span><span class="sec-tag">GAMEPLAY // 04</span></div>
-            <div class="rule-body">
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.1</span><div class="r-text">Запрещено мошенничество, обман администрации;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.2</span><div class="r-text">Запрещено продавать/покупать у игроков игровые ценности за реальную валюту;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.3</span><div class="r-text">Запрещено пользоваться всем, что упрощает процесс игры, а именно:</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row sub"><div class="rule-main"><span class="r-badge">4.3.1</span><div class="r-text">Сторонними программами, читами, кликерами, автоматизациями и некоторыми модами (Кроме разрешенных пунктом 4.4);</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.4</span><div class="r-text">Список разрешённых (61) и запрещённых (66) модификаций во вкладке <a href="#" onclick="switchView('mods');return false;" style="color:var(--cyan);font-weight:700;">Модификации</a>.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.5</span><div class="r-text">На сервере допускается одновременное использование не более 4 аккаунтов включительно на всех игровых режимах.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row sub"><div class="rule-main"><span class="r-badge">4.5.1</span><div class="r-text">Запрещено как-либо помогать, укрывать нарушителя или способствовать в его неправомерных действиях;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.6</span><div class="r-text">Запрещено играть на проекте, если Ваши аккаунты были неоднократно блокированы пунктом 1.4 и его подпунктам;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.7</span><div class="r-text">Запрещено вызывание неполадок в работе сервера или попытки обрушить сервер, путем специально вызванных лагов или подобного;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.8</span><div class="r-text">Запрещено выдавать себя за Администрацию, устанавливать ники похожие на Администрацию или их префиксы;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.9</span><div class="r-text">Запрещено использование/скрытие багов/недоработок сервера;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.10</span><div class="r-text">Запрещено играть/взаимодействовать и помогать на режиме с игроками в количестве больше, чем разрешено на режиме.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.11</span><div class="r-text">Запрещено строительство половых органов, нацистских символик, лавакастов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.12</span><div class="r-text">Запрещено подстрекать третьих лиц на нарушение правил;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.13</span><div class="r-text">Запрещён намеренный таргетинг официальных медийных лиц проекта. Умышленная помеха съемки игрового контента/слив игровых никнеймов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            </div>
-          </div>
-
-          <div class="st-card rule-sec" id="sec-5">
-            <div class="st-card-hdr"><span>5. Правила проверки ПО</span><span class="sec-tag">SECURITY // 05</span></div>
-            <div class="rule-body">
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">5.1</span><div class="r-text">Вы обязаны выполнять требования Проверяющего<div class="r-info"><strong>Важно!</strong> Проверка проводится исключительно в целях поиска читов, запрещённых модификаций, программ и другого запрещённого ПО, поэтому если Проверяющий просит Вас выполнить нелогичные для проверки действия, например: включить веб-камеру, дать ему ресурсы — отключайтесь от проверки и срочно сообщите об этом Администрации.</div></div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">5.2</span><div class="r-text">Данный свод правил не окончателен и может изменяться в зависимости от требований Проверяющего;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">5.3</span><div class="r-text">Следите за чатом во время проверки, если Вы не увидели/проигнорировали сообщение от Проверяющего, это не будет расцениваться поводом для разблокировки аккаунта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">5.4</span><div class="r-text">В случае если у Вас возникли непредвиденные обстоятельства, необходимо обязательно сообщить об этом Проверяющему;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">5.5</span><div class="r-text">Запрещается препятствовать проведению проверки: долго открывать папки, задавать неуместные вопросы, оскорблять/унижать Проверяющего, игнорировать его требования и так далее;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">5.6</span><div class="r-text">Во время проверки запрещается удалять какие-либо файлы с Вашего ПК, в том числе очищать корзину;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">5.7</span><div class="r-text">Во время проверки запрещается выходить из Minecraft, также не забывайте, «крашнул майн», «был в афк» — не расцениваются как повод для разблокировки аккаунта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">5.8</span><div class="r-text">Запрещается снимать ход проверки, исключение: личное разрешение Проверяющего;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">5.9</span><div class="r-text">Проверяющий имеет право попросить Вас установить программы для эффективного и быстрого проведения проверки.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            </div>
-          </div>
-
-          <div class="st-card rule-sec" id="sec-6">
-            <div class="st-card-hdr"><span>6. Платные услуги</span><span class="sec-tag">BILLING // 06</span></div>
-            <div class="rule-body">
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">6.1</span><div class="r-text">Попытки махинаций оплатами, или ввод Администрации в заблуждение наказываются баном без возврата средств;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">6.2</span><div class="r-text">Предоставьте чек оплаты, если хотите написать Администрации о пропаже, непоявлении доната после покупки. Без данного подтверждения администрация вправе отказать Вам в предоставлении купленной услуги;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-              <div class="rule-row"><div class="rule-main"><span class="r-badge">6.3</span><div class="r-text">Администрация не обязана предоставлять доказательства нарушений донатера у которого сняли привилегию за нарушение выше указанных правил.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            </div>
-          </div>
-
+          <div id="rulesMount"></div>
           <div class="rule-pager" id="rulePager"><button class="p-btn" id="prevRuleBtn" style="visibility:hidden;" onclick="stepRuleSec(-1)">← Предыдущий раздел</button><button class="p-btn primary" id="nextRuleBtn" onclick="stepRuleSec(1)">Следующий раздел →</button></div>
           <div class="r-alert"><strong>Примечание:</strong> За многочисленное и постоянное нарушение пунктов 4.3 и 4.4 настоящих правил мы вправе полностью обнулить все Ваши аккаунты.</div>
         </div>
-
         <aside class="sb-sticky">
           <div class="st-card hud-corners"><div class="st-card-hdr">⭐ Избранные пункты</div><div class="sb-body" id="favRulesBox" style="color:var(--mut);font-size:12.5px;">Нажмите ⭐ на любом правиле, чтобы закрепить его здесь.</div></div>
           <div class="st-card"><div class="st-card-hdr">Готовность к игре</div><div class="sb-body"><div class="ready-list"><label class="ready-chk"><input type="checkbox" onchange="updateReadyBar()"> Ник без нарушений (п. 3.1)</label><label class="ready-chk"><input type="checkbox" onchange="updateReadyBar()"> Не более 4 аккаунтов (п. 4.5)</label><label class="ready-chk"><input type="checkbox" onchange="updateReadyBar()"> Моды проверены (п. 4.4)</label><label class="ready-chk"><input type="checkbox" onchange="updateReadyBar()"> Чек оплаты сохранён (п. 6.2)</label></div><div class="ready-bar"><div class="ready-fill" id="readyFill"></div></div></div></div>
@@ -803,19 +575,13 @@
     <div class="modal wide ai-frame">
       <button class="m-close" onclick="closeAccountModal()">✕</button>
       <div style="font-size:11px;font-weight:800;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;font-family:var(--mono);margin-bottom:10px;">NEWTIME // PROFILE</div>
-      <div class="acc-tabs">
-        <button class="subtab-btn act" style="justify-content:center;padding:8px;" id="accTabProfile" onclick="switchAccTab('profile')">Профиль</button>
-        <button class="subtab-btn" style="justify-content:center;padding:8px;" id="accTabAuth" onclick="switchAccTab('auth')">Вход / Рег</button>
-        <button class="subtab-btn" style="justify-content:center;padding:8px;" id="accTabLog" onclick="switchAccTab('log')">Пользователи</button>
-      </div>
+      <div class="acc-tabs"><button class="subtab-btn act" style="justify-content:center;padding:8px;" id="accTabProfile" onclick="switchAccTab('profile')">Профиль</button><button class="subtab-btn" style="justify-content:center;padding:8px;" id="accTabAuth" onclick="switchAccTab('auth')">Вход / Рег</button><button class="subtab-btn" style="justify-content:center;padding:8px;" id="accTabLog" onclick="switchAccTab('log')">Пользователи</button></div>
       <div id="accPaneProfile"><div id="accLoggedBox"></div></div>
       <div id="accPaneAuth" style="display:none;">
         <div style="display:flex;gap:8px;margin-bottom:12px;"><button class="rf-btn act" id="authModeReg" onclick="setAuthMode('reg')">Создать аккаунт</button><button class="rf-btn" id="authModeLog" onclick="setAuthMode('log')">Войти</button></div>
-        <label style="font-size:12px;color:var(--mut);font-weight:600;">Логин на сайте:</label>
-        <input type="text" id="authLogin" class="m-inp" placeholder="Например: ProAnarchist">
+        <label style="font-size:12px;color:var(--mut);font-weight:600;">Логин на сайте:</label><input type="text" id="authLogin" class="m-inp" placeholder="Например: ProAnarchist">
         <div id="authNickWrap"><label style="font-size:12px;color:var(--mut);font-weight:600;">Игровой ник Minecraft (1.21.4+):</label><input type="text" id="authMcNick" class="m-inp" placeholder="Например: Steve_228"></div>
-        <label style="font-size:12px;color:var(--mut);font-weight:600;">Пароль (не используйте пароль от сервера!):</label>
-        <input type="password" id="authPass" class="m-inp" placeholder="Минимум 4 символа">
+        <label style="font-size:12px;color:var(--mut);font-weight:600;">Пароль (не используйте пароль от сервера!):</label><input type="password" id="authPass" class="m-inp" placeholder="Минимум 4 символа">
         <button class="buy-btn" style="width:100%;" id="authSubmitBtn" onclick="submitAuth()">СОЗДАТЬ АККАУНТ</button>
       </div>
       <div id="accPaneLog" style="display:none;">
@@ -826,7 +592,7 @@
     </div>
   </div>
 
-  <!-- РАСШИРЕННЫЕ НАСТРОЙКИ -->
+  <!-- НАСТРОЙКИ -->
   <div class="modal-bg" id="settingsBg" onclick="if(event.target===this) closeSettings()">
     <div class="modal settings-wide ai-frame">
       <button class="m-close" onclick="closeSettings()">✕</button>
@@ -843,201 +609,200 @@
   <div class="toast" id="toast">Скопировано!</div>
 
   <script>
-    const WORKER_URL   = "https://newtime-bot.ВАШ-НИК.workers.dev";
+    const WORKER_URL = "https://newtime-bot.ВАШ-НИК.workers.dev";
     const BOT_USERNAME = "newtime_donate_bot";
     const SBP_FALLBACK = "Напишите в @newtime_tg для оплаты по СБП";
 
     const ranks = [
-      { id: "baron", name: "Барон", color: "#84FF00", prefix: "[Барон]", homes: 1, regs: 3, auc: 6, tp: "7 сек", fly: false, fix: "—", exp: "0%", tier: 1, pvp: 25, eco: 30, comf: 25, p30: 5, p90: 12, pFor: 25,
-        cmds: [{ c: "/kit baron", d: "Стартовый набор" }, { c: "/salary", d: "Зарплата 100.000$" }, { c: "/near 105м", d: "Поиск игроков рядом (кд 2м 30с)" }],
-        other: [["Точек домов", "1 дом"], ["Регионов", "3 блока привата"], ["Слотов Аукциона", "6"], ["Задержка телепорта", "7 сек"], ["Особенности", "Базовые привилегии"]] },
-      { id: "fighter", name: "Боец", color: "#FF7700", prefix: "[Боец]", homes: 2, regs: 3, auc: 7, tp: "6 сек", fly: false, fix: "—", exp: "0%", tier: 2, pvp: 32, eco: 35, comf: 32, p30: 10, p90: 22, pFor: 45,
-        cmds: [{ c: "/kit fighter", d: "Боевой набор" }, { c: "/dchat | /suicide", d: "Донат-чат и самоубийство" }, { c: "/near 110м", d: "Поиск игроков рядом (кд 2м 20с)" }],
-        other: [["Точек домов", "2 дома"], ["Регионов", "3 блока привата"], ["Слоты Аукциона", "7"], ["Задержка телепорта", "6 сек"], ["Особенности", "Все права ранга Барон"]] },
-      { id: "guardian", name: "Страж", color: "#7C4DFF", prefix: "[Страж]", homes: 2, regs: 4, auc: 8, tp: "5 сек", fly: false, fix: "—", exp: "0%", tier: 3, pvp: 40, eco: 42, comf: 45, p30: 15, p90: 35, pFor: 69,
-        cmds: [{ c: "/kit guardian", d: "Защитный кит" }, { c: "/stonecutter | /anvil | /hat | /craft", d: "Камнерез, наковальня, верстак" }, { c: "/near 120м", d: "Поиск игроков рядом (кд 2м 10с)" }],
-        other: [["Точек домов", "2 дома"], ["Регионов", "4 блока привата"], ["Слоты Аукциона", "8"], ["Задержка телепорта", "5 сек"], ["Особенности", "Иммунитет к яду пещерных пауков"]] },
-      { id: "knight", name: "Рыцарь", color: "#FF4081", prefix: "[Рыцарь]", homes: 3, regs: 5, auc: 9, tp: "5 сек", fly: false, fix: "—", exp: "0%", tier: 4, pvp: 48, eco: 48, comf: 55, p30: 25, p90: 59, pFor: 109,
-        cmds: [{ c: "/kit knight", d: "Рыцарский кит" }, { c: "/ec | /condense | /clear | /me", d: "Эндер-сундук, сжатие и очистка" }, { c: "/eext (1м) | /feed и /heal (2м)", d: "Тушение, еда и здоровье" }, { c: "/near 130м", d: "Поиск игроков рядом (кд 1м 50с)" }],
-        other: [["Точек домов", "3 дома"], ["Регионов", "5 блоков привата"], ["Слоты Аукциона", "9"], ["Задержка телепорта", "5 сек"], ["Особенности", "Иммунитет к иссушению"]] },
-      { id: "berserk", name: "Берсерк", color: "#FF0033", prefix: "[Берсерк]", homes: 4, regs: 5, auc: 10, tp: "4 сек", fly: false, fix: "—", exp: "25%", tier: 5, pvp: 58, eco: 54, comf: 62, p30: 39, p90: 89, pFor: 169,
-        cmds: [{ c: "/kit berserk", d: "Топор и зелья" }, { c: "/back | /ad | /buy | /name", d: "Возврат, объявления и имя" }, { c: "/near 140м", d: "Поиск игроков рядом (кд 1м 25с)" }],
-        other: [["Точек домов", "4 дома"], ["Регионов", "5 блоков привата"], ["Слоты Аукциона", "10"], ["Задержка телепорта", "4 сек"], ["Особенности", "Сохранение 25% опыта • Цветной чат"]] },
-      { id: "champion", name: "Чемпион", color: "#F72585", prefix: "[Чемпион]", homes: 4, regs: 6, auc: 11, tp: "4 сек", fly: false, fix: "—", exp: "25%", tier: 6, pvp: 65, eco: 60, comf: 68, p30: 55, p90: 125, pFor: 229,
-        cmds: [{ c: "/kit champion", d: "Набор чемпиона" }, { c: "/smithtable | /feed и /heal (1м 30с)", d: "Стол кузнеца, еда и здоровье" }, { c: "/near 145м", d: "Поиск игроков рядом (кд 1м 10с)" }],
-        other: [["Точек домов", "4 дома"], ["Регионов", "6 блоков привата"], ["Слоты Аукциона", "11"], ["Задержка телепорта", "4 сек"], ["Особенности", "Префикс Чемпиона в чате и TAB"]] },
-      { id: "milord", name: "Милорд", color: "#FF85A1", prefix: "[Милорд]", homes: 4, regs: 7, auc: 12, tp: "4 сек", fly: false, fix: "3 вещи", exp: "25%", tier: 7, pvp: 72, eco: 68, comf: 75, p30: 75, p90: 169, pFor: 299,
-        cmds: [{ c: "/kit milord", d: "Незерит и яблоки" }, { c: "/time | /weather | /loom | /firework", d: "Погода, время и фейерверки" }, { c: "/name цветной | /fix 3 вещи (2ч)", d: "Починка и цветное имя" }, { c: "/near 150м", d: "Поиск игроков рядом (кд 1м)" }],
-        other: [["Точек домов", "4 дома"], ["Регионов", "7 блоков привата"], ["Слоты Аукциона", "12"], ["Задержка телепорта", "4 сек"], ["Особенности", "Вход на полный сервер"]] },
-      { id: "duke", name: "Герцог", color: "#C77DFF", prefix: "[Герцог]", homes: 4, regs: 8, auc: 13, tp: "3 сек", fly: false, fix: "all (2ч)", exp: "65%", tier: 8, pvp: 80, eco: 76, comf: 82, p30: 99, p90: 219, pFor: 399,
-        cmds: [{ c: "/kit duke", d: "Броня Герцога" }, { c: "/repair all (кд 2ч) | /feed и /heal (1м 15с)", d: "Починка всех вещей, еда и здоровье" }, { c: "/near 158м", d: "Поиск игроков рядом (кд 50с)" }],
-        other: [["Точек домов", "4 дома"], ["Регионов", "8 блоков привата"], ["Слоты Аукциона", "13"], ["Задержка телепорта", "3 сек"], ["Особенности", "Сохранение 65% опыта"]] },
-      { id: "knyaz", name: "Князь", color: "#FF9E00", prefix: "[Князь]", badge: "Выбор", homes: 5, regs: 9, auc: 15, tp: "2 сек", fly: true, fix: "9 вещей", exp: "75%", tier: 9, pvp: 88, eco: 84, comf: 90, p30: 129, p90: 289, pFor: 499,
-        cmds: [{ c: "/kit knyaz", d: "Элитры и бур 3x3" }, { c: "/jump | /afk | /fly | /speed", d: "Полёт, прыжок и скорость" }, { c: "/fix 9 вещей (3ч) | /near 165м (45с)", d: "Массовая починка и радар" }],
-        other: [["Точек домов", "5 домов"], ["Регионов", "9 блоков привата"], ["Слоты Аукциона", "15"], ["Задержка телепорта", "2 сек"], ["Особенности", "Сохранение 75% опыта"]] },
-      { id: "absolute", name: "Абсолют", color: "#FFE259", prefix: "[Абсолют]", badge: "Хит", homes: 7, regs: 12, auc: 20, tp: "0 сек", fly: true, fix: "18 вещей", exp: "100%", tier: 10, pvp: 94, eco: 92, comf: 96, p30: 169, p90: 379, pFor: 699,
-        cmds: [{ c: "/kit absolute", d: "Топ-сет" }, { c: "/salary 5.000.000$ (5ч) | /exp 25 lvl (2ч)", d: "Крупная зарплата и опыт" }, { c: "/msgtoggle | /paytoggle | /feeds | /heals", d: "Настройки чата и лечение" }, { c: "/fix 18 вещей (3ч 45м) | /near 175м (25с)", d: "Починка 18 вещей и радар" }],
-        other: [["Точек домов", "7 домов"], ["Регионов", "12 блоков привата"], ["Слоты Аукциона", "20"], ["Задержка телепорта", "0 сек"], ["Особенности", "Сохранение 100% опыта при смерти"]] },
-      { id: "god", name: "Бог", color: "#FF0033", prefix: "[Бог]", badge: "Топ", homes: 8, regs: 15, auc: 25, tp: "0 сек", fly: true, fix: "all (1ч)", exp: "100%", tier: 11, pvp: 100, eco: 100, comf: 100, p30: 249, p90: 549, pFor: 999,
-        cmds: [{ c: "Все честные команды сервера!", d: "Полный игровой функционал" }, { c: "/salary 15.000.000$ (3ч) | /exp 50 lvl (1ч)", d: "Максимальная зарплата и опыт" }, { c: "/fix all (кд 1ч) | /near 200м (15с)", d: "Полная починка и максимальный радар" }],
-        other: [["Точек домов", "8 домов"], ["Регионов", "15 блоков привата"], ["Слоты Аукциона", "25"], ["Задержка телепорта", "0 сек"], ["Особенности", "Максимальный статус Анархии"]] },
-      { id: "player", name: "Игрок", color: "#94a3b8", prefix: "[Игрок]", tier: 0, pvp: 15, eco: 15, comf: 15, special: true, priceLabel: "Бесплатно", from: "БЕСПЛАТНО", note: "Базовый статус каждого выживающего",
-        cmds: [{ c: "/kit player", d: "Стартовый набор" }, { c: "/salary 50.000$ | /spawn | /home | /tpa", d: "Базовые команды" }],
-        other: [["Точек домов", "1 дом"], ["Регионов", "1 блок привата"], ["Слоты Аукциона", "3"], ["Задержка телепорта", "8 сек"]] },
-      { id: "tiktok", name: "TikTok • Медиа", color: "#00E5FF", prefix: "[TikTok]", tier: 10, pvp: 92, eco: 90, comf: 95, special: true, priceLabel: "За контент", from: "МЕДИА", note: "Выдаётся за съёмку контента (тикеты Discord)",
-        cmds: [{ c: "/kit tiktok | /salary 10kk (4.5ч)", d: "Медиа-набор" }, { c: "/exp 50 lvl | /fix 22 вещи | /near 200м", d: "Расширенные возможности" }],
-        other: [["Точек домов", "10 домов"], ["Регионов", "13 блоков привата"], ["Слоты Аукциона", "20"], ["Получение", "Тикеты Discord"]] },
-      { id: "staff", name: "Staff • Модерация", color: "#38bdf8", prefix: "[Staff]", tier: 11, pvp: 95, eco: 95, comf: 100, special: true, priceLabel: "Набор", from: "ПЕРСОНАЛ", note: "Набор в команду открыт в Discord",
-        cmds: [{ c: "/kit staff | /salary 15kk | /exp 75 lvl", d: "Набор персонала" }, { c: "/spec | /revise | /push | /ban | /mute", d: "Модерация" }],
-        other: [["Должность", "Модерация сервера"], ["Радар", "/near 215м (кд 15с)"]] },
-      { id: "admin", name: "Admin • Владелец", color: "#ef4444", prefix: "[Admin]", tier: 11, pvp: 100, eco: 100, comf: 100, special: true, priceLabel: "xFrizzy", from: "ВЛАДЕЛЕЦ", note: "Статус Создателя закреплён за xFrizzy",
-        cmds: [{ c: "/kit admin | /salary 30kk | /exp 100 lvl", d: "Права основателя" }, { c: "/near 250м (5с) | Полный доступ", d: "Управление" }],
-        other: [["Создатель сервера", "xFrizzy"], ["Режим", "Cyan Anarchy 1.21.4+"]] }
+      { id:"baron", name:"Барон", color:"#84FF00", prefix:"[Барон]", homes:1, regs:3, auc:6, tp:"7 сек", fly:false, fix:"—", exp:"0%", tier:1, pvp:25, eco:30, comf:25, p30:5, p90:12, pFor:25, cmds:[{c:"/kit baron",d:"Стартовый набор"},{c:"/salary",d:"Зарплата 100.000$"},{c:"/near 105м",d:"Поиск игроков рядом (кд 2м 30с)"}], other:[["Точек домов","1 дом"],["Регионов","3 блока привата"],["Слотов Аукциона","6"],["Задержка ТП","7 сек"],["Особенности","Базовые привилегии"]] },
+      { id:"fighter", name:"Боец", color:"#FF7700", prefix:"[Боец]", homes:2, regs:3, auc:7, tp:"6 сек", fly:false, fix:"—", exp:"0%", tier:2, pvp:32, eco:35, comf:32, p30:10, p90:22, pFor:45, cmds:[{c:"/kit fighter",d:"Боевой набор"},{c:"/dchat | /suicide",d:"Донат-чат и самоубийство"},{c:"/near 110м",d:"Поиск игроков рядом (кд 2м 20с)"}], other:[["Точек домов","2 дома"],["Регионов","3 блока привата"],["Слотов Аукциона","7"],["Задержка ТП","6 сек"],["Особенности","Все права ранга Барон"]] },
+      { id:"guardian", name:"Страж", color:"#7C4DFF", prefix:"[Страж]", homes:2, regs:4, auc:8, tp:"5 сек", fly:false, fix:"—", exp:"0%", tier:3, pvp:40, eco:42, comf:45, p30:15, p90:35, pFor:69, cmds:[{c:"/kit guardian",d:"Защитный кит"},{c:"/stonecutter | /anvil | /hat | /craft",d:"Камнерез, наковальня, верстак"},{c:"/near 120м",d:"Поиск игроков рядом (кд 2м 10с)"}], other:[["Точек домов","2 дома"],["Регионов","4 блока привата"],["Слотов Аукциона","8"],["Задержка ТП","5 сек"],["Особенности","Иммунитет к яду пещерных пауков"]] },
+      { id:"knight", name:"Рыцарь", color:"#FF4081", prefix:"[Рыцарь]", homes:3, regs:5, auc:9, tp:"5 сек", fly:false, fix:"—", exp:"0%", tier:4, pvp:48, eco:48, comf:55, p30:25, p90:59, pFor:109, cmds:[{c:"/kit knight",d:"Рыцарский кит"},{c:"/ec | /condense | /clear | /me",d:"Эндер-сундук, сжатие и очистка"},{c:"/eext (1м) | /feed и /heal (2м)",d:"Тушение, еда и здоровье"},{c:"/near 130м",d:"Поиск игроков рядом (кд 1м 50с)"}], other:[["Точек домов","3 дома"],["Регионов","5 блоков привата"],["Слотов Аукциона","9"],["Задержка ТП","5 сек"],["Особенности","Иммунитет к иссушению"]] },
+      { id:"berserk", name:"Берсерк", color:"#FF0033", prefix:"[Берсерк]", homes:4, regs:5, auc:10, tp:"4 сек", fly:false, fix:"—", exp:"25%", tier:5, pvp:58, eco:54, comf:62, p30:39, p90:89, pFor:169, cmds:[{c:"/kit berserk",d:"Топор и зелья"},{c:"/back | /ad | /buy | /name",d:"Возврат, объявления и имя"},{c:"/near 140м",d:"Поиск игроков рядом (кд 1м 25с)"}], other:[["Точек домов","4 дома"],["Регионов","5 блоков привата"],["Слотов Аукциона","10"],["Задержка ТП","4 сек"],["Особенности","Сохранение 25% опыта • Цветной чат"]] },
+      { id:"champion", name:"Чемпион", color:"#F72585", prefix:"[Чемпион]", homes:4, regs:6, auc:11, tp:"4 сек", fly:false, fix:"—", exp:"25%", tier:6, pvp:65, eco:60, comf:68, p30:55, p90:125, pFor:229, cmds:[{c:"/kit champion",d:"Набор чемпиона"},{c:"/smithtable | /feed и /heal (1м 30с)",d:"Стол кузнеца, еда и здоровье"},{c:"/near 145м",d:"Поиск игроков рядом (кд 1м 10с)"}], other:[["Точек домов","4 дома"],["Регионов","6 блоков привата"],["Слотов Аукциона","11"],["Задержка ТП","4 сек"],["Особенности","Префикс Чемпиона в чате и TAB"]] },
+      { id:"milord", name:"Милорд", color:"#FF85A1", prefix:"[Милорд]", homes:4, regs:7, auc:12, tp:"4 сек", fly:false, fix:"3 вещи", exp:"25%", tier:7, pvp:72, eco:68, comf:75, p30:75, p90:169, pFor:299, cmds:[{c:"/kit milord",d:"Незерит и яблоки"},{c:"/time | /weather | /loom | /firework",d:"Погода, время и фейерверки"},{c:"/name цветной | /fix 3 вещи (2ч)",d:"Починка и цветное имя"},{c:"/near 150м",d:"Поиск игроков рядом (кд 1м)"}], other:[["Точек домов","4 дома"],["Регионов","7 блоков привата"],["Слотов Аукциона","12"],["Задержка ТП","4 сек"],["Особенности","Вход на полный сервер"]] },
+      { id:"duke", name:"Герцог", color:"#C77DFF", prefix:"[Герцог]", homes:4, regs:8, auc:13, tp:"3 сек", fly:false, fix:"all (2ч)", exp:"65%", tier:8, pvp:80, eco:76, comf:82, p30:99, p90:219, pFor:399, cmds:[{c:"/kit duke",d:"Броня Герцога"},{c:"/repair all (кд 2ч) | /feed и /heal (1м 15с)",d:"Починка всех вещей, еда и здоровье"},{c:"/near 158м",d:"Поиск игроков рядом (кд 50с)"}], other:[["Точек домов","4 дома"],["Регионов","8 блоков привата"],["Слотов Аукциона","13"],["Задержка ТП","3 сек"],["Особенности","Сохранение 65% опыта"]] },
+      { id:"knyaz", name:"Князь", color:"#FF9E00", prefix:"[Князь]", badge:"Выбор", homes:5, regs:9, auc:15, tp:"2 сек", fly:true, fix:"9 вещей", exp:"75%", tier:9, pvp:88, eco:84, comf:90, p30:129, p90:289, pFor:499, cmds:[{c:"/kit knyaz",d:"Элитры и бур 3x3"},{c:"/jump | /afk | /fly | /speed",d:"Полёт, прыжок и скорость"},{c:"/fix 9 вещей (3ч) | /near 165м (45с)",d:"Массовая починка и радар"}], other:[["Точек домов","5 домов"],["Регионов","9 блоков привата"],["Слотов Аукциона","15"],["Задержка ТП","2 сек"],["Особенности","Сохранение 75% опыта"]] },
+      { id:"absolute", name:"Абсолют", color:"#FFE259", prefix:"[Абсолют]", badge:"Хит", homes:7, regs:12, auc:20, tp:"0 сек", fly:true, fix:"18 вещей", exp:"100%", tier:10, pvp:94, eco:92, comf:96, p30:169, p90:379, pFor:699, cmds:[{c:"/kit absolute",d:"Топ-сет"},{c:"/salary 5.000.000$ (5ч) | /exp 25 lvl (2ч)",d:"Крупная зарплата и опыт"},{c:"/msgtoggle | /paytoggle | /feeds | /heals",d:"Настройки чата и лечение"},{c:"/fix 18 вещей (3ч 45м) | /near 175м (25с)",d:"Починка 18 вещей и радар"}], other:[["Точек домов","7 домов"],["Регионов","12 блоков привата"],["Слотов Аукциона","20"],["Задержка ТП","0 сек"],["Особенности","Сохранение 100% опыта при смерти"]] },
+      { id:"god", name:"Бог", color:"#FF0033", prefix:"[Бог]", badge:"Топ", homes:8, regs:15, auc:25, tp:"0 сек", fly:true, fix:"all (1ч)", exp:"100%", tier:11, pvp:100, eco:100, comf:100, p30:249, p90:549, pFor:999, cmds:[{c:"Все честные команды сервера!",d:"Полный игровой функционал"},{c:"/salary 15.000.000$ (3ч) | /exp 50 lvl (1ч)",d:"Максимальная зарплата и опыт"},{c:"/fix all (кд 1ч) | /near 200м (15с)",d:"Полная починка и максимальный радар"}], other:[["Точек домов","8 домов"],["Регионов","15 блоков привата"],["Слотов Аукциона","25"],["Задержка ТП","0 сек"],["Особенности","Максимальный статус Анархии"]] },
+      { id:"player", name:"Игрок", color:"#94a3b8", prefix:"[Игрок]", tier:0, pvp:15, eco:15, comf:15, special:true, priceLabel:"Бесплатно", from:"БЕСПЛАТНО", note:"Базовый статус каждого выживающего", cmds:[{c:"/kit player",d:"Стартовый набор"},{c:"/salary 50.000$ | /spawn | /home | /tpa",d:"Базовые команды"}], other:[["Точек домов","1 дом"],["Регионов","1 блок привата"],["Слотов Аукциона","3"],["Задержка ТП","8 сек"]] },
+      { id:"tiktok", name:"TikTok • Медиа", color:"#00E5FF", prefix:"[TikTok]", tier:10, pvp:92, eco:90, comf:95, special:true, priceLabel:"За контент", from:"МЕДИА", note:"Выдаётся за съёмку контента (тикеты Discord)", cmds:[{c:"/kit tiktok | /salary 10kk (4.5ч)",d:"Медиа-набор"},{c:"/exp 50 lvl | /fix 22 вещи | /near 200м",d:"Расширенные возможности"}], other:[["Точек домов","10 домов"],["Регионов","13 блоков привата"],["Слотов Аукциона","20"],["Получение","Тикеты Discord"]] },
+      { id:"staff", name:"Staff • Модерация", color:"#38bdf8", prefix:"[Staff]", tier:11, pvp:95, eco:95, comf:100, special:true, priceLabel:"Набор", from:"ПЕРСОНАЛ", note:"Набор в команду открыт в Discord", cmds:[{c:"/kit staff | /salary 15kk | /exp 75 lvl",d:"Набор персонала"},{c:"/spec | /revise | /push | /ban | /mute",d:"Модерация"}], other:[["Должность","Модерация сервера"],["Радар","/near 215м (кд 15с)"]] },
+      { id:"admin", name:"Admin • Владелец", color:"#ef4444", prefix:"[Admin]", tier:11, pvp:100, eco:100, comf:100, special:true, priceLabel:"xFrizzy", from:"ВЛАДЕЛЕЦ", note:"Статус Создателя закреплён за xFrizzy", cmds:[{c:"/kit admin | /salary 30kk | /exp 100 lvl",d:"Права основателя"},{c:"/near 250м (5с) | Полный доступ",d:"Управление"}], other:[["Создатель сервера","xFrizzy"],["Режим","Cyan Anarchy 1.21.4+"]] }
     ];
 
-    // РЕАЛЬНЫЕ ПРЕДМЕТЫ, БАФФЫ, СФЕРЫ, ТАЛИСМАНЫ И ЗЕЛЬЯ С ВАШИХ СКРИНШОТОВ
     const customItems = [
-      { cat: "ability", name: "✦ ШОК-СФЕРА [ПКМ]", clr: "#818cf8", lore: "Каст: Звуковая волна (10 блоков)", stats: [["Иссушение III (00:10), Утомление V (00:05)", "neg"], ["Слепота II (00:03), Тошнота (00:03)", "neg"], ["Активируется всегда вне спавна | КД: 60с", "gold"]] },
-      { cat: "ability", name: "✦ КЛЕТКА [ПКМ]", clr: "#00e5ff", lore: "Каст: Нерушимая клетка", stats: [["Длительность: 15 секунд | КД: 30с", "pos"], ["Скины: /ts (/trapskin)", "pos"]] },
-      { cat: "ability", name: "✦ МОНОЛИТ [ПКМ]", clr: "#38bdf8", lore: "Каст: Стена 5x5x2 (Дракон 7x7x2, 8 напр.)", stats: [["Вертикальный: 20–30 секунд", "pos"], ["Горизонтальный: 60 секунд | КД: 20с", "gold"]] },
-      { cat: "ability", name: "✦ КРИО-СНЕЖОК [БРОСОК]", clr: "#38bdf8", lore: "Каст: Ледяная сфера (7 блоков)", stats: [["Заморозка (00:01) всем в зоне", "neg"], ["Замедление VI (00:06), Слабость I (01:30)", "neg"], ["КД: 3с", "gold"]] },
-      { cat: "ability", name: "✦ АУРА НЕБЕС [ПКМ]", clr: "#2dd4bf", lore: "Каст: Божественная аура (4 блока)", stats: [["Снятие всех эффектов", "ok"], ["Невидимость (04:00), Сила II и Скорость II (03:00)", "pos"], ["Для себя и союзников (4м) | КД: 5с", "gold"]] },
-      { cat: "ability", name: "✦ ВСПЫШКА [ПКМ]", clr: "#facc15", lore: "Каст: Световая волна (10 блоков)", stats: [["Снимает Невидимость + Свечение II (до 00:30)", "neg"], ["Слепота (00:01) | КД: 25с", "gold"]] },
-
-      { cat: "talisman", gold: true, name: "Талисман Крушителя", clr: "#ef4444", lore: "Легендарный символ. Несокрушимая мощь, ломающая преграды.", stats: [["+4 Максимальное здоровье", "pos"], ["+5 Урон при атаке", "pos"], ["+3 Броня • +3 Твёрдость брони", "pos"]] },
-      { cat: "talisman", gold: true, name: "[★] Талисман Вихря", clr: "#f97316", lore: "Вихрь не знает покоя, ускоряя владельца и закаляя его дух.", stats: [["+2 Максимальное здоровье", "pos"], ["+15% Скорость передвижения", "pos"], ["+15% Скорость атаки", "pos"]] },
-      { cat: "talisman", gold: true, name: "[★] Талисман Карателя", clr: "#e11d48", lore: "Несёт строгий приговор, карая всех врагов, но ослабляя тело.", stats: [["+7 Урон при атаке", "pos"], ["-4 Максимальное здоровье", "neg"]] },
-      { cat: "talisman", gold: true, name: "[★] Талисман Раздора", clr: "#f59e0b", lore: "Раздор жаждет хаоса, даруя безумный темп, но разрушая броню.", stats: [["+4 Урон при атаке • +2 Макс. здоровье", "pos"], ["+10% Скорость передвижения • +10% Скорость атаки", "pos"], ["-3 Броня", "neg"]] },
-
-      { cat: "sphere", gold: true, name: "[★] Сфера Эрида", clr: "#f59e0b", lore: "Холод Эриды вечен, приносит удачу в бою, укрепляя дух и тело.", stats: [["+1 Удача • +2 Максимальное здоровье", "pos"], ["+1 Дальность взаимодействия", "pos"]] },
-      { cat: "sphere", gold: true, name: "[★] Сфера Гидры", clr: "#f59e0b", lore: "Живучесть темных глубин оберегает хозяина, даруя силы в воде.", stats: [["+4 Максимальное здоровье • +2 Броня", "pos"], ["+50% Скорость подводной добычи • +50% Кислород", "pos"]] },
-      { cat: "sphere", gold: true, name: "[★] Сфера Ареса", clr: "#f59e0b", lore: "Дух Ареса пылает внутри, даруя мощь в атаке, но требуя жертв.", stats: [["+6 Урон при атаке", "pos"], ["-2 Броня • -2 Максимальное здоровье", "neg"]] },
-      { cat: "sphere", gold: true, name: "[★] Сфера Хаоса", clr: "#f59e0b", lore: "Хаос искажает реальность, усиливая ваш натиск ценой жизненных сил.", stats: [["+7% Скорость • +13% Скорость атаки", "pos"], ["+1.5 Броня • +2.5 Урон при атаке", "pos"], ["-4 Макс. здоровье • -15% Сила прыжка", "neg"]] },
-      { cat: "sphere", gold: true, name: "[★] Сфера Бестии", clr: "#ef4444", lore: "Звериная дикая мощь обостряет реакции, укрепляя ваше тело.", stats: [["+1 Броня • +4 Максимальное здоровье", "pos"], ["+10% Скорость передвижения • +10% Скорость атаки", "pos"]] },
-
-      { cat: "potion", name: "✦ ЗЕЛЬЕ СИЛЫ И СКОРОСТИ", clr: "#f43f5e", lore: "Сила III (03:00) • Скорость III (03:00)", stats: [["+9 Урон при атаке • Скорость: +60%", "pos"], ["Выпейте зелье для баффа!", "ok"]] },
-      { cat: "potion", name: "✦ ЗЕЛЬЕ ИСЦЕЛЕНИЯ И РЕГЕНА", clr: "#ec4899", lore: "Исцеление II • Регенерация II (00:30)", stats: [["Лечение II (+4♥) | Регенерация II (30с)", "pos"], ["Выпейте зелье для лечения!", "ok"]] },
-      { cat: "potion", name: "Зелье невидимости", clr: "#cbd5e1", lore: "Невидимость (08:00)", stats: [["Дальность передачи маркера: -100%", "neg"]] },
-      { cat: "potion", gold: true, name: "[★] Зелье Радиации", clr: "#a3e635", lore: "Взрывное зелье дебаффов", stats: [["Отравление II (1м), Иссушение II (1м), Голод V (1м)", "neg"], ["Замедление III (1:30), Свечение (2м) • Скорость: -45%", "neg"]] },
-      { cat: "potion", gold: true, name: "[★] Святая вода", clr: "#facc15", lore: "Реген II (00:45), Инвиз II (10:00), Исцеление II", stats: [["Дальность передачи маркера: -200%", "neg"]] },
-      { cat: "potion", gold: true, name: "[★] Зелье Ассасина", clr: "#ef4444", lore: "Сила IV (1м), Скорость III (5м), Спешка (1м), Момент. урон II", stats: [["+12 Урон при атаке • Скорость +60% • Атака +10%", "pos"]] },
-      { cat: "potion", gold: true, name: "[★] Зелье Палладина", clr: "#a3e635", lore: "Сопротивление (10м), Огнестой (10м), Прилив здоровья III (1м), Инвиз (15м)", stats: [["+12 Максимальное здоровье", "pos"], ["Дальность передачи маркера: -100%", "neg"]] },
-      { cat: "potion", name: "Бирюзовый мешок", clr: "#00e5ff", lore: "minecraft:cyan_bundle • Полный", stats: [["Внутри: 4 стака (256 шт.) пузырьков опыта", "pos"]] },
-
-      { cat: "gear", gold: true, name: "Потрошитель богов", clr: "#ef4444", lore: "minecraft:netherite_sword • Топ меч", stats: [["Острота 8, Заговор огня 3, Добыча 4, Прочность 5, Починка", "pos"], ["Вампиризм II, Окисление II, Яд III, Детекция III, Опытный III (+8 урон)", "ok"]] },
-      { cat: "gear", gold: true, name: "✦ Арбалет Крушителя", clr: "#f59e0b", lore: "minecraft:crossbow", stats: [["Пронзающая стрела 5, Тройной выстрел", "pos"], ["Быстрая перезарядка 3, Прочность 3, Починка", "pos"]] },
-      { cat: "gear", name: "Незеритовый сет (Шпиль)", clr: "#38bdf8", lore: "Отделка «Шпиль» • Алмазный материал", stats: [["Все части: Защита 6, Прочность 5, Починка", "pos"], ["Шлем: Подвод. дыхание 3, Подводник • Ботинки: Невесомость 4, Подвод. ходьба 3", "ok"]] },
-      { cat: "gear", name: "[★] Стрелы (Обледенения / Мучительная / Кровавая)", clr: "#38bdf8", lore: "Кастомные PvP-стрелы 1.21.4+", stats: [["Обледенения: Замедление IX, Утомление III (-150% скорость, -30% атака)", "pos"], ["Мучительная: Замедление III, Иссушение III, Отравление III (-45% скорость)", "neg"], ["Кровавая: Слабость III, Слепота, Утомление, Тошнота (-12 урон, -10% атака)", "neg"]] }
+      { cat:"ability", name:"✦ ШОК-СФЕРА [ПКМ]", clr:"#818cf8", lore:"Каст: Звуковая волна (10 блоков)", stats:[["Иссушение III (00:10), Утомление V (00:05)","neg"],["Слепота II (00:03), Тошнота (00:03)","neg"],["Активируется всегда вне спавна | КД: 60с","gold"]] },
+      { cat:"ability", name:"✦ КЛЕТКА [ПКМ]", clr:"#00e5ff", lore:"Каст: Нерушимая клетка", stats:[["Длительность: 15 секунд | КД: 30с","pos"],["Скины: /ts (/trapskin)","pos"]] },
+      { cat:"ability", name:"✦ МОНОЛИТ [ПКМ]", clr:"#38bdf8", lore:"Каст: Стена 5x5x2 (Дракон 7x7x2, 8 напр.)", stats:[["Вертикальный: 20–30 секунд","pos"],["Горизонтальный: 60 секунд | КД: 20с","gold"]] },
+      { cat:"ability", name:"✦ КРИО-СНЕЖОК [БРОСОК]", clr:"#38bdf8", lore:"Каст: Ледяная сфера (7 блоков)", stats:[["Заморозка (00:01) всем в зоне","neg"],["Замедление VI (00:06), Слабость I (01:30)","neg"],["КД: 3с","gold"]] },
+      { cat:"ability", name:"✦ АУРА НЕБЕС [ПКМ]", clr:"#2dd4bf", lore:"Каст: Божественная аура (4 блока)", stats:[["Снятие всех эффектов","ok"],["Невидимость (04:00), Сила II и Скорость II (03:00)","pos"],["Для себя и союзников (4м) | КД: 5с","gold"]] },
+      { cat:"ability", name:"✦ ВСПЫШКА [ПКМ]", clr:"#facc15", lore:"Каст: Световая волна (10 блоков)", stats:[["Снимает Невидимость + Свечение II (до 00:30)","neg"],["Слепота (00:01) | КД: 25с","gold"]] },
+      { cat:"talisman", gold:true, name:"Талисман Крушителя", clr:"#ef4444", lore:"Легендарный символ. Несокрушимая мощь, ломающая преграды.", stats:[["+4 Максимальное здоровье","+5 Урон при атаке"].map(x=>x).join(" • "),"pos",["+3 Броня • +3 Твёрдость брони","pos"]].length ? [["+4 Максимальное здоровье • +5 Урон при атаке","pos"],["+3 Броня • +3 Твёрдость брони","pos"]] : [] },
+      { cat:"talisman", gold:true, name:"[★] Талисман Вихря", clr:"#f97316", lore:"Вихрь не знает покоя, ускоряя владельца и закаляя его дух.", stats:[["+2 Максимальное здоровье","pos"],["+15% Скорость передвижения • +15% Скорость атаки","pos"]] },
+      { cat:"talisman", gold:true, name:"[★] Талисман Карателя", clr:"#e11d48", lore:"Несёт строгий приговор, карая всех врагов, но ослабляя тело.", stats:[["+7 Урон при атаке","pos"],["-4 Максимальное здоровье","neg"]] },
+      { cat:"talisman", gold:true, name:"[★] Талисман Раздора", clr:"#f59e0b", lore:"Раздор жаждет хаоса, даруя безумный темп, но разрушая броню.", stats:[["+4 Урон при атаке • +2 Макс. здоровье","pos"],["+10% Скорость передвижения • +10% Скорость атаки","pos"],["-3 Броня","neg"]] },
+      { cat:"sphere", gold:true, name:"[★] Сфера Эрида", clr:"#f59e0b", lore:"Холод Эриды вечен, приносит удачу в бою, укрепляя дух и тело.", stats:[["+1 Удача • +2 Максимальное здоровье","pos"],["+1 Дальность взаимодействия","pos"]] },
+      { cat:"sphere", gold:true, name:"[★] Сфера Гидры", clr:"#f59e0b", lore:"Живучесть темных глубин оберегает хозяина, даруя силы в воде.", stats:[["+4 Максимальное здоровье • +2 Броня","pos"],["+50% Скорость подводной добычи • +50% Кислород","pos"]] },
+      { cat:"sphere", gold:true, name:"[★] Сфера Ареса", clr:"#f59e0b", lore:"Дух Ареса пылает внутри, даруя мощь в атаке, но требуя жертв.", stats:[["+6 Урон при атаке","pos"],["-2 Броня • -2 Максимальное здоровье","neg"]] },
+      { cat:"sphere", gold:true, name:"[★] Сфера Хаоса", clr:"#f59e0b", lore:"Хаос искажает реальность, усиливая ваш натиск ценой жизненных сил.", stats:[["+7% Скорость • +13% Скорость атаки • +1.5 Броня • +2.5 Урон","pos"],["-4 Макс. здоровье • -15% Сила прыжка","neg"]] },
+      { cat:"sphere", gold:true, name:"[★] Сфера Бестии", clr:"#ef4444", lore:"Звериная дикая мощь обостряет реакции, укрепляя ваше тело.", stats:[["+1 Броня • +4 Максимальное здоровье","pos"],["+10% Скорость передвижения • +10% Скорость атаки","pos"]] },
+      { cat:"potion", name:"✦ ЗЕЛЬЕ СИЛЫ И СКОРОСТИ", clr:"#f43f5e", lore:"Сила III (03:00) • Скорость III (03:00)", stats:[["+9 Урон при атаке • Скорость: +60%","pos"],["Выпейте зелье для баффа!","ok"]] },
+      { cat:"potion", name:"✦ ЗЕЛЬЕ ИСЦЕЛЕНИЯ И РЕГЕНА", clr:"#ec4899", lore:"Исцеление II • Регенерация II (00:30)", stats:[["Лечение II (+4♥) | Регенерация II (30с)","pos"],["Выпейте зелье для лечения!","ok"]] },
+      { cat:"potion", name:"Зелье невидимости", clr:"#cbd5e1", lore:"Невидимость (08:00)", stats:[["Дальность передачи маркера: -100%","neg"]] },
+      { cat:"potion", gold:true, name:"[★] Зелье Радиации", clr:"#a3e635", lore:"Взрывное зелье дебаффов", stats:[["Отравление II (1м), Иссушение II (1м), Голод V (1м)","neg"],["Замедление III (1:30), Свечение (2м) • Скорость: -45%","neg"]] },
+      { cat:"potion", gold:true, name:"[★] Святая вода", clr:"#facc15", lore:"Реген II (00:45), Инвиз II (10:00), Исцеление II", stats:[["Дальность передачи маркера: -200%","neg"]] },
+      { cat:"potion", gold:true, name:"[★] Зелье Ассасина", clr:"#ef4444", lore:"Сила IV (1м), Скорость III (5м), Спешка (1м), Момент. урон II", stats:[["+12 Урон при атаке • Скорость +60% • Атака +10%","pos"]] },
+      { cat:"potion", gold:true, name:"[★] Зелье Палладина", clr:"#a3e635", lore:"Сопротивление (10м), Огнестой (10м), Прилив здоровья III (1м), Инвиз (15м)", stats:[["+12 Максимальное здоровье","pos"],["Дальность передачи маркера: -100%","neg"]] },
+      { cat:"potion", name:"Бирюзовый мешок", clr:"#00e5ff", lore:"minecraft:cyan_bundle • Полный", stats:[["Внутри: 4 стака (256 шт.) пузырьков опыта","pos"]] },
+      { cat:"gear", gold:true, name:"Потрошитель богов", clr:"#ef4444", lore:"minecraft:netherite_sword • Топ меч", stats:[["Острота 8, Заговор огня 3, Добыча 4, Прочность 5, Починка","pos"],["Вампиризм II, Окисление II, Яд III, Детекция III, Опытный III (+8 урон)","ok"]] },
+      { cat:"gear", gold:true, name:"✦ Арбалет Крушителя", clr:"#f59e0b", lore:"minecraft:crossbow", stats:[["Пронзающая стрела 5, Тройной выстрел","pos"],["Быстрая перезарядка 3, Прочность 3, Починка","pos"]] },
+      { cat:"gear", name:"Незеритовый сет (Шпиль)", clr:"#38bdf8", lore:"Отделка «Шпиль» • Алмазный материал", stats:[["Все части: Защита 6, Прочность 5, Починка","pos"],["Шлем: Подвод. дыхание 3, Подводник • Ботинки: Невесомость 4, Подвод. ходьба 3","ok"]] },
+      { cat:"gear", name:"[★] PvP Стрелы (3 вида)", clr:"#38bdf8", lore:"Кастомные стрелы 1.21.4+", stats:[["Обледенения: Замедление IX, Утомление III (-150% скорость, -30% атака)","pos"],["Мучительная: Замедление III, Иссушение III, Отравление III (-45% скорость)","neg"],["Кровавая: Слабость III, Слепота, Утомление, Тошнота (-12 урон, -10% атака)","neg"]] }
     ];
 
     const kitCompositions = {
-      baron:    ["Паутина x8", "Монолит x8", "Око x8", "Сахар x8", "Перья x16", "Жемчуг x16", "Аура Небес x2"],
-      fighter:  ["Огн. заряд x5", "Аура Небес x6", "Монолит x16", "Паутина x16", "Снежок x4", "Перья x32", "Жемчуг x16", "Сахар x16", "Око x16", "Яблоко x8", "Зол. яблоко x16"],
-      guardian: ["[★] Сфера Эрида", "Бирюзовый мешок (256 опыта)", "Снежок x8", "Огн. заряд x16", "Око x32", "Жемчуг x16", "Перья x32", "Зелье Силы x16", "Зелье Исцеления x16", "Морковь x32", "Сахар x32", "Монолит x48", "Паутина x48", "Пыль x48", "Аура Небес x16", "Яблоко x32", "Зол. яблоко x48"],
-      knight:   ["Бирюзовый мешок x2", "Талисман Вихря", "Сфера Эрида", "Булава", "Арбалет", "Стрелы (3 вида x32)", "Жемчуг x16", "Морковь x64", "Перья x64", "Снежок x16", "Сахар x32", "Око x32", "Монолит x32", "Паутина x32", "Зелья x32", "Зол. яблоко x64", "Аура Небес x32"],
-      milord:   ["Незеритовый сет (Защита 6, Шпиль)", "Меч + Булава + Арбалет + Кирка", "Сфера Ареса", "Талисман Вихря", "Бирюзовый мешок x2", "Стрелы (3 вида x64)", "Кристаллы / Динамит", "Зол. яблоко x64", "Аура Небес x64", "Монолит x64", "Паутина x64"],
-      duke:     ["Незеритовый сет (Защита 6, Шпиль)", "Потрошитель богов + Булава + Арбалет", "Сфера Ареса + Сфера Хаоса", "Талисман Вихря", "Бирюзовый мешок x2", "Стрелы x64", "Зелья x64", "Якори возрождения", "Кристаллы"],
-      knyaz:    ["Незеритовый сет (Защита 6, Шпиль)", "Потрошитель богов + Булава + Арбалет", "Талисман Крушителя + Вихря", "Сфера Хаоса x2 + Сфера Ареса", "Зелье Радиации + Святая вода + Ассасина + Палладина", "Бирюзовый мешок x2"],
-      god:      ["Полный Незеритовый сет (Шпиль)", "Потрошитель богов + Булава + Арбалет Крушителя", "Талисман Карателя + Крушителя + Вихря", "Сфера Хаоса x2 + Сфера Ареса", "Все эликсиры (Палладина, Ассасина, Радиация, Святая вода)", "Бирюзовый мешок x3", "Полный боекомплект x64"],
-      admin:    ["Полный Незеритовый сет (Шпиль)", "Потрошитель богов + Булава + Арбалет Крушителя", "Талисман Карателя + Раздора + Крушителя + Вихря", "Сфера Хаоса x2 + Сфера Ареса", "Все эликсиры + Мешки x4 + Стрелы x64"]
+      baron:    ["Паутина x8","Монолит x8","Око x8","Сахар x8","Перья x16","Жемчуг x16","Аура Небес x2"],
+      fighter:  ["Огн. заряд x5","Аура Небес x6","Монолит x16","Паутина x16","Снежок x4","Перья x32","Жемчуг x16","Сахар x16","Око x16","Яблоко x8","Зол. яблоко x16"],
+      guardian: ["[★] Сфера Эрида","Бирюзовый мешок (256 опыта)","Снежок x8","Огн. заряд x16","Око x32","Жемчуг x16","Перья x32","Зелье Силы x16","Зелье Исцеления x16","Морковь x32","Сахар x32","Монолит x48","Паутина x48","Пыль x48","Аура Небес x16","Яблоко x32","Зол. яблоко x48"],
+      knight:   ["Бирюзовый мешок x2","Талисман Вихря","Сфера Эрида","Булава","Арбалет","Стрелы (3 вида x32)","Жемчуг x16","Морковь x64","Перья x64","Снежок x16","Сахар x32","Око x32","Монолит x32","Паутина x32","Зелья x32","Зол. яблоко x64","Аура Небес x32"],
+      milord:   ["Незеритовый сет (Защита 6, Шпиль)","Меч + Булава + Арбалет + Кирка","Сфера Ареса","Талисман Вихря","Бирюзовый мешок x2","Стрелы (3 вида x64)","Кристаллы / Динамит","Зол. яблоко x64","Аура Небес x64","Монолит x64","Паутина x64"],
+      duke:     ["Незеритовый сет (Защита 6, Шпиль)","Потрошитель богов + Булава + Арбалет","Сфера Ареса + Сфера Хаоса","Талисман Вихря","Бирюзовый мешок x2","Стрелы x64","Зелья x64","Якори возрождения","Кристаллы"],
+      knyaz:    ["Незеритовый сет (Защита 6, Шпиль)","Потрошитель богов + Булава + Арбалет","Талисман Крушителя + Вихря","Сфера Хаоса x2 + Сфера Ареса","Зелье Радиации + Святая вода + Ассасина + Палладина","Бирюзовый мешок x2"],
+      god:      ["Полный Незеритовый сет (Шпиль)","Потрошитель богов + Булава + Арбалет Крушителя","Талисман Карателя + Крушителя + Вихря","Сфера Хаоса x2 + Сфера Ареса","Все эликсиры (Палладина, Ассасина, Радиация, Святая вода)","Бирюзовый мешок x3","Полный боекомплект x64"],
+      admin:    ["Полный Незеритовый сет (Шпиль)","Потрошитель богов + Булава + Арбалет Крушителя","Талисман Карателя + Раздора + Крушителя + Вихря","Сфера Хаоса x2 + Сфера Ареса","Все эликсиры + Мешки x4 + Стрелы x64"]
     };
 
+    const rulesData = [
+      { id:"sec-1", title:"1. Основные правила", tag:"PROTOCOL // 01", clr:"#00e5ff", items:[
+        ["1.1","Незнание правил не освобождает вас от ответственности;"],["1.2","Начав играть на наших серверах, Вы автоматически подтверждаете своё согласие с данным сводом правил;"],
+        ["1.3","Администрация не несет ответственности за временную или постоянную невозможность игры на сервере конкретным лицом или группой лиц;"],["1.4","Администрация не несет ответственности за потерю игровых ценностей в следствии нарушения работоспособности сервера или его плагинов;"],
+        ["1.5","Администрация не гарантирует работоспособность сервера, а также сохранность информации на нем и продолжение работы над ним;"],["1.6","Администрация сервера не гарантирует надёжную работу в предоставлении услуг и сервисов, а также не несёт ответственность за ущерб, который может быть причинён пользователям вследствие сбоев в линиях связи, ошибочного использования предоставляемых услуг, дефектов программного обеспечения или других действий, которые могут привести к возникновению нежелательных ситуаций;"],
+        ["1.7","Администрация имеет право корректировать данный свод правил без уведомления игрока;"],["1.8","Оскорбление, провоцирование администрации запрещено."]
+      ]},
+      { id:"sec-2", title:"2. Правила чата", tag:"COMMS // 02", clr:"#3b82f6", items:[
+        ["2.1","Запрещен Капс/Спам/Флуд в любом из чатов;"],["2.2","Запрещены унижения, оскорбления игроков;"],["2.3","Запрещена нецензурная лексика (маты, скрытые маты);"],
+        ["2.4","Запрещено рекламировать/упоминать посторонние ресурсы, которые не связаны с проектом или его ресурсами;"],["2.5","Чатами для рекламы/покупки/продажи разрешено пользоваться только в их тематичных целях;"],
+        ["2.6","Запрещено упоминать/оскорблять родных и близких игроков;"],["2.7","Запрещается розжиг межнациональной розни, подстрекательство на конфликт этой темы, расизм;"],
+        ["2.8","Запрещено как-либо обходить блокировку чата;"],["2.9","Запрещено вызывать игроков на проверку читов;"],
+        ["2.10","Запрещено отправлять свои контактные данные (дискорд, вк и т.д) в чатах (исключение: личные сообщения);"],["2.11","Запрещено продавать ресурсы или услуги ВНЕ серверного чата, например через дискорд;"],
+        ["2.12","Самопризнание в нарушении правил проекта является поводом для бана."]
+      ]},
+      { id:"sec-3", title:"3. Аккаунт", tag:"IDENTITY // 03", clr:"#a855f7", items:[
+        ["3.1","<strong>Ник не должен содержать:</strong>"],["3.1.1","Мата, скрытого мата, унижений, оскорблений;",1],["3.1.2","Схожесть с названием других проектов/чит клиентов;",1],
+        ["3.1.3","Схожесть с Администраторами, Ютуберами проекта;",1],["3.1.4","Схожесть с никами пользователей из ЧС Проекта;",1],
+        ["3.2","Запрещается предоставлять свой аккаунт другим людям;"],["3.3","Ответственность несет владелец аккаунта, независимо от того, кто совершал действия под данным аккаунтом;"],
+        ["3.4","Запрещена продажа/передача аккаунтов, продажа привилегий;"],["3.5","Донат невозможно перенести на другой аккаунт."]
+      ]},
+      { id:"sec-4", title:"4. Игровые правила", tag:"GAMEPLAY // 04", clr:"#f59e0b", items:[
+        ["4.1","Запрещено мошенничество, обман администрации;"],["4.2","Запрещено продавать/покупать у игроков игровые ценности за реальную валюту;"],
+        ["4.3","Запрещено пользоваться всем, что упрощает процесс игры, а именно:"],["4.3.1","Сторонними программами, читами, кликерами, автоматизациями и некоторыми модами (Кроме разрешенных пунктом 4.4);",1],
+        ["4.4",'Список разрешённых (61) и запрещённых (66) модификаций во вкладке <a href="#" onclick="switchView(\'mods\');return false;" style="color:var(--cyan);font-weight:700;">Модификации</a>.'],
+        ["4.5","На сервере допускается одновременное использование не более 4 аккаунтов включительно на всех игровых режимах."],["4.5.1","Запрещено как-либо помогать, укрывать нарушителя или способствовать в его неправомерных действиях;",1],
+        ["4.6","Запрещено играть на проекте, если Ваши аккаунты были неоднократно блокированы пунктом 1.4 и его подпунктам;"],["4.7","Запрещено вызывание неполадок в работе сервера или попытки обрушить сервер, путем специально вызванных лагов или подобного;"],
+        ["4.8","Запрещено выдавать себя за Администрацию, устанавливать ники похожие на Администрацию или их префиксы;"],["4.9","Запрещено использование/скрытие багов/недоработок сервера;"],
+        ["4.10","Запрещено играть/взаимодействовать и помогать на режиме с игроками в количестве больше, чем разрешено на режиме."],["4.11","Запрещено строительство половых органов, нацистских символик, лавакастов;"],
+        ["4.12","Запрещено подстрекать третьих лиц на нарушение правил;"],["4.13","Запрещён намеренный таргетинг официальных медийных лиц проекта. Умышленная помеха съемки игрового контента/слив игровых никнеймов;"]
+      ]},
+      { id:"sec-5", title:"5. Правила проверки ПО", tag:"SECURITY // 05", clr:"#10b981", items:[
+        ["5.1",'Вы обязаны выполнять требования Проверяющего<div class="r-info"><strong>Важно!</strong> Проверка проводится исключительно в целях поиска читов, запрещённых модификаций, программ и другого запрещённого ПО, поэтому если Проверяющий просит Вас выполнить нелогичные для проверки действия, например: включить веб-камеру, дать ему ресурсы — отключайтесь от проверки и срочно сообщите об этом Администрации.</div>'],
+        ["5.2","Данный свод правил не окончателен и может изменяться в зависимости от требований Проверяющего;"],["5.3","Следите за чатом во время проверки, если Вы не увидели/проигнорировали сообщение от Проверяющего, это не будет расцениваться поводом для разблокировки аккаунта;"],
+        ["5.4","В случае если у Вас возникли непредвиденные обстоятельства, необходимо обязательно сообщить об этом Проверяющему;"],["5.5","Запрещается препятствовать проведению проверки: долго открывать папки, задавать неуместные вопросы, оскорблять/унижать Проверяющего, игнорировать его требования и так далее;"],
+        ["5.6","Во время проверки запрещается удалять какие-либо файлы с Вашего ПК, в том числе очищать корзину;"],["5.7","Во время проверки запрещается выходить из Minecraft, также не забывайте, «крашнул майн», «был в афк» — не расцениваются как повод для разблокировки аккаунта;"],
+        ["5.8","Запрещается снимать ход проверки, исключение: личное разрешение Проверяющего;"],["5.9","Проверяющий имеет право попросить Вас установить программы для эффективного и быстрого проведения проверки."]
+      ]},
+      { id:"sec-6", title:"6. Платные услуги", tag:"BILLING // 06", clr:"#facc15", items:[
+        ["6.1","Попытки махинаций оплатами, или ввод Администрации в заблуждение наказываются баном без возврата средств;"],
+        ["6.2","Предоставьте чек оплаты, если хотите написать Администрации о пропаже, непоявлении доната после покупки. Без данного подтверждения администрация вправе отказать Вам в предоставлении купленной услуги;"],
+        ["6.3","Администрация не обязана предоставлять доказательства нарушений донатера у которого сняли привилегию за нарушение выше указанных правил."]
+      ]}
+    ];
+
     const roulettePool = [
-      { id: "baron", chance: 28.0, rarity: "Обычная", rarClr: "#94a3b8", icon: "shield" },
-      { id: "fighter", chance: 22.0, rarity: "Обычная", rarClr: "#94a3b8", icon: "shield" },
-      { id: "guardian", chance: 15.0, rarity: "Обычная", rarClr: "#94a3b8", icon: "shield" },
-      { id: "knight", chance: 12.0, rarity: "Редкая", rarClr: "#38bdf8", icon: "gem" },
-      { id: "berserk", chance: 8.0, rarity: "Редкая", rarClr: "#38bdf8", icon: "gem" },
-      { id: "champion", chance: 5.0, rarity: "Редкая", rarClr: "#38bdf8", icon: "gem" },
-      { id: "milord", chance: 4.5, rarity: "Эпическая", rarClr: "#c084fc", icon: "star" },
-      { id: "duke", chance: 3.0, rarity: "Эпическая", rarClr: "#c084fc", icon: "star" },
-      { id: "knyaz", chance: 1.9, rarity: "Легендарная", rarClr: "#facc15", icon: "crown" },
-      { id: "absolute", chance: 0.5, rarity: "Легендарная", rarClr: "#facc15", icon: "crown" },
-      { id: "god", chance: 0.1, rarity: "МИФИЧЕСКАЯ", rarClr: "#ff2a55", icon: "mythic" }
+      { id:"baron", chance:28.0, rarity:"Обычная", rarClr:"#94a3b8", icon:"shield" },
+      { id:"fighter", chance:22.0, rarity:"Обычная", rarClr:"#94a3b8", icon:"shield" },
+      { id:"guardian", chance:15.0, rarity:"Обычная", rarClr:"#94a3b8", icon:"shield" },
+      { id:"knight", chance:12.0, rarity:"Редкая", rarClr:"#38bdf8", icon:"gem" },
+      { id:"berserk", chance:8.0, rarity:"Редкая", rarClr:"#38bdf8", icon:"gem" },
+      { id:"champion", chance:5.0, rarity:"Редкая", rarClr:"#38bdf8", icon:"gem" },
+      { id:"milord", chance:4.5, rarity:"Эпическая", rarClr:"#c084fc", icon:"star" },
+      { id:"duke", chance:3.0, rarity:"Эпическая", rarClr:"#c084fc", icon:"star" },
+      { id:"knyaz", chance:1.9, rarity:"Легендарная", rarClr:"#facc15", icon:"crown" },
+      { id:"absolute", chance:0.5, rarity:"Легендарная", rarClr:"#facc15", icon:"crown" },
+      { id:"god", chance:0.1, rarity:"МИФИЧЕСКАЯ", rarClr:"#ff2a55", icon:"mythic" }
     ];
 
     const ok = ["TapeMouse","AutoClanInvest","AutoTrade","AutoTransfer","TopkaAutoDrop","AutoDrop","AutoEat","MacroKeybinds","PulseVisuals","TopkaVisuals","CustomBlockOverlay","TrajectoryGuard","ViewModel-Changer","RainVisuals","Do a Barrel Roll","MoonLightClient","SoupApi (SoupVisuals)","SoupBetter","PhantomVisuals","Mytheria","KastrixVisuals","RivalVisuals","DestraVisuals","ReallyVisuals","GammaUtils","Stark Helper","FlyVisuals","TheCartel","FillVisuals","rct","PRIME PARTS","Chunks fade in","berdinskiybear's armor hud","AntiGhost","TopkaTags","ContainerSearcher","ItemLocks","Giselbaer's Durability Viewer","MiniHUD","TopkaHealth","ExitLag","Abstract","Custom FOV","Show Yourself","Jade","JJElytraSwap","InventoryCleaner","VisualRatio","AxolotlClient","ItemScroller","NoHurtCam","LavaClearWater","BetterHitReg","ZakoHealthIndicator","Pearl Trajectory","wWaypoints","Feather Client","Opponent Armor Indicator","ZakoOpt","Recorder Ingame","Streake"];
     const no = ["ReplayMod","IsometricRender","CmdCam","WorldDownloader","Flashback","AutoMining","ReplantingCrops","AutoHarvest","Reap","Tweakeroo","AutoFish","Accurate Block Placement","Baritone","Player Spotlight","AucHelper","ChestTracker","Friend Highlighter","Donut Auctions","XRay","DiamondGen","FreeCam","BaseFinder","TrueSight","МиниКарты (Исключения для карт от Lunar Client)","Neat","ChunkAnimator","MobHealthBar","Litematica\\Schematica","block-entity-tooltip","WorldEdit","Better PVP","RemoveBlindness (и его аналоги)","Re:Entity Outline","AntiInvis","Cooldowns HUD (UseTracker)","CheatUtils","No Darkness Effect (removewardeneffect)","InventoryControlTweaks","AutoLeave","Foodslot","Quickstack","ItemSwap","AutoTool","Movement in GUI","FasterBlockPlacement","Firework Helper","Effortless Building","InvMove","Inventory Profiles Next","autojumpreset","Dont Heat Teammates","Don't hit teammates","CleanCut","AutoAttack","AutoAim","FeverVisuals","LuminarVisuals","Ascart","Badlion Client","Эмуляторы/лаунчеры для мобильных устройств (Pojav, FCL и т.п.)","SimpleVisuals","SoupApi (Версии ниже 3.0.0)","WaveVisuals","ClientCommands","Взломанные версии мультимодификаций","Самостоятельно модифицированные мультимодификации"];
 
-    const defaultSettings = { theme: "cyan", bgMode: "aurora", glow: "norm", anim: "high", btnStyle: "cartoon", fontSize: "14px", blur: true, scanlines: true, sfx: true, cubes: true, promo: true };
+    const defaultSettings = { theme:"cyan", bgMode:"aurora", glow:"norm", anim:"high", btnStyle:"cartoon", fontSize:"14px", blur:true, scanlines:true, sfx:true, cubes:true, promo:true };
     let siteSettings = Object.assign({}, defaultSettings, JSON.parse(localStorage.getItem("nt_settings") || "{}"));
-
     let selectedId = "baron", selectedTerm = "p30", rankFilter = "all", modsSorted = false, lastPriceShown = 5, isSpinning = false, activeRuleSec = "sec-1", itemCatFilter = "all";
-    let promoCodeActive = localStorage.getItem("nt_promo") === "Lent9i", crownTaps = 0;
-    let spinCounter = Number(localStorage.getItem("nt_spins") || "0"), bestDrop = localStorage.getItem("nt_best_drop") || "—", spinHist = [];
+    let promoCodeActive = localStorage.getItem("nt_promo") === "Lent9i", crownTaps = 0, spinCounter = Number(localStorage.getItem("nt_spins") || "0"), bestDrop = localStorage.getItem("nt_best_drop") || "—", spinHist = [];
     let recentViewed = JSON.parse(localStorage.getItem("nt_recent") || "[]"), favRules = JSON.parse(localStorage.getItem("nt_fav_rules") || "[]"), wishlist = JSON.parse(localStorage.getItem("nt_wishlist") || "[]");
 
     // ГЕНЕРАТОР PNG СПРАЙТОВ
     const pngCache = {};
     function makeRankPng(color, tier = 1) {
-      const key = color + "_" + tier;
-      if (pngCache[key]) return pngCache[key];
-      const c = document.createElement("canvas"); c.width = 16; c.height = 16;
-      const g = c.getContext("2d");
+      const key = color + "_" + tier; if (pngCache[key]) return pngCache[key];
+      const c = document.createElement("canvas"); c.width = 16; c.height = 16; const g = c.getContext("2d");
       const px = (x, y, w, h, col) => { g.fillStyle = col; g.fillRect(x, y, w, h); };
-      px(2, 2, 4, 2, "#060a12"); px(10, 2, 4, 2, "#060a12"); px(1, 3, 14, 5, "#060a12"); px(3, 7, 10, 8, "#060a12");
-      px(2, 3, 4, 4, color); px(10, 3, 4, 4, color); px(4, 4, 8, 10, color);
-      px(4, 4, 2, 8, "rgba(255,255,255,0.28)"); px(9, 5, 3, 8, "rgba(0,0,0,0.22)");
-      if (tier >= 8) px(7, 6, 2, 3, "#ffffff");
+      px(2,2,4,2,"#060a12"); px(10,2,4,2,"#060a12"); px(1,3,14,5,"#060a12"); px(3,7,10,8,"#060a12");
+      px(2,3,4,4,color); px(10,3,4,4,color); px(4,4,8,10,color);
+      px(4,4,2,8,"rgba(255,255,255,0.28)"); px(9,5,3,8,"rgba(0,0,0,0.22)");
+      if (tier >= 8) px(7,6,2,3,"#ffffff");
       return (pngCache[key] = c.toDataURL("image/png"));
     }
 
-    // ПРЕДМЕТЫ И КИТЫ
-    function filterCustomItems(cat, btn) {
-      playSfx("click"); itemCatFilter = cat;
-      document.querySelectorAll("#view-items .rf-btn").forEach(b => b.classList.remove("act"));
-      if (btn) btn.classList.add("act");
-      renderCustomItems();
+    // РЕНДЕР ПРАВИЛ
+    function renderRules() {
+      document.getElementById("rulesMount").innerHTML = rulesData.map((sec, idx) => `
+        <div class="st-card rule-sec ${idx === 0 ? 'act-sec' : ''}" id="${sec.id}" style="--sec-clr:${sec.clr}">
+          <div class="st-card-hdr"><span>${sec.title}</span><span class="sec-tag">${sec.tag}</span></div>
+          <div class="rule-body">
+            ${sec.items.map(it => `<div class="rule-row ${it[2] ? 'sub' : ''}"><div class="rule-main"><span class="r-badge">${it[0]}</span><div class="r-text">${it[1]}</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>`).join("")}
+          </div>
+        </div>
+      `).join("");
     }
+
+    // ПРЕДМЕТЫ И КИТЫ
+    function filterCustomItems(cat, btn) { playSfx("click"); itemCatFilter = cat; document.querySelectorAll("#view-items .rf-btn").forEach(b => b.classList.remove("act")); if (btn) btn.classList.add("act"); renderCustomItems(); }
     function renderCustomItems() {
       const list = itemCatFilter === "all" ? customItems : customItems.filter(i => i.cat === itemCatFilter);
       document.getElementById("customItemsGrid").innerHTML = list.map(it => `
         <div class="mc-tooltip-card ${it.gold ? 'gold-frame' : ''}">
-          <div class="mc-tt-head">
-            <span class="mc-tt-title" style="color:${it.clr}">${it.name}</span>
-            <span class="mc-tt-tag">${it.cat.toUpperCase()}</span>
-          </div>
+          <div class="mc-tt-head"><span class="mc-tt-title" style="color:${it.clr}">${it.name}</span><span class="mc-tt-tag">${it.cat.toUpperCase()}</span></div>
           <div class="mc-tt-lore">${it.lore}</div>
           <div class="mc-tt-stats">${it.stats.map(s => `<div class="st-${s[1]}">${s[0]}</div>`).join("")}</div>
-        </div>
-      `).join("");
+        </div>`).join("");
     }
     function initKitSelector() {
-      const sel = document.getElementById("kitRankSelect");
-      sel.innerHTML = Object.keys(kitCompositions).map(k => {
-        const r = ranks.find(x => x.id === k);
-        return `<option value="${k}">Кит: ${r ? r.name : k}</option>`;
-      }).join("");
+      document.getElementById("kitRankSelect").innerHTML = Object.keys(kitCompositions).map(k => { const r = ranks.find(x => x.id === k); return `<option value="${k}">Кит: ${r ? r.name : k}</option>`; }).join("");
       renderKitBreakdown();
     }
     function renderKitBreakdown() {
-      const k = document.getElementById("kitRankSelect").value;
-      const items = kitCompositions[k] || [];
-      document.getElementById("kitBreakdownBox").innerHTML = `
-        <div style="font-size:13px;color:var(--mut);">Содержимое набора <strong style="color:var(--cyan);font-family:var(--mono);">/kit ${k}</strong> на сервере 1.21.4+:</div>
-        <div class="kit-items-pills">${items.map(i => `<span class="kit-pill">${i}</span>`).join("")}</div>
-      `;
+      const k = document.getElementById("kitRankSelect").value, items = kitCompositions[k] || [];
+      document.getElementById("kitBreakdownBox").innerHTML = `<div style="font-size:13px;color:var(--mut);">Содержимое набора <strong style="color:var(--cyan);font-family:var(--mono);">/kit ${k}</strong> на сервере 1.21.4+:</div><div class="kit-items-pills">${items.map(i => `<span class="kit-pill">${i}</span>`).join("")}</div>`;
     }
 
-    // КОНФЕТТИ
+    // КОНФЕТТИ И ЗВУК
     let fxParticles = [], confettiActive = false;
     function spawnConfetti(color = "#00e5ff") {
       if (siteSettings.anim === "min") return;
       const fx = document.getElementById("fxCanvas"); fx.width = window.innerWidth; fx.height = window.innerHeight;
       const colors = [color, "#00e5ff", "#facc15", "#ff477e", "#34d399", "#ffffff"];
-      for (let i = 0; i < 65; i++) fxParticles.push({ x: fx.width / 2 + (Math.random() - 0.5) * 160, y: fx.height * 0.45, vx: (Math.random() - 0.5) * 14, vy: -Math.random() * 11 - 3, s: Math.random() * 6 + 4, c: colors[Math.floor(Math.random() * colors.length)], life: 1 });
+      for (let i = 0; i < 65; i++) fxParticles.push({ x:fx.width/2+(Math.random()-0.5)*160, y:fx.height*0.45, vx:(Math.random()-0.5)*14, vy:-Math.random()*11-3, s:Math.random()*6+4, c:colors[Math.floor(Math.random()*colors.length)], life:1 });
       if (!confettiActive) {
         confettiActive = true; const ctx = fx.getContext("2d");
         (function tick() {
-          ctx.clearRect(0, 0, fx.width, fx.height);
-          fxParticles.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += 0.32; p.life -= 0.015; ctx.globalAlpha = Math.max(0, p.life); ctx.fillStyle = p.c; ctx.fillRect(p.x, p.y, p.s, p.s); });
+          ctx.clearRect(0,0,fx.width,fx.height);
+          fxParticles.forEach(p => { p.x+=p.vx; p.y+=p.vy; p.vy+=0.32; p.life-=0.015; ctx.globalAlpha=Math.max(0,p.life); ctx.fillStyle=p.c; ctx.fillRect(p.x,p.y,p.s,p.s); });
           fxParticles = fxParticles.filter(p => p.life > 0);
-          if (fxParticles.length) requestAnimationFrame(tick); else { ctx.clearRect(0, 0, fx.width, fx.height); confettiActive = false; }
+          if (fxParticles.length) requestAnimationFrame(tick); else { ctx.clearRect(0,0,fx.width,fx.height); confettiActive = false; }
         })();
       }
     }
-
-    // ЗВУК
     let audioCtx = null;
     function playSfx(kind = "click") {
       if (!siteSettings.sfx) return;
@@ -1046,52 +811,33 @@
         if (audioCtx.state === "suspended") audioCtx.resume();
         const now = audioCtx.currentTime, osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
         osc.connect(gain); gain.connect(audioCtx.destination);
-        if (kind === "tick") { osc.type = "triangle"; osc.frequency.setValueAtTime(760, now); osc.frequency.exponentialRampToValueAtTime(320, now + 0.025); gain.gain.setValueAtTime(0.035, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.028); osc.start(now); osc.stop(now + 0.03); }
-        else if (kind === "pop") { osc.type = "sine"; osc.frequency.setValueAtTime(420, now); osc.frequency.exponentialRampToValueAtTime(780, now + 0.06); gain.gain.setValueAtTime(0.05, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07); osc.start(now); osc.stop(now + 0.075); }
-        else if (kind === "win") { osc.type = "triangle"; osc.frequency.setValueAtTime(523, now); osc.frequency.setValueAtTime(659, now + 0.08); osc.frequency.setValueAtTime(784, now + 0.16); osc.frequency.setValueAtTime(1046, now + 0.25); gain.gain.setValueAtTime(0.07, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45); osc.start(now); osc.stop(now + 0.46); }
-        else if (kind === "mythic") { [523, 659, 784, 1046, 1318].forEach((f, idx) => { const o = audioCtx.createOscillator(), g = audioCtx.createGain(); o.type = "sine"; o.frequency.setValueAtTime(f, now + idx * 0.07); g.gain.setValueAtTime(0.07, now + idx * 0.07); g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.35); o.connect(g); g.connect(audioCtx.destination); o.start(now + idx * 0.07); o.stop(now + idx * 0.07 + 0.36); }); }
-        else if (kind === "err") { osc.type = "sawtooth"; osc.frequency.setValueAtTime(220, now); osc.frequency.linearRampToValueAtTime(140, now + 0.12); gain.gain.setValueAtTime(0.04, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.13); osc.start(now); osc.stop(now + 0.14); }
-        else { osc.type = "triangle"; osc.frequency.setValueAtTime(580, now); osc.frequency.exponentialRampToValueAtTime(460, now + 0.04); gain.gain.setValueAtTime(0.04, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045); osc.start(now); osc.stop(now + 0.05); }
+        if (kind === "tick") { osc.type="triangle"; osc.frequency.setValueAtTime(760,now); osc.frequency.exponentialRampToValueAtTime(320,now+0.025); gain.gain.setValueAtTime(0.035,now); gain.gain.exponentialRampToValueAtTime(0.001,now+0.028); osc.start(now); osc.stop(now+0.03); }
+        else if (kind === "pop") { osc.type="sine"; osc.frequency.setValueAtTime(420,now); osc.frequency.exponentialRampToValueAtTime(780,now+0.06); gain.gain.setValueAtTime(0.05,now); gain.gain.exponentialRampToValueAtTime(0.001,now+0.07); osc.start(now); osc.stop(now+0.075); }
+        else if (kind === "win") { osc.type="triangle"; osc.frequency.setValueAtTime(523,now); osc.frequency.setValueAtTime(659,now+0.08); osc.frequency.setValueAtTime(784,now+0.16); osc.frequency.setValueAtTime(1046,now+0.25); gain.gain.setValueAtTime(0.07,now); gain.gain.exponentialRampToValueAtTime(0.001,now+0.45); osc.start(now); osc.stop(now+0.46); }
+        else if (kind === "mythic") { [523,659,784,1046,1318].forEach((f,idx)=>{ const o=audioCtx.createOscillator(),g=audioCtx.createGain(); o.type="sine"; o.frequency.setValueAtTime(f,now+idx*0.07); g.gain.setValueAtTime(0.07,now+idx*0.07); g.gain.exponentialRampToValueAtTime(0.001,now+idx*0.07+0.35); o.connect(g); g.connect(audioCtx.destination); o.start(now+idx*0.07); o.stop(now+idx*0.07+0.36); }); }
+        else if (kind === "err") { osc.type="sawtooth"; osc.frequency.setValueAtTime(220,now); osc.frequency.linearRampToValueAtTime(140,now+0.12); gain.gain.setValueAtTime(0.04,now); gain.gain.exponentialRampToValueAtTime(0.001,now+0.13); osc.start(now); osc.stop(now+0.14); }
+        else { osc.type="triangle"; osc.frequency.setValueAtTime(580,now); osc.frequency.exponentialRampToValueAtTime(460,now+0.04); gain.gain.setValueAtTime(0.04,now); gain.gain.exponentialRampToValueAtTime(0.001,now+0.045); osc.start(now); osc.stop(now+0.05); }
       } catch {}
     }
     function toggleSfx() { applySetting("sfx", !siteSettings.sfx); if (siteSettings.sfx) playSfx("pop"); }
 
     // ПАСХАЛКА Lent9i
     function crownSecretTap() { crownTaps++; playSfx("pop"); if (crownTaps === 3) { crownTaps = 0; revealSecretPromo(); } }
-    function revealSecretPromo() {
-      promoCodeActive = true; localStorage.setItem("nt_promo", "Lent9i");
-      if (navigator.clipboard) navigator.clipboard.writeText("Lent9i");
-      playSfx("mythic"); spawnConfetti("#fbbf24"); showToast("🔓 Секретный промокод Lent9i (-20%) найден и активирован!"); renderAccountUI();
-    }
-    function applyPromoCode() {
-      if (document.getElementById("promoInp").value.trim().toLowerCase() === "lent9i") {
-        promoCodeActive = true; localStorage.setItem("nt_promo", "Lent9i");
-        playSfx("mythic"); spawnConfetti("#10b981"); showToast("🎉 Промокод Lent9i применён! Скидка -20%"); updateModalPrice(); renderAccountUI();
-      } else { playSfx("err"); showToast("Неверный промокод (поищите секрет на главной!)"); }
-    }
+    function revealSecretPromo() { promoCodeActive = true; localStorage.setItem("nt_promo","Lent9i"); if (navigator.clipboard) navigator.clipboard.writeText("Lent9i"); playSfx("mythic"); spawnConfetti("#fbbf24"); showToast("🔓 Секретный промокод Lent9i (-20%) найден и активирован!"); renderAccountUI(); }
+    function applyPromoCode() { if (document.getElementById("promoInp").value.trim().toLowerCase() === "lent9i") { promoCodeActive = true; localStorage.setItem("nt_promo","Lent9i"); playSfx("mythic"); spawnConfetti("#10b981"); showToast("🎉 Промокод Lent9i применён! Скидка -20%"); updateModalPrice(); renderAccountUI(); } else { playSfx("err"); showToast("Неверный промокод (поищите секрет на главной!)"); } }
 
     // НАСТРОЙКИ
     function applyAllSettings() {
       document.body.setAttribute("data-theme", siteSettings.theme);
-      document.body.classList.toggle("glow-max", siteSettings.glow === "max");
-      document.body.classList.toggle("glow-low", siteSettings.glow === "low");
-      document.body.classList.toggle("anim-high", siteSettings.anim === "high");
-      document.body.classList.toggle("anim-min", siteSettings.anim === "min");
-      document.body.classList.toggle("flat-btns", siteSettings.btnStyle === "flat");
-      document.body.classList.toggle("no-blur", !siteSettings.blur);
-      document.body.classList.toggle("no-scanlines", !siteSettings.scanlines);
-      document.body.classList.toggle("no-cubes", !siteSettings.cubes);
-      document.body.classList.toggle("no-promo", !siteSettings.promo);
-      document.documentElement.style.setProperty("--base-fs", siteSettings.fontSize);
-
-      const sfxBtn = document.getElementById("sfxBtn");
-      sfxBtn.textContent = siteSettings.sfx ? "🔊 Звук" : "🔇 Звук";
-      sfxBtn.classList.toggle("muted", !siteSettings.sfx);
-
+      document.body.classList.toggle("glow-max", siteSettings.glow === "max"); document.body.classList.toggle("glow-low", siteSettings.glow === "low");
+      document.body.classList.toggle("anim-high", siteSettings.anim === "high"); document.body.classList.toggle("anim-min", siteSettings.anim === "min");
+      document.body.classList.toggle("flat-btns", siteSettings.btnStyle === "flat"); document.body.classList.toggle("no-blur", !siteSettings.blur);
+      document.body.classList.toggle("no-scanlines", !siteSettings.scanlines); document.body.classList.toggle("no-cubes", !siteSettings.cubes);
+      document.body.classList.toggle("no-promo", !siteSettings.promo); document.documentElement.style.setProperty("--base-fs", siteSettings.fontSize);
+      const sfxBtn = document.getElementById("sfxBtn"); sfxBtn.textContent = siteSettings.sfx ? "🔊 Звук" : "🔇 Звук"; sfxBtn.classList.toggle("muted", !siteSettings.sfx);
       const markPills = (id, val) => document.querySelectorAll(`#${id} .set-pill`).forEach(p => p.classList.toggle("act", p.dataset.val === val));
-      markPills("setThemePills", siteSettings.theme); markPills("setBgPills", siteSettings.bgMode);
-      markPills("setGlowPills", siteSettings.glow); markPills("setAnimPills", siteSettings.anim);
-      markPills("setBtnStylePills", siteSettings.btnStyle); markPills("setFontPills", siteSettings.fontSize);
+      markPills("setThemePills", siteSettings.theme); markPills("setBgPills", siteSettings.bgMode); markPills("setGlowPills", siteSettings.glow);
+      markPills("setAnimPills", siteSettings.anim); markPills("setBtnStylePills", siteSettings.btnStyle); markPills("setFontPills", siteSettings.fontSize);
       document.getElementById("chkSfx").checked = siteSettings.sfx; document.getElementById("chkBlur").checked = siteSettings.blur;
       document.getElementById("chkScan").checked = siteSettings.scanlines; document.getElementById("chkCubes").checked = siteSettings.cubes;
       document.getElementById("chkPromo").checked = siteSettings.promo;
@@ -1101,11 +847,11 @@
     function openSettings() { playSfx("pop"); document.getElementById("settingsBg").classList.add("open"); }
     function closeSettings() { document.getElementById("settingsBg").classList.remove("open"); }
 
-    // ПРОФИЛЬ (КАК НА 1-М СКРИНШОТЕ)
+    // ПРОФИЛЬ КАК НА 1-М СКРИНШОТЕ
     let authMode = "reg";
     function getUsers() { return JSON.parse(localStorage.getItem("nt_users") || "[]"); }
     function getCurrentUser() { return JSON.parse(localStorage.getItem("nt_session") || "null"); }
-    async function hashPass(str) { try { const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str)); return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join(""); } catch { return btoa(unescape(encodeURIComponent(str))); } }
+    async function hashPass(str) { try { const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str)); return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,"0")).join(""); } catch { return btoa(unescape(encodeURIComponent(str))); } }
     function openAccountModal() { playSfx("pop"); switchAccTab(getCurrentUser() ? "profile" : "auth"); renderAccountUI(); document.getElementById("accBg").classList.add("open"); }
     function closeAccountModal() { document.getElementById("accBg").classList.remove("open"); }
     function switchAccTab(tab) {
@@ -1128,7 +874,7 @@
         if (!/^[a-zA-Z0-9_]{3,16}$/.test(mcNick)) { playSfx("err"); return showToast("Укажите корректный ник Minecraft"); }
         if (users.some(u => u.login.toLowerCase() === login.toLowerCase())) { playSfx("err"); return showToast("Этот логин уже занят!"); }
         const newUser = { login, mcNick, passHash, createdAt: new Date().toLocaleString("ru-RU"), synced: false };
-        if (isWorkerReady()) { try { const res = await fetch(`${WORKER_URL}/api/register`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ login, mcNick, createdAt: newUser.createdAt }) }); if (res.ok) newUser.synced = true; } catch {} }
+        if (isWorkerReady()) { try { const res = await fetch(`${WORKER_URL}/api/register`, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({login,mcNick,createdAt:newUser.createdAt}) }); if (res.ok) newUser.synced = true; } catch {} }
         users.unshift(newUser); localStorage.setItem("nt_users", JSON.stringify(users));
         localStorage.setItem("nt_session", JSON.stringify({ login, mcNick, createdAt: newUser.createdAt })); localStorage.setItem("nt_nick", mcNick);
         document.getElementById("liveNickInp").value = mcNick; renderDetails(); playSfx("win"); spawnConfetti("#00e5ff"); showToast(`Аккаунт ${login} создан!`); switchAccTab("profile");
@@ -1144,14 +890,7 @@
       const q = (document.getElementById("accSearchInp")?.value || "").trim().toLowerCase(), users = getUsers();
       const filtered = users.filter(u => !q || u.login.toLowerCase().includes(q) || u.mcNick.toLowerCase().includes(q));
       document.getElementById("accFoundCount").textContent = `${filtered.length} из ${users.length}`;
-      document.getElementById("accLogList").innerHTML = filtered.length ? filtered.map(u => `
-        <div class="acc-log-item">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <img src="https://mc-heads.net/avatar/${encodeURIComponent(u.mcNick)}/32" style="width:32px;height:32px;border-radius:7px;image-rendering:pixelated;" onerror="this.style.display='none'" alt="">
-            <div><strong style="color:#fff;">${u.login}</strong> <span style="color:var(--cyan);font-family:var(--mono);margin-left:5px;">(${u.mcNick})</span><div style="color:var(--mut);font-size:11px;">${u.createdAt}</div></div>
-          </div>
-          <button class="rf-btn" onclick="copyText('${u.login} (${u.mcNick})')">📋</button>
-        </div>`).join("") : `<div style="text-align:center;color:var(--mut);padding:18px;">Пользователи не найдены</div>`;
+      document.getElementById("accLogList").innerHTML = filtered.length ? filtered.map(u => `<div class="acc-log-item"><div style="display:flex;align-items:center;gap:10px;"><img src="https://mc-heads.net/avatar/${encodeURIComponent(u.mcNick)}/32" style="width:32px;height:32px;border-radius:7px;image-rendering:pixelated;" onerror="this.style.display='none'" alt=""><div><strong style="color:#fff;">${u.login}</strong> <span style="color:var(--cyan);font-family:var(--mono);margin-left:5px;">(${u.mcNick})</span><div style="color:var(--mut);font-size:11px;">${u.createdAt}</div></div></div><button class="rf-btn" onclick="copyText('${u.login} (${u.mcNick})')">📋</button></div>`).join("") : `<div style="text-align:center;color:var(--mut);padding:18px;">Пользователи не найдены</div>`;
     }
     function renderAccountUI() {
       const cur = getCurrentUser();
@@ -1160,120 +899,81 @@
       if (!cur) {
         box.innerHTML = `<div style="text-align:center;padding:24px 10px;color:var(--mut);"><div style="margin-bottom:14px;font-size:14px;">Создайте профиль, чтобы видеть карточку игрока с 3D-скином, статистикой и желаемыми донатами.</div><button class="buy-btn" onclick="switchAccTab('auth')">Войти или создать</button></div>`;
       } else {
-        const filledSquares = Math.min(10, Math.max(1, spinCounter + favRules.length));
-        const squaresHtml = Array.from({ length: 10 }, (_, i) => `<div class="f-sq ${i < filledSquares ? '' : 'empty'}"></div>`).join("");
-        const lvlPct = Math.min(100, filledSquares * 10);
-        box.innerHTML = `
-          <div class="carbon-profile">
-            <div class="carbon-skin-pedestal">
-              <img class="profile-body-png" style="height:175px;" src="https://mc-heads.net/body/${encodeURIComponent(cur.mcNick)}/175" onerror="this.src='https://mc-heads.net/avatar/Steve/110'" alt="Skin">
-              <div class="carbon-skin-shadow"></div>
+        const filled = Math.min(10, Math.max(1, spinCounter + favRules.length));
+        const squaresHtml = Array.from({length:10}, (_,i) => `<div class="f-sq ${i<filled?'':'empty'}"></div>`).join("");
+        const lvlPct = Math.min(100, filled * 10);
+        box.innerHTML = `<div class="carbon-profile">
+          <div class="carbon-skin-pedestal"><img class="profile-body-png" style="height:175px;" src="https://mc-heads.net/body/${encodeURIComponent(cur.mcNick)}/175" onerror="this.src='https://mc-heads.net/avatar/Steve/110'" alt="Skin"><div class="carbon-skin-shadow"></div></div>
+          <div>
+            <div class="carbon-top-row">
+              <div><div class="carbon-nick-pill">${cur.mcNick}</div><div style="font-size:12px;color:#8b949e;margin-top:8px;">● Логин: <strong style="color:#e2e8f0">${cur.login}</strong> • Создан: ${cur.createdAt||'Сегодня'}</div><div style="font-size:12px;margin-top:5px;display:flex;align-items:center;gap:8px;"><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#f43f5e;"></span><strong style="color:#fff;">Игрок NewTime</strong><span style="color:#38bdf8;font-weight:700;">• Java 1.21.4+</span></div></div>
+              <div style="display:flex;gap:7px;"><button class="carbon-copy-btn" onclick="copyText('NewTime Профиль: ${cur.login} (${cur.mcNick})')">🔗 Скопировать ссылку</button><button class="carbon-copy-btn" onclick="logoutAccount()">Выйти</button></div>
             </div>
-            <div>
-              <div class="carbon-top-row">
-                <div>
-                  <div class="carbon-nick-pill">${cur.mcNick}</div>
-                  <div style="font-size:12px;color:#8b949e;margin-top:8px;">● Логин: <strong style="color:#e2e8f0">${cur.login}</strong> • Создан: ${cur.createdAt || 'Сегодня'}</div>
-                  <div style="font-size:12px;margin-top:5px;display:flex;align-items:center;gap:8px;">
-                    <span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#f43f5e;"></span>
-                    <strong style="color:#fff;">Игрок NewTime</strong>
-                    <span style="color:#38bdf8;font-weight:700;">• Java 1.21.4+</span>
-                  </div>
-                </div>
-                <div style="display:flex;gap:7px;">
-                  <button class="carbon-copy-btn" onclick="copyText('NewTime Профиль: ${cur.login} (${cur.mcNick})')">🔗 Скопировать ссылку</button>
-                  <button class="carbon-copy-btn" onclick="logoutAccount()">Выйти</button>
-                </div>
-              </div>
-
-              <div class="carbon-stat-strip">
-                <div class="carbon-stat-cell"><div class="carbon-stat-lbl">Прокрутов кейса</div><div class="carbon-stat-val">${spinCounter}</div><div class="carbon-stat-sub">рулетка на сайте</div></div>
-                <div class="carbon-stat-cell"><div class="carbon-stat-lbl">Лучший дроп</div><div class="carbon-stat-val" style="font-size:17px;color:var(--cyan);">${bestDrop}</div><div class="carbon-stat-sub">макс. редкость</div></div>
-                <div class="carbon-stat-cell"><div class="carbon-stat-lbl">Желаемое</div><div class="carbon-stat-val">${wishlist.length}</div><div class="carbon-stat-sub">привилегий ❤️</div></div>
-                <div class="carbon-stat-cell"><div class="carbon-stat-lbl">Закладки</div><div class="carbon-stat-val">${favRules.length}</div><div class="carbon-stat-sub">пунктов правил ⭐</div></div>
-              </div>
-
-              <div class="carbon-bottom-grid">
-                <div>
-                  <div style="font-size:11.5px;color:#8b949e;">Активность • последние 10</div>
-                  <div class="form-squares">${squaresHtml}</div>
-                </div>
-                <div>
-                  <div style="font-size:11.5px;color:#8b949e;display:flex;justify-content:space-between;"><span>Уровень профиля</span><strong style="color:#fff;">${lvlPct}%</strong></div>
-                  <div class="lvl-bar-bg"><div class="lvl-bar-fill" style="width:${lvlPct}%"></div></div>
-                </div>
-              </div>
-
-              <div style="font-size:11.5px;color:#6e7681;margin-top:10px;">
-                Сервер: Cyan Anarchy 1.21.4+ • Промокод: <strong style="color:${promoCodeActive ? '#10b981' : '#8b949e'}">${promoCodeActive ? 'Lent9i (-20% активен)' : 'Не активирован'}</strong>
-              </div>
+            <div class="carbon-stat-strip">
+              <div class="carbon-stat-cell"><div class="carbon-stat-lbl">Прокрутов кейса</div><div class="carbon-stat-val">${spinCounter}</div><div class="carbon-stat-sub">рулетка на сайте</div></div>
+              <div class="carbon-stat-cell"><div class="carbon-stat-lbl">Лучший дроп</div><div class="carbon-stat-val" style="font-size:17px;color:var(--cyan);">${bestDrop}</div><div class="carbon-stat-sub">макс. редкость</div></div>
+              <div class="carbon-stat-cell"><div class="carbon-stat-lbl">Желаемое</div><div class="carbon-stat-val">${wishlist.length}</div><div class="carbon-stat-sub">привилегий ❤️</div></div>
+              <div class="carbon-stat-cell"><div class="carbon-stat-lbl">Закладки</div><div class="carbon-stat-val">${favRules.length}</div><div class="carbon-stat-sub">пунктов правил ⭐</div></div>
             </div>
-          </div>`;
+            <div class="carbon-bottom-grid">
+              <div><div style="font-size:11.5px;color:#8b949e;">Активность • последние 10</div><div class="form-squares">${squaresHtml}</div></div>
+              <div><div style="font-size:11.5px;color:#8b949e;display:flex;justify-content:space-between;"><span>Уровень профиля</span><strong style="color:#fff;">${lvlPct}%</strong></div><div class="lvl-bar-bg"><div class="lvl-bar-fill" style="width:${lvlPct}%"></div></div></div>
+            </div>
+            <div style="font-size:11.5px;color:#6e7681;margin-top:10px;">Сервер: Cyan Anarchy 1.21.4+ • Промокод: <strong style="color:${promoCodeActive?'#10b981':'#8b949e'}">${promoCodeActive?'Lent9i (-20% активен)':'Не активирован'}</strong></div>
+          </div></div>`;
       }
       renderUsersDirectory();
     }
     function copyText(txt) { playSfx("pop"); if (navigator.clipboard) navigator.clipboard.writeText(txt); showToast(`Скопировано: ${txt}`); }
 
-    // RIPPLE & SPOTLIGHT
+    // RIPPLE, SPOTLIGHT, СЛОГАН
     document.addEventListener("click", e => {
-      const btn = e.target.closest(".p-btn, .buy-btn, .nav-btn");
-      if (!btn || siteSettings.anim === "min") return;
-      const rect = btn.getBoundingClientRect(), wave = document.createElement("span");
-      wave.className = "ripple-wave"; const size = Math.max(rect.width, rect.height);
-      wave.style.width = wave.style.height = size + "px"; wave.style.left = (e.clientX - rect.left - size / 2) + "px"; wave.style.top = (e.clientY - rect.top - size / 2) + "px";
+      const btn = e.target.closest(".p-btn, .buy-btn, .nav-btn"); if (!btn || siteSettings.anim === "min") return;
+      const rect = btn.getBoundingClientRect(), wave = document.createElement("span"); wave.className = "ripple-wave";
+      const size = Math.max(rect.width, rect.height); wave.style.width = wave.style.height = size + "px";
+      wave.style.left = (e.clientX - rect.left - size/2) + "px"; wave.style.top = (e.clientY - rect.top - size/2) + "px";
       btn.appendChild(wave); setTimeout(() => wave.remove(), 580);
     });
-    document.addEventListener("mousemove", e => {
-      document.querySelectorAll(".st-card").forEach(card => { const rect = card.getBoundingClientRect(); card.style.setProperty("--mx", (e.clientX - rect.left) + "px"); card.style.setProperty("--my", (e.clientY - rect.top) + "px"); });
-    });
-
+    document.addEventListener("mousemove", e => { document.querySelectorAll(".st-card").forEach(c => { const r = c.getBoundingClientRect(); c.style.setProperty("--mx",(e.clientX-r.left)+"px"); c.style.setProperty("--my",(e.clientY-r.top)+"px"); }); });
     const slogans = ["Анархия нового поколения 1.21.4+: уникальные сферы, талисманы и честный PvP","Мгновенная авто-выдача доната через CryptoBot и Telegram Stars 24/7","Прозрачные правила, проверка ПО по стандарту и защита от читеров","Заходи на 1.21.4+: IP newtime.mcsh.gg • Свой профиль и база предметов"];
-    let sloganIdx = 0;
-    setInterval(() => { const el = document.getElementById("heroTicker"); if (!el) return; el.classList.add("fade"); setTimeout(() => { sloganIdx = (sloganIdx + 1) % slogans.length; el.textContent = slogans[sloganIdx]; el.classList.remove("fade"); }, 340); }, 4200);
+    let sloganIdx = 0; setInterval(() => { const el = document.getElementById("heroTicker"); if (!el) return; el.classList.add("fade"); setTimeout(() => { sloganIdx = (sloganIdx+1)%slogans.length; el.textContent = slogans[sloganIdx]; el.classList.remove("fade"); }, 340); }, 4200);
 
     function rankPngImg(r, size = 26, extraCls = "") { return `<img class="rank-png ${extraCls}" style="width:${size}px;height:${size}px" src="${makeRankPng(r.color, r.tier)}" alt="${r.name}">`; }
     function rarityIconSVG(kind, clr) {
-      if (kind === "mythic") return `<svg width="26" height="26" viewBox="0 0 24 24" fill="${clr}"><path d="M12 2l2.9 6.3L22 9.3l-5 4.9 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.3l7.1-1L12 2z"/></svg>`;
-      if (kind === "crown") return `<svg width="26" height="24" viewBox="0 0 32 24" fill="${clr}"><path d="M4 20L2 7L9 12L16 2L23 12L30 7L28 20H4Z"/></svg>`;
-      if (kind === "star") return `<svg width="24" height="24" viewBox="0 0 24 24" fill="${clr}"><path d="M12 1l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></svg>`;
-      if (kind === "gem") return `<svg width="24" height="24" viewBox="0 0 24 24" fill="${clr}"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/></svg>`;
+      if (kind==="mythic") return `<svg width="26" height="26" viewBox="0 0 24 24" fill="${clr}"><path d="M12 2l2.9 6.3L22 9.3l-5 4.9 1.2 7L12 17.8 5.8 21.2 7 14.2 2 9.3l7.1-1L12 2z"/></svg>`;
+      if (kind==="crown") return `<svg width="26" height="24" viewBox="0 0 32 24" fill="${clr}"><path d="M4 20L2 7L9 12L16 2L23 12L30 7L28 20H4Z"/></svg>`;
+      if (kind==="star") return `<svg width="24" height="24" viewBox="0 0 24 24" fill="${clr}"><path d="M12 1l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></svg>`;
+      if (kind==="gem") return `<svg width="24" height="24" viewBox="0 0 24 24" fill="${clr}"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/></svg>`;
       return `<svg width="22" height="22" viewBox="0 0 24 24" fill="${clr}"><path d="M12 2l8 4v6c0 5.2-3.4 9.9-8 11-4.6-1.1-8-5.8-8-11V6l8-4z"/></svg>`;
     }
     function animatePrice(targetVal, suffix = " руб") {
       const el = document.getElementById("detailPrice"), start = Number(lastPriceShown) || 0, end = Number(targetVal);
       if (isNaN(end) || siteSettings.anim === "min") { el.textContent = targetVal + suffix; lastPriceShown = end; return; }
       const startTime = performance.now();
-      (function step(now) { const p = Math.min(1, (now - startTime) / 260); el.textContent = `${Math.round(start + (end - start) * (1 - Math.pow(1 - p, 3)))}${suffix}`; if (p < 1) requestAnimationFrame(step); else lastPriceShown = end; })(startTime);
+      (function step(now) { const p = Math.min(1,(now-startTime)/260); el.textContent = `${Math.round(start+(end-start)*(1-Math.pow(1-p,3)))}${suffix}`; if (p<1) requestAnimationFrame(step); else lastPriceShown=end; })(startTime);
     }
-    function toggleWishlist() { playSfx("pop"); if (wishlist.includes(selectedId)) wishlist = wishlist.filter(x => x !== selectedId); else wishlist.push(selectedId); localStorage.setItem("nt_wishlist", JSON.stringify(wishlist)); renderDetails(); showToast(wishlist.includes(selectedId) ? "Добавлено в желаемое ❤️" : "Убрано из желаемого"); }
+    function toggleWishlist() { playSfx("pop"); if (wishlist.includes(selectedId)) wishlist = wishlist.filter(x=>x!==selectedId); else wishlist.push(selectedId); localStorage.setItem("nt_wishlist",JSON.stringify(wishlist)); renderDetails(); showToast(wishlist.includes(selectedId)?"Добавлено в желаемое ❤️":"Убрано из желаемого"); }
 
     // МАГАЗИН
-    function setRankFilter(filter, btn) { playSfx("click"); rankFilter = filter; document.querySelectorAll(".rf-btn").forEach(b => b.classList.remove("act")); if (btn) btn.classList.add("act"); renderList(); }
-    function pushRecent(id) { recentViewed = [id, ...recentViewed.filter(x => x !== id)].slice(0, 5); localStorage.setItem("nt_recent", JSON.stringify(recentViewed)); renderRecent(); }
-    function renderRecent() {
-      const strip = document.getElementById("recentStrip");
-      if (!recentViewed.length) { strip.classList.remove("show"); return; }
-      strip.classList.add("show");
-      strip.innerHTML = `<span>Вы смотрели:</span>` + recentViewed.map(id => { const r = ranks.find(x => x.id === id); return r ? `<span class="recent-pill" style="border-color:${r.color}55;color:${r.color}" onclick="selectRank('${r.id}')">${r.name}</span>` : ""; }).join("");
-    }
+    function setRankFilter(filter, btn) { playSfx("click"); rankFilter = filter; document.querySelectorAll("#shop-catalog .rf-btn").forEach(b=>b.classList.remove("act")); if(btn) btn.classList.add("act"); renderList(); }
+    function pushRecent(id) { recentViewed = [id,...recentViewed.filter(x=>x!==id)].slice(0,5); localStorage.setItem("nt_recent",JSON.stringify(recentViewed)); renderRecent(); }
+    function renderRecent() { const strip = document.getElementById("recentStrip"); if (!recentViewed.length) { strip.classList.remove("show"); return; } strip.classList.add("show"); strip.innerHTML = `<span>Вы смотрели:</span>`+recentViewed.map(id=>{const r=ranks.find(x=>x.id===id);return r?`<span class="recent-pill" style="border-color:${r.color}55;color:${r.color}" onclick="selectRank('${r.id}')">${r.name}</span>`:"";}).join(""); }
     function renderList() {
-      const q = document.getElementById("globalSearch").value.trim().toLowerCase();
-      let html = "", count = 0;
-      ranks.forEach((r, idx) => {
-        if (idx === 11 && !q && rankFilter === "all") html += `<div class="rank-div">Особые статусы</div>`;
-        if ((rankFilter === "paid" && r.special) || (rankFilter === "fly" && !r.fly) || (rankFilter === "tp0" && r.tp !== "0 сек") || (rankFilter === "special" && !r.special)) return;
-        if (q && !r.name.toLowerCase().includes(q) && !r.cmds.some(c => c.c.toLowerCase().includes(q) || c.d.toLowerCase().includes(q))) return;
-        count++;
-        const fromText = r.special ? r.from : `от ${r.p30} ₽`, badgeHtml = r.badge ? `<span class="rank-badge">${r.badge}</span>` : "";
-        html += `<div class="rank-item ${r.id === selectedId ? "act" : ""}" style="--item-color:${r.color}" onclick="selectRank('${r.id}')"><div class="rank-left">${rankPngImg(r, 26)}<span class="rank-name">${r.name}</span>${badgeHtml}</div><span class="rank-from">${fromText}</span></div>`;
+      const q = document.getElementById("globalSearch").value.trim().toLowerCase(); let html="", count=0;
+      ranks.forEach((r,idx)=>{
+        if (idx===11 && !q && rankFilter==="all") html += `<div class="rank-div">Особые статусы</div>`;
+        if ((rankFilter==="paid"&&r.special)||(rankFilter==="fly"&&!r.fly)||(rankFilter==="tp0"&&r.tp!=="0 сек")||(rankFilter==="special"&&!r.special)) return;
+        if (q && !r.name.toLowerCase().includes(q) && !r.cmds.some(c=>c.c.toLowerCase().includes(q)||c.d.toLowerCase().includes(q))) return;
+        count++; const fromText = r.special?r.from:`от ${r.p30} ₽`, badgeHtml = r.badge?`<span class="rank-badge">${r.badge}</span>`:"";
+        html += `<div class="rank-item ${r.id===selectedId?"act":""}" style="--item-color:${r.color}" onclick="selectRank('${r.id}')"><div class="rank-left">${rankPngImg(r,26)}<span class="rank-name">${r.name}</span>${badgeHtml}</div><span class="rank-from">${fromText}</span></div>`;
       });
       document.getElementById("ranksFoundHint").textContent = `${count} шт.`;
       document.getElementById("rankList").innerHTML = html || `<div style="padding:24px;color:var(--mut);text-align:center;">Ничего не найдено</div>`;
       return count;
     }
-    function onLiveNickChange() { const val = document.getElementById("liveNickInp").value.trim(); if (val) localStorage.setItem("nt_nick", val); else localStorage.removeItem("nt_nick"); renderDetails(); }
+    function onLiveNickChange() { const val = document.getElementById("liveNickInp").value.trim(); if (val) localStorage.setItem("nt_nick",val); else localStorage.removeItem("nt_nick"); renderDetails(); }
     function renderDetails() {
-      const r = ranks.find(x => x.id === selectedId); if (!r) return;
+      const r = ranks.find(x=>x.id===selectedId); if (!r) return;
       const detailCard = document.getElementById("detailCard"), termTabs = document.getElementById("termTabs"), termLabel = document.getElementById("termLabel"), buyBtn = document.getElementById("buyBtn"), perDayEl = document.getElementById("pricePerDay"), nextBtn = document.getElementById("nextTierBtn");
       detailCard.style.setProperty("--rank-accent", r.color);
       document.getElementById("detailIcon").innerHTML = rankPngImg(r, 40, "detail-png-bob");
@@ -1283,10 +983,226 @@
       const savedNick = localStorage.getItem("nt_nick") || "ВашНик";
       document.getElementById("chatPreview").innerHTML = `<div><span class="mc-lbl">Чат:</span><strong style="color:${r.color}">${r.prefix}</strong> <span style="color:#fff">${savedNick}:</span> <span style="color:#cbd5e1">всем удачи!</span></div>`;
       document.getElementById("tabPreview").innerHTML = `<div><span class="mc-lbl">TAB:</span><strong style="color:${r.color}">${r.prefix}</strong> <span style="color:#fff">${savedNick}</span></div><span class="mc-ping"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:11px"></i></span>`;
-      const bossPct = Math.max(12, Math.round((r.tier / 11) * 100));
+      const bossPct = Math.max(12, Math.round((r.tier/11)*100));
       document.getElementById("bossbarTxt").innerHTML = `<span style="color:${r.color}">${r.prefix} ${savedNick}</span> • NEWTIME 1.21.4+`;
-      const bFill = document.getElementById("bossbarFill"); bFill.style.width = bossPct + "%"; bFill.style.background = `linear-gradient(90deg, ${r.color}, var(--cyan))`;
+      const bFill = document.getElementById("bossbarFill"); bFill.style.width = bossPct+"%"; bFill.style.background = `linear-gradient(90deg, ${r.color}, var(--cyan))`;
       document.getElementById("powerMeters").innerHTML = `<div class="pm-box"><div class="pm-top"><span>⚔️ PvP-мощь</span><strong>${r.pvp}%</strong></div><div class="pm-track"><div class="pm-fill" style="width:${r.pvp}%"></div></div></div><div class="pm-box"><div class="pm-top"><span>💰 Экономика</span><strong>${r.eco}%</strong></div><div class="pm-track"><div class="pm-fill" style="width:${r.eco}%"></div></div></div><div class="pm-box"><div class="pm-top"><span>✨ Комфорт</span><strong>${r.comf}%</strong></div><div class="pm-track"><div class="pm-fill" style="width:${r.comf}%"></div></div></div>`;
-
       if (r.special) {
-        termLabel.textContent = `
+        termLabel.textContent = `Статус: ${r.name}`; termTabs.style.display = "none"; document.getElementById("detailPrice").textContent = r.priceLabel; perDayEl.textContent = ""; nextBtn.style.display = "none";
+        buyBtn.textContent = r.id === "player" ? "ИГРАТЬ БЕСПЛАТНО" : "ПОДРОБНЕЕ";
+      } else {
+        termLabel.textContent = "Выберите срок:"; termTabs.style.display = "flex";
+        const save90 = Math.round((1 - r.p90/(r.p30*3))*100); document.getElementById("save90").textContent = save90>0 ? `-${save90}%` : "";
+        animatePrice(r[selectedTerm], " руб");
+        perDayEl.textContent = selectedTerm==="p30" ? `≈ ${(r.p30/30).toFixed(2)} ₽ в день` : selectedTerm==="p90" ? `≈ ${(r.p90/90).toFixed(2)} ₽ в день` : "∞ Вечный доступ без продлений";
+        const idx = ranks.findIndex(x=>x.id===r.id), nextR = ranks[idx+1];
+        if (nextR && !nextR.special) { nextBtn.style.display="inline-flex"; nextBtn.textContent=`⬆ ${nextR.name} (+${nextR[selectedTerm]-r[selectedTerm]} ₽)`; nextBtn.dataset.next=nextR.id; } else nextBtn.style.display="none";
+        buyBtn.textContent = "ПРИОБРЕСТИ";
+      }
+      document.getElementById("detailPerms").innerHTML = r.cmds.map(i=>`<li><span class="cmd">› ${i.c}</span> <span class="arrow">⇒</span> <span>${i.d}</span></li>`).join("");
+      document.getElementById("detailOther").innerHTML = r.other.map(o=>`<li><span>${o[0]}</span><strong>${o[1]}</strong></li>`).join("");
+    }
+    function jumpNextRank() { const nextId = document.getElementById("nextTierBtn").dataset.next; if (nextId) selectRank(nextId); }
+
+    // ДУЭЛЬ, СРАВНЕНИЕ, ПОДБОР, РУЛЕТКА
+    function initDuelSelects() { const opts = ranks.filter(r=>!r.special).map(r=>`<option value="${r.id}">${r.name} (от ${r.p30} ₽)</option>`).join(""); const a=document.getElementById("duelA"),b=document.getElementById("duelB"); a.innerHTML=opts; b.innerHTML=opts; a.value="knight"; b.value="knyaz"; renderDuel(); }
+    function renderDuel() {
+      const a = ranks.find(x=>x.id===document.getElementById("duelA").value), b = ranks.find(x=>x.id===document.getElementById("duelB").value); if(!a||!b) return;
+      const metrics = [["Цена (30 дней)",`${a.p30} ₽`,`${b.p30} ₽`,a.p30<b.p30?"a":b.p30<a.p30?"b":""],["Цена (Навсегда)",`${a.pFor} ₽`,`${b.pFor} ₽`,a.pFor<b.pFor?"a":b.pFor<a.pFor?"b":""],["Точки домов",a.homes,b.homes,a.homes>b.homes?"a":b.homes>a.homes?"b":""],["Приваты",a.regs,b.regs,a.regs>b.regs?"a":b.regs>a.regs?"b":""],["Аукцион",a.auc,b.auc,a.auc>b.auc?"a":b.auc>a.auc?"b":""],["Полёт /fly",a.fly?"Есть":"Нет",b.fly?"Есть":"Нет",a.fly&&!b.fly?"a":b.fly&&!a.fly?"b":""],["Мощь PvP",a.pvp+"%",b.pvp+"%",a.pvp>b.pvp?"a":b.pvp>a.pvp?"b":""]];
+      const card = (r,s) => `<div class="duel-card" style="border-top:2px solid ${r.color}"><div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">${rankPngImg(r,26)}<strong style="font-size:18px;color:${r.color}">${r.name}</strong></div>${metrics.map(m=>`<div class="duel-row"><span style="color:var(--mut)">${m[0]}</span><span class="${m[3]===s?"duel-win":""}">${s==="a"?m[1]:m[2]}</span></div>`).join("")}</div>`;
+      document.getElementById("duelGrid").innerHTML = card(a,"a") + card(b,"b");
+    }
+    function renderCompareTable() { document.getElementById("compareBody").innerHTML = ranks.filter(r=>!r.special).map(r=>`<tr onclick="jumpToRank('${r.id}'); switchShopTab('catalog', document.querySelectorAll('.subtab-btn')[0])"><td><div class="cmp-rank-cell">${rankPngImg(r,22)}<span style="color:${r.color}">${r.name}</span></div></td><td style="font-family:var(--mono);font-weight:700;">${r.p30} ₽</td><td style="font-family:var(--mono);font-weight:800;color:var(--cyan);">${r.pFor} ₽</td><td>${r.homes}</td><td>${r.regs}</td><td>${r.auc}</td><td>${r.tp}</td><td>${r.fly?'<span class="cmp-yes">✔ Да</span>':'<span class="cmp-no">—</span>'}</td><td>${r.fix!=="—"?`<span style="color:var(--cyan);font-weight:700;">${r.fix}</span>`:'<span class="cmp-no">—</span>'}</td></tr>`).join(""); }
+    function updateWizard() {
+      const maxB = Number(document.getElementById("wizBudget").value); document.getElementById("wizBudgetVal").textContent = `до ${maxB} ₽`;
+      const needFly=document.getElementById("wFly").checked, needFix=document.getElementById("wFix").checked, needTp0=document.getElementById("wTp0").checked, needExp=document.getElementById("wExp").checked;
+      const matched = ranks.filter(r=>!r.special && r.p30<=maxB && (!needFly||r.fly) && (!needFix||r.fix!=="—") && (!needTp0||r.tp==="0 сек") && (!needExp||r.exp==="100%"));
+      document.getElementById("wizCount").textContent = `${matched.length} вариант(а)`;
+      document.getElementById("wizResults").innerHTML = matched.length ? matched.map(r=>`<div class="wiz-card" style="border-top:2px solid ${r.color}"><div><div style="display:flex;align-items:center;gap:9px;margin-bottom:6px;">${rankPngImg(r,24)}<strong style="font-size:16px;color:${r.color}">${r.name}</strong></div><div style="font-size:12px;color:var(--mut);">Дома: ${r.homes} • ТП: ${r.tp} • Починка: ${r.fix}</div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;"><strong style="font-family:var(--mono);font-size:16px;">${r.p30} ₽ / 30д</strong><button class="p-btn primary" style="padding:6px 12px;" onclick="jumpToRank('${r.id}'); switchShopTab('catalog', document.querySelectorAll('.subtab-btn')[0])">Выбрать</button></div></div>`).join("") : `<div style="grid-column:1/-1;text-align:center;color:var(--mut);padding:26px;">По заданным фильтрам вариантов нет.</div>`;
+    }
+
+    function rollWeightedDrop() { let roll = Math.random()*100; for(const i of roulettePool){ roll-=i.chance; if(roll<=0) return i; } return roulettePool[0]; }
+    function renderDropTable() { document.getElementById("dropTable").innerHTML = roulettePool.map(p=>{const r=ranks.find(x=>x.id===p.id); return `<div class="dt-item" style="--rar:${p.rarClr}"><div class="dt-left">${rankPngImg(r,22)}<div><div style="font-weight:800;color:${r.color}">${r.name}</div><div style="font-size:10px;color:var(--mut);">${p.rarity}</div></div></div><span class="dt-pct">${p.chance}%</span></div>`;}).join(""); }
+    function buildRouletteCardHTML(p) { const r=ranks.find(x=>x.id===p.id); return `<div class="r-card" style="--rar:${p.rarClr}"><span class="r-chance-tag">${p.chance}%</span>${rankPngImg(r,34)}<span style="color:${r.color};font-weight:900;font-size:13px;">${r.name}</span><span class="r-rar-badge">${p.rarity}</span></div>`; }
+    function buildRoulettePool() { const track=document.getElementById("rouletteTrack"); let html=""; for(let i=0;i<46;i++) html+=buildRouletteCardHTML(rollWeightedDrop()); track.style.transform="translateX(0px)"; track.innerHTML=html; document.getElementById("spinCountLbl").textContent=`Прокрутов: ${spinCounter}`; }
+    function spinRoulette() {
+      if(isSpinning) return; isSpinning=true; playSfx("pop");
+      const btn=document.getElementById("spinBtn"), ptr=document.getElementById("rPointer"), dropBox=document.getElementById("rouletteDrop");
+      dropBox.classList.remove("show"); btn.disabled=true; btn.textContent="КРУТИМ КЕЙС..."; buildRoulettePool();
+      const track=document.getElementById("rouletteTrack"), winItem=rollWeightedDrop(), winRank=ranks.find(x=>x.id===winItem.id), winIndex=34;
+      track.querySelectorAll(".r-card")[winIndex].outerHTML=buildRouletteCardHTML(winItem);
+      const stageW=track.parentElement.clientWidth, stepPx=148, targetX=-(winIndex*stepPx+69-stageW/2+Math.floor((Math.random()-0.5)*44)), duration=4500, startTime=performance.now(); let lastTickIdx=-1;
+      (function animStep(now){
+        const t=Math.min(1,(now-startTime)/duration), curX=targetX*(1-Math.pow(1-t,4)); track.style.transform=`translateX(${curX}px)`;
+        const curIdx=Math.floor((-curX+stageW/2)/stepPx);
+        if(curIdx!==lastTickIdx){ lastTickIdx=curIdx; playSfx("tick"); ptr.classList.add("kick"); setTimeout(()=>ptr.classList.remove("kick"),55); }
+        if(t<1) requestAnimationFrame(animStep);
+        else {
+          spinCounter++; localStorage.setItem("nt_spins",String(spinCounter));
+          if(bestDrop==="—" || winRank.tier>=(ranks.find(x=>x.name===bestDrop)?.tier||0)){ bestDrop=winRank.name; localStorage.setItem("nt_best_drop",bestDrop); }
+          document.getElementById("spinCountLbl").textContent=`Прокрутов: ${spinCounter}`;
+          const isRare=winItem.chance<=5; playSfx(isRare?"mythic":"win"); if(isRare) spawnConfetti(winItem.rarClr);
+          spinHist=[{name:winRank.name,clr:winRank.color,rarClr:winItem.rarClr},...spinHist].slice(0,6);
+          document.getElementById("spinHistory").innerHTML=`<span>История:</span>`+spinHist.map(h=>`<span class="recent-pill" style="border-color:${h.rarClr};color:${h.clr}">${h.name}</span>`).join("");
+          dropBox.style.borderColor=winItem.rarClr;
+          dropBox.innerHTML=`<div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:4px;">${rarityIconSVG(winItem.icon,winItem.rarClr)}<span class="r-rar-badge" style="--rar:${winItem.rarClr};font-size:11px;">${winItem.rarity} • ШАНС ${winItem.chance}%</span></div><div style="font-size:23px;font-weight:900;color:${winRank.color};margin:4px 0;">${winRank.name}</div><div style="font-size:12.5px;color:#cbd5e1;margin-bottom:12px;">Хотите получить эту привилегию на сервере 1.21.4+?</div><button class="p-btn primary" onclick="jumpToRank('${winRank.id}'); switchShopTab('catalog', document.querySelectorAll('.subtab-btn')[0])">Открыть в магазине →</button>`;
+          dropBox.classList.add("show"); btn.disabled=false; btn.textContent="🎲 КРУТИТЬ ЕЩЁ РАЗ"; isSpinning=false;
+        }
+      })(startTime);
+    }
+
+    function switchShopTab(tabId, btn) { playSfx("click"); document.querySelectorAll(".subview").forEach(v=>v.classList.remove("act")); document.getElementById("shop-"+tabId).classList.add("act"); document.querySelectorAll(".subtab-btn").forEach(b=>b.classList.remove("act")); if(btn) btn.classList.add("act"); }
+    function selectRank(id) { playSfx("click"); selectedId=id; pushRecent(id); renderList(); renderDetails(); }
+    function selectTerm(term) { playSfx("click"); selectedTerm=term; document.querySelectorAll(".term-btn").forEach(b=>b.classList.toggle("act",b.dataset.term===term)); renderDetails(); }
+    function jumpToRank(id) { selectedId=id; pushRecent(id); renderList(); renderDetails(); switchView("shop"); }
+    function switchView(view) { playSfx("click"); document.querySelectorAll(".view").forEach(v=>v.classList.remove("act")); document.getElementById("view-"+view).classList.add("act"); document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("act",b.dataset.view===view)); window.scrollTo({top:0,behavior:"smooth"}); }
+
+    // ПРАВИЛА ПО ВКЛАДКАМ
+    const secOrder = ["sec-1","sec-2","sec-3","sec-4","sec-5","sec-6"];
+    function selectRuleSec(secId) {
+      playSfx("click"); activeRuleSec = secId;
+      document.querySelectorAll(".rule-tab-btn").forEach(b=>b.classList.toggle("act",b.dataset.sec===secId));
+      document.querySelectorAll(".rule-sec").forEach(s=>s.classList.toggle("act-sec",secId==="all"||s.id===secId));
+      const pager = document.getElementById("rulePager");
+      if (secId==="all") pager.style.display="none";
+      else { pager.style.display="flex"; const idx=secOrder.indexOf(secId); document.getElementById("prevRuleBtn").style.visibility=idx>0?"visible":"hidden"; document.getElementById("nextRuleBtn").style.visibility=idx<secOrder.length-1?"visible":"hidden"; }
+    }
+    function stepRuleSec(dir) { const next=secOrder[secOrder.indexOf(activeRuleSec)+dir]; if(next) selectRuleSec(next); }
+
+    // ОПЛАТА
+    function getEffectivePrice(r) { return promoCodeActive ? Math.max(1, Math.round(r[selectedTerm]*0.8)) : r[selectedTerm]; }
+    function updateModalPrice() {
+      const r=ranks.find(x=>x.id===selectedId); if(!r||r.special) return;
+      const termNames={p30:"30 дней",p90:"90 дней",pFor:"Навсегда"}, finalPrice=getEffectivePrice(r), stars=Math.max(1,Math.ceil(finalPrice/1.8));
+      document.getElementById("mSummary").innerHTML = promoCodeActive ? `Срок: ${termNames[selectedTerm]} • Стоимость: <s style="color:#64748b">${r[selectedTerm]}</s> <strong style="color:#10b981">${finalPrice} руб (-20% Lent9i)</strong>` : `Срок: ${termNames[selectedTerm]} • Стоимость: ${finalPrice} руб`;
+      document.getElementById("starsEst").textContent=`~${stars} ⭐`; document.getElementById("sbpPriceLbl").textContent=`${finalPrice} ₽`;
+      if (promoCodeActive) document.getElementById("promoInp").value="Lent9i";
+    }
+    function onModalNickInput() { const val=document.getElementById("mNick").value.trim(); document.getElementById("step2").classList.toggle("act",/^[a-zA-Z0-9_]{3,16}$/.test(val)); if(!document.getElementById("giftCheck").checked){ document.getElementById("liveNickInp").value=val; if(val) localStorage.setItem("nt_nick",val); renderDetails(); } }
+    function toggleGiftMode() { document.getElementById("mNickLabel").textContent=document.getElementById("giftCheck").checked?"Игровой ник друга (получателя подарка):":"Ваш игровой ник на сервере:"; }
+    function getNick() { const nick=document.getElementById("mNick").value.trim(); if(!/^[a-zA-Z0-9_]{3,16}$/.test(nick)){ playSfx("err"); showToast("Введите корректный ник (3–16 латинских букв, цифр или _)"); document.getElementById("mNick").focus(); return null; } if(!document.getElementById("giftCheck").checked) localStorage.setItem("nt_nick",nick); document.getElementById("step2").classList.add("act"); document.getElementById("step3").classList.add("act"); return nick; }
+    function openBuyModal() { playSfx("pop"); const r=ranks.find(x=>x.id===selectedId); if(!r) return; if(r.special){ r.id==="player"?copyIP():showToast(r.note); return; } document.getElementById("mRankName").textContent=r.name; document.getElementById("mRankName").style.color=r.color; updateModalPrice(); document.getElementById("sbpBox").classList.remove("open"); const saved=localStorage.getItem("nt_nick"); if(saved && !document.getElementById("mNick").value && !document.getElementById("giftCheck").checked) document.getElementById("mNick").value=saved; onModalNickInput(); document.getElementById("modalBg").classList.add("open"); }
+    function closeModal() { document.getElementById("modalBg").classList.remove("open"); }
+    function isWorkerReady() { return WORKER_URL && !WORKER_URL.includes("ВАШ-НИК"); }
+    async function payCrypto() { const nick=getNick(); if(!nick) return; if(!isWorkerReady()){ playSfx("err"); return showToast("Подключите WORKER_URL в коде сайта для авто-счёта CryptoBot!"); } showToast("Создаём счёт в CryptoBot..."); try{ const res=await fetch(`${WORKER_URL}/api/order`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({nick,rank:selectedId,term:selectedTerm,promo:promoCodeActive?"Lent9i":""})}); const data=await res.json(); if(data.ok&&data.pay_url){ window.open(data.pay_url,"_blank"); closeModal(); } else showToast(data.error||"Ошибка создания счёта"); }catch{ showToast("Не удалось связаться с ботом"); } }
+    function payStars() { const nick=getNick(); if(!nick) return; window.open(`https://t.me/${BOT_USERNAME}?start=stars-${selectedId}-${selectedTerm}-${nick}`,"_blank"); closeModal(); }
+    async function toggleSbp() { playSfx("click"); const box=document.getElementById("sbpBox"); box.classList.toggle("open"); if(!box.classList.contains("open")) return; if(!isWorkerReady()){ document.getElementById("sbpDetails").textContent=SBP_FALLBACK; return; } try{ const res=await fetch(`${WORKER_URL}/api/config`); const cfg=await res.json(); document.getElementById("sbpDetails").textContent=cfg.sbp_info||SBP_FALLBACK; }catch{ document.getElementById("sbpDetails").textContent=SBP_FALLBACK; } }
+    async function sendSbpRequest() {
+      const nick=getNick(); if(!nick) return;
+      const r=ranks.find(x=>x.id===selectedId), finalPrice=getEffectivePrice(r), termNames={p30:"30 дней",p90:"90 дней",pFor:"Навсегда"};
+      if(!isWorkerReady()){ const msg=`NewTime СБП: ${r.name} (${termNames[selectedTerm]} — ${finalPrice} ₽)${promoCodeActive?" [Промо: Lent9i]":""}, Ник: ${nick}`; if(navigator.clipboard) navigator.clipboard.writeText(msg); showToast("Заявка скопирована! Отправьте чек в @newtime_tg"); window.open("https://t.me/newtime_tg","_blank"); closeModal(); return; }
+      try{ const res=await fetch(`${WORKER_URL}/api/sbp`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({nick,rank:selectedId,term:selectedTerm,promo:promoCodeActive?"Lent9i":""})}); const data=await res.json(); if(data.ok){ playSfx("win"); showToast("Заявка отправлена! Донат выдастся после подтверждения."); closeModal(); } else showToast(data.error||"Ошибка отправки"); }catch{ showToast("Ошибка соединения с сервером"); }
+    }
+
+    // ПРАВИЛА, МОДЫ, ПОИСК
+    function copyRule(btn) { playSfx("pop"); const row=btn.closest(".rule-row"); if(navigator.clipboard) navigator.clipboard.writeText(`Пункт ${row.querySelector(".r-badge").textContent}: ${row.querySelector(".r-text").innerText.trim()}`); showToast(`Скопирован пункт ${row.querySelector(".r-badge").textContent}`); }
+    function toggleFavRule(btn) { playSfx("pop"); const row=btn.closest(".rule-row"), code=row.querySelector(".r-badge").textContent, text=row.querySelector(".r-text").innerText.trim(); favRules=favRules.some(f=>f.code===code)?favRules.filter(f=>f.code!==code):[...favRules,{code,text}]; localStorage.setItem("nt_fav_rules",JSON.stringify(favRules)); syncFavButtons(); renderFavRules(); }
+    function syncFavButtons() { document.querySelectorAll(".rule-row").forEach(row=>{ const star=row.querySelector(".r-act-btn"); if(star) star.classList.toggle("fav-on",favRules.some(f=>f.code===row.querySelector(".r-badge").textContent)); }); }
+    function renderFavRules() { const box=document.getElementById("favRulesBox"); box.innerHTML=favRules.length?favRules.map(f=>`<div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;gap:8px;align-items:flex-start;"><span class="r-badge" style="min-width:40px;font-size:10.5px;">${f.code}</span><span style="color:#e2e8f0;font-size:12px;">${f.text.slice(0,75)}${f.text.length>75?"...":""}</span></div>`).join(""):"Нажмите ⭐ на любом правиле, чтобы закрепить его здесь."; }
+    function updateReadyBar() { playSfx("click"); const checks=document.querySelectorAll(".ready-chk input"), done=[...checks].filter(c=>c.checked).length; document.getElementById("readyFill").style.width=(done/checks.length*100)+"%"; if(done===checks.length){ playSfx("win"); showToast("Отлично! Вы готовы к игре на Cyan Anarchy 1.21.4+!"); } }
+
+    function renderMods() {
+      const okData=modsSorted?[...ok].sort((a,b)=>a.localeCompare(b)):ok, noData=modsSorted?[...no].sort((a,b)=>a.localeCompare(b)):no;
+      document.getElementById("okList").innerHTML=okData.map(m=>`<span class="tag tok" onclick="copyMod(this.textContent)">${m}</span>`).join("");
+      document.getElementById("noList").innerHTML=noData.map(m=>`<span class="tag tno" onclick="copyMod(this.textContent)">${m}</span>`).join("");
+      document.getElementById("okCount").textContent=ok.length+" шт."; document.getElementById("noCount").textContent=no.length+" шт."; document.getElementById("sbOkStat").textContent=ok.length; onSearch();
+    }
+    function toggleModSort() { playSfx("click"); modsSorted=!modsSorted; document.getElementById("sortModsBtn").textContent=modsSorted?"🔁 Исходный порядок":"🔤 Сортировать А–Я"; renderMods(); }
+    function copyAllMods(type) { playSfx("pop"); const list=type==="ok"?ok:no; if(navigator.clipboard) navigator.clipboard.writeText(list.join(", ")); showToast(`Скопирован список (${list.length} модов)`); }
+    function quickCheckMod(name) { playSfx("click"); document.getElementById("modCheckerInp").value=name; checkModName(); }
+    function checkModName() {
+      const val=document.getElementById("modCheckerInp").value.trim().toLowerCase().replace(/\.jar$/i,""), resBox=document.getElementById("modCheckerRes");
+      if(!val){ resBox.className="mod-chk-result"; resBox.textContent="Введите название мода для проверки"; return; }
+      const hitNo=no.find(m=>m.toLowerCase().includes(val)), hitOk=ok.find(m=>m.toLowerCase().includes(val));
+      if(hitNo){ resBox.className="mod-chk-result no"; resBox.textContent=`⛔ ЗАПРЕЩЁН: ${hitNo}`; }
+      else if(hitOk){ resBox.className="mod-chk-result ok"; resBox.textContent=`✅ РАЗРЕШЁН: ${hitOk}`; }
+      else { resBox.className="mod-chk-result warn"; resBox.textContent="⚠️ Нет в списке 4.4 — уточните у Staff!"; }
+    }
+    function filterModGroup(grp, btn) { playSfx("click"); document.querySelectorAll(".mf-btn").forEach(b=>b.classList.remove("act")); btn.classList.add("act"); document.getElementById("okBox").style.display=grp==="no"?"none":"block"; document.getElementById("noBox").style.display=grp==="ok"?"none":"block"; document.getElementById("modsGrid").style.gridTemplateColumns=grp==="all"?"":"1fr"; }
+    function toggleFaq(btn) { playSfx("click"); btn.closest(".faq-item").classList.toggle("open"); }
+
+    function setBadge(id,count,active){ const el=document.getElementById(id); if(el){ el.textContent=count; el.classList.toggle("show",active); } }
+    function escapeRegExp(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }
+    function onSearch() {
+      const input=document.getElementById("globalSearch"), raw=input.value.trim(), v=raw.toLowerCase();
+      document.getElementById("searchClear").classList.toggle("show",v.length>0);
+      const shopMatches=renderList(); let ruleMatches=0; const re=v?new RegExp(`(${escapeRegExp(raw)})`,"gi"):null;
+      if(v) selectRuleSec("all");
+      document.querySelectorAll("#view-rules .rule-row").forEach(r=>{
+        const textEl=r.querySelector(".r-text");
+        if(textEl){ if(!textEl.dataset.orig) textEl.dataset.orig=textEl.innerHTML; const hit=textEl.innerText.toLowerCase().includes(v); r.style.display=hit?"flex":"none"; if(hit) ruleMatches++; textEl.innerHTML=(v&&hit&&!textEl.dataset.orig.includes("<a")&&!textEl.dataset.orig.includes("<div"))?textEl.dataset.orig.replace(re,'<mark class="hl">$1</mark>'):textEl.dataset.orig; }
+      });
+      document.getElementById("rulesSearchBanner").classList.toggle("show",v.length>0);
+      document.getElementById("rulesSearchMsg").textContent=`По запросу «${raw}» найдено пунктов: ${ruleMatches}`;
+      let modMatches=0; document.querySelectorAll(".tag").forEach(t=>{ const hit=t.innerText.toLowerCase().includes(v); t.style.display=hit?"inline-block":"none"; if(hit) modMatches++; });
+      setBadge("cnt-shop",shopMatches,v.length>0); setBadge("cnt-rules",ruleMatches,v.length>0); setBadge("cnt-mods",modMatches,v.length>0);
+    }
+    function clearSearch(){ document.getElementById("globalSearch").value=""; onSearch(); selectRuleSec("sec-1"); }
+
+    let toastTimer;
+    function showToast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"),2600); }
+    function copyIP(){ playSfx("pop"); if(navigator.clipboard) navigator.clipboard.writeText("newtime.mcsh.gg"); showToast("IP newtime.mcsh.gg скопирован!"); }
+    function copyMod(name){ playSfx("pop"); if(navigator.clipboard) navigator.clipboard.writeText(name); showToast(`Скопировано: ${name}`); }
+    async function fetchServerStatus(){ const txt=document.getElementById("onlineText"); try{ const res=await fetch("https://api.mcsrvstat.us/3/newtime.mcsh.gg"), data=await res.json(); txt.textContent=data&&data.online?`Онлайн: ${data.players?.online||0}/${data.players?.max||100}`:"Онлайн • 1.21.4+"; }catch{ txt.textContent="Онлайн • 1.21.4+"; } }
+
+    // 6-РЕЖИМНЫЙ ФОНОВЫЙ ДВИЖОК
+    let bgRaf = null;
+    function initBgEngine() {
+      if (bgRaf) cancelAnimationFrame(bgRaf);
+      const canvas=document.getElementById("bgCanvas"), ctx=canvas.getContext("2d");
+      let w=canvas.width=window.innerWidth, h=canvas.height=window.innerHeight; const mode=siteSettings.bgMode;
+      if (mode==="none") { ctx.clearRect(0,0,w,h); return; }
+      let t=0; const drops=Array(Math.floor(w/18)).fill(1);
+      const stars=Array.from({length:110},()=>({x:(Math.random()-0.5)*w,y:(Math.random()-0.5)*h,z:Math.random()*w}));
+      const nodes=Array.from({length:45},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5)*0.5,vy:(Math.random()-0.5)*0.5,r:Math.random()*2.2+1}));
+      const embers=Array.from({length:55},()=>({x:Math.random()*w,y:Math.random()*h,vy:Math.random()*1.3+0.5,vx:(Math.random()-0.5)*0.6,s:Math.random()*3.5+1.5}));
+      window.onresize=()=>{ w=canvas.width=window.innerWidth; h=canvas.height=window.innerHeight; };
+      (function renderFrame() {
+        if (!document.hidden) {
+          const accent=getComputedStyle(document.body).getPropertyValue("--cyan").trim()||"#00e5ff", blue=getComputedStyle(document.body).getPropertyValue("--blue").trim()||"#1e78ff";
+          if (mode==="aurora") {
+            ctx.clearRect(0,0,w,h); t+=0.014;
+            for(let b=0;b<3;b++){ const gx=w*(0.25+b*0.25)+Math.sin(t+b)*90, gy=h*(0.35+(b%2)*0.28)+Math.cos(t*0.8+b)*60, grad=ctx.createRadialGradient(gx,gy,10,gx,gy,340); grad.addColorStop(0,b%2===0?accent:blue); grad.addColorStop(1,"transparent"); ctx.globalAlpha=0.14; ctx.fillStyle=grad; ctx.fillRect(0,0,w,h); }
+            for(let wave=0;wave<2;wave++){ ctx.beginPath(); ctx.lineWidth=2; ctx.strokeStyle=wave===0?accent:blue; ctx.globalAlpha=0.22; for(let x=0;x<=w;x+=24){ const y=h*(0.45+wave*0.22)+Math.sin(x*0.0035+t+wave*1.5)*60; if(x===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); } ctx.stroke(); }
+            ctx.fillStyle=accent; nodes.forEach(n=>{ n.y-=0.45; if(n.y<-10){n.y=h+10;n.x=Math.random()*w;} ctx.globalAlpha=0.42; ctx.fillRect(n.x,n.y,n.r,n.r); });
+          } else if (mode==="matrix") {
+            ctx.fillStyle="rgba(4,8,19,0.14)"; ctx.globalAlpha=1; ctx.fillRect(0,0,w,h); ctx.fillStyle=accent; ctx.font="14px JetBrains Mono, monospace"; ctx.globalAlpha=0.48;
+            for(let i=0;i<drops.length;i++){ ctx.fillText(Math.random()>0.5?"1":"0",i*18,drops[i]*18); if(drops[i]*18>h&&Math.random()>0.975) drops[i]=0; drops[i]++; }
+          } else if (mode==="warp") {
+            ctx.fillStyle="rgba(4,8,19,0.3)"; ctx.globalAlpha=1; ctx.fillRect(0,0,w,h); ctx.fillStyle=accent;
+            stars.forEach(s=>{ s.z-=6.5; if(s.z<=1){s.z=w;s.x=(Math.random()-0.5)*w;s.y=(Math.random()-0.5)*h;} const sx=(s.x/s.z)*w+w/2,sy=(s.y/s.z)*h+h/2,r=Math.max(0.8,(1-s.z/w)*3.6); ctx.globalAlpha=Math.min(0.88,1-s.z/w); ctx.fillRect(sx,sy,r,r); });
+          } else if (mode==="hex") {
+            ctx.clearRect(0,0,w,h); t+=0.025; const size=46,dx=size*1.5,dy=size*Math.sqrt(3); ctx.strokeStyle=accent; ctx.lineWidth=1.2;
+            for(let x=0;x<w+dx;x+=dx) for(let y=0;y<h+dy;y+=dy){ const off=(Math.round(x/dx)%2)*(dy/2); ctx.globalAlpha=Math.max(0.04,0.08+0.1*Math.sin(t+(x+y)*0.01)); ctx.beginPath(); for(let k=0;k<6;k++){const ang=(Math.PI/3)*k,px=x+size*0.56*Math.cos(ang),py=y+off+size*0.56*Math.sin(ang); if(k===0) ctx.moveTo(px,py); else ctx.lineTo(px,py);} ctx.closePath(); ctx.stroke(); }
+          } else if (mode==="embers") {
+            ctx.clearRect(0,0,w,h); ctx.fillStyle=accent; embers.forEach(p=>{ p.y-=p.vy; p.x+=p.vx; if(p.y<-10){p.y=h+10;p.x=Math.random()*w;} ctx.globalAlpha=0.5; ctx.fillRect(p.x,p.y,p.s,p.s); });
+          } else if (mode==="net") {
+            ctx.clearRect(0,0,w,h); ctx.fillStyle=accent; ctx.strokeStyle=accent;
+            for(let i=0;i<nodes.length;i++){ const p=nodes[i]; p.x+=p.vx; p.y+=p.vy; if(p.x<0||p.x>w) p.vx*=-1; if(p.y<0||p.y>h) p.vy*=-1; ctx.globalAlpha=0.35; ctx.fillRect(p.x,p.y,p.r,p.r); for(let j=i+1;j<nodes.length;j++){const d=Math.hypot(p.x-nodes[j].x,p.y-nodes[j].y); if(d<130){ctx.globalAlpha=(1-d/130)*0.16;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.stroke();}} }
+          }
+        }
+        bgRaf = requestAnimationFrame(renderFrame);
+      })();
+    }
+
+    window.addEventListener("scroll", () => {
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      document.getElementById("scrollProgress").style.width = (docH > 0 ? Math.min(100,(window.scrollY/docH)*100) : 0) + "%";
+      document.getElementById("backTop").classList.toggle("show", window.scrollY > 360);
+    });
+    document.addEventListener("keydown", e => {
+      if (e.key==="Escape") { closeModal(); closeSettings(); closeAccountModal(); }
+      if (document.activeElement.tagName==="INPUT" || document.activeElement.tagName==="SELECT") return;
+      if (e.key==="/") { e.preventDefault(); document.getElementById("globalSearch").focus(); }
+      if (e.key==="1") switchView("shop"); if (e.key==="2") switchView("items"); if (e.key==="3") switchView("rules"); if (e.key==="4") switchView("mods"); if (e.key==="5") switchView("contacts");
+    });
+
+    const savedNickInit = localStorage.getItem("nt_nick");
+    if (savedNickInit) document.getElementById("liveNickInp").value = savedNickInit;
+
+    renderRules(); applyAllSettings(); initBgEngine(); renderAccountUI(); renderRecent(); renderList(); renderDetails();
+    renderCompareTable(); initDuelSelects(); updateWizard(); renderDropTable(); buildRoulettePool();
+    renderCustomItems(); initKitSelector(); renderMods(); syncFavButtons(); renderFavRules(); fetchServerStatus();
+  </script>
+</body>
+</html>
