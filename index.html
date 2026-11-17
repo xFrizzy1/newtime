@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#040813">
   <title>NewTime — Официальный портал 1.21.4+ | Cyan Anarchy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +28,7 @@
 
     .buy-btn,.p-btn,.nav-btn.act,.subtab-btn,.rf-btn,.mf-btn,.term-btn,.rule-tab-btn{position:relative;overflow:hidden;border-radius:14px;border-bottom-style:solid;transition:transform .2s var(--bounce),filter .15s,box-shadow .18s;user-select:none}
     .buy-btn{background:linear-gradient(180deg,var(--cyan),var(--blue) 92%);border:2px solid rgba(255,255,255,.35);border-bottom:6px solid var(--blue-dark);color:#fff;font-size:13.5px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;padding:11px 26px;cursor:pointer;box-shadow:inset 0 3px 0 rgba(255,255,255,.45),0 8px 24px var(--cyan-dim);text-shadow:0 2px 0 rgba(0,0,0,.36)}
-    .buy-btn::after{content:"";position:absolute;top:-50%;left:-75%;width:45%;height:200%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);transform:skewX(-22deg);animation:btnShine 4s infinite}
+    .buy-btn::after{content:"";position:absolute;top:-50%;left:-75%;width:45%;height:200%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);transform:skewX(-22deg);animation:btnShine 4s infinite;pointer-events:none}
     @keyframes btnShine{0%,75%{left:-75%}100%{left:135%}}
     .buy-btn:hover{transform:translateY(-4px) scale(1.04,1.03);filter:brightness(1.08)}.buy-btn:active{transform:translateY(3px) scale(1.03,.94);border-bottom-width:2px}.buy-btn:disabled{opacity:.65;cursor:not-allowed;transform:none}
     .p-btn{background:linear-gradient(180deg,#25385c,#152138);border:2px solid rgba(255,255,255,.18);border-bottom:5px solid #09101e;color:#eef2f9;padding:8px 14px;font-size:12.5px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:7px;box-shadow:inset 0 2px 0 rgba(255,255,255,.22)}
@@ -68,7 +69,7 @@
 
     .navbar-wrap{position:sticky;top:0;z-index:100;background:rgba(7,12,23,.9);backdrop-filter:blur(var(--blur-px));border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid var(--cyan-brd);box-shadow:0 10px 35px rgba(0,0,0,.65)}
     .navbar{max-width:1280px;margin:0 auto;padding:9px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-    .nav-left{display:flex;align-items:center;gap:5px;overflow-x:auto;scrollbar-width:none}.nav-left::-webkit-scrollbar{display:none}
+    .nav-left{display:flex;align-items:center;gap:5px;overflow-x:auto;scrollbar-width:none;padding:4px 2px}.nav-left::-webkit-scrollbar{display:none}
     .nav-brand{display:flex;align-items:center;gap:8px;font-weight:900;font-size:14.5px;color:#fff;margin-right:8px;cursor:pointer;white-space:nowrap}.nav-brand span{color:var(--cyan)}
     .nav-btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:6px;background:transparent;border:1.5px solid transparent;color:#cbd5e1;font-size:11.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:8px 12px;border-radius:12px;cursor:pointer;white-space:nowrap;transition:.18s var(--bounce)}
     .nav-btn:hover{background:rgba(255,255,255,.08);color:#fff;transform:translateY(-2px)}
@@ -91,7 +92,7 @@
     .st-card-hdr{background:var(--card-hdr);padding:13px 18px;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#fff;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.st-card-hdr.center{justify-content:center}
     .subtabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.subview{display:none}.subview.act{display:block;animation:viewPop .28s var(--bounce)}
 
-    /* MINECRAFT CHEST KIT GUI С ЦВЕТНЫМИ СЛОТАМИ */
+    /* MINECRAFT CHEST KIT GUI */
     .mc-chest-panel{background:#606570;border:3px solid #16191f;box-shadow:inset 3px 3px 0 #9aa2b3,inset -3px -3px 0 #31343b,0 10px 26px rgba(0,0,0,.65);border-radius:8px;padding:12px 14px;margin-bottom:18px}
     .mc-chest-title{font-family:var(--mono);font-size:13px;font-weight:900;color:#00e5ff;text-shadow:1.5px 1.5px 0 #071921;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
     .mc-chest-grid{display:grid;grid-template-columns:repeat(9,minmax(34px,1fr));gap:4px}
@@ -101,8 +102,10 @@
     .mc-slot-cnt{position:absolute;bottom:1px;right:2px;font-family:var(--mono);font-size:11px;font-weight:900;color:#fff;text-shadow:1.5px 1.5px 0 #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000;line-height:1;z-index:2}
     .mc-slot-glint{position:absolute;inset:1px;background:linear-gradient(135deg,rgba(192,132,252,.22),transparent 65%);pointer-events:none}
     .mc-bundle-bar{position:absolute;left:14%;right:14%;bottom:4px;height:2.5px;background:#18181b;border-radius:1px;overflow:hidden;z-index:2}.mc-bundle-bar::after{content:"";display:block;width:100%;height:100%;background:#ef4444}
-    .mc-slot-tip{display:none;position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(11,5,18,.97);border:2px solid #b45309;box-shadow:inset 0 0 0 1.5px #4c1d95,0 10px 26px rgba(0,0,0,.9);border-radius:6px;padding:8px 11px;min-width:225px;max-width:290px;pointer-events:none;z-index:50;text-align:left;font-family:var(--mono)}
-    .mc-slot:hover .mc-slot-tip{display:block}
+    .mc-slot-tip{display:none}
+    /* Плавающий тултип (не обрезается карточками и краями экрана) */
+    #mcFloatTip{position:fixed;left:0;top:0;display:none;background:rgba(11,5,18,.97);border:2px solid #b45309;box-shadow:inset 0 0 0 1.5px #4c1d95,0 10px 26px rgba(0,0,0,.9);border-radius:6px;padding:8px 11px;min-width:200px;max-width:min(300px,calc(100vw - 16px));pointer-events:none;z-index:500;text-align:left;font-family:var(--mono)}
+    #mcFloatTip.show{display:block}
 
     .mc-items-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(295px,1fr));gap:16px;margin-bottom:20px}
     .mc-tooltip-card{position:relative;background:#0c0712;border:2px solid #4c1d95;box-shadow:inset 0 0 0 2px #1a0b2e,0 12px 28px rgba(0,0,0,.65);border-radius:10px;padding:14px 16px;font-family:var(--mono);transition:transform .2s var(--bounce),border-color .2s}
@@ -200,7 +203,7 @@
     .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}.tags{display:flex;flex-wrap:wrap;gap:7px;padding:16px}.tag{font-size:12px;padding:5px 10px;border-radius:8px;background:#080d18;border:1px solid var(--brd);cursor:pointer;font-family:var(--mono)}.tok{border-color:rgba(16,185,129,.38);color:#34d399}.tno{border-color:rgba(239,68,68,.38);color:#f87171}
 
     .cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-bottom:22px}.c-body{padding:18px}.c-body p{color:var(--mut);margin:0 0 14px;font-size:13.5px}
-    .faq-item{border-bottom:1px solid var(--brd)}.faq-q{width:100%;background:none;border:none;color:#fff;padding:15px 18px;text-align:left;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between}.faq-a{display:none;padding:0 18px 16px;color:#cbd5e1;font-size:13.5px}.faq-item.open .faq-a{display:block}.faq-item.open .faq-q span{transform:rotate(45deg)}
+    .faq-item{border-bottom:1px solid var(--brd)}.faq-q{width:100%;background:none;border:none;color:#fff;padding:15px 18px;text-align:left;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:space-between}.faq-a{display:none;padding:0 18px 16px;color:#cbd5e1;font-size:13.5px}.faq-item.open .faq-a{display:block}.faq-item.open .faq-q span{transform:rotate(45deg)}.faq-q span{transition:transform .2s var(--bounce)}
 
     .modal-bg{position:fixed;inset:0;z-index:200;background:rgba(3,6,12,.85);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:16px}.modal-bg.open{display:flex}
     .modal{width:100%;max-width:520px;background:var(--card-solid);border:1px solid var(--cyan-brd);border-radius:18px;padding:24px;position:relative;box-shadow:0 28px 65px rgba(0,0,0,.82);max-height:92vh;overflow-y:auto}.modal.wide{max-width:820px}.modal.settings-wide{max-width:610px}
@@ -217,41 +220,94 @@
 
     .back-top{position:fixed;bottom:22px;left:22px;z-index:150;width:44px;height:44px;border-radius:12px;background:linear-gradient(180deg,#1b2b4a,#0e1729);border:1.5px solid var(--cyan-brd);border-bottom:4.5px solid #060a14;color:var(--cyan);font-size:17px;font-weight:900;cursor:pointer;display:none;align-items:center;justify-content:center}.back-top.show{display:flex}
     .footer{background:#04070d;border-top:1px solid var(--brd);padding:22px 20px;font-size:12.5px;color:var(--mut)}.footer-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}.footer a{color:var(--cyan);text-decoration:none}
-    .toast{position:fixed;bottom:22px;right:22px;z-index:300;background:#0c1424;border:2px solid var(--cyan);color:#fff;padding:11px 18px;border-radius:12px;font-size:13px;font-weight:700;opacity:0;transform:translateY(10px);pointer-events:none;transition:.22s var(--bounce)}.toast.show{opacity:1;transform:translateY(0)}
+    .toast{position:fixed;bottom:22px;right:22px;z-index:600;background:#0c1424;border:2px solid var(--cyan);color:#fff;padding:11px 18px;border-radius:12px;font-size:13px;font-weight:700;opacity:0;transform:translateY(10px);pointer-events:none;transition:.22s var(--bounce);max-width:calc(100vw - 44px)}.toast.show{opacity:1;transform:translateY(0)}
+
+    /* ============ УЛУЧШЕНИЯ КНОПОК И ИНТЕРФЕЙСА ============ */
+    button,.p-btn,.buy-btn,.nav-btn,.rank-item,.recent-pill,.mq-chip,.tag,.set-pill,.faq-q{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+    button{font-family:inherit}
+    .buy-btn,.p-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;line-height:1.2}
+    .buy-btn[style*="display:block"]{display:flex!important}
+    /* Видимый фокус с клавиатуры */
+    :focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:10px}
+    .buy-btn:focus-visible,.p-btn:focus-visible,.subtab-btn:focus-visible,.rf-btn:focus-visible,.mf-btn:focus-visible,.term-btn:focus-visible,.rule-tab-btn:focus-visible,.pm-btn:focus-visible{outline-offset:4px;box-shadow:0 0 0 4px var(--cyan-dim)}
+    input:focus-visible,select:focus-visible{outline:none;border-color:var(--cyan)!important;box-shadow:0 0 0 3px var(--cyan-dim)}
+    /* Состояние загрузки */
+    .is-loading{pointer-events:none;opacity:.88}
+    .is-loading::before{content:"";width:14px;height:14px;flex-shrink:0;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:btnSpin .7s linear infinite}
+    .pm-btn.is-loading{justify-content:flex-start;gap:10px}
+    @keyframes btnSpin{to{transform:rotate(360deg)}}
+    button:disabled{cursor:not-allowed}
+    /* Кнопки оплаты */
+    .pm-btn{position:relative;overflow:hidden;transition:transform .18s var(--bounce),border-color .15s,filter .15s,box-shadow .15s}
+    .pm-btn:hover{transform:translateY(-3px);border-color:var(--cyan);filter:brightness(1.1);box-shadow:0 8px 20px var(--cyan-dim)}
+    .pm-btn:active{transform:translateY(2px);border-bottom-width:2px}
+    .pm-btn:disabled{opacity:.6;transform:none;filter:none}
+    /* Мелкие кнопки */
+    .icon-pill-btn:active,.nav-btn:active{transform:translateY(1px) scale(.97)}
+    .nav-btn.act:hover{transform:translateY(-2px)}
+    .mq-chip,.recent-pill,.set-pill,.tag,.carbon-copy-btn,.m-close,.back-top,.r-act-btn,.faq-q,.search-clear,.secret-rune{transition:transform .16s var(--bounce),border-color .15s,background .15s,color .15s,filter .15s}
+    .mq-chip:hover,.recent-pill:hover,.set-pill:hover{transform:translateY(-2px);border-color:var(--cyan);color:#fff}
+    .set-pill:active,.mq-chip:active,.recent-pill:active{transform:translateY(1px) scale(.97)}
+    .tag:hover{transform:translateY(-2px);filter:brightness(1.35)}.tag:active{transform:scale(.95)}
+    .carbon-copy-btn:active{transform:scale(.96)}
+    .m-close:hover{background:var(--no);color:#fff;transform:rotate(90deg)}
+    .back-top:hover{transform:translateY(-4px);border-color:var(--cyan)}.back-top:active{transform:translateY(2px);border-bottom-width:2px}
+    .r-act-btn:hover{opacity:1;color:#fff;background:rgba(255,255,255,.1)}
+    .faq-q:hover{background:rgba(255,255,255,.04);color:var(--cyan)}
+    .rank-item:focus-visible{outline-offset:-3px;background:var(--hov)}
+    .rank-heart{font-size:11px}
+    /* Сенсорные экраны: крупные зоны нажатия, подсказки всегда видны */
+    @media (pointer:coarse){
+      .p-btn,.rf-btn,.subtab-btn,.mf-btn,.term-btn,.rule-tab-btn,.icon-pill-btn,.nav-btn{min-height:42px}
+      .buy-btn{min-height:46px}
+      .pm-btn{min-height:50px}
+      .r-act-btn{opacity:1;padding:8px 10px;font-size:14px}
+      .mq-chip{padding:8px 12px}.tag{padding:8px 12px}
+      .m-close{width:40px;height:40px}
+      .rank-item{padding:13px 18px}
+    }
+    @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 
     @media(max-width:980px){
       .portal-grid,.shop-grid,.mgrid,.wizard-grid,.duel-grid,.power-meters,.carbon-profile,.carbon-bottom-grid,.all-kits-grid{grid-template-columns:1fr}
       .carbon-stat-strip{grid-template-columns:repeat(2,1fr)}.mc-chest-grid{grid-template-columns:repeat(6,1fr)}.detail-card{min-height:auto}.sb-sticky{position:static}.nav-right{width:100%;justify-content:space-between}.search-box{flex:1}.nav-search,.nav-search:focus{width:100%}
+      .mc-previews{min-width:0;width:100%}
+      .foot-actions{width:100%}.foot-actions .buy-btn{flex:1}
+    }
+    @media(max-width:560px){
+      .all-kits-grid{grid-template-columns:1fr}.mc-chest-grid{grid-template-columns:repeat(5,1fr)}.container{padding:18px 12px 40px}
+      .detail-body{padding:16px 14px}.detail-foot{padding:14px}.hero-brand-plate{padding:10px 18px}.mod-chk-result{min-width:0;width:100%}
     }
   </style>
 </head>
 <body data-theme="cyan">
   <div class="scroll-progress" id="scrollProgress"></div>
   <canvas id="bgCanvas"></canvas><canvas id="fxCanvas"></canvas><div class="scanlines"></div>
+  <div id="mcFloatTip" role="tooltip"></div>
 
   <div class="promo-strip" id="promoStrip">
     <span>⚡ <strong>NEWTIME • CYAN ANARCHY 1.21.4+</strong> • Клавиши <strong>1–5</strong> вкладки, <strong>/</strong> поиск • Официальные текстуры 1.21.4 и киты со скриншотов</span>
-    <button class="promo-close" onclick="this.parentElement.style.display='none'">✕</button>
+    <button class="promo-close" onclick="this.parentElement.style.display='none'" aria-label="Закрыть строку">✕</button>
   </div>
 
   <header class="hero-banner">
     <div class="hero-glow-orb"></div>
-    <svg class="hero-skyline" viewBox="0 0 1440 360" preserveAspectRatio="xMidYMid slice"><rect width="1440" height="360" fill="#071328" opacity=".6"/><path d="M0 250H90V185H165V220H240V145H340V210H430V160H540V235H660V170H780V220H900V135H1010V195H1140V155H1270V215H1360V170H1440V360H0Z" fill="#0d244a"/><path d="M0 295H140V245H260V270H400V225H530V280H690V235H840V275H990V220H1160V265H1300V230H1440V360H0Z" fill="#061024"/></svg>
+    <svg class="hero-skyline" viewBox="0 0 1440 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="1440" height="360" fill="#071328" opacity=".6"/><path d="M0 250H90V185H165V220H240V145H340V210H430V160H540V235H660V170H780V220H900V135H1010V195H1140V155H1270V215H1360V170H1440V360H0Z" fill="#0d244a"/><path d="M0 295H140V245H260V270H400V225H530V280H690V235H840V275H990V220H1160V265H1300V230H1440V360H0Z" fill="#061024"/></svg>
     <div class="hero-float-cubes"><span style="width:20px;height:20px;left:10%;top:25%"></span><span style="width:14px;height:14px;left:21%;top:64%;animation-delay:1.4s"></span><span style="width:22px;height:22px;right:12%;top:26%;animation-delay:.7s"></span></div>
-    <div class="secret-rune" onclick="revealSecretPromo()" title="Что-то светится...">✦</div>
+    <div class="secret-rune" onclick="revealSecretPromo()" title="Что-то светится..." role="button" tabindex="0" aria-label="Секрет" onkeydown="if(event.key==='Enter')revealSecretPromo()">✦</div>
     <div class="hero-content">
       <div class="hero-top-badges"><span class="hero-badge">Cyan Anarchy</span><span class="hero-badge ver">Java Edition • 1.21.4+</span></div>
       <div class="hero-brand-plate">
-        <svg class="hero-crown" onclick="crownSecretTap()" width="54" height="40" viewBox="0 0 32 24" fill="none"><path d="M4 20L2 7L9 12L16 2L23 12L30 7L28 20H4Z" fill="#00d2ff" stroke="#041529" stroke-width="2"/><rect x="14" y="11" width="4" height="4" transform="rotate(45 16 11)" fill="#0088ff" stroke="#e0f7ff"/></svg>
+        <svg class="hero-crown" onclick="crownSecretTap()" width="54" height="40" viewBox="0 0 32 24" fill="none" aria-hidden="true"><path d="M4 20L2 7L9 12L16 2L23 12L30 7L28 20H4Z" fill="#00d2ff" stroke="#041529" stroke-width="2"/><rect x="14" y="11" width="4" height="4" transform="rotate(45 16 11)" fill="#0088ff" stroke="#e0f7ff"/></svg>
         <h1 class="hero-title">NEW<span>TIME</span></h1>
       </div>
       <div class="hero-subtitle-card" id="heroTicker">Анархия нового поколения 1.21.4+: уникальные сферы, талисманы и честный PvP</div>
-      <div class="hero-pills"><div class="hero-sub" onclick="copyIP()"><span class="dot"></span><span>IP: <code>newtime.mcsh.gg</code> 📋</span></div><div class="online-pill"><span>Статус:</span><strong id="onlineText">Загрузка...</strong></div></div>
+      <div class="hero-pills"><div class="hero-sub" onclick="copyIP()" role="button" tabindex="0" onkeydown="if(event.key==='Enter')copyIP()"><span class="dot"></span><span>IP: <code>newtime.mcsh.gg</code> 📋</span></div><div class="online-pill"><span>Статус:</span><strong id="onlineText">Загрузка...</strong></div></div>
     </div>
   </header>
 
   <div class="navbar-wrap">
-    <nav class="navbar">
+    <nav class="navbar" aria-label="Основная навигация">
       <div class="nav-left">
         <div class="nav-brand" onclick="switchView('shop')">👑 NEW<span>TIME</span></div>
         <button class="nav-btn act" data-view="shop" onclick="switchView('shop')">Магазин <span class="nav-count" id="cnt-shop"></span></button>
@@ -264,7 +320,7 @@
         <button class="icon-pill-btn" id="sfxBtn" onclick="toggleSfx()">🔊 Звук</button>
         <button class="icon-pill-btn" id="accNavBtn" onclick="openAccountModal()">👤 Аккаунт</button>
         <button class="icon-pill-btn" onclick="openSettings()">⚙️ Настройки</button>
-        <div class="search-box"><input type="text" id="globalSearch" class="nav-search" oninput="onSearch()" placeholder="🔍 Поиск..."><button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button></div>
+        <div class="search-box"><input type="text" id="globalSearch" class="nav-search" oninput="onSearch()" placeholder="🔍 Поиск..." aria-label="Поиск по сайту"><button class="search-clear" id="searchClear" onclick="clearSearch()" aria-label="Очистить поиск">✕</button></div>
       </div>
     </nav>
   </div>
@@ -273,7 +329,7 @@
     <section class="view act" id="view-shop">
       <div class="page-head">
         <div><h2 class="page-title">Магазин привилегий</h2><div class="page-sub">Версия 1.21.4+ • Предпросмотр кита каждого ранга прямо в карточке</div></div>
-        <div class="page-actions"><button class="p-btn" onclick="copyIP()">📋 IP: newtime.mcsh.gg</button><a href="https://t.me/newtime_tg" target="_blank" class="p-btn primary">✈️ @newtime_tg</a></div>
+        <div class="page-actions"><button class="p-btn" onclick="copyIP()">📋 IP: newtime.mcsh.gg</button><a href="https://t.me/newtime_tg" target="_blank" rel="noopener" class="p-btn primary">✈️ @newtime_tg</a></div>
       </div>
       <div class="subtabs">
         <button class="subtab-btn act" onclick="switchShopTab('catalog',this)">💎 Каталог и Киты</button>
@@ -283,8 +339,8 @@
       </div>
       <div class="subview act" id="shop-catalog">
         <div class="shop-tools-bar">
-          <div class="rank-filters"><button class="rf-btn act" onclick="setRankFilter('all',this)">Все (15)</button><button class="rf-btn" onclick="setRankFilter('paid',this)">Платные (11)</button><button class="rf-btn" onclick="setRankFilter('fly',this)">🕊️ С /fly</button><button class="rf-btn" onclick="setRankFilter('tp0',this)">⚡ 0 сек ТП</button><button class="rf-btn" onclick="setRankFilter('special',this)">👑 Особые (4)</button></div>
-          <div class="nick-live-box"><span>Ник для превью:</span><input type="text" id="liveNickInp" class="nick-live-inp" maxlength="16" oninput="onLiveNickChange()" placeholder="Steve_228"></div>
+          <div class="rank-filters"><button class="rf-btn act" onclick="setRankFilter('all',this)">Все (15)</button><button class="rf-btn" onclick="setRankFilter('paid',this)">Платные (11)</button><button class="rf-btn" onclick="setRankFilter('fly',this)">🕊️ С /fly</button><button class="rf-btn" onclick="setRankFilter('tp0',this)">⚡ 0 сек ТП</button><button class="rf-btn" onclick="setRankFilter('special',this)">👑 Особые (4)</button><button class="rf-btn" onclick="setRankFilter('wish',this)">❤️ Желаемое</button></div>
+          <div class="nick-live-box"><span>Ник для превью:</span><input type="text" id="liveNickInp" class="nick-live-inp" maxlength="16" oninput="onLiveNickChange()" placeholder="Steve_228" aria-label="Ник для превью"></div>
         </div>
         <div class="recent-strip" id="recentStrip"></div>
         <div class="shop-grid">
@@ -300,21 +356,21 @@
               <div class="d-sec-title">Лимиты и бонусы</div><ul class="other-grid" id="detailOther"></ul>
             </div>
             <div class="detail-foot">
-              <div class="price-col"><div class="price-wrap"><span class="price-lbl">Стоимость:</span><span class="price-val" id="detailPrice">5 руб</span></div><div class="price-per-day" id="pricePerDay"></div></div>
-              <div class="foot-actions"><button class="p-btn" onclick="switchView('items')">🎒 Все 15 китов</button><button class="p-btn" id="wishBtn" onclick="toggleWishlist()">🤍</button><button class="p-btn" id="nextTierBtn" onclick="jumpNextRank()" style="display:none"></button><button class="buy-btn" id="buyBtn" onclick="openBuyModal()">ПРИОБРЕСТИ</button></div>
+              <div class="price-col"><div class="price-wrap"><span class="price-lbl">Стоимость:</span><span class="price-val" id="detailPrice">5 ₽</span></div><div class="price-per-day" id="pricePerDay"></div></div>
+              <div class="foot-actions"><button class="p-btn" onclick="switchView('items')">🎒 Все 15 китов</button><button class="p-btn" id="wishBtn" onclick="toggleWishlist()" aria-label="Добавить в желаемое">🤍</button><button class="p-btn" id="nextTierBtn" onclick="jumpNextRank()" style="display:none"></button><button class="buy-btn" id="buyBtn" onclick="openBuyModal()">ПРИОБРЕСТИ</button></div>
             </div>
           </div>
         </div>
       </div>
       <div class="subview" id="shop-compare">
-        <div class="st-card ai-frame"><div class="st-card-hdr"><span>⚔️ Дуэль двух привилегий</span></div><div class="duel-bar"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><select id="duelA" class="duel-select" onchange="renderDuel()"></select><strong style="color:var(--cyan);font-family:var(--mono)">VS</strong><select id="duelB" class="duel-select" onchange="renderDuel()"></select></div><span style="font-size:12px;color:var(--mut)">Зелёным отмечен лучший показатель</span></div><div class="duel-grid" id="duelGrid"></div></div>
+        <div class="st-card ai-frame"><div class="st-card-hdr"><span>⚔️ Дуэль двух привилегий</span></div><div class="duel-bar"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><select id="duelA" class="duel-select" onchange="renderDuel()" aria-label="Первая привилегия"></select><strong style="color:var(--cyan);font-family:var(--mono)">VS</strong><select id="duelB" class="duel-select" onchange="renderDuel()" aria-label="Вторая привилегия"></select></div><span style="font-size:12px;color:var(--mut)">Зелёным отмечен лучший показатель</span></div><div class="duel-grid" id="duelGrid"></div></div>
         <div class="st-card"><div class="st-card-hdr"><span>Общая матрица привилегий</span></div><div class="table-wrap"><table class="cmp-table"><thead><tr><th>Привилегия</th><th>30д</th><th>Навсегда</th><th>Дома</th><th>Приваты</th><th>Аукцион</th><th>ТП</th><th>/fly</th><th>/fix</th></tr></thead><tbody id="compareBody"></tbody></table></div></div>
       </div>
       <div class="subview" id="shop-wizard">
-        <div class="wizard-grid"><div class="st-card hud-corners"><div class="st-card-hdr">Фильтры подбора</div><div class="wizard-body"><div class="range-wrap"><label><span>Бюджет (30д):</span><strong style="color:var(--cyan);font-family:var(--mono)" id="wizBudgetVal">до 150 ₽</strong></label><input type="range" id="wizBudget" min="5" max="249" value="150" oninput="updateWizard()"></div><div class="wiz-checks"><label class="wiz-chk"><input type="checkbox" id="wFly" onchange="updateWizard()"> Нужен /fly и /speed</label><label class="wiz-chk"><input type="checkbox" id="wFix" onchange="updateWizard()"> Нужна починка /fix</label><label class="wiz-chk"><input type="checkbox" id="wTp0" onchange="updateWizard()"> Телепорт без задержки</label><label class="wiz-chk"><input type="checkbox" id="wExp" onchange="updateWizard()"> Сохранение 100% опыта</label></div></div></div><div class="st-card"><div class="st-card-hdr"><span>Подходящие привилегии</span><span id="wizCount" style="color:var(--cyan);font-family:var(--mono)"></span></div><div class="wiz-results" id="wizResults"></div></div></div>
+        <div class="wizard-grid"><div class="st-card hud-corners"><div class="st-card-hdr">Фильтры подбора</div><div class="wizard-body"><div class="range-wrap"><label><span>Бюджет (30д):</span><strong style="color:var(--cyan);font-family:var(--mono)" id="wizBudgetVal">до 150 ₽</strong></label><input type="range" id="wizBudget" min="5" max="249" value="150" oninput="updateWizard()" aria-label="Бюджет"></div><div class="wiz-checks"><label class="wiz-chk"><input type="checkbox" id="wFly" onchange="updateWizard()"> Нужен /fly и /speed</label><label class="wiz-chk"><input type="checkbox" id="wFix" onchange="updateWizard()"> Нужна починка /fix</label><label class="wiz-chk"><input type="checkbox" id="wTp0" onchange="updateWizard()"> Телепорт без задержки</label><label class="wiz-chk"><input type="checkbox" id="wExp" onchange="updateWizard()"> Сохранение 100% опыта</label></div></div></div><div class="st-card"><div class="st-card-hdr"><span>Подходящие привилегии</span><span id="wizCount" style="color:var(--cyan);font-family:var(--mono)"></span></div><div class="wiz-results" id="wizResults"></div></div></div>
       </div>
       <div class="subview" id="shop-roulette">
-        <div class="st-card ai-frame"><div class="st-card-hdr"><span>🎰 Донат-кейс NewTime • Шансы и Редкости</span><span style="color:var(--cyan);font-family:var(--mono);font-size:11px" id="spinCountLbl">Прокрутов: 0</span></div><div class="roulette-wrap"><div style="color:var(--mut);font-size:13.5px">Шансы от <strong style="color:#94a3b8">Обычных (65%)</strong> до <strong style="color:#ff2a55">МИФИЧЕСКОГО Бога (0.1%)</strong>!</div><div class="roulette-stage"><div class="roulette-pointer" id="rPointer"></div><div class="roulette-track" id="rouletteTrack"></div></div><button class="buy-btn" id="spinBtn" onclick="spinRoulette()">🎲 КРУТИТЬ КЕЙС</button><div class="roulette-drop" id="rouletteDrop"></div><div class="spin-history" id="spinHistory"></div><div class="d-sec-title" style="margin-top:24px;text-align:left">Таблица шансов выпадения</div><div class="drop-table" id="dropTable"></div></div></div>
+        <div class="st-card ai-frame"><div class="st-card-hdr"><span>🎰 Донат-кейс NewTime • Шансы и Редкости</span><span style="color:var(--cyan);font-family:var(--mono);font-size:11px" id="spinCountLbl">Прокрутов: 0</span></div><div class="roulette-wrap"><div style="color:var(--mut);font-size:13.5px">Шансы от <strong style="color:#94a3b8">Обычных (65%)</strong> до <strong style="color:#ff2a55">МИФИЧЕСКОГО Бога (0.1%)</strong>! <span style="font-size:11.5px">(Рулетка развлекательная, приз не выдаётся.)</span></div><div class="roulette-stage"><div class="roulette-pointer" id="rPointer"></div><div class="roulette-track" id="rouletteTrack"></div></div><button class="buy-btn" id="spinBtn" onclick="spinRoulette()">🎲 КРУТИТЬ КЕЙС</button><div class="roulette-drop" id="rouletteDrop"></div><div class="spin-history" id="spinHistory"></div><div class="d-sec-title" style="margin-top:24px;text-align:left">Таблица шансов выпадения</div><div class="drop-table" id="dropTable"></div></div></div>
       </div>
     </section>
 
@@ -323,7 +379,7 @@
       <div class="subtabs"><button class="subtab-btn act" onclick="switchItemsTab('allkits',this)">🎒 Все 15 наборов (/kit)</button><button class="subtab-btn" onclick="switchItemsTab('customs',this)">🔮 Сферы, Талисманы, Зелья</button></div>
       <div class="subview act" id="items-allkits"><div class="all-kits-grid" id="allKitsGrid"></div></div>
       <div class="subview" id="items-customs">
-        <div class="subtabs"><button class="rf-btn act" onclick="filterCustomItems('all',this)">Все (29)</button><button class="rf-btn" onclick="filterCustomItems('ability',this)">⚡ Способности</button><button class="rf-btn" onclick="filterCustomItems('talisman',this)">🗿 Талисманы</button><button class="rf-btn" onclick="filterCustomItems('sphere',this)">🔮 Сферы</button><button class="rf-btn" onclick="filterCustomItems('potion',this)">🧪 Зелья и Мешок</button><button class="rf-btn" onclick="filterCustomItems('gear',this)">⚔️ Оружие, Броня, Стрелы</button></div>
+        <div class="subtabs"><button class="rf-btn act" onclick="filterCustomItems('all',this)" id="cfAll">Все</button><button class="rf-btn" onclick="filterCustomItems('ability',this)">⚡ Способности</button><button class="rf-btn" onclick="filterCustomItems('talisman',this)">🗿 Талисманы</button><button class="rf-btn" onclick="filterCustomItems('sphere',this)">🔮 Сферы</button><button class="rf-btn" onclick="filterCustomItems('potion',this)">🧪 Зелья и Мешок</button><button class="rf-btn" onclick="filterCustomItems('gear',this)">⚔️ Оружие, Броня, Стрелы</button></div>
         <div class="mc-items-grid" id="customItemsGrid"></div>
       </div>
     </section>
@@ -344,31 +400,33 @@
 
     <section class="view" id="view-mods">
       <div class="page-head"><div><h2 class="page-title">Модификации (Пункт 4.4)</h2><div class="page-sub">Проверьте мод перед заходом на 1.21.4+ или нажмите на тег для копирования</div></div><div class="page-actions"><button class="p-btn" onclick="switchView('rules')">К правилам</button></div></div>
-      <div class="st-card ai-frame"><div class="st-card-hdr">Быстрая проверка мода</div><div class="mod-checker-card"><div class="mod-chk-top"><div class="mod-chk-input-wrap"><input type="text" id="modCheckerInp" class="mod-chk-input" oninput="checkModName()" placeholder="litematica, minihud..."></div><div class="mod-chk-result" id="modCheckerRes">Введите название мода</div></div><div class="mod-quick-chips"><span>Частые:</span><button class="mq-chip" onclick="quickCheckMod('Litematica')">Litematica</button><button class="mq-chip" onclick="quickCheckMod('MiniHUD')">MiniHUD</button><button class="mq-chip" onclick="quickCheckMod('FreeCam')">FreeCam</button><button class="mq-chip" onclick="quickCheckMod('Baritone')">Baritone</button><button class="mq-chip" onclick="quickCheckMod('Feather Client')">Feather Client</button><button class="mq-chip" onclick="quickCheckMod('ReplayMod')">ReplayMod</button></div></div></div>
-      <div class="mods-toolbar"><div class="mods-filter"><button class="mf-btn act" onclick="filterModGroup('all',this)">Все (127)</button><button class="mf-btn" onclick="filterModGroup('ok',this)">✅ Разрешённые (61)</button><button class="mf-btn" onclick="filterModGroup('no',this)">⛔ Запрещённые (66)</button></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="p-btn" id="sortModsBtn" onclick="toggleModSort()">🔤 А–Я</button><button class="p-btn" onclick="copyAllMods('ok')">📋 Копировать разрешённые</button></div></div>
+      <div class="st-card ai-frame"><div class="st-card-hdr">Быстрая проверка мода</div><div class="mod-checker-card"><div class="mod-chk-top"><div class="mod-chk-input-wrap"><input type="text" id="modCheckerInp" class="mod-chk-input" oninput="checkModName()" placeholder="litematica, minihud..." aria-label="Название мода"></div><div class="mod-chk-result" id="modCheckerRes" aria-live="polite">Введите название мода</div></div><div class="mod-quick-chips"><span>Частые:</span><button class="mq-chip" onclick="quickCheckMod('Litematica')">Litematica</button><button class="mq-chip" onclick="quickCheckMod('MiniHUD')">MiniHUD</button><button class="mq-chip" onclick="quickCheckMod('FreeCam')">FreeCam</button><button class="mq-chip" onclick="quickCheckMod('Baritone')">Baritone</button><button class="mq-chip" onclick="quickCheckMod('Feather Client')">Feather Client</button><button class="mq-chip" onclick="quickCheckMod('ReplayMod')">ReplayMod</button></div></div></div>
+      <div class="mods-toolbar"><div class="mods-filter"><button class="mf-btn act" onclick="filterModGroup('all',this)" id="mfAll">Все</button><button class="mf-btn" onclick="filterModGroup('ok',this)" id="mfOk">✅ Разрешённые</button><button class="mf-btn" onclick="filterModGroup('no',this)" id="mfNo">⛔ Запрещённые</button></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="p-btn" id="sortModsBtn" onclick="toggleModSort()">🔤 А–Я</button><button class="p-btn" onclick="copyAllMods('ok')">📋 Копировать разрешённые</button></div></div>
       <div class="mgrid" id="modsGrid"><div class="st-card" id="okBox"><div class="st-card-hdr"><span>✅ Разрешённые (4.4)</span><span id="okCount" style="color:var(--ok)"></span></div><div class="tags" id="okList"></div></div><div class="st-card" id="noBox"><div class="st-card-hdr"><span>⛔ Запрещённые (4.4)</span><span id="noCount" style="color:var(--no)"></span></div><div class="tags" id="noList"></div></div></div>
     </section>
 
     <section class="view" id="view-contacts">
       <div class="page-head"><div><h2 class="page-title">Контакты и FAQ</h2></div></div>
-      <div class="cgrid"><div class="st-card hud-corners"><div class="st-card-hdr">Подключение</div><div class="c-body"><p>Режим: <strong style="color:#fff">Cyan Anarchy</strong> • Java <strong>1.21.4+</strong></p><button class="buy-btn" style="width:100%" onclick="copyIP()">IP: newtime.mcsh.gg</button></div></div><div class="st-card hud-corners"><div class="st-card-hdr">Telegram</div><div class="c-body"><p>Оплата, чеки (п. 6.2) и техподдержка.</p><a href="https://t.me/newtime_tg" target="_blank" class="buy-btn" style="display:block;text-align:center;text-decoration:none">@newtime_tg</a></div></div><div class="st-card hud-corners"><div class="st-card-hdr">Администрация</div><div class="c-body"><p>Создатель: <strong style="color:#ef4444">xFrizzy</strong> • Заявки в STAFF/TIKTOK — Discord.</p><button class="p-btn primary" style="width:100%;justify-content:center" onclick="switchView('rules')">Правила</button></div></div></div>
-      <div class="st-card"><div class="st-card-hdr center">Частые вопросы (FAQ)</div><div class="faq-item open"><button class="faq-q" onclick="toggleFaq(this)">На какой версии работает сервер? <span>+</span></button><div class="faq-a">Minecraft Java Edition <strong>1.21.4+</strong>.</div></div><div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Как долго выдаётся донат? <span>+</span></button><div class="faq-a">Через CryptoBot и Telegram Stars — автоматически за секунды. Через СБП — после проверки чека (п. 6.2).</div></div><div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Можно ли перенести донат? <span>+</span></button><div class="faq-a">По пункту 3.5 донат не переносится на другой аккаунт.</div></div><div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Сколько твинков можно одновременно? <span>+</span></button><div class="faq-a">По пункту 4.5 — не более <strong>4 аккаунтов</strong>.</div></div></div>
+      <div class="cgrid"><div class="st-card hud-corners"><div class="st-card-hdr">Подключение</div><div class="c-body"><p>Режим: <strong style="color:#fff">Cyan Anarchy</strong> • Java <strong>1.21.4+</strong></p><button class="buy-btn" style="width:100%" onclick="copyIP()">IP: newtime.mcsh.gg</button></div></div><div class="st-card hud-corners"><div class="st-card-hdr">Telegram</div><div class="c-body"><p>Оплата, чеки (п. 6.2) и техподдержка.</p><a href="https://t.me/newtime_tg" target="_blank" rel="noopener" class="buy-btn" style="display:block;text-align:center;text-decoration:none">@newtime_tg</a></div></div><div class="st-card hud-corners"><div class="st-card-hdr">Администрация</div><div class="c-body"><p>Создатель: <strong style="color:#ef4444">xFrizzy</strong> • Заявки в STAFF/TIKTOK — Discord.</p><button class="p-btn primary" style="width:100%;justify-content:center" onclick="switchView('rules')">Правила</button></div></div></div>
+      <div class="st-card"><div class="st-card-hdr center">Частые вопросы (FAQ)</div><div class="faq-item open"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="true">На какой версии работает сервер? <span>+</span></button><div class="faq-a">Minecraft Java Edition <strong>1.21.4+</strong>.</div></div><div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Как долго выдаётся донат? <span>+</span></button><div class="faq-a">Через CryptoBot и Telegram Stars — автоматически за секунды. Через СБП — после проверки чека (п. 6.2).</div></div><div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Можно ли перенести донат? <span>+</span></button><div class="faq-a">По пункту 3.5 донат не переносится на другой аккаунт.</div></div><div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">Сколько твинков можно одновременно? <span>+</span></button><div class="faq-a">По пункту 4.5 — не более <strong>4 аккаунтов</strong>.</div></div></div>
     </section>
   </main>
 
-  <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-  <footer class="footer"><div class="footer-inner"><div>NewTime • 1.21.4+ • IP: <strong>newtime.mcsh.gg</strong> • <a href="https://t.me/newtime_tg" target="_blank">@newtime_tg</a></div><div>Клавиши: <strong>1–5</strong> вкладки • <strong>/</strong> поиск • © 2026 NewTime</div></div></footer>
+  <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Наверх">↑</button>
+  <footer class="footer"><div class="footer-inner"><div>NewTime • 1.21.4+ • IP: <strong>newtime.mcsh.gg</strong> • <a href="https://t.me/newtime_tg" target="_blank" rel="noopener">@newtime_tg</a></div><div>Клавиши: <strong>1–5</strong> вкладки • <strong>/</strong> поиск • © 2026 NewTime</div></div></footer>
 
-  <div class="modal-bg" id="modalBg" onclick="if(event.target===this)closeModal()"><div class="modal ai-frame"><button class="m-close" onclick="closeModal()">✕</button><div style="font-size:11px;font-weight:800;color:var(--cyan);text-transform:uppercase">Оплата привилегии</div><h3 id="mRankName" style="margin:6px 0 4px;font-size:22px;font-weight:900">Барон</h3><div id="mSummary" style="color:var(--mut);font-size:13px"></div><div class="m-steps"><div class="m-step act" id="step1">1. Ник</div><div class="m-step" id="step2">2. Оплата</div><div class="m-step" id="step3">3. Выдача</div></div><label id="mNickLabel" style="font-size:12.5px;color:var(--mut);font-weight:600">Ваш игровой ник:</label><input type="text" id="mNick" class="m-inp" oninput="onModalNickInput()" placeholder="Steve_228"><label style="font-size:12px;color:var(--mut);font-weight:600">Промокод:</label><div class="promo-row"><input type="text" id="promoInp" class="m-inp" placeholder="Промокод..."><button class="p-btn primary" onclick="applyPromoCode()">Применить</button></div><label class="gift-toggle"><input type="checkbox" id="giftCheck" onchange="toggleGiftMode()"><span>🎁 В подарок другу</span></label><div class="pay-methods"><button class="pm-btn" onclick="payCrypto()"><span>💎 CryptoBot (USDT/TON)</span><small>АВТО</small></button><button class="pm-btn" onclick="payStars()"><span>⭐ Telegram Stars</span><small id="starsEst">АВТО</small></button><button class="pm-btn" onclick="toggleSbp()"><span>🏦 СБП</span><small id="sbpPriceLbl">5 ₽</small></button></div><div class="sbp-box" id="sbpBox"><div id="sbpDetails" style="color:#fff;font-weight:700;margin-bottom:8px;font-family:var(--mono)"></div><button class="buy-btn" style="width:100%;padding:10px" onclick="sendSbpRequest()">✅ Я ОПЛАТИЛ ПО СБП</button></div></div></div>
+  <div class="modal-bg" id="modalBg" onclick="if(event.target===this)closeModal()"><div class="modal ai-frame" role="dialog" aria-modal="true" aria-labelledby="mRankName"><button class="m-close" onclick="closeModal()" aria-label="Закрыть">✕</button><div style="font-size:11px;font-weight:800;color:var(--cyan);text-transform:uppercase">Оплата привилегии</div><h3 id="mRankName" style="margin:6px 0 4px;font-size:22px;font-weight:900">Барон</h3><div id="mSummary" style="color:var(--mut);font-size:13px"></div><div class="m-steps"><div class="m-step act" id="step1">1. Ник</div><div class="m-step" id="step2">2. Оплата</div><div class="m-step" id="step3">3. Выдача</div></div><label id="mNickLabel" for="mNick" style="font-size:12.5px;color:var(--mut);font-weight:600">Ваш игровой ник:</label><input type="text" id="mNick" class="m-inp" oninput="onModalNickInput()" placeholder="Steve_228" maxlength="16" autocomplete="off" spellcheck="false"><label for="promoInp" style="font-size:12px;color:var(--mut);font-weight:600">Промокод:</label><div class="promo-row"><input type="text" id="promoInp" class="m-inp" placeholder="Промокод..." onkeydown="if(event.key==='Enter')applyPromoCode()"><button class="p-btn primary" onclick="applyPromoCode()">Применить</button></div><label class="gift-toggle"><input type="checkbox" id="giftCheck" onchange="toggleGiftMode()"><span>🎁 В подарок другу</span></label><div class="pay-methods"><button class="pm-btn" onclick="payCrypto(this)"><span>💎 CryptoBot (USDT/TON)</span><small>АВТО</small></button><button class="pm-btn" onclick="payStars()"><span>⭐ Telegram Stars</span><small id="starsEst">АВТО</small></button><button class="pm-btn" onclick="toggleSbp()"><span>🏦 СБП</span><small id="sbpPriceLbl">5 ₽</small></button></div><div class="sbp-box" id="sbpBox"><div id="sbpDetails" style="color:#fff;font-weight:700;margin-bottom:8px;font-family:var(--mono)"></div><button class="buy-btn" style="width:100%;padding:10px" onclick="sendSbpRequest(this)">✅ Я ОПЛАТИЛ ПО СБП</button></div></div></div>
 
-  <div class="modal-bg" id="accBg" onclick="if(event.target===this)closeAccountModal()"><div class="modal wide ai-frame"><button class="m-close" onclick="closeAccountModal()">✕</button><div style="font-size:11px;font-weight:800;color:var(--cyan);font-family:var(--mono);margin-bottom:10px">NEWTIME // PROFILE</div><div class="acc-tabs"><button class="subtab-btn act" style="justify-content:center;padding:8px" id="accTabProfile" onclick="switchAccTab('profile')">Профиль</button><button class="subtab-btn" style="justify-content:center;padding:8px" id="accTabAuth" onclick="switchAccTab('auth')">Вход / Рег</button><button class="subtab-btn" style="justify-content:center;padding:8px" id="accTabLog" onclick="switchAccTab('log')">Пользователи</button></div><div id="accPaneProfile"><div id="accLoggedBox"></div></div><div id="accPaneAuth" style="display:none"><div style="display:flex;gap:8px;margin-bottom:12px"><button class="rf-btn act" id="authModeReg" onclick="setAuthMode('reg')">Создать</button><button class="rf-btn" id="authModeLog" onclick="setAuthMode('log')">Войти</button></div><label style="font-size:12px;color:var(--mut)">Логин:</label><input type="text" id="authLogin" class="m-inp" placeholder="ProAnarchist"><div id="authNickWrap"><label style="font-size:12px;color:var(--mut)">Ник Minecraft:</label><input type="text" id="authMcNick" class="m-inp" placeholder="Steve_228"></div><label style="font-size:12px;color:var(--mut)">Пароль:</label><input type="password" id="authPass" class="m-inp" placeholder="От 4 символов"><button class="buy-btn" style="width:100%" id="authSubmitBtn" onclick="submitAuth()">СОЗДАТЬ</button></div><div id="accPaneLog" style="display:none"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;color:var(--mut)">Пользователи:</span><strong style="font-size:11.5px;color:var(--cyan);font-family:var(--mono)" id="accFoundCount">0</strong></div><input type="text" id="accSearchInp" class="m-inp" style="margin-top:0" oninput="renderUsersDirectory()" placeholder="🔍 Поиск..."><div class="acc-log-list" id="accLogList"></div></div></div></div>
+  <div class="modal-bg" id="accBg" onclick="if(event.target===this)closeAccountModal()"><div class="modal wide ai-frame" role="dialog" aria-modal="true" aria-label="Профиль"><button class="m-close" onclick="closeAccountModal()" aria-label="Закрыть">✕</button><div style="font-size:11px;font-weight:800;color:var(--cyan);font-family:var(--mono);margin-bottom:10px">NEWTIME // PROFILE</div><div class="acc-tabs"><button class="subtab-btn act" style="justify-content:center;padding:8px" id="accTabProfile" onclick="switchAccTab('profile')">Профиль</button><button class="subtab-btn" style="justify-content:center;padding:8px" id="accTabAuth" onclick="switchAccTab('auth')">Вход / Рег</button><button class="subtab-btn" style="justify-content:center;padding:8px" id="accTabLog" onclick="switchAccTab('log')">Пользователи</button></div><div id="accPaneProfile"><div id="accLoggedBox"></div></div><div id="accPaneAuth" style="display:none"><div style="display:flex;gap:8px;margin-bottom:12px"><button class="rf-btn act" id="authModeReg" onclick="setAuthMode('reg')">Создать</button><button class="rf-btn" id="authModeLog" onclick="setAuthMode('log')">Войти</button></div><label for="authLogin" style="font-size:12px;color:var(--mut)">Логин:</label><input type="text" id="authLogin" class="m-inp" placeholder="ProAnarchist" autocomplete="username"><div id="authNickWrap"><label for="authMcNick" style="font-size:12px;color:var(--mut)">Ник Minecraft:</label><input type="text" id="authMcNick" class="m-inp" placeholder="Steve_228"></div><label for="authPass" style="font-size:12px;color:var(--mut)">Пароль:</label><input type="password" id="authPass" class="m-inp" placeholder="От 4 символов" autocomplete="current-password" onkeydown="if(event.key==='Enter')submitAuth()"><button class="buy-btn" style="width:100%" id="authSubmitBtn" onclick="submitAuth()">СОЗДАТЬ</button><div style="font-size:11px;color:var(--mut);margin-top:10px">Профиль хранится только в вашем браузере (localStorage) и не связан с игровым аккаунтом.</div></div><div id="accPaneLog" style="display:none"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;color:var(--mut)">Пользователи:</span><strong style="font-size:11.5px;color:var(--cyan);font-family:var(--mono)" id="accFoundCount">0</strong></div><input type="text" id="accSearchInp" class="m-inp" style="margin-top:0" oninput="renderUsersDirectory()" placeholder="🔍 Поиск..." aria-label="Поиск пользователей"><div class="acc-log-list" id="accLogList"></div></div></div></div>
 
-  <div class="modal-bg" id="settingsBg" onclick="if(event.target===this)closeSettings()"><div class="modal settings-wide ai-frame"><button class="m-close" onclick="closeSettings()">✕</button><h3 style="margin:0 0 16px;font-size:20px;font-weight:900">⚙️ Настройки</h3><div class="set-group"><span class="set-lbl">Тема</span><div class="set-pills" id="setThemePills"><button class="set-pill" data-val="cyan" onclick="applySetting('theme','cyan')">💠 Cyan</button><button class="set-pill" data-val="crimson" onclick="applySetting('theme','crimson')">🔥 Crimson</button><button class="set-pill" data-val="emerald" onclick="applySetting('theme','emerald')">🧪 Emerald</button><button class="set-pill" data-val="amethyst" onclick="applySetting('theme','amethyst')">🔮 Amethyst</button><button class="set-pill" data-val="gold" onclick="applySetting('theme','gold')">👑 Gold</button></div></div><div class="set-group"><span class="set-lbl">Фон</span><div class="set-pills" id="setBgPills"><button class="set-pill" data-val="aurora" onclick="applySetting('bgMode','aurora')">🌌 Сияние</button><button class="set-pill" data-val="matrix" onclick="applySetting('bgMode','matrix')">🟩 Матрица</button><button class="set-pill" data-val="warp" onclick="applySetting('bgMode','warp')">🚀 Звёзды</button><button class="set-pill" data-val="hex" onclick="applySetting('bgMode','hex')">⬡ Гексы</button><button class="set-pill" data-val="embers" onclick="applySetting('bgMode','embers')">🔥 Искры</button><button class="set-pill" data-val="net" onclick="applySetting('bgMode','net')">🕸️ Сеть</button></div></div><div class="set-group"><span class="set-lbl">Стиль и эффекты</span><div class="set-pills" style="margin-bottom:8px" id="setGlowPills"><button class="set-pill" data-val="max" onclick="applySetting('glow','max')">✨ Неон+</button><button class="set-pill" data-val="norm" onclick="applySetting('glow','norm')">⚡ Норма</button><button class="set-pill" data-val="low" onclick="applySetting('glow','low')">🌑 Тихий</button></div><div class="set-pills" style="margin-bottom:8px" id="setAnimPills"><button class="set-pill" data-val="high" onclick="applySetting('anim','high')">🚀 Плавные</button><button class="set-pill" data-val="norm" onclick="applySetting('anim','norm')">⚙️ Обычные</button><button class="set-pill" data-val="min" onclick="applySetting('anim','min')">⚡ Минимум</button></div><div class="set-pills" style="margin-bottom:8px" id="setBtnStylePills"><button class="set-pill" data-val="cartoon" onclick="applySetting('btnStyle','cartoon')">🎮 3D</button><button class="set-pill" data-val="flat" onclick="applySetting('btnStyle','flat')">🧊 Плоский</button></div><div class="set-pills" id="setFontPills"><button class="set-pill" data-val="13px" onclick="applySetting('fontSize','13px')">13px</button><button class="set-pill" data-val="14px" onclick="applySetting('fontSize','14px')">14px</button><button class="set-pill" data-val="15.5px" onclick="applySetting('fontSize','15.5px')">15.5px</button></div></div><div class="set-toggles" style="margin-bottom:14px"><label class="set-row"><span>🔊 Звуки</span><input type="checkbox" id="chkSfx" onchange="applySetting('sfx',this.checked)"></label><label class="set-row"><span>Blur</span><input type="checkbox" id="chkBlur" onchange="applySetting('blur',this.checked)"></label><label class="set-row"><span>Скан-линии</span><input type="checkbox" id="chkScan" onchange="applySetting('scanlines',this.checked)"></label><label class="set-row"><span>3D-кубы</span><input type="checkbox" id="chkCubes" onchange="applySetting('cubes',this.checked)"></label><label class="set-row"><span>Промо-строка</span><input type="checkbox" id="chkPromo" onchange="applySetting('promo',this.checked)"></label></div><button class="p-btn" style="width:100%;justify-content:center" onclick="resetAllSettings()">🔄 Сбросить</button></div></div>
+  <div class="modal-bg" id="settingsBg" onclick="if(event.target===this)closeSettings()"><div class="modal settings-wide ai-frame" role="dialog" aria-modal="true" aria-label="Настройки"><button class="m-close" onclick="closeSettings()" aria-label="Закрыть">✕</button><h3 style="margin:0 0 16px;font-size:20px;font-weight:900">⚙️ Настройки</h3><div class="set-group"><span class="set-lbl">Тема</span><div class="set-pills" id="setThemePills"><button class="set-pill" data-val="cyan" onclick="applySetting('theme','cyan')">💠 Cyan</button><button class="set-pill" data-val="crimson" onclick="applySetting('theme','crimson')">🔥 Crimson</button><button class="set-pill" data-val="emerald" onclick="applySetting('theme','emerald')">🧪 Emerald</button><button class="set-pill" data-val="amethyst" onclick="applySetting('theme','amethyst')">🔮 Amethyst</button><button class="set-pill" data-val="gold" onclick="applySetting('theme','gold')">👑 Gold</button></div></div><div class="set-group"><span class="set-lbl">Фон</span><div class="set-pills" id="setBgPills"><button class="set-pill" data-val="aurora" onclick="applySetting('bgMode','aurora')">🌌 Сияние</button><button class="set-pill" data-val="matrix" onclick="applySetting('bgMode','matrix')">🟩 Матрица</button><button class="set-pill" data-val="warp" onclick="applySetting('bgMode','warp')">🚀 Звёзды</button><button class="set-pill" data-val="hex" onclick="applySetting('bgMode','hex')">⬡ Гексы</button><button class="set-pill" data-val="embers" onclick="applySetting('bgMode','embers')">🔥 Искры</button><button class="set-pill" data-val="net" onclick="applySetting('bgMode','net')">🕸️ Сеть</button></div></div><div class="set-group"><span class="set-lbl">Стиль и эффекты</span><div class="set-pills" style="margin-bottom:8px" id="setGlowPills"><button class="set-pill" data-val="max" onclick="applySetting('glow','max')">✨ Неон+</button><button class="set-pill" data-val="norm" onclick="applySetting('glow','norm')">⚡ Норма</button><button class="set-pill" data-val="low" onclick="applySetting('glow','low')">🌑 Тихий</button></div><div class="set-pills" style="margin-bottom:8px" id="setAnimPills"><button class="set-pill" data-val="high" onclick="applySetting('anim','high')">🚀 Плавные</button><button class="set-pill" data-val="norm" onclick="applySetting('anim','norm')">⚙️ Обычные</button><button class="set-pill" data-val="min" onclick="applySetting('anim','min')">⚡ Минимум</button></div><div class="set-pills" style="margin-bottom:8px" id="setBtnStylePills"><button class="set-pill" data-val="cartoon" onclick="applySetting('btnStyle','cartoon')">🎮 3D</button><button class="set-pill" data-val="flat" onclick="applySetting('btnStyle','flat')">🧊 Плоский</button></div><div class="set-pills" id="setFontPills"><button class="set-pill" data-val="13px" onclick="applySetting('fontSize','13px')">13px</button><button class="set-pill" data-val="14px" onclick="applySetting('fontSize','14px')">14px</button><button class="set-pill" data-val="15.5px" onclick="applySetting('fontSize','15.5px')">15.5px</button></div></div><div class="set-toggles" style="margin-bottom:14px"><label class="set-row"><span>🔊 Звуки</span><input type="checkbox" id="chkSfx" onchange="applySetting('sfx',this.checked)"></label><label class="set-row"><span>Blur</span><input type="checkbox" id="chkBlur" onchange="applySetting('blur',this.checked)"></label><label class="set-row"><span>Скан-линии</span><input type="checkbox" id="chkScan" onchange="applySetting('scanlines',this.checked)"></label><label class="set-row"><span>3D-кубы</span><input type="checkbox" id="chkCubes" onchange="applySetting('cubes',this.checked)"></label><label class="set-row"><span>Промо-строка</span><input type="checkbox" id="chkPromo" onchange="applySetting('promo',this.checked)"></label></div><button class="p-btn" style="width:100%;justify-content:center" onclick="resetAllSettings()">🔄 Сбросить</button></div></div>
 
-  <div class="toast" id="toast">Скопировано!</div>
+  <div class="toast" id="toast" role="status" aria-live="polite">Скопировано!</div>
 
   <script>
     const $=id=>document.getElementById(id), WORKER_URL="https://newtime-bot.ВАШ-НИК.workers.dev", BOT_USERNAME="newtime_donate_bot", SBP_FALLBACK="Напишите в @newtime_tg для оплаты по СБП", MC_TEX="https://assets.mcasset.cloud/1.21.4/assets/minecraft/textures/";
+    const VIEWS=["shop","items","rules","mods","contacts"];
+    const safeJSON=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v;}catch{return d;}};
 
     const ranks=[
       {id:"baron",name:"Барон",color:"#84FF00",prefix:"[Барон]",homes:1,regs:3,auc:6,tp:"7 сек",fly:false,fix:"—",exp:"0%",tier:1,pvp:25,eco:30,comf:25,p30:5,p90:12,pFor:25,cmds:[{c:"/kit baron",d:"Стартовый набор"},{c:"/salary",d:"Зарплата 100.000$"},{c:"/near 105м",d:"Поиск рядом (2м 30с)"}],other:[["Дома","1"],["Регионы","3 блока"],["Аукцион","6 слотов"],["Задержка ТП","7 сек"]]},
@@ -461,7 +519,7 @@
       {id:"sec-1",title:"1. Основные правила",tag:"PROTOCOL // 01",clr:"#00e5ff",items:[["1.1","Незнание правил не освобождает вас от ответственности;"],["1.2","Начав играть на сервере, Вы соглашаетесь с данным сводом правил;"],["1.3","Администрация не несет ответственности за невозможность игры конкретным лицом;"],["1.4","Администрация не несет ответственности за потерю ценностей из-за сбоев сервера/плагинов;"],["1.5","Администрация не гарантирует бесперебойную работу сервера и сохранность данных;"],["1.6","Администрация не отвечает за ущерб из-за сбоев связи или дефектов ПО пользователя;"],["1.7","Администрация вправе корректировать правила без уведомления игрока;"],["1.8","Оскорбление и провоцирование администрации запрещено."]]},
       {id:"sec-2",title:"2. Правила чата",tag:"COMMS // 02",clr:"#3b82f6",items:[["2.1","Запрещен Капс/Спам/Флуд в любом из чатов;"],["2.2","Запрещены унижения и оскорбления игроков;"],["2.3","Запрещена нецензурная лексика (маты, скрытые маты);"],["2.4","Запрещено рекламировать сторонние ресурсы;"],["2.5","Торговыми чатами пользоваться строго по назначению;"],["2.6","Запрещено упоминать/оскорблять родных и близких игроков;"],["2.7","Запрещён розжиг межнациональной розни и расизм;"],["2.8","Запрещено обходить блокировку чата;"],["2.9","Запрещено вызывать игроков на проверку читов;"],["2.10","Запрещено отправлять контакты (Discord, VK и т.д.) в общих чатах (исключение: ЛС);"],["2.11","Запрещено продавать ресурсы или услуги ВНЕ серверного чата;"],["2.12","Самопризнание в нарушении правил является поводом для бана."]]},
       {id:"sec-3",title:"3. Аккаунт",tag:"IDENTITY // 03",clr:"#a855f7",items:[["3.1","<strong>Ник не должен содержать:</strong>"],["3.1.1","Мата, скрытого мата, оскорблений;",1],["3.1.2","Схожесть с другими проектами/чит-клиентами;",1],["3.1.3","Схожесть с Администраторами, Ютуберами проекта;",1],["3.1.4","Схожесть с никами из ЧС Проекта;",1],["3.2","Запрещено передавать свой аккаунт другим людям;"],["3.3","Ответственность несёт владелец аккаунта;"],["3.4","Запрещена продажа/передача аккаунтов и привилегий;"],["3.5","Донат невозможно перенести на другой аккаунт."]]},
-      {id:"sec-4",title:"4. Игровые правила",tag:"GAMEPLAY // 04",clr:"#f59e0b",items:[["4.1","Запрещено мошенничество и обман администрации;"],["4.2","Запрещена продажа/покупка игровых ценностей за реал;"],["4.3","Запрещено пользоваться софтом, упрощающим игру:"],["4.3.1","Читами, кликерами, автоматизациями и запрещёнными модами (кроме п. 4.4);",1],["4.4",'Список разрешённых (61) и запрещённых (66) модов во вкладке <a href="#" onclick="switchView(\'mods\');return false" style="color:var(--cyan);font-weight:700">Модификации</a>.'],["4.5","Допускается одновременное использование не более 4 аккаунтов."],["4.5.1","Запрещено укрывать нарушителя или содействовать ему;",1],["4.6","Запрещена игра при многократных блокировках по п. 1.4;"],["4.7","Запрещено вызывать лаги или пытаться обрушить сервер;"],["4.8","Запрещено выдавать себя за Администрацию;"],["4.9","Запрещено использование/скрытие багов;"],["4.10","Запрещено превышать лимит игроков в команде/клане на режиме;"],["4.11","Запрещено строительство половых органов, нацистских символик, лавакастов;"],["4.12","Запрещено подстрекать других на нарушение правил;"],["4.13","Запрещён намеренный таргетинг медиа-лиц и слив их ников."]]},
+      {id:"sec-4",title:"4. Игровые правила",tag:"GAMEPLAY // 04",clr:"#f59e0b",items:[["4.1","Запрещено мошенничество и обман администрации;"],["4.2","Запрещена продажа/покупка игровых ценностей за реал;"],["4.3","Запрещено пользоваться софтом, упрощающим игру:"],["4.3.1","Читами, кликерами, автоматизациями и запрещёнными модами (кроме п. 4.4);",1],["4.4",'Список разрешённых (61) и запрещённых (66) модов во вкладке <a href="#mods" onclick="switchView(\'mods\');return false" style="color:var(--cyan);font-weight:700">Модификации</a>.'],["4.5","Допускается одновременное использование не более 4 аккаунтов."],["4.5.1","Запрещено укрывать нарушителя или содействовать ему;",1],["4.6","Запрещена игра при многократных блокировках по п. 1.4;"],["4.7","Запрещено вызывать лаги или пытаться обрушить сервер;"],["4.8","Запрещено выдавать себя за Администрацию;"],["4.9","Запрещено использование/скрытие багов;"],["4.10","Запрещено превышать лимит игроков в команде/клане на режиме;"],["4.11","Запрещено строительство половых органов, нацистских символик, лавакастов;"],["4.12","Запрещено подстрекать других на нарушение правил;"],["4.13","Запрещён намеренный таргетинг медиа-лиц и слив их ников."]]},
       {id:"sec-5",title:"5. Проверка ПО",tag:"SECURITY // 05",clr:"#10b981",items:[["5.1",'Вы обязаны выполнять требования Проверяющего<div class="r-info"><strong>Важно!</strong> Проверка проводится только для поиска читов. Если просят включить камеру или отдать ресурсы — отключайтесь и пишите Администрации.</div>'],["5.2","Свод правил может дополняться требованиями Проверяющего;"],["5.3","Игнорирование сообщений Проверяющего не является поводом для разбана;"],["5.4","При непредвиденных обстоятельствах сразу сообщите Проверяющему;"],["5.5","Запрещено препятствовать проверке или оскорблять Проверяющего;"],["5.6","Запрещено удалять файлы или чистить корзину во время проверки;"],["5.7","Запрещено выходить из Minecraft («крашнуло»/«афк» — не оправдание);"],["5.8","Запрещено снимать проверку без разрешения Проверяющего;"],["5.9","Проверяющий вправе попросить установить программы для проверки."]]},
       {id:"sec-6",title:"6. Платные услуги",tag:"BILLING // 06",clr:"#facc15",items:[["6.1","Махинации с оплатами наказываются баном без возврата средств;"],["6.2","Сохраняйте чек оплаты при обращении по пропаже доната;"],["6.3","Администрация не обязана предоставлять доказательства снятия доната за нарушения."]]}
     ];
@@ -470,12 +528,33 @@
     const ok="TapeMouse|AutoClanInvest|AutoTrade|AutoTransfer|TopkaAutoDrop|AutoDrop|AutoEat|MacroKeybinds|PulseVisuals|TopkaVisuals|CustomBlockOverlay|TrajectoryGuard|ViewModel-Changer|RainVisuals|Do a Barrel Roll|MoonLightClient|SoupApi (SoupVisuals)|SoupBetter|PhantomVisuals|Mytheria|KastrixVisuals|RivalVisuals|DestraVisuals|ReallyVisuals|GammaUtils|Stark Helper|FlyVisuals|TheCartel|FillVisuals|rct|PRIME PARTS|Chunks fade in|berdinskiybear's armor hud|AntiGhost|TopkaTags|ContainerSearcher|ItemLocks|Giselbaer's Durability Viewer|MiniHUD|TopkaHealth|ExitLag|Abstract|Custom FOV|Show Yourself|Jade|JJElytraSwap|InventoryCleaner|VisualRatio|AxolotlClient|ItemScroller|NoHurtCam|LavaClearWater|BetterHitReg|ZakoHealthIndicator|Pearl Trajectory|wWaypoints|Feather Client|Opponent Armor Indicator|ZakoOpt|Recorder Ingame|Streake".split("|");
     const no="ReplayMod|IsometricRender|CmdCam|WorldDownloader|Flashback|AutoMining|ReplantingCrops|AutoHarvest|Reap|Tweakeroo|AutoFish|Accurate Block Placement|Baritone|Player Spotlight|AucHelper|ChestTracker|Friend Highlighter|Donut Auctions|XRay|DiamondGen|FreeCam|BaseFinder|TrueSight|МиниКарты (кроме Lunar Client)|Neat|ChunkAnimator|MobHealthBar|Litematica\\Schematica|block-entity-tooltip|WorldEdit|Better PVP|RemoveBlindness|Re:Entity Outline|AntiInvis|Cooldowns HUD (UseTracker)|CheatUtils|No Darkness Effect|InventoryControlTweaks|AutoLeave|Foodslot|Quickstack|ItemSwap|AutoTool|Movement in GUI|FasterBlockPlacement|Firework Helper|Effortless Building|InvMove|Inventory Profiles Next|autojumpreset|Dont Heat Teammates|Don't hit teammates|CleanCut|AutoAttack|AutoAim|FeverVisuals|LuminarVisuals|Ascart|Badlion Client|Мобильные лаунчеры (Pojav, FCL)|SimpleVisuals|SoupApi (<3.0.0)|WaveVisuals|ClientCommands|Взломанные мультимодификации|Модифицированные мультимодификации".split("|");
 
-    const defaultSettings={theme:"cyan",bgMode:"aurora",glow:"norm",anim:"high",btnStyle:"cartoon",fontSize:"14px",blur:true,scanlines:true,sfx:true,cubes:true,promo:true};
-    let siteSettings=Object.assign({},defaultSettings,JSON.parse(localStorage.getItem("nt_settings")||"{}"));
+    const reducedMotion=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const defaultSettings={theme:"cyan",bgMode:"aurora",glow:"norm",anim:reducedMotion?"min":"high",btnStyle:"cartoon",fontSize:"14px",blur:true,scanlines:true,sfx:true,cubes:true,promo:true};
+    let siteSettings=Object.assign({},defaultSettings,safeJSON("nt_settings",{}));
     let selectedId="baron",selectedTerm="p30",rankFilter="all",modsSorted=false,lastPriceShown=5,isSpinning=false,activeRuleSec="sec-1",itemCatFilter="all";
     let promoCodeActive=localStorage.getItem("nt_promo")==="Lent9i",crownTaps=0,spinCounter=Number(localStorage.getItem("nt_spins")||"0"),bestDrop=localStorage.getItem("nt_best_drop")||"—",spinHist=[];
-    let recentViewed=JSON.parse(localStorage.getItem("nt_recent")||"[]"),favRules=JSON.parse(localStorage.getItem("nt_fav_rules")||"[]"),wishlist=JSON.parse(localStorage.getItem("nt_wishlist")||"[]");
+    let recentViewed=safeJSON("nt_recent",[]),favRules=safeJSON("nt_fav_rules",[]),wishlist=safeJSON("nt_wishlist",[]);
 
+    /* ---------- Буфер обмена (с запасным вариантом для http / старых браузеров) ---------- */
+    function fallbackCopy(t){ const a=document.createElement("textarea"); a.value=t; a.setAttribute("readonly",""); a.style.cssText="position:fixed;top:-100px;opacity:0"; document.body.appendChild(a); a.select(); try{document.execCommand("copy");}catch{} a.remove(); }
+    function clip(t){ try{ if(navigator.clipboard&&window.isSecureContext) return navigator.clipboard.writeText(t).catch(()=>fallbackCopy(t)); }catch{} fallbackCopy(t); return Promise.resolve(); }
+
+    /* ---------- Плавающий тултип для слотов сундука ---------- */
+    const tipEl=$("mcFloatTip");
+    function showTip(slot){
+      const src=slot.querySelector(".mc-slot-tip"); if(!src) return;
+      tipEl.innerHTML=src.innerHTML; tipEl.classList.add("show");
+      const r=slot.getBoundingClientRect(), tw=tipEl.offsetWidth, th=tipEl.offsetHeight;
+      let x=r.left+r.width/2-tw/2; x=Math.max(8,Math.min(innerWidth-tw-8,x));
+      let y=r.top-th-10; if(y<8) y=r.bottom+10;
+      tipEl.style.left=x+"px"; tipEl.style.top=y+"px";
+    }
+    function hideTip(){ tipEl.classList.remove("show"); }
+    document.addEventListener("mouseover",e=>{ const s=e.target.closest&&e.target.closest(".mc-slot:not(.empty-slot)"); s?showTip(s):hideTip(); });
+    document.addEventListener("click",e=>{ const s=e.target.closest&&e.target.closest(".mc-slot:not(.empty-slot)"); if(s&&matchMedia("(pointer:coarse)").matches) showTip(s); else if(!s) hideTip(); });
+    addEventListener("scroll",hideTip,{passive:true});
+
+    /* ---------- Иконки ---------- */
     const pngCache={}, composedCache={};
     function makeRankPng(color,tier=1){
       const k="r_"+color+"_"+tier; if(pngCache[k]) return pngCache[k];
@@ -556,15 +635,16 @@
       const slots=list.map(e=>{
         if(!e) return `<div class="mc-slot empty-slot"></div>`;
         const [k,q]=e, it=itemCatalog[k]||itemCatalog.pearl, fb=makeItemPng(it.kind,it.clr), src=getDirectItemSrc(k);
-        return `<div class="mc-slot" style="--sbg:${it.sbg||'#464952'};${it.flt?`--iflt:${it.flt};`:''}">${it.ench?'<div class="mc-slot-glint"></div>':''}<img src="${src}" data-item-key="${k}" onerror="this.onerror=null;this.src='${fb}'" alt="${it.name}">${it.bar?'<div class="mc-bundle-bar"></div>':''}${q>1?`<span class="mc-slot-cnt">${q}</span>`:''}<div class="mc-slot-tip"><div style="font-size:12px;font-weight:800;color:${it.clr};margin-bottom:3px">${it.name}</div><div style="font-size:10.5px;color:#94a3b8;margin-bottom:4px">${it.lore}</div>${it.stats.map(s=>`<div class="st-${s[1]}" style="font-size:10.5px">${s[0]}</div>`).join("")}</div></div>`;
+        return `<div class="mc-slot" style="--sbg:${it.sbg||'#464952'};${it.flt?`--iflt:${it.flt};`:''}">${it.ench?'<div class="mc-slot-glint"></div>':''}<img src="${src}" data-item-key="${k}" onerror="this.onerror=null;this.src='${fb}'" alt="${it.name}" loading="lazy">${it.bar?'<div class="mc-bundle-bar"></div>':''}${q>1?`<span class="mc-slot-cnt">${q}</span>`:''}<div class="mc-slot-tip"><div style="font-size:12px;font-weight:800;color:${it.clr};margin-bottom:3px">${it.name}${q>1?` ×${q}`:''}</div><div style="font-size:10.5px;color:#94a3b8;margin-bottom:4px">${it.lore}</div>${it.stats.map(s=>`<div class="st-${s[1]}" style="font-size:10.5px">${s[0]}</div>`).join("")}</div></div>`;
       }).join("");
-      return `<div class="mc-chest-panel"><div class="mc-chest-title"><span>ПРЕДПРОСМОТР ДОНАТ-КИТА <strong style="color:${r.color}">${r.id}</strong></span><span style="font-size:10.5px;color:#cbd5e1">${compact?r.name:'Наведите на предмет'}</span></div><div class="mc-chest-grid">${slots}</div></div>`;
+      return `<div class="mc-chest-panel"><div class="mc-chest-title"><span>ПРЕДПРОСМОТР ДОНАТ-КИТА <strong style="color:${r.color}">${r.id}</strong></span><span style="font-size:10.5px;color:#cbd5e1">${compact?r.name:'Наведите или нажмите на предмет'}</span></div><div class="mc-chest-grid">${slots}</div></div>`;
     }
     function renderAllKitsGrid(){ $("allKitsGrid").innerHTML=ranks.map(r=>`<div class="st-card"><div class="st-card-hdr"><span style="color:${r.color}">Набор: ${r.name} (/kit ${r.id})</span><button class="rf-btn" onclick="jumpToRank('${r.id}')">К рангу →</button></div><div style="padding:14px">${renderChestHtml(r.id,true)}</div></div>`).join(""); hydrateDynamicTextures(); }
-    function renderRules(){ $("rulesMount").innerHTML=rulesData.map((s,i)=>`<div class="st-card rule-sec ${i===0?'act-sec':''}" id="${s.id}" style="--sec-clr:${s.clr}"><div class="st-card-hdr"><span>${s.title}</span><span class="sec-tag">${s.tag}</span></div><div>${s.items.map(it=>`<div class="rule-row ${it[2]?'sub':''}"><div class="rule-main"><span class="r-badge">${it[0]}</span><div class="r-text">${it[1]}</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>`).join("")}</div></div>`).join(""); }
+    function renderRules(){ $("rulesMount").innerHTML=rulesData.map((s,i)=>`<div class="st-card rule-sec ${i===0?'act-sec':''}" id="${s.id}" style="--sec-clr:${s.clr}"><div class="st-card-hdr"><span>${s.title}</span><span class="sec-tag">${s.tag}</span></div><div>${s.items.map(it=>`<div class="rule-row ${it[2]?'sub':''}"><div class="rule-main"><span class="r-badge">${it[0]}</span><div class="r-text">${it[1]}</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)" aria-label="В избранное" title="В избранное">⭐</button><button class="r-act-btn" onclick="copyRule(this)" aria-label="Копировать правило" title="Копировать">📋</button></div></div>`).join("")}</div></div>`).join(""); }
     function switchItemsTab(t,b){ playSfx("click"); document.querySelectorAll("#view-items .subview").forEach(v=>v.classList.remove("act")); $("items-"+t).classList.add("act"); document.querySelectorAll("#view-items .subtab-btn").forEach(x=>x.classList.remove("act")); if(b)b.classList.add("act"); hydrateDynamicTextures(); }
     function filterCustomItems(cat,b){ playSfx("click"); itemCatFilter=cat; document.querySelectorAll("#items-customs .rf-btn").forEach(x=>x.classList.remove("act")); if(b)b.classList.add("act"); renderCustomItems(); }
     function renderCustomItems(){
+      $("cfAll").textContent=`Все (${customItems.length})`;
       const list=itemCatFilter==="all"?customItems:customItems.filter(i=>i.cat===itemCatFilter);
       $("customItemsGrid").innerHTML=list.map(c=>{const it=c.it,fb=makeItemPng(it.kind,it.clr),src=getDirectItemSrc(c.id);return `<div class="mc-tooltip-card ${c.gold?'gold-frame':''}"><div class="mc-tt-head"><div class="mc-tt-left"><div class="mc-tt-icon-box" style="background:${it.sbg||'#2d3138'}"><img class="mc-tt-icon" src="${src}" data-item-key="${c.id}" style="${it.flt?`filter:${it.flt};`:''}" onerror="this.onerror=null;this.src='${fb}'" alt="${c.name}"></div><span class="mc-tt-title" style="color:${c.clr}">${c.name}</span></div><span class="mc-tt-tag">${c.cat.toUpperCase()}</span></div><div class="mc-tt-lore">${c.lore}</div><div class="mc-tt-stats">${c.stats.map(s=>`<div class="st-${s[1]}">${s[0]}</div>`).join("")}</div></div>`;}).join("");
       hydrateDynamicTextures();
@@ -582,7 +662,7 @@
     function playSfx(k="click"){
       if(!siteSettings.sfx) return;
       try{
-        if(!audioCtx) audioCtx=new(AudioContext||webkitAudioContext)(); if(audioCtx.state==="suspended") audioCtx.resume();
+        if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)(); if(audioCtx.state==="suspended") audioCtx.resume();
         const n=audioCtx.currentTime,o=audioCtx.createOscillator(),g=audioCtx.createGain(); o.connect(g); g.connect(audioCtx.destination);
         if(k==="tick"){o.type="triangle";o.frequency.setValueAtTime(760,n);o.frequency.exponentialRampToValueAtTime(320,n+.025);g.gain.setValueAtTime(.035,n);g.gain.exponentialRampToValueAtTime(.001,n+.028);o.start(n);o.stop(n+.03);}
         else if(k==="win"||k==="mythic"){[523,659,784,1046].forEach((f,i)=>{const a=audioCtx.createOscillator(),b=audioCtx.createGain();a.type="triangle";a.frequency.setValueAtTime(f,n+i*.07);b.gain.setValueAtTime(.06,n+i*.07);b.gain.exponentialRampToValueAtTime(.001,n+i*.07+.3);a.connect(b);b.connect(audioCtx.destination);a.start(n+i*.07);a.stop(n+i*.07+.31);});}
@@ -592,12 +672,12 @@
     }
     function toggleSfx(){ applySetting("sfx",!siteSettings.sfx); if(siteSettings.sfx) playSfx("pop"); }
     function crownSecretTap(){ if(++crownTaps===3){crownTaps=0;revealSecretPromo();}else playSfx("pop"); }
-    function revealSecretPromo(){ promoCodeActive=true; localStorage.setItem("nt_promo","Lent9i"); navigator.clipboard?.writeText("Lent9i"); playSfx("mythic"); spawnConfetti("#fbbf24"); showToast("🔓 Промокод Lent9i (-20%) активирован!"); renderAccountUI(); }
+    function revealSecretPromo(){ promoCodeActive=true; localStorage.setItem("nt_promo","Lent9i"); clip("Lent9i"); playSfx("mythic"); spawnConfetti("#fbbf24"); showToast("🔓 Промокод Lent9i (-20%) активирован!"); renderAccountUI(); }
     function applyPromoCode(){ if($("promoInp").value.trim().toLowerCase()==="lent9i"){promoCodeActive=true;localStorage.setItem("nt_promo","Lent9i");playSfx("mythic");spawnConfetti("#10b981");showToast("🎉 Промокод Lent9i (-20%) применён!");updateModalPrice();renderAccountUI();}else{playSfx("err");showToast("Неверный промокод");} }
 
     function applyAllSettings(){
       document.body.setAttribute("data-theme",siteSettings.theme); document.body.classList.toggle("glow-max",siteSettings.glow==="max"); document.body.classList.toggle("glow-low",siteSettings.glow==="low");
-      document.body.classList.toggle("anim-high",siteSettings.anim==="high"); document.body.classList.toggle("anim-min",siteSettings.anim==="min"); document.body.classList.toggle("flat-btns",siteSettings.btnStyle==="flat");
+      document.body.classList.toggle("anim-min",siteSettings.anim==="min"); document.body.classList.toggle("flat-btns",siteSettings.btnStyle==="flat");
       document.body.classList.toggle("no-blur",!siteSettings.blur); document.body.classList.toggle("no-scanlines",!siteSettings.scanlines); document.body.classList.toggle("no-cubes",!siteSettings.cubes); document.body.classList.toggle("no-promo",!siteSettings.promo);
       document.documentElement.style.setProperty("--base-fs",siteSettings.fontSize);
       $("sfxBtn").textContent=siteSettings.sfx?"🔊 Звук":"🔇 Звук"; $("sfxBtn").classList.toggle("muted",!siteSettings.sfx);
@@ -607,14 +687,19 @@
     }
     function applySetting(k,v){ siteSettings[k]=v; localStorage.setItem("nt_settings",JSON.stringify(siteSettings)); applyAllSettings(); if(k==="bgMode") initBgEngine(); playSfx("pop"); showToast("Настройки применены"); }
     function resetAllSettings(){ siteSettings=Object.assign({},defaultSettings); localStorage.setItem("nt_settings",JSON.stringify(siteSettings)); applyAllSettings(); initBgEngine(); showToast("Настройки сброшены"); }
-    function openSettings(){ playSfx("pop"); $("settingsBg").classList.add("open"); }
-    function closeSettings(){ $("settingsBg").classList.remove("open"); }
+
+    /* ---------- Модальные окна (блокировка скролла фона, фокус) ---------- */
+    function lockScroll(){ document.body.style.overflow=document.querySelector(".modal-bg.open")?"hidden":""; }
+    function openModalEl(id,focusId){ $(id).classList.add("open"); lockScroll(); if(focusId&&!matchMedia("(pointer:coarse)").matches) setTimeout(()=>$(focusId)?.focus(),60); }
+    function closeModalEl(id){ $(id).classList.remove("open"); lockScroll(); }
+    function openSettings(){ playSfx("pop"); openModalEl("settingsBg"); }
+    function closeSettings(){ closeModalEl("settingsBg"); }
 
     let authMode="reg";
-    const getUsers=()=>JSON.parse(localStorage.getItem("nt_users")||"[]"), getCurrentUser=()=>JSON.parse(localStorage.getItem("nt_session")||"null");
+    const getUsers=()=>safeJSON("nt_users",[]), getCurrentUser=()=>safeJSON("nt_session",null);
     async function hashPass(s){ try{const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,"0")).join("");}catch{return btoa(unescape(encodeURIComponent(s)));} }
-    function openAccountModal(){ playSfx("pop"); switchAccTab(getCurrentUser()?"profile":"auth"); renderAccountUI(); $("accBg").classList.add("open"); }
-    function closeAccountModal(){ $("accBg").classList.remove("open"); }
+    function openAccountModal(){ playSfx("pop"); switchAccTab(getCurrentUser()?"profile":"auth"); renderAccountUI(); openModalEl("accBg",getCurrentUser()?null:"authLogin"); }
+    function closeAccountModal(){ closeModalEl("accBg"); }
     function switchAccTab(t){ playSfx("click"); $("accPaneProfile").style.display=t==="profile"?"block":"none"; $("accPaneAuth").style.display=t==="auth"?"block":"none"; $("accPaneLog").style.display=t==="log"?"block":"none"; $("accTabProfile").classList.toggle("act",t==="profile"); $("accTabAuth").classList.toggle("act",t==="auth"); $("accTabLog").classList.toggle("act",t==="log"); renderAccountUI(); }
     function setAuthMode(m){ playSfx("click"); authMode=m; $("authModeReg").classList.toggle("act",m==="reg"); $("authModeLog").classList.toggle("act",m==="log"); $("authNickWrap").style.display=m==="reg"?"block":"none"; $("authSubmitBtn").textContent=m==="reg"?"СОЗДАТЬ":"ВОЙТИ"; }
     async function submitAuth(){
@@ -627,19 +712,19 @@
         if(users.some(u=>u.login.toLowerCase()===login.toLowerCase())){playSfx("err");return showToast("Логин занят");}
         const nu={login,mcNick,passHash,createdAt:new Date().toLocaleString("ru-RU")};
         users.unshift(nu); localStorage.setItem("nt_users",JSON.stringify(users)); localStorage.setItem("nt_session",JSON.stringify({login,mcNick,createdAt:nu.createdAt})); localStorage.setItem("nt_nick",mcNick);
-        $("liveNickInp").value=mcNick; renderDetails(); playSfx("win"); spawnConfetti("#00e5ff"); showToast(`Аккаунт ${login} создан!`); switchAccTab("profile");
+        $("liveNickInp").value=mcNick; renderDetails(); playSfx("win"); spawnConfetti("#00e5ff"); showToast(`Аккаунт ${login} создан!`); $("authPass").value=""; switchAccTab("profile");
       } else {
         const f=users.find(u=>u.login.toLowerCase()===login.toLowerCase()&&u.passHash===passHash);
         if(!f){playSfx("err");return showToast("Неверный логин или пароль");}
         localStorage.setItem("nt_session",JSON.stringify({login:f.login,mcNick:f.mcNick,createdAt:f.createdAt})); localStorage.setItem("nt_nick",f.mcNick);
-        $("liveNickInp").value=f.mcNick; renderDetails(); playSfx("win"); showToast(`С возвращением, ${f.login}!`); switchAccTab("profile");
+        $("liveNickInp").value=f.mcNick; renderDetails(); playSfx("win"); showToast(`С возвращением, ${f.login}!`); $("authPass").value=""; switchAccTab("profile");
       }
     }
     function logoutAccount(){ localStorage.removeItem("nt_session"); playSfx("click"); renderAccountUI(); showToast("Вышли из аккаунта"); }
     function renderUsersDirectory(){
       const q=($("accSearchInp")?.value||"").trim().toLowerCase(), users=getUsers(), flt=users.filter(u=>!q||u.login.toLowerCase().includes(q)||u.mcNick.toLowerCase().includes(q));
       $("accFoundCount").textContent=`${flt.length} из ${users.length}`;
-      $("accLogList").innerHTML=flt.length?flt.map(u=>`<div class="acc-log-item"><div style="display:flex;align-items:center;gap:10px"><img src="https://mc-heads.net/avatar/${encodeURIComponent(u.mcNick)}/32" style="width:32px;height:32px;border-radius:7px;image-rendering:pixelated" onerror="this.style.display='none'" alt=""><div><strong style="color:#fff">${u.login}</strong> <span style="color:var(--cyan);font-family:var(--mono)">(${u.mcNick})</span><div style="color:var(--mut);font-size:11px">${u.createdAt}</div></div></div><button class="rf-btn" onclick="copyText('${u.login} (${u.mcNick})')">📋</button></div>`).join(""):`<div style="text-align:center;color:var(--mut);padding:18px">Пусто</div>`;
+      $("accLogList").innerHTML=flt.length?flt.map(u=>`<div class="acc-log-item"><div style="display:flex;align-items:center;gap:10px"><img src="https://mc-heads.net/avatar/${encodeURIComponent(u.mcNick)}/32" style="width:32px;height:32px;border-radius:7px;image-rendering:pixelated" onerror="this.style.display='none'" alt=""><div><strong style="color:#fff">${u.login}</strong> <span style="color:var(--cyan);font-family:var(--mono)">(${u.mcNick})</span><div style="color:var(--mut);font-size:11px">${u.createdAt}</div></div></div><button class="rf-btn" onclick="copyText('${u.login} (${u.mcNick})')" aria-label="Копировать">📋</button></div>`).join(""):`<div style="text-align:center;color:var(--mut);padding:18px">Пусто</div>`;
     }
     function renderAccountUI(){
       const cur=getCurrentUser(); $("accNavBtn").textContent=cur?`👤 ${cur.login}`:"👤 Аккаунт";
@@ -651,29 +736,31 @@
       }
       renderUsersDirectory();
     }
-    function copyText(t){ playSfx("pop"); navigator.clipboard?.writeText(t); showToast(`Скопировано: ${t}`); }
+    function copyText(t){ playSfx("pop"); clip(t); showToast(`Скопировано: ${t}`); }
 
-    document.addEventListener("click",e=>{ const b=e.target.closest(".p-btn,.buy-btn,.nav-btn"); if(!b||siteSettings.anim==="min") return; const r=b.getBoundingClientRect(),w=document.createElement("span"); w.className="ripple-wave"; const s=Math.max(r.width,r.height); w.style.width=w.style.height=s+"px"; w.style.left=(e.clientX-r.left-s/2)+"px"; w.style.top=(e.clientY-r.top-s/2)+"px"; b.appendChild(w); setTimeout(()=>w.remove(),580); });
-    document.addEventListener("mousemove",e=>{ document.querySelectorAll(".st-card").forEach(c=>{const r=c.getBoundingClientRect();c.style.setProperty("--mx",(e.clientX-r.left)+"px");c.style.setProperty("--my",(e.clientY-r.top)+"px");}); });
+    /* ---------- Ripple и подсветка карточек (оптимизировано) ---------- */
+    document.addEventListener("click",e=>{ const b=e.target.closest(".p-btn,.buy-btn,.nav-btn,.pm-btn"); if(!b||b.disabled||siteSettings.anim==="min") return; const r=b.getBoundingClientRect(),w=document.createElement("span"); w.className="ripple-wave"; const s=Math.max(r.width,r.height); w.style.width=w.style.height=s+"px"; w.style.left=(e.clientX-r.left-s/2)+"px"; w.style.top=(e.clientY-r.top-s/2)+"px"; b.appendChild(w); setTimeout(()=>w.remove(),580); });
+    let moveRaf=0;
+    document.addEventListener("mousemove",e=>{ if(moveRaf) return; moveRaf=requestAnimationFrame(()=>{ moveRaf=0; const c=e.target.closest&&e.target.closest(".st-card"); if(!c) return; const r=c.getBoundingClientRect(); c.style.setProperty("--mx",(e.clientX-r.left)+"px"); c.style.setProperty("--my",(e.clientY-r.top)+"px"); }); },{passive:true});
     const slogans=["Анархия нового поколения 1.21.4+: уникальные сферы, талисманы и честный PvP","Мгновенная авто-выдача доната через CryptoBot и Telegram Stars 24/7","Заходи на 1.21.4+: IP newtime.mcsh.gg • Все киты доступны для просмотра"];
-    let sloganIdx=0; setInterval(()=>{const el=$("heroTicker");if(!el)return;el.classList.add("fade");setTimeout(()=>{sloganIdx=(sloganIdx+1)%slogans.length;el.textContent=slogans[sloganIdx];el.classList.remove("fade");},340);},4200);
+    let sloganIdx=0; setInterval(()=>{const el=$("heroTicker");if(!el||document.hidden)return;el.classList.add("fade");setTimeout(()=>{sloganIdx=(sloganIdx+1)%slogans.length;el.textContent=slogans[sloganIdx];el.classList.remove("fade");},340);},4200);
 
     const rankPngImg=(r,sz=26,cls="")=>`<img class="rank-png ${cls}" style="width:${sz}px;height:${sz}px" src="${makeRankPng(r.color,r.tier)}" alt="${r.name}">`;
     const rarityIconSVG=(k,c)=>`<span style="color:${c};font-size:20px">${k==="mythic"?"★":k==="crown"?"👑":k==="star"?"✦":k==="gem"?"💎":"🛡️"}</span>`;
-    function animatePrice(tv,sfx=" руб"){ const el=$("detailPrice"),st=Number(lastPriceShown)||0,en=Number(tv); if(isNaN(en)||siteSettings.anim==="min"){el.textContent=tv+sfx;lastPriceShown=en;return;} const sT=performance.now(); (function step(now){const p=Math.min(1,(now-sT)/260);el.textContent=`${Math.round(st+(en-st)*(1-Math.pow(1-p,3)))}${sfx}`;if(p<1)requestAnimationFrame(step);else lastPriceShown=en;})(sT); }
-    function toggleWishlist(){ playSfx("pop"); wishlist=wishlist.includes(selectedId)?wishlist.filter(x=>x!==selectedId):[...wishlist,selectedId]; localStorage.setItem("nt_wishlist",JSON.stringify(wishlist)); renderDetails(); showToast(wishlist.includes(selectedId)?"В желаемом ❤️":"Убрано"); }
+    function animatePrice(tv,sfx=" ₽"){ const el=$("detailPrice"),st=Number(lastPriceShown)||0,en=Number(tv); if(isNaN(en)||siteSettings.anim==="min"){el.textContent=tv+sfx;lastPriceShown=en;return;} const sT=performance.now(); (function step(now){const p=Math.min(1,(now-sT)/260);el.textContent=`${Math.round(st+(en-st)*(1-Math.pow(1-p,3)))}${sfx}`;if(p<1)requestAnimationFrame(step);else lastPriceShown=en;})(sT); }
+    function toggleWishlist(){ playSfx("pop"); wishlist=wishlist.includes(selectedId)?wishlist.filter(x=>x!==selectedId):[...wishlist,selectedId]; localStorage.setItem("nt_wishlist",JSON.stringify(wishlist)); renderDetails(); renderList(); showToast(wishlist.includes(selectedId)?"В желаемом ❤️":"Убрано из желаемого"); }
     function setRankFilter(f,b){ playSfx("click"); rankFilter=f; document.querySelectorAll("#shop-catalog .rf-btn").forEach(x=>x.classList.remove("act")); if(b)b.classList.add("act"); renderList(); }
     function pushRecent(id){ recentViewed=[id,...recentViewed.filter(x=>x!==id)].slice(0,5); localStorage.setItem("nt_recent",JSON.stringify(recentViewed)); renderRecent(); }
-    function renderRecent(){ const s=$("recentStrip"); if(!recentViewed.length){s.classList.remove("show");return;} s.classList.add("show"); s.innerHTML=`<span>Вы смотрели:</span>`+recentViewed.map(id=>{const r=ranks.find(x=>x.id===id);return r?`<span class="recent-pill" style="border-color:${r.color}55;color:${r.color}" onclick="selectRank('${r.id}')">${r.name}</span>`:"";}).join(""); }
+    function renderRecent(){ const s=$("recentStrip"); if(!recentViewed.length){s.classList.remove("show");return;} s.classList.add("show"); s.innerHTML=`<span>Вы смотрели:</span>`+recentViewed.map(id=>{const r=ranks.find(x=>x.id===id);return r?`<span class="recent-pill" role="button" tabindex="0" style="border-color:${r.color}55;color:${r.color}" onclick="selectRank('${r.id}')" onkeydown="if(event.key==='Enter')selectRank('${r.id}')">${r.name}</span>`:"";}).join(""); }
     function renderList(){
       const q=$("globalSearch").value.trim().toLowerCase(); let h="",cnt=0;
       ranks.forEach((r,i)=>{
         if(i===11&&!q&&rankFilter==="all") h+=`<div class="rank-div">Особые статусы</div>`;
-        if((rankFilter==="paid"&&r.special)||(rankFilter==="fly"&&!r.fly)||(rankFilter==="tp0"&&r.tp!=="0 сек")||(rankFilter==="special"&&!r.special)) return;
+        if((rankFilter==="paid"&&r.special)||(rankFilter==="fly"&&!r.fly)||(rankFilter==="tp0"&&r.tp!=="0 сек")||(rankFilter==="special"&&!r.special)||(rankFilter==="wish"&&!wishlist.includes(r.id))) return;
         if(q&&!r.name.toLowerCase().includes(q)&&!r.cmds.some(c=>c.c.toLowerCase().includes(q)||c.d.toLowerCase().includes(q))) return;
-        cnt++; h+=`<div class="rank-item ${r.id===selectedId?"act":""}" style="--item-color:${r.color}" onclick="selectRank('${r.id}')"><div class="rank-left">${rankPngImg(r,26)}<span class="rank-name">${r.name}</span>${r.badge?`<span class="rank-badge">${r.badge}</span>`:""}</div><span class="rank-from">${r.special?r.from:`от ${r.p30} ₽`}</span></div>`;
+        cnt++; h+=`<div class="rank-item ${r.id===selectedId?"act":""}" role="button" tabindex="0" style="--item-color:${r.color}" onclick="selectRank('${r.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectRank('${r.id}')}"><div class="rank-left">${rankPngImg(r,26)}<span class="rank-name">${r.name}</span>${wishlist.includes(r.id)?'<span class="rank-heart">❤️</span>':''}${r.badge?`<span class="rank-badge">${r.badge}</span>`:""}</div><span class="rank-from">${r.special?r.from:`от ${r.p30} ₽`}</span></div>`;
       });
-      $("ranksFoundHint").textContent=`${cnt} шт.`; $("rankList").innerHTML=h||`<div style="padding:24px;color:var(--mut);text-align:center">Не найдено</div>`; return cnt;
+      $("ranksFoundHint").textContent=`${cnt} шт.`; $("rankList").innerHTML=h||`<div style="padding:24px;color:var(--mut);text-align:center">${rankFilter==="wish"&&!q?"Список желаемого пуст — нажмите 🤍 в карточке":"Не найдено"}</div>`; return cnt;
     }
     function onLiveNickChange(){ const v=$("liveNickInp").value.trim(); if(v) localStorage.setItem("nt_nick",v); else localStorage.removeItem("nt_nick"); renderDetails(); }
     function renderDetails(){
@@ -681,7 +768,7 @@
       $("detailCard").style.setProperty("--rank-accent",r.color); $("detailIcon").innerHTML=rankPngImg(r,40,"detail-png-bob");
       $("detailRankTitle").textContent=r.name; $("detailRankTitle").style.color=r.color;
       $("detailTierSub").textContent=r.special?r.note:`Cyan Anarchy 1.21.4+ • Уровень ${r.tier}/11`;
-      $("wishBtn").textContent=wishlist.includes(r.id)?"❤️":"🤍";
+      $("wishBtn").textContent=wishlist.includes(r.id)?"❤️":"🤍"; $("wishBtn").setAttribute("aria-pressed",wishlist.includes(r.id));
       const nick=localStorage.getItem("nt_nick")||"ВашНик";
       $("chatPreview").innerHTML=`<div><span class="mc-lbl">Чат:</span><strong style="color:${r.color}">${r.prefix}</strong> <span style="color:#fff">${nick}:</span> <span style="color:#cbd5e1">всем удачи!</span></div>`;
       $("tabPreview").innerHTML=`<div><span class="mc-lbl">TAB:</span><strong style="color:${r.color}">${r.prefix}</strong> <span style="color:#fff">${nick}</span></div><span class="mc-ping"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:11px"></i></span>`;
@@ -692,7 +779,7 @@
       if(r.special){ $("termLabel").textContent=`Статус: ${r.name}`; $("termTabs").style.display="none"; $("detailPrice").textContent=r.priceLabel; $("pricePerDay").textContent=""; $("nextTierBtn").style.display="none"; $("buyBtn").textContent=r.id==="player"?"ИГРАТЬ БЕСПЛАТНО":"ПОДРОБНЕЕ"; }
       else {
         $("termLabel").textContent="Выберите срок:"; $("termTabs").style.display="flex"; const s90=Math.round((1-r.p90/(r.p30*3))*100); $("save90").textContent=s90>0?`-${s90}%`:"";
-        animatePrice(r[selectedTerm]," руб"); $("pricePerDay").textContent=selectedTerm==="p30"?`≈ ${(r.p30/30).toFixed(2)} ₽/день`:selectedTerm==="p90"?`≈ ${(r.p90/90).toFixed(2)} ₽/день`:"∞ Навсегда";
+        animatePrice(r[selectedTerm]," ₽"); $("pricePerDay").textContent=selectedTerm==="p30"?`≈ ${(r.p30/30).toFixed(2)} ₽/день`:selectedTerm==="p90"?`≈ ${(r.p90/90).toFixed(2)} ₽/день`:"∞ Навсегда";
         const idx=ranks.findIndex(x=>x.id===r.id), nr=ranks[idx+1];
         if(nr&&!nr.special){$("nextTierBtn").style.display="inline-flex";$("nextTierBtn").textContent=`⬆ ${nr.name} (+${nr[selectedTerm]-r[selectedTerm]} ₽)`;$("nextTierBtn").dataset.next=nr.id;} else $("nextTierBtn").style.display="none";
         $("buyBtn").textContent="ПРИОБРЕСТИ";
@@ -703,8 +790,9 @@
     function jumpNextRank(){ const n=$("nextTierBtn").dataset.next; if(n) selectRank(n); }
     function initDuelSelects(){ const o=ranks.filter(r=>!r.special).map(r=>`<option value="${r.id}">${r.name} (от ${r.p30} ₽)</option>`).join(""); $("duelA").innerHTML=o; $("duelB").innerHTML=o; $("duelA").value="knight"; $("duelB").value="knyaz"; renderDuel(); }
     function renderDuel(){ const a=ranks.find(x=>x.id===$("duelA").value),b=ranks.find(x=>x.id===$("duelB").value); if(!a||!b)return; const m=[["Цена (30д)",`${a.p30} ₽`,`${b.p30} ₽`,a.p30<b.p30?"a":b.p30<a.p30?"b":""],["Навсегда",`${a.pFor} ₽`,`${b.pFor} ₽`,a.pFor<b.pFor?"a":b.pFor<a.pFor?"b":""],["Дома",a.homes,b.homes,a.homes>b.homes?"a":b.homes>a.homes?"b":""],["Приваты",a.regs,b.regs,a.regs>b.regs?"a":b.regs>a.regs?"b":""],["Аукцион",a.auc,b.auc,a.auc>b.auc?"a":b.auc>a.auc?"b":""],["/fly",a.fly?"Да":"Нет",b.fly?"Да":"Нет",a.fly&&!b.fly?"a":b.fly&&!a.fly?"b":""],["PvP",a.pvp+"%",b.pvp+"%",a.pvp>b.pvp?"a":b.pvp>a.pvp?"b":""]]; const c=(r,s)=>`<div class="duel-card" style="border-top:2px solid ${r.color}"><div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">${rankPngImg(r,26)}<strong style="font-size:18px;color:${r.color}">${r.name}</strong></div>${m.map(x=>`<div class="duel-row"><span style="color:var(--mut)">${x[0]}</span><span class="${x[3]===s?"duel-win":""}">${s==="a"?x[1]:x[2]}</span></div>`).join("")}</div>`; $("duelGrid").innerHTML=c(a,"a")+c(b,"b"); }
-    function renderCompareTable(){ $("compareBody").innerHTML=ranks.filter(r=>!r.special).map(r=>`<tr onclick="jumpToRank('${r.id}');switchShopTab('catalog',document.querySelectorAll('.subtab-btn')[0])"><td><div class="cmp-rank-cell">${rankPngImg(r,22)}<span style="color:${r.color}">${r.name}</span></div></td><td style="font-family:var(--mono)">${r.p30} ₽</td><td style="font-family:var(--mono);color:var(--cyan);font-weight:800">${r.pFor} ₽</td><td>${r.homes}</td><td>${r.regs}</td><td>${r.auc}</td><td>${r.tp}</td><td>${r.fly?'<span class="cmp-yes">✔</span>':'<span class="cmp-no">—</span>'}</td><td>${r.fix!=="—"?`<span style="color:var(--cyan)">${r.fix}</span>`:'<span class="cmp-no">—</span>'}</td></tr>`).join(""); }
-    function updateWizard(){ const mb=Number($("wizBudget").value); $("wizBudgetVal").textContent=`до ${mb} ₽`; const nf=$("wFly").checked,nx=$("wFix").checked,nt=$("wTp0").checked,ne=$("wExp").checked; const m=ranks.filter(r=>!r.special&&r.p30<=mb&&(!nf||r.fly)&&(!nx||r.fix!=="—")&&(!nt||r.tp==="0 сек")&&(!ne||r.exp==="100%")); $("wizCount").textContent=`${m.length} вариант(а)`; $("wizResults").innerHTML=m.length?m.map(r=>`<div class="wiz-card" style="border-top:2px solid ${r.color}"><div><div style="display:flex;align-items:center;gap:9px;margin-bottom:6px">${rankPngImg(r,24)}<strong style="font-size:16px;color:${r.color}">${r.name}</strong></div><div style="font-size:12px;color:var(--mut)">Дома: ${r.homes} • ТП: ${r.tp} • ${r.fix}</div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px"><strong style="font-family:var(--mono)">${r.p30} ₽/30д</strong><button class="p-btn primary" style="padding:6px 12px" onclick="jumpToRank('${r.id}');switchShopTab('catalog',document.querySelectorAll('.subtab-btn')[0])">Выбрать</button></div></div>`).join(""):`<div style="grid-column:1/-1;text-align:center;color:var(--mut);padding:26px">Вариантов нет</div>`; }
+    function openRankInShop(id){ jumpToRank(id); switchShopTab('catalog',document.querySelector('#view-shop .subtab-btn')); }
+    function renderCompareTable(){ $("compareBody").innerHTML=ranks.filter(r=>!r.special).map(r=>`<tr onclick="openRankInShop('${r.id}')"><td><div class="cmp-rank-cell">${rankPngImg(r,22)}<span style="color:${r.color}">${r.name}</span></div></td><td style="font-family:var(--mono)">${r.p30} ₽</td><td style="font-family:var(--mono);color:var(--cyan);font-weight:800">${r.pFor} ₽</td><td>${r.homes}</td><td>${r.regs}</td><td>${r.auc}</td><td>${r.tp}</td><td>${r.fly?'<span class="cmp-yes">✔</span>':'<span class="cmp-no">—</span>'}</td><td>${r.fix!=="—"?`<span style="color:var(--cyan)">${r.fix}</span>`:'<span class="cmp-no">—</span>'}</td></tr>`).join(""); }
+    function updateWizard(){ const mb=Number($("wizBudget").value); $("wizBudgetVal").textContent=`до ${mb} ₽`; const nf=$("wFly").checked,nx=$("wFix").checked,nt=$("wTp0").checked,ne=$("wExp").checked; const m=ranks.filter(r=>!r.special&&r.p30<=mb&&(!nf||r.fly)&&(!nx||r.fix!=="—")&&(!nt||r.tp==="0 сек")&&(!ne||r.exp==="100%")); $("wizCount").textContent=`${m.length} вариант(а)`; $("wizResults").innerHTML=m.length?m.map(r=>`<div class="wiz-card" style="border-top:2px solid ${r.color}"><div><div style="display:flex;align-items:center;gap:9px;margin-bottom:6px">${rankPngImg(r,24)}<strong style="font-size:16px;color:${r.color}">${r.name}</strong></div><div style="font-size:12px;color:var(--mut)">Дома: ${r.homes} • ТП: ${r.tp} • ${r.fix}</div></div><div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px"><strong style="font-family:var(--mono)">${r.p30} ₽/30д</strong><button class="p-btn primary" style="padding:6px 12px" onclick="openRankInShop('${r.id}')">Выбрать</button></div></div>`).join(""):`<div style="grid-column:1/-1;text-align:center;color:var(--mut);padding:26px">Вариантов нет — увеличьте бюджет или уберите фильтры</div>`; }
 
     function rollWeightedDrop(){ let r=Math.random()*100; for(const i of roulettePool){r-=i.chance;if(r<=0)return i;} return roulettePool[0]; }
     function renderDropTable(){ $("dropTable").innerHTML=roulettePool.map(p=>{const r=ranks.find(x=>x.id===p.id);return `<div class="dt-item" style="--rar:${p.rarClr}"><div class="dt-left">${rankPngImg(r,22)}<div><div style="font-weight:800;color:${r.color}">${r.name}</div><div style="font-size:10px;color:var(--mut)">${p.rarity}</div></div></div><span class="dt-pct">${p.chance}%</span></div>`;}).join(""); }
@@ -714,7 +802,7 @@
       if(isSpinning) return; isSpinning=true; playSfx("pop");
       const btn=$("spinBtn"),ptr=$("rPointer"),db=$("rouletteDrop"); db.classList.remove("show"); btn.disabled=true; btn.textContent="КРУТИМ..."; buildRoulettePool();
       const tr=$("rouletteTrack"),wi=rollWeightedDrop(),wr=ranks.find(x=>x.id===wi.id),wIdx=34; tr.querySelectorAll(".r-card")[wIdx].outerHTML=buildRouletteCardHTML(wi);
-      const sw=tr.parentElement.clientWidth,sp=148,tx=-(wIdx*sp+69-sw/2+Math.floor((Math.random()-.5)*44)),dur=4500,st=performance.now(); let lti=-1;
+      const sw=tr.parentElement.clientWidth,sp=148,tx=-(wIdx*sp+69-sw/2+Math.floor((Math.random()-.5)*44)),dur=siteSettings.anim==="min"?900:4500,st=performance.now(); let lti=-1;
       (function step(now){
         const t=Math.min(1,(now-st)/dur),cx=tx*(1-Math.pow(1-t,4)); tr.style.transform=`translateX(${cx}px)`;
         const ci=Math.floor((-cx+sw/2)/sp); if(ci!==lti){lti=ci;playSfx("tick");ptr.classList.add("kick");setTimeout(()=>ptr.classList.remove("kick"),55);}
@@ -725,7 +813,7 @@
           $("spinCountLbl").textContent=`Прокрутов: ${spinCounter}`; const isR=wi.chance<=5; playSfx(isR?"mythic":"win"); if(isR) spawnConfetti(wi.rarClr);
           spinHist=[{name:wr.name,clr:wr.color,rarClr:wi.rarClr},...spinHist].slice(0,6);
           $("spinHistory").innerHTML=`<span>История:</span>`+spinHist.map(h=>`<span class="recent-pill" style="border-color:${h.rarClr};color:${h.clr}">${h.name}</span>`).join("");
-          db.style.borderColor=wi.rarClr; db.innerHTML=`<div>${rarityIconSVG(wi.icon,wi.rarClr)} <span class="r-rar-badge" style="--rar:${wi.rarClr}">${wi.rarity} • ${wi.chance}%</span></div><div style="font-size:23px;font-weight:900;color:${wr.color};margin:6px 0">${wr.name}</div><button class="p-btn primary" onclick="jumpToRank('${wr.id}');switchShopTab('catalog',document.querySelectorAll('.subtab-btn')[0])">Открыть в магазине →</button>`;
+          db.style.borderColor=wi.rarClr; db.innerHTML=`<div>${rarityIconSVG(wi.icon,wi.rarClr)} <span class="r-rar-badge" style="--rar:${wi.rarClr}">${wi.rarity} • ${wi.chance}%</span></div><div style="font-size:23px;font-weight:900;color:${wr.color};margin:6px 0">${wr.name}</div><button class="p-btn primary" onclick="openRankInShop('${wr.id}')">Открыть в магазине →</button>`;
           db.classList.add("show"); btn.disabled=false; btn.textContent="🎲 КРУТИТЬ ЕЩЁ"; isSpinning=false;
         }
       })(st);
@@ -735,55 +823,107 @@
     function selectRank(id){ playSfx("click"); selectedId=id; pushRecent(id); renderList(); renderDetails(); }
     function selectTerm(t){ playSfx("click"); selectedTerm=t; document.querySelectorAll(".term-btn").forEach(b=>b.classList.toggle("act",b.dataset.term===t)); renderDetails(); }
     function jumpToRank(id){ selectedId=id; pushRecent(id); renderList(); renderDetails(); switchView("shop"); }
-    function switchView(v){ playSfx("click"); document.querySelectorAll(".view").forEach(x=>x.classList.remove("act")); $("view-"+v).classList.add("act"); document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("act",b.dataset.view===v)); scrollTo({top:0,behavior:"smooth"}); if(v==="items") hydrateDynamicTextures(); }
+    function switchView(v,silent){
+      if(!VIEWS.includes(v)) return; if(!silent) playSfx("click");
+      document.querySelectorAll(".view").forEach(x=>x.classList.remove("act")); $("view-"+v).classList.add("act");
+      document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("act",b.dataset.view===v));
+      try{history.replaceState(null,"","#"+v);}catch{}
+      if(!silent) scrollTo({top:0,behavior:"smooth"}); if(v==="items") hydrateDynamicTextures();
+    }
 
     const secOrder=["sec-1","sec-2","sec-3","sec-4","sec-5","sec-6"];
     function selectRuleSec(s){ playSfx("click"); activeRuleSec=s; document.querySelectorAll(".rule-tab-btn").forEach(b=>b.classList.toggle("act",b.dataset.sec===s)); document.querySelectorAll(".rule-sec").forEach(el=>el.classList.toggle("act-sec",s==="all"||el.id===s)); const p=$("rulePager"); if(s==="all") p.style.display="none"; else{p.style.display="flex";const i=secOrder.indexOf(s);$("prevRuleBtn").style.visibility=i>0?"visible":"hidden";$("nextRuleBtn").style.visibility=i<secOrder.length-1?"visible":"hidden";} }
-    function stepRuleSec(d){ const n=secOrder[secOrder.indexOf(activeRuleSec)+d]; if(n) selectRuleSec(n); }
+    function stepRuleSec(d){ const n=secOrder[secOrder.indexOf(activeRuleSec)+d]; if(n){ selectRuleSec(n); $("rulesTabs").scrollIntoView({behavior:"smooth",block:"start"}); } }
 
     const getEffectivePrice=r=>promoCodeActive?Math.max(1,Math.round(r[selectedTerm]*.8)):r[selectedTerm];
     function updateModalPrice(){ const r=ranks.find(x=>x.id===selectedId); if(!r||r.special) return; const tn={p30:"30 дней",p90:"90 дней",pFor:"Навсегда"},fp=getEffectivePrice(r),st=Math.max(1,Math.ceil(fp/1.8)); $("mSummary").innerHTML=promoCodeActive?`Срок: ${tn[selectedTerm]} • <s style="color:#64748b">${r[selectedTerm]}</s> <strong style="color:#10b981">${fp} ₽ (-20% Lent9i)</strong>`:`Срок: ${tn[selectedTerm]} • Стоимость: ${fp} ₽`; $("starsEst").textContent=`~${st} ⭐`; $("sbpPriceLbl").textContent=`${fp} ₽`; if(promoCodeActive) $("promoInp").value="Lent9i"; }
     function onModalNickInput(){ const v=$("mNick").value.trim(); $("step2").classList.toggle("act",/^[a-zA-Z0-9_]{3,16}$/.test(v)); if(!$("giftCheck").checked){$("liveNickInp").value=v;if(v)localStorage.setItem("nt_nick",v);renderDetails();} }
     function toggleGiftMode(){ $("mNickLabel").textContent=$("giftCheck").checked?"Ник друга:":"Ваш игровой ник:"; }
-    function getNick(){ const n=$("mNick").value.trim(); if(!/^[a-zA-Z0-9_]{3,16}$/.test(n)){playSfx("err");showToast("Введите корректный ник (3–16 символов)");$("mNick").focus();return null;} if(!$("giftCheck").checked) localStorage.setItem("nt_nick",n); $("step2").classList.add("act"); $("step3").classList.add("act"); return n; }
-    function openBuyModal(){ playSfx("pop"); const r=ranks.find(x=>x.id===selectedId); if(!r)return; if(r.special){r.id==="player"?copyIP():showToast(r.note);return;} $("mRankName").textContent=r.name; $("mRankName").style.color=r.color; updateModalPrice(); $("sbpBox").classList.remove("open"); const s=localStorage.getItem("nt_nick"); if(s&&!$("mNick").value&&!$("giftCheck").checked) $("mNick").value=s; onModalNickInput(); $("modalBg").classList.add("open"); }
-    function closeModal(){ $("modalBg").classList.remove("open"); }
+    function getNick(){ const n=$("mNick").value.trim(); if(!/^[a-zA-Z0-9_]{3,16}$/.test(n)){playSfx("err");showToast("Введите корректный ник (3–16 символов: латиница, цифры, _)");$("mNick").focus();return null;} if(!$("giftCheck").checked) localStorage.setItem("nt_nick",n); $("step2").classList.add("act"); $("step3").classList.add("act"); return n; }
+    function openBuyModal(){ playSfx("pop"); const r=ranks.find(x=>x.id===selectedId); if(!r)return; if(r.special){r.id==="player"?copyIP():showToast(r.note);return;} $("mRankName").textContent=r.name; $("mRankName").style.color=r.color; updateModalPrice(); $("sbpBox").classList.remove("open"); const s=localStorage.getItem("nt_nick"); if(s&&!$("mNick").value&&!$("giftCheck").checked) $("mNick").value=s; onModalNickInput(); openModalEl("modalBg",$("mNick").value?null:"mNick"); }
+    function closeModal(){ closeModalEl("modalBg"); }
     const isWorkerReady=()=>WORKER_URL&&!WORKER_URL.includes("ВАШ-НИК");
-    async function payCrypto(){ const n=getNick(); if(!n)return; if(!isWorkerReady()){playSfx("err");return showToast("Подключите WORKER_URL для авто-оплаты!");} try{const r=await fetch(`${WORKER_URL}/api/order`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({nick:n,rank:selectedId,term:selectedTerm,promo:promoCodeActive?"Lent9i":""})}),d=await r.json();if(d.ok&&d.pay_url){open(d.pay_url,"_blank");closeModal();}else showToast(d.error||"Ошибка");}catch{showToast("Ошибка связи");} }
-    function payStars(){ const n=getNick(); if(!n)return; open(`https://t.me/${BOT_USERNAME}?start=stars-${selectedId}-${selectedTerm}-${n}`,"_blank"); closeModal(); }
-    async function toggleSbp(){ playSfx("click"); const b=$("sbpBox"); b.classList.toggle("open"); if(!b.classList.contains("open"))return; if(!isWorkerReady()){$("sbpDetails").textContent=SBP_FALLBACK;return;} try{const c=await(await fetch(`${WORKER_URL}/api/config`)).json();$("sbpDetails").textContent=c.sbp_info||SBP_FALLBACK;}catch{$("sbpDetails").textContent=SBP_FALLBACK;} }
-    async function sendSbpRequest(){ const n=getNick(); if(!n)return; const r=ranks.find(x=>x.id===selectedId),fp=getEffectivePrice(r),tn={p30:"30д",p90:"90д",pFor:"Навсегда"}; if(!isWorkerReady()){navigator.clipboard?.writeText(`NewTime СБП: ${r.name} (${tn[selectedTerm]} — ${fp} ₽), Ник: ${n}`);showToast("Заявка скопирована! Отправьте чек в @newtime_tg");open("https://t.me/newtime_tg","_blank");closeModal();return;} try{const d=await(await fetch(`${WORKER_URL}/api/sbp`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({nick:n,rank:selectedId,term:selectedTerm,promo:promoCodeActive?"Lent9i":""})})).json();if(d.ok){playSfx("win");showToast("Заявка отправлена!");closeModal();}else showToast(d.error||"Ошибка");}catch{showToast("Ошибка соединения");} }
 
-    function copyRule(b){ playSfx("pop"); const r=b.closest(".rule-row"); navigator.clipboard?.writeText(`Пункт ${r.querySelector(".r-badge").textContent}: ${r.querySelector(".r-text").innerText.trim()}`); showToast(`Скопирован п. ${r.querySelector(".r-badge").textContent}`); }
+    /* ---------- Сеть: таймаут и защита от двойного нажатия ---------- */
+    async function fetchJson(url,opts,ms=12000){ const ctl=new AbortController(), t=setTimeout(()=>ctl.abort(),ms); try{ const r=await fetch(url,Object.assign({},opts,{signal:ctl.signal})); return await r.json(); } finally{ clearTimeout(t); } }
+    let payBusy=false;
+    async function withBusy(btn,fn){ if(payBusy) return; payBusy=true; if(btn){btn.classList.add("is-loading");btn.disabled=true;} try{ await fn(); } finally{ payBusy=false; if(btn){btn.classList.remove("is-loading");btn.disabled=false;} } }
+    async function payCrypto(btn){
+      const n=getNick(); if(!n)return;
+      if(!isWorkerReady()){playSfx("err");return showToast("Авто-оплата ещё не подключена — используйте СБП или Stars");}
+      await withBusy(btn,async()=>{
+        try{
+          const d=await fetchJson(`${WORKER_URL}/api/order`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({nick:n,rank:selectedId,term:selectedTerm,promo:promoCodeActive?"Lent9i":""})});
+          if(d.ok&&d.pay_url){window.open(d.pay_url,"_blank","noopener");closeModal();}else{playSfx("err");showToast(d.error||"Ошибка создания заказа");}
+        }catch(e){playSfx("err");showToast(e.name==="AbortError"?"Сервер не ответил, попробуйте ещё раз":"Ошибка связи");}
+      });
+    }
+    function payStars(){ const n=getNick(); if(!n)return; window.open(`https://t.me/${BOT_USERNAME}?start=stars-${selectedId}-${selectedTerm}-${encodeURIComponent(n)}`,"_blank","noopener"); closeModal(); }
+    async function toggleSbp(){ playSfx("click"); const b=$("sbpBox"); b.classList.toggle("open"); if(!b.classList.contains("open"))return; if(!isWorkerReady()){$("sbpDetails").textContent=SBP_FALLBACK;return;} $("sbpDetails").textContent="Загрузка реквизитов..."; try{const c=await fetchJson(`${WORKER_URL}/api/config`);$("sbpDetails").textContent=c.sbp_info||SBP_FALLBACK;}catch{$("sbpDetails").textContent=SBP_FALLBACK;} }
+    async function sendSbpRequest(btn){
+      const n=getNick(); if(!n)return; const r=ranks.find(x=>x.id===selectedId),fp=getEffectivePrice(r),tn={p30:"30д",p90:"90д",pFor:"Навсегда"};
+      if(!isWorkerReady()){clip(`NewTime СБП: ${r.name} (${tn[selectedTerm]} — ${fp} ₽), Ник: ${n}`);showToast("Заявка скопирована! Отправьте чек в @newtime_tg");window.open("https://t.me/newtime_tg","_blank","noopener");closeModal();return;}
+      await withBusy(btn,async()=>{
+        try{
+          const d=await fetchJson(`${WORKER_URL}/api/sbp`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({nick:n,rank:selectedId,term:selectedTerm,promo:promoCodeActive?"Lent9i":""})});
+          if(d.ok){playSfx("win");showToast("Заявка отправлена!");closeModal();}else{playSfx("err");showToast(d.error||"Ошибка");}
+        }catch(e){playSfx("err");showToast(e.name==="AbortError"?"Сервер не ответил, попробуйте ещё раз":"Ошибка соединения");}
+      });
+    }
+
+    function copyRule(b){ playSfx("pop"); const r=b.closest(".rule-row"); clip(`Пункт ${r.querySelector(".r-badge").textContent}: ${r.querySelector(".r-text").innerText.trim()}`); showToast(`Скопирован п. ${r.querySelector(".r-badge").textContent}`); }
     function toggleFavRule(b){ playSfx("pop"); const r=b.closest(".rule-row"),code=r.querySelector(".r-badge").textContent,text=r.querySelector(".r-text").innerText.trim(); favRules=favRules.some(f=>f.code===code)?favRules.filter(f=>f.code!==code):[...favRules,{code,text}]; localStorage.setItem("nt_fav_rules",JSON.stringify(favRules)); syncFavButtons(); renderFavRules(); }
     function syncFavButtons(){ document.querySelectorAll(".rule-row").forEach(r=>{const s=r.querySelector(".r-act-btn");if(s)s.classList.toggle("fav-on",favRules.some(f=>f.code===r.querySelector(".r-badge").textContent));}); }
-    function renderFavRules(){ $("favRulesBox").innerHTML=favRules.length?favRules.map(f=>`<div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);display:flex;gap:8px"><span class="r-badge" style="min-width:40px;font-size:10.5px">${f.code}</span><span style="color:#e2e8f0;font-size:12px">${f.text.slice(0,70)}...</span></div>`).join(""):"Нажмите ⭐ на любом правиле."; }
+    function renderFavRules(){ $("favRulesBox").innerHTML=favRules.length?favRules.map(f=>`<div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05);display:flex;gap:8px"><span class="r-badge" style="min-width:40px;font-size:10.5px">${f.code}</span><span style="color:#e2e8f0;font-size:12px">${f.text.slice(0,70)}${f.text.length>70?"...":""}</span></div>`).join(""):"Нажмите ⭐ на любом правиле."; }
     function updateReadyBar(){ playSfx("click"); const c=document.querySelectorAll(".ready-chk input"),d=[...c].filter(x=>x.checked).length; $("readyFill").style.width=(d/c.length*100)+"%"; if(d===c.length){playSfx("win");showToast("Вы готовы к игре на 1.21.4+!");} }
 
-    function renderMods(){ const od=modsSorted?[...ok].sort():ok,nd=modsSorted?[...no].sort():no; $("okList").innerHTML=od.map(m=>`<span class="tag tok" onclick="copyMod(this.textContent)">${m}</span>`).join(""); $("noList").innerHTML=nd.map(m=>`<span class="tag tno" onclick="copyMod(this.textContent)">${m}</span>`).join(""); $("okCount").textContent=ok.length+" шт."; $("noCount").textContent=no.length+" шт."; $("sbOkStat").textContent=ok.length; onSearch(); }
+    function renderMods(){
+      const od=modsSorted?[...ok].sort((a,b)=>a.localeCompare(b,"ru")):ok,nd=modsSorted?[...no].sort((a,b)=>a.localeCompare(b,"ru")):no;
+      $("okList").innerHTML=od.map(m=>`<span class="tag tok" role="button" tabindex="0" onclick="copyMod(this.textContent)" onkeydown="if(event.key==='Enter')copyMod(this.textContent)">${m}</span>`).join(""); $("noList").innerHTML=nd.map(m=>`<span class="tag tno" role="button" tabindex="0" onclick="copyMod(this.textContent)" onkeydown="if(event.key==='Enter')copyMod(this.textContent)">${m}</span>`).join("");
+      $("okCount").textContent=ok.length+" шт."; $("noCount").textContent=no.length+" шт."; $("sbOkStat").textContent=ok.length;
+      $("mfAll").textContent=`Все (${ok.length+no.length})`; $("mfOk").textContent=`✅ Разрешённые (${ok.length})`; $("mfNo").textContent=`⛔ Запрещённые (${no.length})`;
+      onSearch();
+    }
     function toggleModSort(){ playSfx("click"); modsSorted=!modsSorted; $("sortModsBtn").textContent=modsSorted?"🔁 Порядок":"🔤 А–Я"; renderMods(); }
-    function copyAllMods(t){ playSfx("pop"); const l=t==="ok"?ok:no; navigator.clipboard?.writeText(l.join(", ")); showToast(`Скопировано ${l.length} модов`); }
+    function copyAllMods(t){ playSfx("pop"); const l=t==="ok"?ok:no; clip(l.join(", ")); showToast(`Скопировано ${l.length} модов`); }
     function quickCheckMod(n){ playSfx("click"); $("modCheckerInp").value=n; checkModName(); }
-    function checkModName(){ const v=$("modCheckerInp").value.trim().toLowerCase().replace(/\.jar$/i,""),rb=$("modCheckerRes"); if(!v){rb.className="mod-chk-result";rb.textContent="Введите название мода";return;} const hn=no.find(m=>m.toLowerCase().includes(v)),ho=ok.find(m=>m.toLowerCase().includes(v)); if(hn){rb.className="mod-chk-result no";rb.textContent=`⛔ ЗАПРЕЩЁН: ${hn}`;}else if(ho){rb.className="mod-chk-result ok";rb.textContent=`✅ РАЗРЕШЁН: ${ho}`;}else{rb.className="mod-chk-result warn";rb.textContent="⚠️ Нет в списке 4.4";} }
+    /* Точное совпадение важнее частичного: «soupapi» теперь не даёт ложный запрет */
+    function findMods(list,v){ const l=list.map(m=>[m,m.toLowerCase()]); const ex=l.filter(([,x])=>x===v); if(ex.length) return {exact:true,items:ex.map(a=>a[0])}; const st=l.filter(([,x])=>x.startsWith(v)); if(st.length) return {exact:false,items:st.map(a=>a[0])}; return {exact:false,items:l.filter(([,x])=>x.includes(v)).map(a=>a[0])}; }
+    function checkModName(){
+      const v=$("modCheckerInp").value.trim().toLowerCase().replace(/\.jar$/i,""),rb=$("modCheckerRes");
+      if(!v){rb.className="mod-chk-result";rb.textContent="Введите название мода";return;}
+      if(v.length<2){rb.className="mod-chk-result";rb.textContent="Введите хотя бы 2 символа";return;}
+      const hn=findMods(no,v),ho=findMods(ok,v), short=a=>a.slice(0,2).join(", ")+(a.length>2?` и ещё ${a.length-2}`:"");
+      if(hn.exact&&!ho.exact){rb.className="mod-chk-result no";rb.textContent=`⛔ ЗАПРЕЩЁН: ${hn.items[0]}`;}
+      else if(ho.exact&&!hn.exact){rb.className="mod-chk-result ok";rb.textContent=`✅ РАЗРЕШЁН: ${ho.items[0]}`;}
+      else if(hn.items.length&&ho.items.length){rb.className="mod-chk-result warn";rb.textContent=`⚠️ Уточните версию. Разрешён: ${short(ho.items)}; запрещён: ${short(hn.items)}`;}
+      else if(hn.items.length){rb.className="mod-chk-result no";rb.textContent=`⛔ ЗАПРЕЩЁН: ${short(hn.items)}`;}
+      else if(ho.items.length){rb.className="mod-chk-result ok";rb.textContent=`✅ РАЗРЕШЁН: ${short(ho.items)}`;}
+      else{rb.className="mod-chk-result warn";rb.textContent="⚠️ Нет в списке 4.4 — уточните у администрации";}
+    }
     function filterModGroup(g,b){ playSfx("click"); document.querySelectorAll(".mf-btn").forEach(x=>x.classList.remove("act")); b.classList.add("act"); $("okBox").style.display=g==="no"?"none":"block"; $("noBox").style.display=g==="ok"?"none":"block"; $("modsGrid").style.gridTemplateColumns=g==="all"?"":"1fr"; }
-    function toggleFaq(b){ playSfx("click"); b.closest(".faq-item").classList.toggle("open"); }
+    function toggleFaq(b){ playSfx("click"); const it=b.closest(".faq-item"); it.classList.toggle("open"); b.setAttribute("aria-expanded",it.classList.contains("open")); }
 
     const setBadge=(id,c,a)=>{const e=$(id);if(e){e.textContent=c;e.classList.toggle("show",a);}};
+    let searchTimer;
     function onSearch(){
+      clearTimeout(searchTimer); searchTimer=setTimeout(doSearch,90);
+    }
+    function doSearch(){
       const raw=$("globalSearch").value.trim(), v=raw.toLowerCase(); $("searchClear").classList.toggle("show",v.length>0);
       const sm=renderList(); let rm=0; const re=v?new RegExp(`(${raw.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")})`,"gi"):null;
-      if(v) selectRuleSec("all");
-      document.querySelectorAll("#view-rules .rule-row").forEach(r=>{const te=r.querySelector(".r-text");if(!te)return;if(!te.dataset.orig)te.dataset.orig=te.innerHTML;const h=te.innerText.toLowerCase().includes(v);r.style.display=h?"flex":"none";if(h)rm++;te.innerHTML=(v&&h&&!te.dataset.orig.includes("<a")&&!te.dataset.orig.includes("<div"))?te.dataset.orig.replace(re,'<mark class="hl">$1</mark>'):te.dataset.orig;});
+      if(v&&activeRuleSec!=="all") selectRuleSec("all");
+      document.querySelectorAll("#view-rules .rule-row").forEach(r=>{const te=r.querySelector(".r-text");if(!te)return;if(!te.dataset.orig)te.dataset.orig=te.innerHTML;const h=te.innerText.toLowerCase().includes(v)||r.querySelector(".r-badge").textContent.toLowerCase().includes(v);r.style.display=h?"flex":"none";if(h)rm++;te.innerHTML=(v&&h&&!te.dataset.orig.includes("<a")&&!te.dataset.orig.includes("<div"))?te.dataset.orig.replace(re,'<mark class="hl">$1</mark>'):te.dataset.orig;});
       $("rulesSearchBanner").classList.toggle("show",v.length>0); $("rulesSearchMsg").textContent=`Найдено пунктов: ${rm}`;
       let mm=0; document.querySelectorAll(".tag").forEach(t=>{const h=t.innerText.toLowerCase().includes(v);t.style.display=h?"inline-block":"none";if(h)mm++;});
       setBadge("cnt-shop",sm,v.length>0); setBadge("cnt-rules",rm,v.length>0); setBadge("cnt-mods",mm,v.length>0);
     }
-    function clearSearch(){ $("globalSearch").value=""; onSearch(); selectRuleSec("sec-1"); }
+    function clearSearch(){ $("globalSearch").value=""; doSearch(); selectRuleSec("sec-1"); }
 
-    let toastTimer; function showToast(m){ const t=$("toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"),2500); }
-    function copyIP(){ playSfx("pop"); navigator.clipboard?.writeText("newtime.mcsh.gg"); showToast("IP newtime.mcsh.gg скопирован!"); }
-    function copyMod(n){ playSfx("pop"); navigator.clipboard?.writeText(n); showToast(`Скопировано: ${n}`); }
-    async function fetchServerStatus(){ try{const d=await(await fetch("https://api.mcsrvstat.us/3/newtime.mcsh.gg")).json();$("onlineText").textContent=d?.online?`Онлайн: ${d.players?.online||0}/${d.players?.max||100}`:"Онлайн • 1.21.4+";}catch{$("onlineText").textContent="Онлайн • 1.21.4+";} }
+    let toastTimer; function showToast(m){ const t=$("toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"),2600); }
+    function copyIP(){ playSfx("pop"); clip("newtime.mcsh.gg"); showToast("IP newtime.mcsh.gg скопирован!"); }
+    function copyMod(n){ playSfx("pop"); clip(n); showToast(`Скопировано: ${n}`); }
+    async function fetchServerStatus(){ try{const d=await fetchJson("https://api.mcsrvstat.us/3/newtime.mcsh.gg",{},8000);$("onlineText").textContent=d?.online?`Онлайн: ${d.players?.online||0}/${d.players?.max||100}`:"Сервер недоступен";}catch{$("onlineText").textContent="Онлайн • 1.21.4+";} }
 
     let bgRaf=null;
     function initBgEngine(){
@@ -793,24 +933,34 @@
       onresize=()=>{w=c.width=innerWidth;h=c.height=innerHeight;};
       (function rf(){
         if(!document.hidden){
-          const ac=getComputedStyle(document.body).getPropertyValue("--cyan").trim()||"#00e5ff",bl=getComputedStyle(document.body).getPropertyValue("--blue").trim()||"#1e78ff";
+          const cs=getComputedStyle(document.body),ac=cs.getPropertyValue("--cyan").trim()||"#00e5ff",bl=cs.getPropertyValue("--blue").trim()||"#1e78ff";
           if(m==="matrix"){ctx.fillStyle="rgba(4,8,19,.14)";ctx.globalAlpha=1;ctx.fillRect(0,0,w,h);ctx.fillStyle=ac;ctx.font="14px monospace";ctx.globalAlpha=.45;for(let i=0;i<dr.length;i++){ctx.fillText(Math.random()>.5?"1":"0",i*18,dr[i]*18);if(dr[i]*18>h&&Math.random()>.975)dr[i]=0;dr[i]++;}}
           else if(m==="warp"){ctx.fillStyle="rgba(4,8,19,.3)";ctx.globalAlpha=1;ctx.fillRect(0,0,w,h);ctx.fillStyle=ac;st.forEach(s=>{s.z-=6;if(s.z<=1){s.z=w;s.x=(Math.random()-.5)*w;s.y=(Math.random()-.5)*h;}const sx=(s.x/s.z)*w+w/2,sy=(s.y/s.z)*h+h/2,r=Math.max(.8,(1-s.z/w)*3.5);ctx.globalAlpha=Math.min(.85,1-s.z/w);ctx.fillRect(sx,sy,r,r);});}
           else if(m==="hex"){ctx.clearRect(0,0,w,h);t+=.025;const sz=46,dx=sz*1.5,dy=sz*1.73;ctx.strokeStyle=ac;ctx.lineWidth=1.2;for(let x=0;x<w+dx;x+=dx)for(let y=0;y<h+dy;y+=dy){const o=(Math.round(x/dx)%2)*(dy/2);ctx.globalAlpha=Math.max(.04,.08+.09*Math.sin(t+(x+y)*.01));ctx.beginPath();for(let k=0;k<6;k++){const a=Math.PI/3*k,px=x+sz*.56*Math.cos(a),py=y+o+sz*.56*Math.sin(a);k?ctx.lineTo(px,py):ctx.moveTo(px,py);}ctx.closePath();ctx.stroke();}}
           else if(m==="embers"||m==="net"){ctx.clearRect(0,0,w,h);ctx.fillStyle=ac;ctx.strokeStyle=ac;nd.forEach((p,i)=>{p.x+=p.vx;p.y-=m==="embers"?Math.abs(p.vy)+.4:p.vy;if(p.y<0)p.y=h;if(p.y>h)p.y=0;if(p.x<0||p.x>w)p.vx*=-1;ctx.globalAlpha=.45;ctx.fillRect(p.x,p.y,p.r,p.r);if(m==="net")for(let j=i+1;j<nd.length;j++){const d=Math.hypot(p.x-nd[j].x,p.y-nd[j].y);if(d<130){ctx.globalAlpha=(1-d/130)*.16;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(nd[j].x,nd[j].y);ctx.stroke();}}});}
           else{ctx.clearRect(0,0,w,h);t+=.014;for(let b=0;b<3;b++){const gx=w*(.25+b*.25)+Math.sin(t+b)*90,gy=h*(.35+(b%2)*.28)+Math.cos(t*.8+b)*60,g=ctx.createRadialGradient(gx,gy,10,gx,gy,340);g.addColorStop(0,b%2?bl:ac);g.addColorStop(1,"transparent");ctx.globalAlpha=.14;ctx.fillStyle=g;ctx.fillRect(0,0,w,h);}ctx.fillStyle=ac;nd.forEach(n=>{n.y-=.45;if(n.y<-10){n.y=h+10;n.x=Math.random()*w;}ctx.globalAlpha=.4;ctx.fillRect(n.x,n.y,n.r,n.r);});}
         }
+        if(siteSettings.anim==="min"&&reducedMotion){ bgRaf=null; return; }
         bgRaf=requestAnimationFrame(rf);
       })();
     }
 
-    addEventListener("scroll",()=>{const dh=document.documentElement.scrollHeight-innerHeight;$("scrollProgress").style.width=(dh>0?Math.min(100,(scrollY/dh)*100):0)+"%";$("backTop").classList.toggle("show",scrollY>360);});
-    addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeSettings();closeAccountModal();}if(["INPUT","SELECT"].includes(document.activeElement.tagName))return;if(e.key==="/"){e.preventDefault();$("globalSearch").focus();}if(e.key==="1")switchView("shop");if(e.key==="2")switchView("items");if(e.key==="3")switchView("rules");if(e.key==="4")switchView("mods");if(e.key==="5")switchView("contacts");});
+    addEventListener("scroll",()=>{const dh=document.documentElement.scrollHeight-innerHeight;$("scrollProgress").style.width=(dh>0?Math.min(100,(scrollY/dh)*100):0)+"%";$("backTop").classList.toggle("show",scrollY>360);},{passive:true});
+    addEventListener("keydown",e=>{
+      if(e.key==="Escape"){closeModal();closeSettings();closeAccountModal();hideTip();if(document.activeElement===$("globalSearch")&&$("globalSearch").value)clearSearch();return;}
+      if(e.ctrlKey||e.metaKey||e.altKey) return;
+      if(["INPUT","SELECT","TEXTAREA"].includes(document.activeElement.tagName))return;
+      if(document.querySelector(".modal-bg.open")) return;
+      if(e.key==="/"){e.preventDefault();$("globalSearch").focus();}
+      const i=["1","2","3","4","5"].indexOf(e.key); if(i>-1) switchView(VIEWS[i]);
+    });
+    addEventListener("hashchange",()=>{const h=location.hash.slice(1); if(VIEWS.includes(h)) switchView(h,true);});
 
     const sn=localStorage.getItem("nt_nick"); if(sn) $("liveNickInp").value=sn;
     renderRules(); applyAllSettings(); initBgEngine(); renderAccountUI(); renderRecent(); renderList(); renderDetails();
     renderAllKitsGrid(); renderCustomItems(); renderCompareTable(); initDuelSelects(); updateWizard(); renderDropTable();
     buildRoulettePool(); renderMods(); syncFavButtons(); renderFavRules(); fetchServerStatus();
+    { const h=location.hash.slice(1); if(VIEWS.includes(h)) switchView(h,true); }
   </script>
 </body>
 </html>
