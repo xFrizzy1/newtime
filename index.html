@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NewTime — Neural Cyber Portal | Cyan Anarchy</title>
+  <title>NewTime — Официальный портал 1.21.4+ | Cyan Anarchy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
     /* ==========================================================================
-       1. ПЕРЕМЕННЫЕ, ТЕМЫ И АНИМИРОВАННЫЕ ГРАДИЕНТЫ
+       1. ПЕРЕМЕННЫЕ, ТЕМЫ И АНИМИРОВАННЫЕ РАМКИ
        ========================================================================== */
     @property --border-angle {
       syntax: "<angle>";
@@ -19,18 +19,20 @@
 
     :root {
       --bg: #04070e;
-      --card: rgba(10, 16, 30, 0.82);
-      --card-solid: #0a101e;
-      --card-hdr: linear-gradient(180deg, rgba(22, 35, 62, 0.94) 0%, rgba(12, 20, 38, 0.94) 100%);
-      --hov: rgba(27, 45, 78, 0.62);
-      --brd: rgba(255, 255, 255, 0.08);
-      --brd-strong: rgba(255, 255, 255, 0.17);
+      --card: rgba(11, 18, 33, 0.85);
+      --card-solid: #0b1221;
+      --card-hdr: linear-gradient(180deg, rgba(24, 39, 70, 0.96) 0%, rgba(13, 22, 42, 0.96) 100%);
+      --hov: rgba(29, 49, 86, 0.62);
+      --brd: rgba(255, 255, 255, 0.09);
+      --brd-strong: rgba(255, 255, 255, 0.18);
 
       --blue: #1e78ff;
+      --blue-dark: #0e4cb8;
       --blue-hov: #3b8bff;
       --cyan: #00e5ff;
-      --cyan-dim: rgba(0, 229, 255, 0.14);
-      --cyan-brd: rgba(0, 229, 255, 0.36);
+      --cyan-dark: #0095b3;
+      --cyan-dim: rgba(0, 229, 255, 0.15);
+      --cyan-brd: rgba(0, 229, 255, 0.38);
 
       --txt: #eef2f9;
       --mut: #8b9bb4;
@@ -43,24 +45,28 @@
       --blur-px: 14px;
       --base-fs: 14px;
       --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-      --radius: 14px;
+      --radius: 16px;
       --shadow: 0 18px 46px rgba(0, 0, 0, 0.55);
+      --bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     body[data-theme="crimson"] {
-      --blue: #e11d48; --blue-hov: #f43f5e; --cyan: #ff3b6b;
-      --cyan-dim: rgba(255, 59, 107, 0.14); --cyan-brd: rgba(255, 59, 107, 0.38);
+      --blue: #e11d48; --blue-dark: #9f1239; --blue-hov: #f43f5e;
+      --cyan: #ff477e; --cyan-dark: #be123c;
+      --cyan-dim: rgba(255, 71, 126, 0.15); --cyan-brd: rgba(255, 71, 126, 0.4);
     }
     body[data-theme="emerald"] {
-      --blue: #059669; --blue-hov: #10b981; --cyan: #34d399;
-      --cyan-dim: rgba(52, 211, 153, 0.14); --cyan-brd: rgba(52, 211, 153, 0.38);
+      --blue: #059669; --blue-dark: #065f46; --blue-hov: #10b981;
+      --cyan: #34d399; --cyan-dark: #047857;
+      --cyan-dim: rgba(52, 211, 153, 0.15); --cyan-brd: rgba(52, 211, 153, 0.4);
     }
     body[data-theme="amethyst"] {
-      --blue: #7c3aed; --blue-hov: #8b5cf6; --cyan: #c084fc;
-      --cyan-dim: rgba(192, 132, 252, 0.14); --cyan-brd: rgba(192, 132, 252, 0.38);
+      --blue: #7c3aed; --blue-dark: #5b21b6; --blue-hov: #8b5cf6;
+      --cyan: #c084fc; --cyan-dark: #7e22ce;
+      --cyan-dim: rgba(192, 132, 252, 0.15); --cyan-brd: rgba(192, 132, 252, 0.4);
     }
 
-    body.glow-max { --glow-mult: 1.5; }
+    body.glow-max { --glow-mult: 1.55; }
     body.glow-low { --glow-mult: 0.25; }
     body.no-blur { --blur-px: 0px; }
     body.no-scanlines .scanlines { display: none; }
@@ -87,10 +93,10 @@
     #bgCanvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; }
     .scanlines {
       position: fixed; inset: 0; z-index: -1; pointer-events: none;
-      background: repeating-linear-gradient(to bottom, transparent 0px, transparent 3px, rgba(0, 229, 255, 0.014) 4px);
+      background: repeating-linear-gradient(to bottom, transparent 0px, transparent 3px, rgba(0, 229, 255, 0.013) 4px);
     }
     .scroll-progress {
-      position: fixed; top: 0; left: 0; height: 3px; width: 0%; z-index: 999;
+      position: fixed; top: 0; left: 0; height: 3.5px; width: 0%; z-index: 999;
       background: linear-gradient(90deg, var(--blue), var(--cyan), #fff);
       box-shadow: 0 0 14px var(--cyan);
       transition: width 0.08s linear;
@@ -98,21 +104,114 @@
 
     ::-webkit-scrollbar { width: 7px; height: 7px; }
     ::-webkit-scrollbar-track { background: #050912; }
-    ::-webkit-scrollbar-thumb { background: #243658; border-radius: 5px; }
+    ::-webkit-scrollbar-thumb { background: #243658; border-radius: 6px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
 
     /* ==========================================================================
-       2. AI TELEMETRY STRIP И HERO С ОРБИТАЛЬНЫМ ЯДРОМ
+       2. МУЛЬТЯШНЫЕ 3D-КНОПКИ (CARTOON ARCADE STYLE)
+       ========================================================================== */
+    .toon-btn, .buy-btn, .p-btn, .nav-btn.act, .subtab-btn, .rf-btn, .mf-btn, .term-btn {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      border-bottom-width: 4px;
+      border-bottom-style: solid;
+      transition: transform 0.16s var(--bounce), filter 0.15s, box-shadow 0.16s, background 0.16s;
+      user-select: none;
+    }
+
+    .buy-btn {
+      background: linear-gradient(180deg, var(--cyan) 0%, var(--blue) 100%);
+      border: 2px solid rgba(255, 255, 255, 0.28);
+      border-bottom: 5px solid var(--blue-dark);
+      color: #fff;
+      font-size: 13.5px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 11px 26px;
+      cursor: pointer;
+      box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.35), 0 8px 24px var(--cyan-dim);
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.32);
+    }
+    .buy-btn::after {
+      content: ""; position: absolute; top: -50%; left: -75%; width: 45%; height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.38), transparent);
+      transform: skewX(-22deg); animation: btnShine 4s infinite;
+    }
+    @keyframes btnShine { 0%, 75% { left: -75%; } 100% { left: 135%; } }
+    .buy-btn:hover { transform: translateY(-3px) scale(1.03); filter: brightness(1.08); }
+    .buy-btn:active { transform: translateY(2px) scale(0.98); border-bottom-width: 2px; margin-top: 3px; }
+
+    .p-btn {
+      background: linear-gradient(180deg, #223354 0%, #152138 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.16);
+      border-bottom: 4px solid #0b1221;
+      color: #eef2f9;
+      padding: 8px 14px;
+      font-size: 12.5px;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.18);
+    }
+    .p-btn:hover { transform: translateY(-2px) scale(1.03); border-color: var(--cyan); color: #fff; }
+    .p-btn:active { transform: translateY(2px); border-bottom-width: 2px; }
+    .p-btn.primary {
+      background: linear-gradient(180deg, var(--blue-hov) 0%, var(--blue) 100%);
+      border-color: rgba(255, 255, 255, 0.24);
+      border-bottom: 4px solid var(--blue-dark);
+      color: #fff;
+    }
+
+    .subtab-btn, .rf-btn, .mf-btn, .term-btn {
+      background: linear-gradient(180deg, #17233b 0%, #0f1728 100%);
+      border: 1.5px solid var(--brd-strong);
+      border-bottom: 4px solid #070b14;
+      color: #cbd5e1;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .subtab-btn { padding: 9px 16px; font-size: 13px; }
+    .rf-btn { padding: 6px 12px; font-size: 12px; }
+    .mf-btn { padding: 8px 15px; font-size: 12.5px; }
+    .term-btn { padding: 6px 12px; font-size: 12px; }
+
+    .subtab-btn:hover, .rf-btn:hover, .mf-btn:hover, .term-btn:hover { transform: translateY(-2px) scale(1.03); color: #fff; border-color: var(--cyan); }
+    .subtab-btn:active, .rf-btn:active, .mf-btn:active, .term-btn:active { transform: translateY(2px); border-bottom-width: 2px; }
+
+    .subtab-btn.act, .rf-btn.act, .mf-btn.act, .term-btn.act {
+      background: linear-gradient(180deg, var(--cyan) 0%, var(--blue) 100%);
+      border-color: rgba(255, 255, 255, 0.3);
+      border-bottom: 4px solid var(--blue-dark);
+      color: #fff;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+      box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.35), 0 6px 18px var(--cyan-dim);
+    }
+
+    .ripple-wave {
+      position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.42);
+      transform: scale(0); animation: rippleAnim 0.55s ease-out forwards; pointer-events: none;
+    }
+    @keyframes rippleAnim { to { transform: scale(3.8); opacity: 0; } }
+
+    /* ==========================================================================
+       3. HERO БАННЕР И AI-ЯДРО (1.21.4+)
        ========================================================================== */
     .promo-strip {
-      background: linear-gradient(90deg, rgba(30, 120, 255, 0.2), var(--cyan-dim), rgba(30, 120, 255, 0.2));
+      background: linear-gradient(90deg, rgba(30, 120, 255, 0.22), var(--cyan-dim), rgba(30, 120, 255, 0.22));
       border-bottom: 1px solid var(--cyan-brd);
       padding: 6px 16px; font-size: 11.5px; font-weight: 700; font-family: var(--mono); color: #dbeafe;
       display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; text-align: center;
     }
     .promo-strip strong { color: var(--cyan); }
     .promo-close { background: none; border: none; color: var(--mut); cursor: pointer; font-size: 13px; }
-    .promo-close:hover { color: #fff; }
 
     .hero-banner {
       position: relative; min-height: 315px; width: 100%; overflow: hidden;
@@ -125,9 +224,7 @@
     }
     .hero-grid {
       position: absolute; inset: -40px 0 0 0;
-      background-image:
-        linear-gradient(rgba(0, 229, 255, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 229, 255, 0.06) 1px, transparent 1px);
+      background-image: linear-gradient(rgba(0, 229, 255, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 229, 255, 0.06) 1px, transparent 1px);
       background-size: 42px 42px;
       transform: perspective(520px) rotateX(26deg); transform-origin: top center;
       mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, transparent 92%);
@@ -136,10 +233,9 @@
     }
     @keyframes gridMove { 0% { background-position: 0 0, 0 0; } 100% { background-position: 0 42px, 0 0; } }
 
-    /* Орбитальное AI-кольцо в Hero */
     .ai-orbit {
-      position: absolute; width: 340px; height: 340px; border-radius: 50%;
-      border: 1px dashed var(--cyan-brd); opacity: 0.35;
+      position: absolute; width: 350px; height: 350px; border-radius: 50%;
+      border: 1.5px dashed var(--cyan-brd); opacity: 0.35;
       animation: orbitSpin 28s linear infinite; pointer-events: none;
     }
     .ai-orbit.inner {
@@ -150,23 +246,23 @@
     @keyframes orbitSpinRev { to { transform: rotate(-360deg); } }
 
     .hero-vignette { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4, 7, 14, 0.1) 0%, rgba(4, 7, 14, 0.96) 100%); pointer-events: none; }
-
     .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: 840px; }
-    .hero-top-badges { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; animation: heroEnter 0.55s ease both; }
+    .hero-top-badges { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; animation: heroPop 0.6s var(--bounce) both; }
     .hero-badge {
       font-size: 10.5px; font-weight: 800; font-family: var(--mono); letter-spacing: 0.12em; text-transform: uppercase;
       color: var(--cyan); background: var(--cyan-dim); border: 1px solid var(--cyan-brd);
       padding: 4px 13px; border-radius: 999px; box-shadow: 0 0 calc(16px * var(--glow-mult)) var(--cyan-dim);
     }
-    .hero-badge.ver { color: #cbd5e1; background: rgba(255, 255, 255, 0.05); border-color: var(--brd); box-shadow: none; }
+    .hero-badge.ver { color: #e2e8f0; background: rgba(255, 255, 255, 0.08); border-color: var(--brd-strong); box-shadow: none; }
 
-    .hero-logo-row { display: flex; align-items: center; gap: 16px; animation: heroEnter 0.68s ease both; }
+    .hero-logo-row { display: flex; align-items: center; gap: 16px; animation: heroPop 0.72s var(--bounce) both; }
     .hero-crown { filter: drop-shadow(0 0 calc(18px * var(--glow-mult)) var(--cyan-brd)); animation: crownFloat 3.4s ease-in-out infinite; }
-    @keyframes crownFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-6px) scale(1.04); } }
+    @keyframes crownFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-7px) rotate(-3deg) scale(1.05); } }
+    @keyframes heroPop { from { opacity: 0; transform: translateY(16px) scale(0.92); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
     .hero-title {
       margin: 0; font-size: clamp(42px, 6.4vw, 64px); font-weight: 900; letter-spacing: 0.09em;
-      color: #fff; text-shadow: 0 0 calc(40px * var(--glow-mult)) var(--cyan-dim), 0 4px 0 #040914; line-height: 1;
+      color: #fff; text-shadow: 0 0 calc(40px * var(--glow-mult)) var(--cyan-dim), 0 5px 0 #040914; line-height: 1;
     }
     .hero-title span {
       background: linear-gradient(110deg, #e0fbff 0%, var(--cyan) 35%, var(--blue) 65%, #e0fbff 100%);
@@ -175,27 +271,23 @@
     }
     @keyframes shimmerText { to { background-position: 220% center; } }
 
-    .hero-ticker {
-      min-height: 24px; color: #b7c5dc; font-size: 13.5px; font-weight: 500;
-      transition: opacity 0.35s ease, transform 0.35s ease;
-    }
+    .hero-ticker { min-height: 24px; color: #b7c5dc; font-size: 13.5px; font-weight: 500; transition: opacity 0.35s ease, transform 0.35s ease; }
     .hero-ticker.fade { opacity: 0; transform: translateY(5px); }
-
-    .hero-pills { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 4px; animation: heroEnter 0.85s ease both; }
-    @keyframes heroEnter { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-pills { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 4px; animation: heroPop 0.88s var(--bounce) both; }
 
     .hero-sub {
       display: inline-flex; align-items: center; gap: 10px;
-      background: rgba(10, 16, 30, 0.86); backdrop-filter: blur(var(--blur-px));
-      border: 1px solid var(--cyan-brd); padding: 8px 18px; border-radius: 999px;
-      font-size: 13px; font-weight: 700; color: #dbeafe; cursor: pointer; transition: 0.2s;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+      background: linear-gradient(180deg, #13203b 0%, #0b1324 100%);
+      border: 1.5px solid var(--cyan-brd); border-bottom: 4px solid #050a14;
+      padding: 8px 18px; border-radius: 999px; font-size: 13px; font-weight: 800; color: #dbeafe;
+      cursor: pointer; transition: 0.18s var(--bounce); box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
     }
-    .hero-sub:hover { border-color: var(--cyan); transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 28px var(--cyan-dim); }
+    .hero-sub:hover { border-color: var(--cyan); transform: translateY(-3px) scale(1.03); }
+    .hero-sub:active { transform: translateY(2px); }
     .hero-sub code { font-family: var(--mono); color: var(--cyan); }
     .online-pill {
       display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(10, 16, 30, 0.78); border: 1px solid var(--brd);
+      background: rgba(10, 16, 30, 0.8); border: 1px solid var(--brd);
       padding: 8px 16px; border-radius: 999px; font-size: 12.5px; font-weight: 700; color: #cbd5e1;
     }
     .online-pill strong { color: #fff; font-family: var(--mono); }
@@ -203,17 +295,17 @@
     @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(1.35); } }
 
     /* ==========================================================================
-       3. НАВИГАЦИЯ И КНОПКА НАСТРОЕК
+       4. НАВИГАЦИЯ, ЗВУК, АККАУНТ И НАСТРОЙКИ
        ========================================================================== */
     .navbar-wrap {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(7, 12, 22, 0.86); backdrop-filter: blur(var(--blur-px));
+      background: rgba(7, 12, 22, 0.88); backdrop-filter: blur(var(--blur-px));
       border-top: 1px solid rgba(255, 255, 255, 0.06);
       border-bottom: 1px solid var(--cyan-brd);
       box-shadow: 0 10px 35px rgba(0, 0, 0, 0.65);
     }
-    .navbar { max-width: 1280px; margin: 0 auto; padding: 9px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-    .nav-left { display: flex; align-items: center; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+    .navbar { max-width: 1280px; margin: 0 auto; padding: 9px 20px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .nav-left { display: flex; align-items: center; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
     .nav-left::-webkit-scrollbar { display: none; }
     .nav-brand {
       display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 14.5px;
@@ -223,15 +315,16 @@
     .nav-btn {
       position: relative; overflow: hidden;
       display: inline-flex; align-items: center; gap: 7px;
-      background: transparent; border: 1px solid transparent; color: #cbd5e1;
-      font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
-      padding: 9px 14px; border-radius: 9px; cursor: pointer; white-space: nowrap; transition: 0.16s;
+      background: transparent; border: 1.5px solid transparent; color: #cbd5e1;
+      font-size: 12px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase;
+      padding: 8px 14px; border-radius: 11px; cursor: pointer; white-space: nowrap; transition: 0.16s var(--bounce);
     }
-    .nav-btn:hover { background: rgba(255, 255, 255, 0.07); color: #fff; }
+    .nav-btn:hover { background: rgba(255, 255, 255, 0.07); color: #fff; transform: translateY(-1px); }
     .nav-btn.act {
-      background: linear-gradient(135deg, var(--blue), var(--cyan));
-      color: #fff; border-color: rgba(255, 255, 255, 0.28);
-      box-shadow: 0 4px 20px var(--cyan-dim); text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+      background: linear-gradient(180deg, var(--cyan), var(--blue));
+      color: #fff; border-color: rgba(255, 255, 255, 0.28); border-bottom: 4px solid var(--blue-dark);
+      box-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.35), 0 4px 18px var(--cyan-dim);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
     }
     .nav-count {
       display: none; font-size: 10px; font-weight: 800; font-family: var(--mono);
@@ -241,41 +334,42 @@
     .nav-btn.act .nav-count { background: rgba(5, 8, 16, 0.45); color: #fff; border-color: rgba(255, 255, 255, 0.35); }
     .nav-count.show { display: inline-block; }
 
-    .nav-right { display: flex; align-items: center; gap: 8px; }
-    .settings-trigger {
+    .nav-right { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+    .icon-pill-btn {
       display: inline-flex; align-items: center; gap: 6px;
-      background: #070b14; border: 1px solid var(--cyan-brd); color: var(--cyan);
-      padding: 7px 12px; border-radius: 8px; font-size: 12px; font-weight: 700;
-      cursor: pointer; transition: 0.18s; white-space: nowrap;
+      background: linear-gradient(180deg, #17233b 0%, #0d1526 100%);
+      border: 1.5px solid var(--cyan-brd); border-bottom: 3.5px solid #060a14;
+      color: var(--cyan); padding: 6px 11px; border-radius: 10px; font-size: 12px; font-weight: 800;
+      cursor: pointer; transition: 0.16s var(--bounce); white-space: nowrap;
     }
-    .settings-trigger:hover { background: var(--cyan-dim); transform: translateY(-1px); box-shadow: 0 0 14px var(--cyan-dim); }
-    .settings-trigger svg { transition: transform 0.4s ease; }
-    .settings-trigger:hover svg { transform: rotate(90deg); }
+    .icon-pill-btn:hover { transform: translateY(-2px) scale(1.04); background: var(--cyan-dim); }
+    .icon-pill-btn:active { transform: translateY(2px); }
+    .icon-pill-btn.muted { color: var(--mut); border-color: var(--brd-strong); }
 
     .search-box { position: relative; display: flex; align-items: center; }
     .nav-search {
-      background: #060a12; border: 1px solid var(--brd-strong); color: #fff;
-      padding: 8px 34px 8px 13px; border-radius: 8px; font-size: 12.5px; width: 225px; outline: none; transition: 0.2s;
+      background: #060a12; border: 1.5px solid var(--brd-strong); color: #fff;
+      padding: 8px 34px 8px 13px; border-radius: 10px; font-size: 12.5px; width: 195px; outline: none; transition: 0.2s;
     }
-    .nav-search:focus { border-color: var(--cyan); width: 260px; box-shadow: 0 0 0 3px var(--cyan-dim); }
+    .nav-search:focus { border-color: var(--cyan); width: 235px; box-shadow: 0 0 0 3px var(--cyan-dim); }
     .search-clear { position: absolute; right: 8px; background: none; border: none; color: var(--mut); cursor: pointer; font-size: 13px; display: none; }
     .search-clear.show { display: block; }
 
     /* ==========================================================================
-       4. КОНТЕЙНЕР, КАРТОЧКИ, ВРАЩАЮЩАЯСЯ AI-РАМКА И АНИМАЦИИ
+       5. КОНТЕЙНЕР, КАРТОЧКИ, АНИМАЦИИ И РАМКИ ПРАВИЛ
        ========================================================================== */
     .container { flex: 1; width: 100%; max-width: 1280px; margin: 0 auto; padding: 26px 20px 52px; }
     .view { display: none; }
-    .view.act { display: block; animation: viewReveal 0.34s cubic-bezier(0.16, 1, 0.3, 1); }
-    @keyframes viewReveal {
-      from { opacity: 0; transform: translateY(14px) scale(0.988); filter: blur(3px); }
-      to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    .view.act { display: block; animation: viewPop 0.36s var(--bounce); }
+    @keyframes viewPop {
+      from { opacity: 0; transform: translateY(16px) scale(0.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    body.anim-high .st-card { animation: cardFloatIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-    @keyframes cardFloatIn {
-      from { opacity: 0; transform: translateY(14px); }
-      to { opacity: 1; transform: translateY(0); }
+    body.anim-high .st-card { animation: cardSlideUp 0.44s var(--bounce) both; }
+    @keyframes cardSlideUp {
+      from { opacity: 0; transform: translateY(18px) scale(0.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .page-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; }
@@ -283,33 +377,10 @@
     .page-sub { color: var(--mut); font-size: 13px; margin-top: 3px; }
     .page-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
-    .p-btn, .buy-btn { position: relative; overflow: hidden; }
-    .p-btn {
-      background: rgba(16, 26, 46, 0.9); border: 1px solid var(--brd-strong);
-      color: #e2e8f0; padding: 8px 14px; border-radius: 9px; font-size: 12.5px;
-      font-weight: 600; cursor: pointer; text-decoration: none; transition: 0.16s;
-      display: inline-flex; align-items: center; gap: 7px;
-    }
-    .p-btn:hover { background: #1e2e4f; border-color: var(--cyan); transform: translateY(-1px); }
-    .p-btn.primary { background: var(--blue); border-color: transparent; color: #fff; box-shadow: 0 4px 16px var(--cyan-dim); }
-    .p-btn.primary:hover { background: var(--blue-hov); }
-
-    .ripple-wave {
-      position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.36);
-      transform: scale(0); animation: rippleAnim 0.55s ease-out forwards; pointer-events: none;
-    }
-    @keyframes rippleAnim { to { transform: scale(3.6); opacity: 0; } }
-
     .st-card {
-      position: relative;
-      background: var(--card);
-      backdrop-filter: blur(var(--blur-px));
-      border: 1px solid var(--brd);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      margin-bottom: 18px;
-      transition: border-color 0.25s ease, transform 0.22s ease, box-shadow 0.25s ease;
+      position: relative; background: var(--card); backdrop-filter: blur(var(--blur-px));
+      border: 1px solid var(--brd); border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow); margin-bottom: 18px; transition: border-color 0.25s, transform 0.2s, box-shadow 0.25s;
     }
     .st-card::before {
       content: ""; position: absolute; inset: 0; pointer-events: none;
@@ -318,28 +389,27 @@
     }
     .st-card:hover::before { opacity: 1; }
 
-    /* Анимированная коническая AI-рамка для ключевых панелей */
     .ai-frame {
-      border: 1px solid transparent;
+      border: 1.5px solid transparent;
       background:
         linear-gradient(var(--card), var(--card)) padding-box,
-        conic-gradient(from var(--border-angle), transparent 20%, var(--cyan) 50%, var(--blue) 70%, transparent 90%) border-box;
-      animation: spinBorder 7s linear infinite;
+        conic-gradient(from var(--border-angle), transparent 18%, var(--cyan) 50%, var(--blue) 72%, transparent 92%) border-box;
+      animation: spinBorder 6.5s linear infinite;
     }
     @keyframes spinBorder { to { --border-angle: 360deg; } }
 
     .hud-corners::after {
-      content: ""; position: absolute; inset: 6px; pointer-events: none;
+      content: ""; position: absolute; inset: 7px; pointer-events: none;
       background:
-        linear-gradient(var(--cyan), var(--cyan)) 0 0 / 11px 1.5px no-repeat,
-        linear-gradient(var(--cyan), var(--cyan)) 0 0 / 1.5px 11px no-repeat,
-        linear-gradient(var(--cyan), var(--cyan)) 100% 0 / 11px 1.5px no-repeat,
-        linear-gradient(var(--cyan), var(--cyan)) 100% 0 / 1.5px 11px no-repeat,
-        linear-gradient(var(--cyan), var(--cyan)) 0 100% / 11px 1.5px no-repeat,
-        linear-gradient(var(--cyan), var(--cyan)) 0 100% / 1.5px 11px no-repeat,
-        linear-gradient(var(--cyan), var(--cyan)) 100% 100% / 11px 1.5px no-repeat,
-        linear-gradient(var(--cyan), var(--cyan)) 100% 100% / 1.5px 11px no-repeat;
-      opacity: calc(0.42 * var(--glow-mult));
+        linear-gradient(var(--cyan), var(--cyan)) 0 0 / 12px 2px no-repeat,
+        linear-gradient(var(--cyan), var(--cyan)) 0 0 / 2px 12px no-repeat,
+        linear-gradient(var(--cyan), var(--cyan)) 100% 0 / 12px 2px no-repeat,
+        linear-gradient(var(--cyan), var(--cyan)) 100% 0 / 2px 12px no-repeat,
+        linear-gradient(var(--cyan), var(--cyan)) 0 100% / 12px 2px no-repeat,
+        linear-gradient(var(--cyan), var(--cyan)) 0 100% / 2px 12px no-repeat,
+        linear-gradient(var(--cyan), var(--cyan)) 100% 100% / 12px 2px no-repeat,
+        linear-gradient(var(--cyan), var(--cyan)) 100% 100% / 2px 12px no-repeat;
+      opacity: calc(0.45 * var(--glow-mult));
     }
 
     .st-card-hdr {
@@ -350,54 +420,47 @@
     .st-card-hdr.center { justify-content: center; }
 
     .subtabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
-    .subtab-btn {
-      background: var(--card); border: 1px solid var(--brd); color: var(--mut);
-      padding: 9px 16px; border-radius: 9px; font-size: 13px; font-weight: 700;
-      cursor: pointer; transition: 0.16s; display: inline-flex; align-items: center; gap: 7px;
-    }
-    .subtab-btn:hover { color: #fff; border-color: var(--brd-strong); transform: translateY(-1px); }
-    .subtab-btn.act { background: var(--cyan-dim); border-color: var(--cyan); color: var(--cyan); box-shadow: 0 4px 18px var(--cyan-dim); }
     .subview { display: none; }
-    .subview.act { display: block; animation: viewReveal 0.25s ease; }
+    .subview.act { display: block; animation: viewPop 0.28s var(--bounce); }
 
-    /* ==========================================================================
-       5. КРУТЫЕ КИБЕР-РАМКИ ДЛЯ ПРАВИЛ (РАЗДЕЛЫ 1–6)
-       ========================================================================== */
+    /* Крутые рамки для правил */
     .rule-sec {
       --sec-clr: var(--cyan);
       position: relative;
-      border: 1px solid color-mix(in srgb, var(--sec-clr) 36%, transparent);
-      border-left: 3px solid var(--sec-clr);
-      box-shadow: var(--shadow), inset 0 0 28px -18px var(--sec-clr);
+      border: 1.5px solid color-mix(in srgb, var(--sec-clr) 40%, transparent);
+      border-left: 4px solid var(--sec-clr);
+      box-shadow: var(--shadow), inset 0 0 32px -18px var(--sec-clr);
       margin-bottom: 24px;
       overflow: visible;
     }
     .rule-sec::after {
-      content: ""; position: absolute; inset: -1px; border-radius: var(--radius); pointer-events: none;
+      content: ""; position: absolute; inset: -1.5px; border-radius: var(--radius); pointer-events: none;
       background:
-        linear-gradient(var(--sec-clr), var(--sec-clr)) 0 0 / 22px 2px no-repeat,
-        linear-gradient(var(--sec-clr), var(--sec-clr)) 0 0 / 2px 22px no-repeat,
-        linear-gradient(var(--sec-clr), var(--sec-clr)) 100% 0 / 22px 2px no-repeat,
-        linear-gradient(var(--sec-clr), var(--sec-clr)) 100% 0 / 2px 22px no-repeat,
-        linear-gradient(var(--sec-clr), var(--sec-clr)) 0 100% / 22px 2px no-repeat,
-        linear-gradient(var(--sec-clr), var(--sec-clr)) 0 100% / 2px 22px no-repeat,
-        linear-gradient(var(--sec-clr), var(--sec-clr)) 100% 100% / 22px 2px no-repeat,
-        linear-gradient(var(--sec-clr), var(--sec-clr)) 100% 100% / 2px 22px no-repeat;
-      filter: drop-shadow(0 0 6px var(--sec-clr));
+        linear-gradient(var(--sec-clr), var(--sec-clr)) 0 0 / 24px 2.5px no-repeat,
+        linear-gradient(var(--sec-clr), var(--sec-clr)) 0 0 / 2.5px 24px no-repeat,
+        linear-gradient(var(--sec-clr), var(--sec-clr)) 100% 0 / 24px 2.5px no-repeat,
+        linear-gradient(var(--sec-clr), var(--sec-clr)) 100% 0 / 2.5px 24px no-repeat,
+        linear-gradient(var(--sec-clr), var(--sec-clr)) 0 100% / 24px 2.5px no-repeat,
+        linear-gradient(var(--sec-clr), var(--sec-clr)) 0 100% / 2.5px 24px no-repeat,
+        linear-gradient(var(--sec-clr), var(--sec-clr)) 100% 100% / 24px 2.5px no-repeat,
+        linear-gradient(var(--sec-clr), var(--sec-clr)) 100% 100% / 2.5px 24px no-repeat;
+      filter: drop-shadow(0 0 calc(7px * var(--glow-mult)) var(--sec-clr));
     }
     .rule-sec .st-card-hdr {
+      cursor: pointer;
       border-radius: var(--radius) var(--radius) 0 0;
-      background: linear-gradient(90deg, color-mix(in srgb, var(--sec-clr) 22%, #0d1629) 0%, rgba(12, 19, 34, 0.96) 100%);
+      background: linear-gradient(90deg, color-mix(in srgb, var(--sec-clr) 24%, #0d1629) 0%, rgba(11, 18, 33, 0.96) 100%);
       border-bottom: 1px solid color-mix(in srgb, var(--sec-clr) 35%, transparent);
       justify-content: space-between;
     }
+    .rule-sec.collapsed .rule-body { display: none; }
+    .rule-sec.collapsed .st-card-hdr { border-radius: var(--radius); border-bottom: none; }
     .sec-tag {
       font-family: var(--mono); font-size: 10.5px; font-weight: 800;
-      color: var(--sec-clr); background: rgba(4, 7, 14, 0.72);
-      border: 1px solid color-mix(in srgb, var(--sec-clr) 50%, transparent);
-      padding: 2px 9px; border-radius: 999px;
+      color: var(--sec-clr); background: rgba(4, 7, 14, 0.78);
+      border: 1px solid color-mix(in srgb, var(--sec-clr) 55%, transparent);
+      padding: 2px 10px; border-radius: 999px;
     }
-
     #sec-1 { --sec-clr: #00e5ff; }
     #sec-2 { --sec-clr: #3b82f6; }
     #sec-3 { --sec-clr: #a855f7; }
@@ -406,97 +469,68 @@
     #sec-6 { --sec-clr: #facc15; }
 
     .rule-row {
-      position: relative;
       display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
-      padding: 12px 18px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.055);
-      border-left: 2px solid transparent;
-      transition: background 0.16s, border-color 0.16s, padding-left 0.16s;
+      padding: 12px 18px; border-bottom: 1px solid rgba(255, 255, 255, 0.055); border-left: 3px solid transparent;
+      transition: background 0.16s, border-color 0.16s, padding-left 0.18s var(--bounce);
     }
     .rule-row:last-child { border-bottom: none; border-radius: 0 0 var(--radius) var(--radius); }
     .rule-row:hover {
-      background: color-mix(in srgb, var(--sec-clr, var(--cyan)) 8%, transparent);
+      background: color-mix(in srgb, var(--sec-clr, var(--cyan)) 9%, transparent);
       border-left-color: var(--sec-clr, var(--cyan));
-      padding-left: 22px;
+      padding-left: 23px;
     }
     .rule-row.sub { padding-left: 40px; background: rgba(255, 255, 255, 0.015); }
-    .rule-row.sub:hover { padding-left: 44px; }
+    .rule-row.sub:hover { padding-left: 45px; }
     .rule-main { display: flex; align-items: flex-start; gap: 14px; flex: 1; }
     .r-badge {
       min-width: 52px; text-align: center; font-size: 12px; font-weight: 800; font-family: var(--mono);
       color: var(--sec-clr, var(--cyan));
-      background: color-mix(in srgb, var(--sec-clr, var(--cyan)) 14%, #060a12);
-      border: 1px solid color-mix(in srgb, var(--sec-clr, var(--cyan)) 48%, transparent);
+      background: color-mix(in srgb, var(--sec-clr, var(--cyan)) 15%, #060a12);
+      border: 1px solid color-mix(in srgb, var(--sec-clr, var(--cyan)) 50%, transparent);
       clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
       padding: 3px 8px; flex-shrink: 0;
-      box-shadow: 0 0 12px -4px var(--sec-clr, var(--cyan));
     }
     .r-actions { display: flex; gap: 4px; flex-shrink: 0; }
-    .r-act-btn {
-      background: transparent; border: 1px solid transparent; color: var(--mut);
-      border-radius: 6px; padding: 3px 6px; font-size: 11.5px; cursor: pointer; opacity: 0.45; transition: 0.15s;
-    }
+    .r-act-btn { background: transparent; border: 1px solid transparent; color: var(--mut); border-radius: 6px; padding: 3px 6px; font-size: 11.5px; cursor: pointer; opacity: 0.45; transition: 0.15s; }
     .rule-row:hover .r-act-btn, .r-act-btn.fav-on { opacity: 1; }
     .r-act-btn:hover { color: var(--cyan); border-color: var(--cyan); background: var(--cyan-dim); }
     .r-act-btn.fav-on { color: #facc15; }
     mark.hl { background: var(--cyan-dim); color: #fff; border-bottom: 1px solid var(--cyan); padding: 0 2px; border-radius: 3px; }
-
     .r-info { margin-top: 8px; padding: 10px 13px; border-radius: 8px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.35); color: #a7f3d0; font-size: 12.5px; }
-    .r-alert { padding: 13px 16px; border-radius: 10px; background: rgba(239, 68, 68, 0.11); border: 1px solid rgba(239, 68, 68, 0.38); color: #fca5a5; font-size: 13px; margin-bottom: 20px; }
+    .r-alert { padding: 13px 16px; border-radius: 12px; background: rgba(239, 68, 68, 0.11); border: 1.5px solid rgba(239, 68, 68, 0.4); color: #fca5a5; font-size: 13px; margin-bottom: 20px; }
 
     /* ==========================================================================
-       6. МАГАЗИН (БЕЗ КИТОВ), СРАВНЕНИЕ, ДУЭЛЬ, ПОДБОР И РУЛЕТКА
+       6. МАГАЗИН, ПРЕВЬЮ, ЖЕЛАЕМОЕ, ДУЭЛЬ И РУЛЕТКА
        ========================================================================== */
     .shop-tools-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
-    .rank-filters { display: flex; gap: 6px; flex-wrap: wrap; }
-    .rf-btn {
-      background: var(--card); border: 1px solid var(--brd); color: var(--mut);
-      padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.15s;
-    }
-    .rf-btn:hover { color: #fff; border-color: var(--brd-strong); }
-    .rf-btn.act { background: var(--blue); border-color: var(--cyan); color: #fff; }
-
-    .nick-live-box { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--brd); padding: 5px 12px; border-radius: 9px; }
+    .rank-filters { display: flex; gap: 7px; flex-wrap: wrap; }
+    .nick-live-box { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--brd); padding: 5px 12px; border-radius: 10px; }
     .nick-live-box span { font-size: 12px; color: var(--mut); font-weight: 600; }
-    .nick-live-inp {
-      background: #060911; border: 1px solid var(--brd-strong); color: var(--cyan);
-      padding: 5px 10px; border-radius: 6px; font-family: var(--mono); font-size: 12.5px; width: 150px; outline: none;
-    }
+    .nick-live-inp { background: #060911; border: 1px solid var(--brd-strong); color: var(--cyan); padding: 5px 10px; border-radius: 7px; font-family: var(--mono); font-size: 12.5px; width: 150px; outline: none; }
     .nick-live-inp:focus { border-color: var(--cyan); }
 
     .recent-strip { display: none; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; font-size: 12px; color: var(--mut); }
     .recent-strip.show { display: flex; }
     .recent-pill { background: var(--card); border: 1px solid var(--brd); padding: 3px 10px; border-radius: 999px; cursor: pointer; font-weight: 700; transition: 0.14s; }
-    .recent-pill:hover { border-color: var(--cyan); transform: translateY(-1px); }
+    .recent-pill:hover { border-color: var(--cyan); transform: translateY(-2px); }
 
     .shop-grid { display: grid; grid-template-columns: 375px 1fr; gap: 20px; align-items: stretch; margin-bottom: 22px; }
     .rank-list { max-height: 580px; overflow-y: auto; padding: 6px 0; }
     .rank-div { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mut); padding: 12px 18px 5px; display: flex; align-items: center; gap: 8px; }
     .rank-div::after { content: ""; flex: 1; height: 1px; background: var(--brd); }
 
-    .rank-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 18px; cursor: pointer; border-left: 3px solid transparent; transition: 0.16s; }
-    .rank-item:hover { background: var(--hov); padding-left: 22px; }
-    .rank-item.act { background: linear-gradient(90deg, rgba(0, 229, 255, 0.14) 0%, rgba(30, 120, 255, 0.02) 100%); border-left-color: var(--item-color, var(--cyan)); }
+    .rank-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 18px; cursor: pointer; border-left: 3px solid transparent; transition: 0.18s var(--bounce); }
+    .rank-item:hover { background: var(--hov); padding-left: 23px; }
+    .rank-item.act { background: linear-gradient(90deg, rgba(0, 229, 255, 0.15) 0%, rgba(30, 120, 255, 0.02) 100%); border-left-color: var(--item-color, var(--cyan)); }
     .rank-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
-    .rank-icon { width: 25px; height: 25px; flex-shrink: 0; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6)); transition: transform 0.2s; }
-    .rank-item:hover .rank-icon, .rank-item.act .rank-icon { transform: scale(1.15) rotate(-4deg); }
+    .rank-icon { width: 25px; height: 25px; flex-shrink: 0; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6)); transition: transform 0.22s var(--bounce); }
+    .rank-item:hover .rank-icon, .rank-item.act .rank-icon { transform: scale(1.18) rotate(-6deg); }
     .rank-name { font-weight: 700; font-size: 14px; color: #fff; white-space: nowrap; }
-    .rank-badge { font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 6px; border-radius: 4px; background: rgba(250, 204, 21, 0.14); color: #fde047; border: 1px solid rgba(250, 204, 21, 0.35); }
+    .rank-badge { font-size: 9.5px; font-weight: 800; text-transform: uppercase; padding: 2px 6px; border-radius: 5px; background: rgba(250, 204, 21, 0.14); color: #fde047; border: 1px solid rgba(250, 204, 21, 0.35); }
     .rank-from { font-weight: 800; font-size: 12.5px; color: var(--cyan); white-space: nowrap; font-family: var(--mono); }
 
-    .detail-card {
-      display: flex; flex-direction: column; justify-content: space-between; min-height: 600px;
-      border-top: 2px solid var(--rank-accent);
-      box-shadow: var(--shadow), 0 0 calc(46px * var(--glow-mult)) -16px var(--rank-accent);
-    }
+    .detail-card { display: flex; flex-direction: column; justify-content: space-between; min-height: 600px; border-top: 2px solid var(--rank-accent); box-shadow: var(--shadow), 0 0 calc(46px * var(--glow-mult)) -16px var(--rank-accent); }
     .term-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
-    .term-btn {
-      background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--mut); font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 7px;
-      cursor: pointer; transition: 0.16s; display: inline-flex; align-items: center; gap: 6px;
-    }
-    .term-btn:hover { color: #fff; border-color: rgba(255, 255, 255, 0.3); }
-    .term-btn.act { background: var(--blue); border-color: var(--cyan); color: #fff; box-shadow: 0 3px 14px var(--cyan-dim); }
     .term-save { font-size: 10px; font-weight: 800; background: rgba(16, 185, 129, 0.22); color: #34d399; padding: 1px 5px; border-radius: 4px; }
     .term-btn.act .term-save { background: rgba(255, 255, 255, 0.22); color: #fff; }
 
@@ -507,34 +541,26 @@
     .rank-tier-sub { font-size: 12px; color: var(--mut); margin-top: 2px; }
 
     .mc-previews { display: flex; flex-direction: column; gap: 6px; min-width: 265px; }
-    .mc-bar {
-      background: rgba(5, 8, 14, 0.92); border: 1px solid rgba(255, 255, 255, 0.11);
-      border-radius: 8px; padding: 6px 12px; font-family: var(--mono); font-size: 12px;
-      display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.65);
-    }
+    .mc-bar { background: rgba(5, 8, 14, 0.92); border: 1px solid rgba(255, 255, 255, 0.11); border-radius: 8px; padding: 6px 12px; font-family: var(--mono); font-size: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.65); }
     .mc-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--mut); font-family: "Inter", sans-serif; font-weight: 800; margin-right: 4px; }
     .mc-ping { display: inline-flex; align-items: flex-end; gap: 2px; height: 11px; }
     .mc-ping i { display: block; width: 2.5px; background: #10b981; border-radius: 1px; }
     .mc-bossbar-wrap { margin-bottom: 16px; }
     .mc-bossbar-txt { font-family: var(--mono); font-size: 11.5px; text-align: center; margin-bottom: 5px; font-weight: 700; }
     .mc-bossbar-track { height: 7px; border-radius: 999px; background: #070a12; border: 1px solid rgba(255, 255, 255, 0.09); overflow: hidden; }
-    .mc-bossbar-fill { height: 100%; border-radius: 999px; transition: width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .mc-bossbar-fill { height: 100%; border-radius: 999px; transition: width 0.45s var(--bounce); }
 
     .power-meters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
-    .pm-box { background: rgba(7, 11, 20, 0.72); border: 1px solid var(--brd); border-radius: 9px; padding: 9px 12px; }
+    .pm-box { background: rgba(7, 11, 20, 0.72); border: 1px solid var(--brd); border-radius: 10px; padding: 9px 12px; }
     .pm-top { display: flex; justify-content: space-between; font-size: 11.5px; font-weight: 700; color: var(--mut); margin-bottom: 6px; }
     .pm-top strong { color: #fff; font-family: var(--mono); }
     .pm-track { height: 5px; background: #050810; border-radius: 999px; overflow: hidden; }
-    .pm-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--cyan)); border-radius: 999px; transition: width 0.45s ease; }
+    .pm-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--cyan)); border-radius: 999px; transition: width 0.5s var(--bounce); }
 
     .d-sec-title { color: var(--cyan); font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 9px; }
     .perm-list { list-style: none; padding: 0; margin: 0 0 18px; font-size: 13.5px; display: grid; gap: 6px; }
-    .perm-list li {
-      padding: 8px 12px; border-radius: 8px; background: rgba(255, 255, 255, 0.025);
-      border: 1px solid rgba(255, 255, 255, 0.045); color: #e2e8f0;
-      display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; transition: 0.14s;
-    }
-    .perm-list li:hover { background: rgba(0, 229, 255, 0.05); border-color: rgba(0, 229, 255, 0.22); }
+    .perm-list li { padding: 8px 12px; border-radius: 9px; background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.045); color: #e2e8f0; display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; transition: 0.14s; }
+    .perm-list li:hover { background: rgba(0, 229, 255, 0.06); border-color: rgba(0, 229, 255, 0.25); transform: translateX(3px); }
     .cmd { color: var(--cyan); font-weight: 700; font-family: var(--mono); font-size: 12.5px; }
     .arrow { color: var(--mut); }
 
@@ -550,24 +576,10 @@
     .price-per-day { font-size: 11.5px; color: var(--ok); font-weight: 700; font-family: var(--mono); }
     .foot-actions { display: flex; gap: 9px; flex-wrap: wrap; align-items: center; }
 
-    .buy-btn {
-      background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
-      border: none; color: #fff; font-size: 13px; font-weight: 800; letter-spacing: 0.06em;
-      text-transform: uppercase; padding: 12px 28px; border-radius: 9px; cursor: pointer;
-      box-shadow: 0 6px 24px var(--cyan-dim); transition: 0.18s; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-    }
-    .buy-btn::after {
-      content: ""; position: absolute; top: -50%; left: -75%; width: 50%; height: 200%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
-      transform: skewX(-22deg); animation: btnShine 4.2s infinite;
-    }
-    @keyframes btnShine { 0%, 75% { left: -75%; } 100% { left: 135%; } }
-    .buy-btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
-
     .duel-bar { padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid var(--brd); background: rgba(7, 11, 20, 0.55); }
-    .duel-select { background: #060911; border: 1px solid var(--brd-strong); color: #fff; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 700; outline: none; }
+    .duel-select { background: #060911; border: 1px solid var(--brd-strong); color: #fff; padding: 8px 12px; border-radius: 9px; font-size: 13px; font-weight: 700; outline: none; }
     .duel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 18px; }
-    .duel-card { background: rgba(7, 11, 20, 0.75); border: 1px solid var(--brd); border-radius: 10px; padding: 16px; }
+    .duel-card { background: rgba(7, 11, 20, 0.75); border: 1px solid var(--brd); border-radius: 11px; padding: 16px; }
     .duel-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 13px; }
     .duel-row:last-child { border-bottom: none; }
     .duel-win { color: var(--ok); font-weight: 800; }
@@ -588,26 +600,26 @@
     .range-wrap label { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 8px; }
     .range-wrap input[type="range"] { width: 100%; accent-color: var(--cyan); cursor: pointer; }
     .wiz-checks { display: grid; gap: 8px; }
-    .wiz-chk { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; background: rgba(7, 11, 20, 0.65); border: 1px solid var(--brd); cursor: pointer; font-size: 13px; }
+    .wiz-chk { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 9px; background: rgba(7, 11, 20, 0.65); border: 1px solid var(--brd); cursor: pointer; font-size: 13px; }
     .wiz-chk input { accent-color: var(--cyan); width: 16px; height: 16px; cursor: pointer; }
     .wiz-results { padding: 18px; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
-    .wiz-card { background: rgba(7, 11, 20, 0.78); border: 1px solid var(--brd); border-radius: 10px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; transition: 0.16s; }
-    .wiz-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
+    .wiz-card { background: rgba(7, 11, 20, 0.78); border: 1px solid var(--brd); border-radius: 11px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; transition: 0.18s var(--bounce); }
+    .wiz-card:hover { border-color: var(--cyan); transform: translateY(-3px); }
 
     .roulette-wrap { padding: 22px; text-align: center; }
-    .roulette-stage { position: relative; overflow: hidden; height: 124px; background: #060911; border: 2px solid var(--cyan-brd); border-radius: 12px; box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.85); margin: 16px 0 20px; }
+    .roulette-stage { position: relative; overflow: hidden; height: 124px; background: #060911; border: 2px solid var(--cyan-brd); border-radius: 13px; box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.85); margin: 16px 0 20px; }
     .roulette-pointer { position: absolute; top: 0; bottom: 0; left: 50%; width: 3px; transform: translateX(-50%); background: var(--cyan); box-shadow: 0 0 16px var(--cyan); z-index: 5; }
     .roulette-track { display: flex; align-items: center; gap: 10px; height: 100%; padding: 10px; will-change: transform; }
-    .r-card { flex: 0 0 132px; height: 96px; border-radius: 9px; background: #0e1628; border: 1px solid var(--brd); border-bottom: 3px solid var(--rc, var(--cyan)); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-weight: 800; font-size: 13px; color: #fff; }
-    .roulette-drop { display: none; margin: 14px auto 0; max-width: 440px; padding: 14px 18px; border-radius: 10px; background: var(--cyan-dim); border: 1px solid var(--cyan); animation: viewReveal 0.3s ease; }
+    .r-card { flex: 0 0 132px; height: 96px; border-radius: 10px; background: #0e1628; border: 1px solid var(--brd); border-bottom: 4px solid var(--rc, var(--cyan)); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-weight: 800; font-size: 13px; color: #fff; }
+    .roulette-drop { display: none; margin: 14px auto 0; max-width: 440px; padding: 14px 18px; border-radius: 11px; background: var(--cyan-dim); border: 1px solid var(--cyan); animation: viewPop 0.3s var(--bounce); }
     .roulette-drop.show { display: block; }
 
     /* ==========================================================================
-       7. ОГЛАВЛЕНИЕ, САЙДБАР, МОДЫ, FAQ И МОДАЛКИ
+       7. ОГЛАВЛЕНИЕ, САЙДБАР, МОДЫ, FAQ И МОДАЛКИ (АККАУНТЫ / НАСТРОЙКИ / ОПЛАТА)
        ========================================================================== */
     .rules-toc { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 18px; }
-    .toc-chip { background: var(--card); border: 1px solid var(--brd); color: #cbd5e1; padding: 6px 13px; border-radius: 999px; font-size: 12px; font-weight: 600; text-decoration: none; transition: 0.15s; }
-    .toc-chip:hover, .toc-chip.act { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
+    .toc-chip { background: var(--card); border: 1px solid var(--brd); color: #cbd5e1; padding: 6px 13px; border-radius: 999px; font-size: 12px; font-weight: 700; text-decoration: none; transition: 0.16s var(--bounce); }
+    .toc-chip:hover, .toc-chip.act { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); transform: translateY(-2px); }
     .search-banner { display: none; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 16px; border-radius: 10px; background: var(--cyan-dim); border: 1px solid var(--cyan-brd); margin-bottom: 16px; font-size: 13px; }
     .search-banner.show { display: flex; }
 
@@ -639,13 +651,10 @@
 
     .mods-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
     .mods-filter { display: flex; gap: 8px; flex-wrap: wrap; }
-    .mf-btn { background: var(--card); border: 1px solid var(--brd); color: var(--mut); padding: 8px 15px; border-radius: 8px; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: 0.15s; }
-    .mf-btn:hover { color: #fff; border-color: var(--brd-strong); }
-    .mf-btn.act { background: var(--blue); border-color: var(--cyan); color: #fff; box-shadow: 0 4px 14px var(--cyan-dim); }
     .mgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
     .tags { display: flex; flex-wrap: wrap; gap: 7px; padding: 16px; }
-    .tag { font-size: 12px; padding: 5px 10px; border-radius: 7px; background: #080d18; border: 1px solid var(--brd); cursor: pointer; transition: 0.14s; font-family: var(--mono); }
-    .tag:hover { transform: translateY(-2px); }
+    .tag { font-size: 12px; padding: 5px 10px; border-radius: 8px; background: #080d18; border: 1px solid var(--brd); cursor: pointer; transition: 0.15s var(--bounce); font-family: var(--mono); }
+    .tag:hover { transform: translateY(-3px) scale(1.04); }
     .tok { border-color: rgba(16, 185, 129, 0.38); color: #34d399; }
     .tok:hover { background: rgba(16, 185, 129, 0.12); }
     .tno { border-color: rgba(239, 68, 68, 0.38); color: #f87171; }
@@ -659,59 +668,65 @@
     .faq-item:last-child { border-bottom: none; }
     .faq-q { width: 100%; background: none; border: none; color: #fff; padding: 15px 18px; text-align: left; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; transition: 0.15s; }
     .faq-q:hover { background: var(--hov); color: var(--cyan); }
-    .faq-q span { transition: transform 0.2s; color: var(--cyan); font-family: var(--mono); }
+    .faq-q span { transition: transform 0.2s var(--bounce); color: var(--cyan); font-family: var(--mono); }
     .faq-item.open .faq-q span { transform: rotate(45deg); }
     .faq-a { display: none; padding: 0 18px 16px; color: #cbd5e1; font-size: 13.5px; line-height: 1.6; }
-    .faq-item.open .faq-a { display: block; animation: viewReveal 0.18s ease; }
+    .faq-item.open .faq-a { display: block; animation: viewPop 0.22s var(--bounce); }
 
-    /* Модалки (Оплата и Настройки) */
     .modal-bg { position: fixed; inset: 0; z-index: 200; background: rgba(3, 6, 12, 0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; padding: 16px; }
     .modal-bg.open { display: flex; animation: fadeIn 0.16s ease; }
+    .modal-bg.open .modal { animation: modalPop 0.28s var(--bounce); }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes modalPop { from { opacity: 0; transform: scale(0.9) translateY(14px); } to { opacity: 1; transform: scale(1) translateY(0); } }
     .modal {
-      width: 100%; max-width: 495px; background: var(--card-solid);
-      border: 1px solid var(--cyan-brd); border-radius: 14px; padding: 24px;
+      width: 100%; max-width: 505px; background: var(--card-solid);
+      border: 1px solid var(--cyan-brd); border-radius: 16px; padding: 24px;
       position: relative; box-shadow: 0 28px 65px rgba(0, 0, 0, 0.82), 0 0 42px var(--cyan-dim);
       max-height: 92vh; overflow-y: auto;
     }
-    .m-close { position: absolute; top: 14px; right: 14px; background: #162136; border: 1px solid var(--brd); color: var(--mut); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; transition: 0.15s; }
-    .m-close:hover { color: #fff; border-color: var(--cyan); }
+    .m-close { position: absolute; top: 14px; right: 14px; background: #162136; border: 1px solid var(--brd); color: var(--mut); width: 32px; height: 32px; border-radius: 9px; cursor: pointer; transition: 0.15s; }
+    .m-close:hover { color: #fff; border-color: var(--cyan); transform: rotate(90deg); }
     .m-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 12px 0 16px; }
     .m-step { background: #070b14; border: 1px solid var(--brd); border-radius: 7px; padding: 6px 8px; font-size: 11px; font-weight: 700; color: var(--mut); text-align: center; }
     .m-step.act { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
-    .m-inp { width: 100%; background: #060911; border: 1px solid var(--brd-strong); color: #fff; padding: 11px 13px; border-radius: 9px; font-size: 14px; font-family: var(--mono); outline: none; margin: 8px 0 12px; transition: 0.16s; }
+    .m-inp { width: 100%; background: #060911; border: 1.5px solid var(--brd-strong); color: #fff; padding: 10px 13px; border-radius: 10px; font-size: 13.5px; font-family: var(--mono); outline: none; margin: 6px 0 12px; transition: 0.16s; }
     .m-inp:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px var(--cyan-dim); }
     .gift-toggle { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--mut); margin-bottom: 14px; cursor: pointer; user-select: none; }
     .gift-toggle input { accent-color: var(--cyan); cursor: pointer; }
     .pay-methods { display: grid; gap: 9px; }
-    .pm-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 12px 14px; border-radius: 9px; background: #141f34; border: 1px solid var(--brd-strong); color: #fff; font-weight: 700; font-size: 13px; cursor: pointer; transition: 0.16s; }
-    .pm-btn:hover { border-color: var(--cyan); background: #1a2944; transform: translateY(-1px); }
+    .pm-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 12px 14px; border-radius: 10px; background: linear-gradient(180deg, #1b2a47 0%, #131e33 100%); border: 1.5px solid var(--brd-strong); border-bottom: 4px solid #09101d; color: #fff; font-weight: 800; font-size: 13px; cursor: pointer; transition: 0.16s var(--bounce); }
+    .pm-btn:hover { border-color: var(--cyan); transform: translateY(-2px); }
+    .pm-btn:active { transform: translateY(2px); }
     .pm-btn small { color: var(--cyan); font-weight: 800; font-family: var(--mono); }
     .sbp-box { margin-top: 12px; padding: 14px; border-radius: 9px; background: #070b14; border: 1px solid var(--cyan-brd); display: none; font-size: 13px; }
-    .sbp-box.open { display: block; animation: viewReveal 0.18s ease; }
+    .sbp-box.open { display: block; animation: viewPop 0.2s ease; }
 
-    /* Стили панели настроек */
-    .set-group { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--brd); }
+    /* Настройки и Аккаунты */
+    .set-group { margin-bottom: 15px; padding-bottom: 13px; border-bottom: 1px solid var(--brd); }
     .set-group:last-of-type { border-bottom: none; margin-bottom: 10px; }
-    .set-lbl { font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--cyan); margin-bottom: 9px; display: block; }
+    .set-lbl { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--cyan); margin-bottom: 8px; display: block; }
     .set-pills { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; }
-    .set-pill {
-      background: #070b14; border: 1px solid var(--brd-strong); color: #cbd5e1;
-      padding: 8px 10px; border-radius: 8px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: 0.15s; text-align: center;
-    }
-    .set-pill:hover { border-color: var(--cyan); color: #fff; }
+    .set-pill { background: #070b14; border: 1.5px solid var(--brd-strong); border-bottom: 3px solid #04070d; color: #cbd5e1; padding: 8px 9px; border-radius: 9px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.15s; text-align: center; }
+    .set-pill:hover { border-color: var(--cyan); color: #fff; transform: translateY(-1px); }
     .set-pill.act { background: var(--cyan-dim); border-color: var(--cyan); color: var(--cyan); font-weight: 800; }
     .set-toggles { display: grid; gap: 8px; }
-    .set-row { display: flex; align-items: center; justify-content: space-between; background: #070b14; border: 1px solid var(--brd); padding: 9px 12px; border-radius: 8px; font-size: 13px; cursor: pointer; }
+    .set-row { display: flex; align-items: center; justify-content: space-between; background: #070b14; border: 1px solid var(--brd); padding: 9px 12px; border-radius: 9px; font-size: 13px; cursor: pointer; }
     .set-row input { accent-color: var(--cyan); width: 16px; height: 16px; cursor: pointer; }
 
+    .acc-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 16px; }
+    .acc-profile-card { display: flex; align-items: center; gap: 14px; background: #070b14; border: 1px solid var(--cyan-brd); border-radius: 12px; padding: 14px; margin-bottom: 14px; }
+    .acc-avatar { width: 52px; height: 52px; border-radius: 10px; border: 2px solid var(--cyan); background: #0e1729; image-rendering: pixelated; }
+    .acc-log-list { max-height: 240px; overflow-y: auto; display: grid; gap: 7px; }
+    .acc-log-item { background: #070b14; border: 1px solid var(--brd); border-radius: 9px; padding: 9px 12px; font-size: 12px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+
     .back-top {
-      position: fixed; bottom: 22px; left: 22px; z-index: 150; width: 42px; height: 42px; border-radius: 10px;
-      background: rgba(12, 19, 34, 0.92); border: 1px solid var(--cyan-brd); color: var(--cyan); font-size: 17px; font-weight: 800;
-      cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); transition: 0.16s;
+      position: fixed; bottom: 22px; left: 22px; z-index: 150; width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(180deg, #1b2b4a, #0e1729); border: 1.5px solid var(--cyan-brd); border-bottom: 4px solid #060a14;
+      color: var(--cyan); font-size: 17px; font-weight: 900; cursor: pointer; display: none; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); transition: 0.16s var(--bounce);
     }
     .back-top.show { display: flex; }
-    .back-top:hover { background: var(--blue); color: #fff; transform: translateY(-2px); }
+    .back-top:hover { background: var(--blue); color: #fff; transform: translateY(-3px) scale(1.06); }
 
     .footer { background: #04070d; border-top: 1px solid var(--brd); padding: 22px 20px; font-size: 12.5px; color: var(--mut); }
     .footer-inner { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
@@ -719,11 +734,11 @@
     .footer a:hover { text-decoration: underline; }
 
     .toast {
-      position: fixed; bottom: 22px; right: 22px; z-index: 300; background: #0c1424; border: 1px solid var(--cyan); color: #fff;
-      padding: 11px 18px; border-radius: 9px; font-size: 13px; font-weight: 600;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), 0 0 24px var(--cyan-dim); opacity: 0; transform: translateY(10px); pointer-events: none; transition: 0.2s;
+      position: fixed; bottom: 22px; right: 22px; z-index: 300; background: #0c1424; border: 1.5px solid var(--cyan); color: #fff;
+      padding: 11px 18px; border-radius: 11px; font-size: 13px; font-weight: 700;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), 0 0 24px var(--cyan-dim); opacity: 0; transform: translateY(10px) scale(0.95); pointer-events: none; transition: 0.22s var(--bounce);
     }
-    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.show { opacity: 1; transform: translateY(0) scale(1); }
 
     @media (max-width: 980px) {
       .portal-grid, .shop-grid, .mgrid, .wizard-grid, .duel-grid, .power-meters { grid-template-columns: 1fr; }
@@ -743,7 +758,7 @@
 
   <!-- ПРОМО-СТРОКА -->
   <div class="promo-strip" id="promoStrip">
-    <span>AI CORE v5.0 • <strong>CYAN ANARCHY</strong> • Нажмите <strong>1–4</strong> для навигации, <strong>/</strong> для поиска • Настройте интерфейс в <strong>⚙️ Настройки</strong></span>
+    <span>AI CORE • <strong>CYAN ANARCHY 1.21.4+</strong> • Клавиши <strong>1–4</strong> вкладки, <strong>/</strong> поиск • Создайте <strong>Аккаунт</strong> и настройте сайт под себя</span>
     <button class="promo-close" onclick="document.getElementById('promoStrip').style.display='none'" title="Скрыть">✕</button>
   </div>
 
@@ -757,7 +772,7 @@
     <div class="hero-content">
       <div class="hero-top-badges">
         <span class="hero-badge">Neural UI • Cyan Anarchy</span>
-        <span class="hero-badge ver">Java Edition • 1.16.5 – 1.21+</span>
+        <span class="hero-badge ver">Java Edition • 1.21.4+</span>
       </div>
       <div class="hero-logo-row">
         <svg class="hero-crown" width="54" height="40" viewBox="0 0 32 24" fill="none">
@@ -767,7 +782,7 @@
         </svg>
         <h1 class="hero-title">NEW<span>TIME</span></h1>
       </div>
-      <div class="hero-ticker" id="heroTicker">Анархия нового поколения: интеллектуальный баланс, авто-выдача и защита</div>
+      <div class="hero-ticker" id="heroTicker">Анархия нового поколения 1.21.4+: сбалансированные привилегии и честный PvP</div>
       <div class="hero-pills">
         <div class="hero-sub" onclick="copyIP()" title="Нажмите, чтобы скопировать IP">
           <span class="dot"></span>
@@ -802,12 +817,11 @@
       </div>
 
       <div class="nav-right">
-        <button class="settings-trigger" onclick="openSettings()">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.85 1 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          Настройки
-        </button>
+        <button class="icon-pill-btn" id="sfxBtn" onclick="toggleSfx()" title="Звуки GUI">🔊 Звук</button>
+        <button class="icon-pill-btn" id="accNavBtn" onclick="openAccountModal()">👤 Аккаунт</button>
+        <button class="icon-pill-btn" onclick="openSettings()" title="Настройки сайта">⚙️</button>
         <div class="search-box">
-          <input type="text" id="globalSearch" class="nav-search" oninput="onSearch()" placeholder="🔍 Поиск доната, правил, модов...">
+          <input type="text" id="globalSearch" class="nav-search" oninput="onSearch()" placeholder="🔍 Поиск...">
           <button class="search-clear" id="searchClear" onclick="clearSearch()" title="Очистить поиск">✕</button>
         </div>
       </div>
@@ -820,7 +834,7 @@
       <div class="page-head">
         <div>
           <h2 class="page-title">Магазин привилегий</h2>
-          <div class="page-sub">Мгновенная автовыдача после оплаты • Настраиваемый живой предпросмотр</div>
+          <div class="page-sub">Версия 1.21.4+ • Мгновенная автовыдача после оплаты</div>
         </div>
         <div class="page-actions">
           <button class="p-btn" onclick="copyIP()">📋 IP: newtime.mcsh.gg</button>
@@ -846,7 +860,7 @@
             <button class="rf-btn" onclick="setRankFilter('special', this)">👑 Особые (4)</button>
           </div>
           <div class="nick-live-box">
-            <span>Ваш ник для превью:</span>
+            <span>Ник для превью:</span>
             <input type="text" id="liveNickInp" class="nick-live-inp" maxlength="16" oninput="onLiveNickChange()" placeholder="Steve_228">
           </div>
         </div>
@@ -909,6 +923,7 @@
                 <div class="price-per-day" id="pricePerDay"></div>
               </div>
               <div class="foot-actions">
+                <button class="p-btn" id="wishBtn" onclick="toggleWishlist()" title="Сохранить в желаемое">🤍</button>
                 <button class="p-btn" id="nextTierBtn" onclick="jumpNextRank()" style="display:none;"></button>
                 <button class="buy-btn" id="buyBtn" onclick="openBuyModal()">ПРИОБРЕСТИ</button>
               </div>
@@ -944,15 +959,8 @@
             <table class="cmp-table">
               <thead>
                 <tr>
-                  <th>Привилегия</th>
-                  <th>30 дней</th>
-                  <th>Навсегда</th>
-                  <th>Дома</th>
-                  <th>Приваты</th>
-                  <th>Аукцион</th>
-                  <th>ТП задержка</th>
-                  <th>Полёт /fly</th>
-                  <th>Починка /fix</th>
+                  <th>Привилегия</th><th>30 дней</th><th>Навсегда</th><th>Дома</th>
+                  <th>Приваты</th><th>Аукцион</th><th>ТП задержка</th><th>Полёт /fly</th><th>Починка /fix</th>
                 </tr>
               </thead>
               <tbody id="compareBody"></tbody>
@@ -1013,12 +1021,12 @@
       </div>
     </section>
 
-    <!-- ==================== 2. ПРАВИЛА ПРОЕКТА (С КРУТЫМИ РАМКАМИ) ==================== -->
+    <!-- ==================== 2. ПРАВИЛА ПРОЕКТА ==================== -->
     <section class="view" id="view-rules">
       <div class="page-head">
         <div>
           <h2 class="page-title">Правила проекта NewTime</h2>
-          <div class="page-sub">Кибер-контур правил • Нажмите ⭐ для закладок или 📋 для копирования</div>
+          <div class="page-sub">Нажмите на заголовок раздела, чтобы свернуть • ⭐ в закладки • 📋 копировать</div>
         </div>
         <div class="page-actions">
           <button class="p-btn" onclick="switchView('mods')">Список модов (4.4)</button>
@@ -1043,63 +1051,71 @@
       <div class="portal-grid">
         <div>
           <div class="st-card rule-sec" id="sec-1">
-            <div class="st-card-hdr"><span>1. Основные правила</span><span class="sec-tag">PROTOCOL // 01</span></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.1</span><div class="r-text">Незнание правил не освобождает вас от ответственности;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.2</span><div class="r-text">Начав играть на наших серверах, Вы автоматически подтверждаете своё согласие с данным сводом правил;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.3</span><div class="r-text">Администрация не несет ответственности за временную или постоянную невозможность игры на сервере конкретным лицом или группой лиц;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.4</span><div class="r-text">Администрация не несет ответственности за потерю игровых ценностей в следствии нарушения работоспособности сервера или его плагинов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.5</span><div class="r-text">Администрация не гарантирует работоспособность сервера, а также сохранность информации на нем и продолжение работы над ним;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.6</span><div class="r-text">Администрация сервера не гарантирует надёжную работу в предоставлении услуг и сервисов, а также не несёт ответственность за ущерб, который может быть причинён пользователям вследствие сбоев в линиях связи, ошибочного использования предоставляемых услуг, дефектов программного обеспечения или других действий, которые могут привести к возникновению нежелательных ситуаций;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.7</span><div class="r-text">Администрация имеет право корректировать данный свод правил без уведомления игрока;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.8</span><div class="r-text">Оскорбление, провоцирование администрации запрещено.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="st-card-hdr" onclick="toggleRuleSec(this)"><span>1. Основные правила</span><span class="sec-tag">PROTOCOL // 01</span></div>
+            <div class="rule-body">
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">1.1</span><div class="r-text">Незнание правил не освобождает вас от ответственности;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">1.2</span><div class="r-text">Начав играть на наших серверах, Вы автоматически подтверждаете своё согласие с данным сводом правил;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">1.3</span><div class="r-text">Администрация не несет ответственности за временную или постоянную невозможность игры на сервере конкретным лицом или группой лиц;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">1.4</span><div class="r-text">Администрация не несет ответственности за потерю игровых ценностей в следствии нарушения работоспособности сервера или его плагинов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">1.5</span><div class="r-text">Администрация не гарантирует работоспособность сервера, а также сохранность информации на нем и продолжение работы над ним;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">1.6</span><div class="r-text">Администрация сервера не гарантирует надёжную работу в предоставлении услуг и сервисов, а также не несёт ответственность за ущерб, который может быть причинён пользователям вследствие сбоев в линиях связи, ошибочного использования предоставляемых услуг, дефектов программного обеспечения или других действий, которые могут привести к возникновению нежелательных ситуаций;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">1.7</span><div class="r-text">Администрация имеет право корректировать данный свод правил без уведомления игрока;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">1.8</span><div class="r-text">Оскорбление, провоцирование администрации запрещено.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            </div>
           </div>
 
           <div class="st-card rule-sec" id="sec-2">
-            <div class="st-card-hdr"><span>2. Правила чата</span><span class="sec-tag">COMMS // 02</span></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.1</span><div class="r-text">Запрещен Капс/Спам/Флуд в любом из чатов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.2</span><div class="r-text">Запрещены унижения, оскорбления игроков;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.3</span><div class="r-text">Запрещена нецензурная лексика (маты, скрытые маты);</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.4</span><div class="r-text">Запрещено рекламировать/упоминать посторонние ресурсы, которые не связаны с проектом или его ресурсами;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.5</span><div class="r-text">Чатами для рекламы/покупки/продажи разрешено пользоваться только в их тематичных целях;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.6</span><div class="r-text">Запрещено упоминать/оскорблять родных и близких игроков;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.7</span><div class="r-text">Запрещается розжиг межнациональной розни, подстрекательство на конфликт этой темы, расизм;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.8</span><div class="r-text">Запрещено как-либо обходить блокировку чата;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.9</span><div class="r-text">Запрещено вызывать игроков на проверку читов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.10</span><div class="r-text">Запрещено отправлять свои контактные данные (дискорд, вк и т.д) в чатах (исключение: личные сообщения);</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.11</span><div class="r-text">Запрещено продавать ресурсы или услуги ВНЕ серверного чата, например через дискорд;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.12</span><div class="r-text">Самопризнание в нарушении правил проекта является поводом для бана.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="st-card-hdr" onclick="toggleRuleSec(this)"><span>2. Правила чата</span><span class="sec-tag">COMMS // 02</span></div>
+            <div class="rule-body">
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.1</span><div class="r-text">Запрещен Капс/Спам/Флуд в любом из чатов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.2</span><div class="r-text">Запрещены унижения, оскорбления игроков;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.3</span><div class="r-text">Запрещена нецензурная лексика (маты, скрытые маты);</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.4</span><div class="r-text">Запрещено рекламировать/упоминать посторонние ресурсы, которые не связаны с проектом или его ресурсами;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.5</span><div class="r-text">Чатами для рекламы/покупки/продажи разрешено пользоваться только в их тематичных целях;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.6</span><div class="r-text">Запрещено упоминать/оскорблять родных и близких игроков;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.7</span><div class="r-text">Запрещается розжиг межнациональной розни, подстрекательство на конфликт этой темы, расизм;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.8</span><div class="r-text">Запрещено как-либо обходить блокировку чата;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.9</span><div class="r-text">Запрещено вызывать игроков на проверку читов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.10</span><div class="r-text">Запрещено отправлять свои контактные данные (дискорд, вк и т.д) в чатах (исключение: личные сообщения);</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.11</span><div class="r-text">Запрещено продавать ресурсы или услуги ВНЕ серверного чата, например через дискорд;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">2.12</span><div class="r-text">Самопризнание в нарушении правил проекта является поводом для бана.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            </div>
           </div>
 
           <div class="st-card rule-sec" id="sec-3">
-            <div class="st-card-hdr"><span>3. Аккаунт</span><span class="sec-tag">IDENTITY // 03</span></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">3.1</span><div class="r-text"><strong>Ник не должен содержать:</strong></div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.1</span><div class="r-text">Мата, скрытого мата, унижений, оскорблений;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.2</span><div class="r-text">Схожесть с названием других проектов/чит клиентов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.3</span><div class="r-text">Схожесть с Администраторами, Ютуберами проекта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.4</span><div class="r-text">Схожесть с никами пользователей из ЧС Проекта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">3.2</span><div class="r-text">Запрещается предоставлять свой аккаунт другим людям;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">3.3</span><div class="r-text">Ответственность несет владелец аккаунта, независимо от того, кто совершал действия под данным аккаунтом;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">3.4</span><div class="r-text">Запрещена продажа/передача аккаунтов, продажа привилегий;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">3.5</span><div class="r-text">Донат невозможно перенести на другой аккаунт.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="st-card-hdr" onclick="toggleRuleSec(this)"><span>3. Аккаунт</span><span class="sec-tag">IDENTITY // 03</span></div>
+            <div class="rule-body">
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">3.1</span><div class="r-text"><strong>Ник не должен содержать:</strong></div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.1</span><div class="r-text">Мата, скрытого мата, унижений, оскорблений;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.2</span><div class="r-text">Схожесть с названием других проектов/чит клиентов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.3</span><div class="r-text">Схожесть с Администраторами, Ютуберами проекта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.4</span><div class="r-text">Схожесть с никами пользователей из ЧС Проекта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">3.2</span><div class="r-text">Запрещается предоставлять свой аккаунт другим людям;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">3.3</span><div class="r-text">Ответственность несет владелец аккаунта, независимо от того, кто совершал действия под данным аккаунтом;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">3.4</span><div class="r-text">Запрещена продажа/передача аккаунтов, продажа привилегий;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">3.5</span><div class="r-text">Донат невозможно перенести на другой аккаунт.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            </div>
           </div>
 
           <div class="st-card rule-sec" id="sec-4">
-            <div class="st-card-hdr"><span>4. Игровые правила</span><span class="sec-tag">GAMEPLAY // 04</span></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.1</span><div class="r-text">Запрещено мошенничество, обман администрации;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.2</span><div class="r-text">Запрещено продавать/покупать у игроков игровые ценности за реальную валюту;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.3</span><div class="r-text">Запрещено пользоваться всем, что упрощает процесс игры, а именно:</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">4.3.1</span><div class="r-text">Сторонними программами, читами, кликерами, автоматизациями и некоторыми модами (Кроме разрешенных пунктом 4.4);</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.4</span><div class="r-text">Список разрешённых (61) и запрещённых (66) модификаций во вкладке <a href="#" onclick="switchView('mods');return false;" style="color:var(--cyan);font-weight:700;">Модификации</a>.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.5</span><div class="r-text">На сервере допускается одновременное использование не более 4 аккаунтов включительно на всех игровых режимах.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">4.5.1</span><div class="r-text">Запрещено как-либо помогать, укрывать нарушителя или способствовать в его неправомерных действиях;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.6</span><div class="r-text">Запрещено играть на проекте, если Ваши аккаунты были неоднократно блокированы пунктом 1.4 и его подпунктам;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.7</span><div class="r-text">Запрещено вызывание неполадок в работе сервера или попытки обрушить сервер, путем специально вызванных лагов или подобного;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.8</span><div class="r-text">Запрещено выдавать себя за Администрацию, устанавливать ники похожие на Администрацию или их префиксы;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.9</span><div class="r-text">Запрещено использование/скрытие багов/недоработок сервера;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.10</span><div class="r-text">Запрещено играть/взаимодействовать и помогать на режиме с игроками в количестве больше, чем разрешено на режиме.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.11</span><div class="r-text">Запрещено строительство половых органов, нацистских символик, лавакастов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.12</span><div class="r-text">Запрещено подстрекать третьих лиц на нарушение правил;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.13</span><div class="r-text">Запрещён намеренный таргетинг официальных медийных лиц проекта. Умышленная помеха съемки игрового контента/слив игровых никнеймов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="st-card-hdr" onclick="toggleRuleSec(this)"><span>4. Игровые правила</span><span class="sec-tag">GAMEPLAY // 04</span></div>
+            <div class="rule-body">
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.1</span><div class="r-text">Запрещено мошенничество, обман администрации;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.2</span><div class="r-text">Запрещено продавать/покупать у игроков игровые ценности за реальную валюту;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.3</span><div class="r-text">Запрещено пользоваться всем, что упрощает процесс игры, а именно:</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row sub"><div class="rule-main"><span class="r-badge">4.3.1</span><div class="r-text">Сторонними программами, читами, кликерами, автоматизациями и некоторыми модами (Кроме разрешенных пунктом 4.4);</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.4</span><div class="r-text">Список разрешённых (61) и запрещённых (66) модификаций во вкладке <a href="#" onclick="switchView('mods');return false;" style="color:var(--cyan);font-weight:700;">Модификации</a>.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.5</span><div class="r-text">На сервере допускается одновременное использование не более 4 аккаунтов включительно на всех игровых режимах.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row sub"><div class="rule-main"><span class="r-badge">4.5.1</span><div class="r-text">Запрещено как-либо помогать, укрывать нарушителя или способствовать в его неправомерных действиях;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.6</span><div class="r-text">Запрещено играть на проекте, если Ваши аккаунты были неоднократно блокированы пунктом 1.4 и его подпунктам;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.7</span><div class="r-text">Запрещено вызывание неполадок в работе сервера или попытки обрушить сервер, путем специально вызванных лагов или подобного;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.8</span><div class="r-text">Запрещено выдавать себя за Администрацию, устанавливать ники похожие на Администрацию или их префиксы;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.9</span><div class="r-text">Запрещено использование/скрытие багов/недоработок сервера;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.10</span><div class="r-text">Запрещено играть/взаимодействовать и помогать на режиме с игроками в количестве больше, чем разрешено на режиме.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.11</span><div class="r-text">Запрещено строительство половых органов, нацистских символик, лавакастов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.12</span><div class="r-text">Запрещено подстрекать третьих лиц на нарушение правил;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">4.13</span><div class="r-text">Запрещён намеренный таргетинг официальных медийных лиц проекта. Умышленная помеха съемки игрового контента/слив игровых никнеймов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            </div>
           </div>
 
           <div class="r-alert">
@@ -1107,32 +1123,36 @@
           </div>
 
           <div class="st-card rule-sec" id="sec-5">
-            <div class="st-card-hdr"><span>5. Правила проверки ПО</span><span class="sec-tag">SECURITY // 05</span></div>
-            <div class="rule-row">
-              <div class="rule-main">
-                <span class="r-badge">5.1</span>
-                <div class="r-text">
-                  Вы обязаны выполнять требования Проверяющего
-                  <div class="r-info"><strong>Важно!</strong> Проверка проводится исключительно в целях поиска читов, запрещённых модификаций, программ и другого запрещённого ПО, поэтому если Проверяющий просит Вас выполнить нелогичные для проверки действия, например: включить веб-камеру, дать ему ресурсы — отключайтесь от проверки и срочно сообщите об этом Администрации.</div>
+            <div class="st-card-hdr" onclick="toggleRuleSec(this)"><span>5. Правила проверки ПО</span><span class="sec-tag">SECURITY // 05</span></div>
+            <div class="rule-body">
+              <div class="rule-row">
+                <div class="rule-main">
+                  <span class="r-badge">5.1</span>
+                  <div class="r-text">
+                    Вы обязаны выполнять требования Проверяющего
+                    <div class="r-info"><strong>Важно!</strong> Проверка проводится исключительно в целях поиска читов, запрещённых модификаций, программ и другого запрещённого ПО, поэтому если Проверяющий просит Вас выполнить нелогичные для проверки действия, например: включить веб-камеру, дать ему ресурсы — отключайтесь от проверки и срочно сообщите об этом Администрации.</div>
+                  </div>
                 </div>
+                <div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div>
               </div>
-              <div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">5.2</span><div class="r-text">Данный свод правил не окончателен и может изменяться в зависимости от требований Проверяющего;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">5.3</span><div class="r-text">Следите за чатом во время проверки, если Вы не увидели/проигнорировали сообщение от Проверяющего, это не будет расцениваться поводом для разблокировки аккаунта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">5.4</span><div class="r-text">В случае если у Вас возникли непредвиденные обстоятельства, необходимо обязательно сообщить об этом Проверяющему;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">5.5</span><div class="r-text">Запрещается препятствовать проведению проверки: долго открывать папки, задавать неуместные вопросы, оскорблять/унижать Проверяющего, игнорировать его требования и так далее;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">5.6</span><div class="r-text">Во время проверки запрещается удалять какие-либо файлы с Вашего ПК, в том числе очищать корзину;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">5.7</span><div class="r-text">Во время проверки запрещается выходить из Minecraft, также не забывайте, «крашнул майн», «был в афк» — не расцениваются как повод для разблокировки аккаунта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">5.8</span><div class="r-text">Запрещается снимать ход проверки, исключение: личное разрешение Проверяющего;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">5.9</span><div class="r-text">Проверяющий имеет право попросить Вас установить программы для эффективного и быстрого проведения проверки.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
             </div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.2</span><div class="r-text">Данный свод правил не окончателен и может изменяться в зависимости от требований Проверяющего;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.3</span><div class="r-text">Следите за чатом во время проверки, если Вы не увидели/проигнорировали сообщение от Проверяющего, это не будет расцениваться поводом для разблокировки аккаунта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.4</span><div class="r-text">В случае если у Вас возникли непредвиденные обстоятельства, необходимо обязательно сообщить об этом Проверяющему;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.5</span><div class="r-text">Запрещается препятствовать проведению проверки: долго открывать папки, задавать неуместные вопросы, оскорблять/унижать Проверяющего, игнорировать его требования и так далее;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.6</span><div class="r-text">Во время проверки запрещается удалять какие-либо файлы с Вашего ПК, в том числе очищать корзину;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.7</span><div class="r-text">Во время проверки запрещается выходить из Minecraft, также не забывайте, «крашнул майн», «был в афк» — не расцениваются как повод для разблокировки аккаунта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.8</span><div class="r-text">Запрещается снимать ход проверки, исключение: личное разрешение Проверяющего;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.9</span><div class="r-text">Проверяющий имеет право попросить Вас установить программы для эффективного и быстрого проведения проверки.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
           </div>
 
           <div class="st-card rule-sec" id="sec-6">
-            <div class="st-card-hdr"><span>6. Платные услуги</span><span class="sec-tag">BILLING // 06</span></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">6.1</span><div class="r-text">Попытки махинаций оплатами, или ввод Администрации в заблуждение наказываются баном без возврата средств;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">6.2</span><div class="r-text">Предоставьте чек оплаты, если хотите написать Администрации о пропаже, непоявлении доната после покупки. Без данного подтверждения администрация вправе отказать Вам в предоставлении купленной услуги;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">6.3</span><div class="r-text">Администрация не обязана предоставлять доказательства нарушений донатера у которого сняли привилегию за нарушение выше указанных правил.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="st-card-hdr" onclick="toggleRuleSec(this)"><span>6. Платные услуги</span><span class="sec-tag">BILLING // 06</span></div>
+            <div class="rule-body">
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">6.1</span><div class="r-text">Попытки махинаций оплатами, или ввод Администрации в заблуждение наказываются баном без возврата средств;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">6.2</span><div class="r-text">Предоставьте чек оплаты, если хотите написать Администрации о пропаже, непоявлении доната после покупки. Без данного подтверждения администрация вправе отказать Вам в предоставлении купленной услуги;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+              <div class="rule-row"><div class="rule-main"><span class="r-badge">6.3</span><div class="r-text">Администрация не обязана предоставлять доказательства нарушений донатера у которого сняли привилегию за нарушение выше указанных правил.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            </div>
           </div>
         </div>
 
@@ -1159,7 +1179,7 @@
             <div class="st-card-hdr">Информация о сервере</div>
             <div class="sb-body">
               <div class="sb-stat"><span>IP адрес</span><strong style="color:var(--cyan);cursor:pointer;font-family:var(--mono);" onclick="copyIP()">newtime.mcsh.gg</strong></div>
-              <div class="sb-stat"><span>Режим</span><strong>Cyan Anarchy</strong></div>
+              <div class="sb-stat"><span>Версия</span><strong>1.21.4+</strong></div>
               <div class="sb-stat"><span>Макс. аккаунтов</span><strong>4</strong></div>
               <div class="sb-stat"><span>Разрешено модов</span><strong id="sbOkStat">61</strong></div>
             </div>
@@ -1173,7 +1193,7 @@
       <div class="page-head">
         <div>
           <h2 class="page-title">Модификации сервера (Пункт 4.4)</h2>
-          <div class="page-sub">Проверьте мод перед заходом или нажмите на любой тег для копирования</div>
+          <div class="page-sub">Проверьте мод перед заходом на 1.21.4+ или нажмите на тег для копирования</div>
         </div>
         <div class="page-actions"><button class="p-btn" onclick="switchView('rules')">К правилам проекта</button></div>
       </div>
@@ -1230,14 +1250,14 @@
       <div class="page-head">
         <div>
           <h2 class="page-title">Контакты и частые вопросы</h2>
-          <div class="page-sub">Быстрая помощь игрокам NewTime</div>
+          <div class="page-sub">Быстрая помощь игрокам NewTime 1.21.4+</div>
         </div>
       </div>
 
       <div class="cgrid">
         <div class="st-card hud-corners">
           <div class="st-card-hdr">Подключение</div>
-          <div class="c-body"><p>Режим: <strong style="color:#fff;">Cyan Anarchy</strong>. Minecraft Java Edition.</p><button class="buy-btn" style="width:100%;" onclick="copyIP()">IP: newtime.mcsh.gg</button></div>
+          <div class="c-body"><p>Режим: <strong style="color:#fff;">Cyan Anarchy</strong> • Java <strong>1.21.4+</strong>.</p><button class="buy-btn" style="width:100%;" onclick="copyIP()">IP: newtime.mcsh.gg</button></div>
         </div>
         <div class="st-card hud-corners">
           <div class="st-card-hdr">Telegram проекта</div>
@@ -1252,6 +1272,10 @@
       <div class="st-card">
         <div class="st-card-hdr center">Частые вопросы (FAQ)</div>
         <div class="faq-item open">
+          <button class="faq-q" onclick="toggleFaq(this)">На какой версии работает сервер? <span>+</span></button>
+          <div class="faq-a">Сервер NewTime работает на актуальной версии <strong>Minecraft Java Edition 1.21.4+</strong>.</div>
+        </div>
+        <div class="faq-item">
           <button class="faq-q" onclick="toggleFaq(this)">Как долго выдаётся донат после оплаты? <span>+</span></button>
           <div class="faq-a">При оплате через <strong>CryptoBot</strong> и <strong>Telegram Stars</strong> привилегия выдаётся автоматически в течение нескольких секунд. При переводе через <strong>СБП</strong> — сразу после проверки заявки администратором (сохраняйте чек по пункту 6.2).</div>
         </div>
@@ -1260,16 +1284,8 @@
           <div class="faq-a">Согласно пункту <strong>3.5</strong> правил проекта, донат невозможно перенести на другой аккаунт. Внимательно проверяйте свой ник перед оплатой!</div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">Могу ли я играть с модом, которого нет в списке 4.4? <span>+</span></button>
-          <div class="faq-a">По пункту <strong>4.3.1</strong> запрещены любые модификации, упрощающие игровой процесс, кроме явно разрешённых пунктом <strong>4.4</strong>. Если сомневаетесь — уточните у персонала перед заходом на сервер.</div>
-        </div>
-        <div class="faq-item">
           <button class="faq-q" onclick="toggleFaq(this)">Сколько твинков можно держать на сервере одновременно? <span>+</span></button>
           <div class="faq-a">По пункту <strong>4.5</strong> допускается одновременное использование не более <strong>4 аккаунтов</strong> включительно на всех игровых режимах.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">Как подать заявку на TikTok или Staff? <span>+</span></button>
-          <div class="faq-a">Набор в команду модерации (<strong>Staff</strong>) и медийных лиц (<strong>TikTok</strong>) открыт через систему тикетов в официальном Discord проекта.</div>
         </div>
       </div>
     </section>
@@ -1279,12 +1295,12 @@
 
   <footer class="footer">
     <div class="footer-inner">
-      <div>Сервер NewTime никак не относится к Mojang, AB. • IP: <strong>newtime.mcsh.gg</strong> • <a href="https://t.me/newtime_tg" target="_blank">@newtime_tg</a></div>
+      <div>Сервер NewTime никак не относится к Mojang, AB. • 1.21.4+ • IP: <strong>newtime.mcsh.gg</strong> • <a href="https://t.me/newtime_tg" target="_blank">@newtime_tg</a></div>
       <div>Горячие клавиши: <strong>1–4</strong> вкладки • <strong>/</strong> поиск • © 2026 NewTime</div>
     </div>
   </footer>
 
-  <!-- МОДАЛЬНОЕ ОКНО ОПЛАТЫ -->
+  <!-- МОДАЛКА ОПЛАТЫ -->
   <div class="modal-bg" id="modalBg" onclick="if(event.target===this) closeModal()">
     <div class="modal ai-frame">
       <button class="m-close" onclick="closeModal()">✕</button>
@@ -1307,18 +1323,9 @@
       </label>
 
       <div class="pay-methods">
-        <button class="pm-btn" onclick="payCrypto()">
-          <span>💎 CryptoBot (USDT / TON / BTC)</span>
-          <small>АВТО</small>
-        </button>
-        <button class="pm-btn" onclick="payStars()">
-          <span>⭐ Telegram Stars (в боте)</span>
-          <small id="starsEst">АВТО</small>
-        </button>
-        <button class="pm-btn" onclick="toggleSbp()">
-          <span>🏦 СБП (Перевод по номеру)</span>
-          <small id="sbpPriceLbl">5 ₽</small>
-        </button>
+        <button class="pm-btn" onclick="payCrypto()"><span>💎 CryptoBot (USDT / TON / BTC)</span><small>АВТО</small></button>
+        <button class="pm-btn" onclick="payStars()"><span>⭐ Telegram Stars (в боте)</span><small id="starsEst">АВТО</small></button>
+        <button class="pm-btn" onclick="toggleSbp()"><span>🏦 СБП (Перевод по номеру)</span><small id="sbpPriceLbl">5 ₽</small></button>
       </div>
 
       <div class="sbp-box" id="sbpBox">
@@ -1330,7 +1337,52 @@
     </div>
   </div>
 
-  <!-- МОДАЛЬНОЕ ОКНО НАСТРОЕК САЙТА -->
+  <!-- МОДАЛКА АККАУНТА И ЖУРНАЛА ЛОГИНОВ -->
+  <div class="modal-bg" id="accBg" onclick="if(event.target===this) closeAccountModal()">
+    <div class="modal ai-frame">
+      <button class="m-close" onclick="closeAccountModal()">✕</button>
+      <div style="font-size:11px;font-weight:800;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;font-family:var(--mono);">NEWTIME // ACCOUNT SYSTEM</div>
+      <h3 style="margin:6px 0 14px;font-size:21px;font-weight:900;">👤 Личный кабинет</h3>
+
+      <div class="acc-tabs">
+        <button class="subtab-btn act" style="justify-content:center;padding:7px;" id="accTabProfile" onclick="switchAccTab('profile')">Профиль</button>
+        <button class="subtab-btn" style="justify-content:center;padding:7px;" id="accTabAuth" onclick="switchAccTab('auth')">Вход / Рег</button>
+        <button class="subtab-btn" style="justify-content:center;padding:7px;" id="accTabLog" onclick="switchAccTab('log')">Логины</button>
+      </div>
+
+      <!-- Вкладка: Профиль -->
+      <div id="accPaneProfile">
+        <div id="accLoggedBox"></div>
+      </div>
+
+      <!-- Вкладка: Вход / Регистрация -->
+      <div id="accPaneAuth" style="display:none;">
+        <div style="display:flex;gap:8px;margin-bottom:12px;">
+          <button class="rf-btn act" id="authModeReg" onclick="setAuthMode('reg')">Создать аккаунт</button>
+          <button class="rf-btn" id="authModeLog" onclick="setAuthMode('log')">Войти</button>
+        </div>
+        <label style="font-size:12px;color:var(--mut);font-weight:600;">Логин на сайте:</label>
+        <input type="text" id="authLogin" class="m-inp" placeholder="Например: ProAnarchist">
+        <div id="authNickWrap">
+          <label style="font-size:12px;color:var(--mut);font-weight:600;">Игровой ник Minecraft (1.21.4+):</label>
+          <input type="text" id="authMcNick" class="m-inp" placeholder="Например: Steve_228">
+        </div>
+        <label style="font-size:12px;color:var(--mut);font-weight:600;">Пароль (не используйте пароль от сервера!):</label>
+        <input type="password" id="authPass" class="m-inp" placeholder="Минимум 4 символа">
+        <button class="buy-btn" style="width:100%;" id="authSubmitBtn" onclick="submitAuth()">СОЗДАТЬ АККАУНТ</button>
+      </div>
+
+      <!-- Вкладка: Журнал логинов -->
+      <div id="accPaneLog" style="display:none;">
+        <div style="font-size:12px;color:var(--mut);margin-bottom:10px;line-height:1.45;">
+          Здесь отображаются аккаунты, созданные в этом браузере. При подключении <code style="color:var(--cyan);">WORKER_URL</code> регистрации также отправляются на ваш сервер/бота.
+        </div>
+        <div class="acc-log-list" id="accLogList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА НАСТРОЕК -->
   <div class="modal-bg" id="settingsBg" onclick="if(event.target===this) closeSettings()">
     <div class="modal ai-frame">
       <button class="m-close" onclick="closeSettings()">✕</button>
@@ -1348,17 +1400,19 @@
       </div>
 
       <div class="set-group">
-        <span class="set-lbl">Анимация фона</span>
+        <span class="set-lbl">Анимация фона (5 режимов)</span>
         <div class="set-pills" id="setBgPills">
           <button class="set-pill" data-val="aurora" onclick="applySetting('bgMode','aurora')">🌊 Нейро-волны</button>
           <button class="set-pill" data-val="matrix" onclick="applySetting('bgMode','matrix')">🟩 Кибер-матрица</button>
           <button class="set-pill" data-val="warp" onclick="applySetting('bgMode','warp')">🚀 Варп-звёзды</button>
-          <button class="set-pill" data-val="none" onclick="applySetting('bgMode','none')">⬛ Выключить фон</button>
+          <button class="set-pill" data-val="hex" onclick="applySetting('bgMode','hex')">⬡ Гекс-сетка</button>
+          <button class="set-pill" data-val="embers" onclick="applySetting('bgMode','embers')">🔥 Неон-искры</button>
+          <button class="set-pill" data-val="none" onclick="applySetting('bgMode','none')">⬛ Выключить</button>
         </div>
       </div>
 
       <div class="set-group">
-        <span class="set-lbl">Интенсивность неона и анимаций</span>
+        <span class="set-lbl">Неон и плавность анимаций</span>
         <div class="set-pills" style="grid-template-columns:repeat(3,1fr);margin-bottom:8px;" id="setGlowPills">
           <button class="set-pill" data-val="max" onclick="applySetting('glow','max')">✨ Макс</button>
           <button class="set-pill" data-val="norm" onclick="applySetting('glow','norm')">⚡ Норма</button>
@@ -1381,8 +1435,9 @@
       </div>
 
       <div class="set-group">
-        <span class="set-lbl">Визуальные эффекты</span>
+        <span class="set-lbl">Эффекты и звук</span>
         <div class="set-toggles">
+          <label class="set-row"><span>🔊 Звуковые эффекты GUI</span><input type="checkbox" id="chkSfx" onchange="applySetting('sfx', this.checked)"></label>
           <label class="set-row"><span>Стеклянное размытие (Blur)</span><input type="checkbox" id="chkBlur" onchange="applySetting('blur', this.checked)"></label>
           <label class="set-row"><span>Голографические скан-линии</span><input type="checkbox" id="chkScan" onchange="applySetting('scanlines', this.checked)"></label>
         </div>
@@ -1402,190 +1457,81 @@
     // ===================================
 
     const ranks = [
-      {
-        id: "baron", name: "Барон", color: "#84FF00", prefix: "[Барон]", homes: 1, regs: 3, auc: 6, tp: "7 сек", fly: false, fix: "—", exp: "0%",
-        tier: 1, pvp: 25, eco: 30, comf: 25, p30: 5, p90: 12, pFor: 25,
-        cmds: [
-          { c: "/kit baron", d: "Стартовый набор" },
-          { c: "/salary", d: "Зарплата 100.000$" },
-          { c: "/near 105м", d: "Поиск игроков рядом (кд 2м 30с)" }
-        ],
-        other: [["Точек домов", "1 дом"], ["Регионов", "3 блока привата"], ["Слотов Аукциона", "6"], ["Задержка телепорта", "7 сек"], ["Особенности", "Базовые привилегии"]]
-      },
-      {
-        id: "fighter", name: "Боец", color: "#FF7700", prefix: "[Боец]", homes: 2, regs: 3, auc: 7, tp: "6 сек", fly: false, fix: "—", exp: "0%",
-        tier: 2, pvp: 32, eco: 35, comf: 32, p30: 10, p90: 22, pFor: 45,
-        cmds: [
-          { c: "/kit fighter", d: "Боевой набор" },
-          { c: "/dchat | /suicide", d: "Донат-чат и самоубийство" },
-          { c: "/near 110м", d: "Поиск игроков рядом (кд 2м 20с)" }
-        ],
-        other: [["Точек домов", "2 дома"], ["Регионов", "3 блока привата"], ["Слоты Аукциона", "7"], ["Задержка телепорта", "6 сек"], ["Особенности", "Все права ранга Барон"]]
-      },
-      {
-        id: "guardian", name: "Страж", color: "#7C4DFF", prefix: "[Страж]", homes: 2, regs: 4, auc: 8, tp: "5 сек", fly: false, fix: "—", exp: "0%",
-        tier: 3, pvp: 40, eco: 42, comf: 45, p30: 15, p90: 35, pFor: 69,
-        cmds: [
-          { c: "/kit guardian", d: "Защитный кит" },
-          { c: "/stonecutter | /anvil | /hat | /craft", d: "Камнерез, наковальня, верстак" },
-          { c: "/near 120м", d: "Поиск игроков рядом (кд 2м 10с)" }
-        ],
-        other: [["Точек домов", "2 дома"], ["Регионов", "4 блока привата"], ["Слоты Аукциона", "8"], ["Задержка телепорта", "5 сек"], ["Особенности", "Иммунитет к яду пещерных пауков"]]
-      },
-      {
-        id: "knight", name: "Рыцарь", color: "#FF4081", prefix: "[Рыцарь]", homes: 3, regs: 5, auc: 9, tp: "5 сек", fly: false, fix: "—", exp: "0%",
-        tier: 4, pvp: 48, eco: 48, comf: 55, p30: 25, p90: 59, pFor: 109,
-        cmds: [
-          { c: "/kit knight", d: "Рыцарский кит" },
-          { c: "/ec | /condense | /clear | /me", d: "Эндер-сундук, сжатие и очистка" },
-          { c: "/eext (1м) | /feed и /heal (2м)", d: "Тушение, еда и здоровье" },
-          { c: "/near 130м", d: "Поиск игроков рядом (кд 1м 50с)" }
-        ],
-        other: [["Точек домов", "3 дома"], ["Регионов", "5 блоков привата"], ["Слоты Аукциона", "9"], ["Задержка телепорта", "5 сек"], ["Особенности", "Иммунитет к иссушению"]]
-      },
-      {
-        id: "berserk", name: "Берсерк", color: "#FF0033", prefix: "[Берсерк]", homes: 4, regs: 5, auc: 10, tp: "4 сек", fly: false, fix: "—", exp: "25%",
-        tier: 5, pvp: 58, eco: 54, comf: 62, p30: 39, p90: 89, pFor: 169,
-        cmds: [
-          { c: "/kit berserk", d: "Топор и зелья" },
-          { c: "/back | /ad | /buy | /name", d: "Возврат, объявления и имя" },
-          { c: "/near 140м", d: "Поиск игроков рядом (кд 1м 25с)" }
-        ],
-        other: [["Точек домов", "4 дома"], ["Регионов", "5 блоков привата"], ["Слоты Аукциона", "10"], ["Задержка телепорта", "4 сек"], ["Особенности", "Сохранение 25% опыта • Цветной чат"]]
-      },
-      {
-        id: "champion", name: "Чемпион", color: "#F72585", prefix: "[Чемпион]", homes: 4, regs: 6, auc: 11, tp: "4 сек", fly: false, fix: "—", exp: "25%",
-        tier: 6, pvp: 65, eco: 60, comf: 68, p30: 55, p90: 125, pFor: 229,
-        cmds: [
-          { c: "/kit champion", d: "Набор чемпиона" },
-          { c: "/smithtable | /feed и /heal (1м 30с)", d: "Стол кузнеца, еда и здоровье" },
-          { c: "/near 145м", d: "Поиск игроков рядом (кд 1м 10с)" }
-        ],
-        other: [["Точек домов", "4 дома"], ["Регионов", "6 блоков привата"], ["Слоты Аукциона", "11"], ["Задержка телепорта", "4 сек"], ["Особенности", "Префикс Чемпиона в чате и TAB"]]
-      },
-      {
-        id: "milord", name: "Милорд", color: "#FF85A1", prefix: "[Милорд]", homes: 4, regs: 7, auc: 12, tp: "4 сек", fly: false, fix: "3 вещи", exp: "25%",
-        tier: 7, pvp: 72, eco: 68, comf: 75, p30: 75, p90: 169, pFor: 299,
-        cmds: [
-          { c: "/kit milord", d: "Незерит и яблоки" },
-          { c: "/time | /weather | /loom | /firework", d: "Погода, время и фейерверки" },
-          { c: "/name цветной | /fix 3 вещи (2ч)", d: "Починка и цветное имя" },
-          { c: "/near 150м", d: "Поиск игроков рядом (кд 1м)" }
-        ],
-        other: [["Точек домов", "4 дома"], ["Регионов", "7 блоков привата"], ["Слоты Аукциона", "12"], ["Задержка телепорта", "4 сек"], ["Особенности", "Вход на полный сервер"]]
-      },
-      {
-        id: "duke", name: "Герцог", color: "#C77DFF", prefix: "[Герцог]", homes: 4, regs: 8, auc: 13, tp: "3 сек", fly: false, fix: "all (2ч)", exp: "65%",
-        tier: 8, pvp: 80, eco: 76, comf: 82, p30: 99, p90: 219, pFor: 399,
-        cmds: [
-          { c: "/kit duke", d: "Броня Герцога" },
-          { c: "/repair all (кд 2ч) | /feed и /heal (1м 15с)", d: "Починка всех вещей, еда и здоровье" },
-          { c: "/near 158м", d: "Поиск игроков рядом (кд 50с)" }
-        ],
-        other: [["Точек домов", "4 дома"], ["Регионов", "8 блоков привата"], ["Слоты Аукциона", "13"], ["Задержка телепорта", "3 сек"], ["Особенности", "Сохранение 65% опыта"]]
-      },
-      {
-        id: "knyaz", name: "Князь", color: "#FF9E00", prefix: "[Князь]", badge: "Выбор", homes: 5, regs: 9, auc: 15, tp: "2 сек", fly: true, fix: "9 вещей", exp: "75%",
-        tier: 9, pvp: 88, eco: 84, comf: 90, p30: 129, p90: 289, pFor: 499,
-        cmds: [
-          { c: "/kit knyaz", d: "Элитры и бур 3x3" },
-          { c: "/jump | /afk | /fly | /speed", d: "Полёт, прыжок и скорость" },
-          { c: "/fix 9 вещей (3ч) | /near 165м (45с)", d: "Массовая починка и радар" }
-        ],
-        other: [["Точек домов", "5 домов"], ["Регионов", "9 блоков привата"], ["Слоты Аукциона", "15"], ["Задержка телепорта", "2 сек"], ["Особенности", "Сохранение 75% опыта"]]
-      },
-      {
-        id: "absolute", name: "Абсолют", color: "#FFE259", prefix: "[Абсолют]", badge: "Хит", homes: 7, regs: 12, auc: 20, tp: "0 сек", fly: true, fix: "18 вещей", exp: "100%",
-        tier: 10, pvp: 94, eco: 92, comf: 96, p30: 169, p90: 379, pFor: 699,
-        cmds: [
-          { c: "/kit absolute", d: "Топ-сет" },
-          { c: "/salary 5.000.000$ (5ч) | /exp 25 lvl (2ч)", d: "Крупная зарплата и опыт" },
-          { c: "/msgtoggle | /paytoggle | /feeds | /heals", d: "Настройки чата и лечение" },
-          { c: "/fix 18 вещей (3ч 45м) | /near 175м (25с)", d: "Починка 18 вещей и радар" }
-        ],
-        other: [["Точек домов", "7 домов"], ["Регионов", "12 блоков привата"], ["Слоты Аукциона", "20"], ["Задержка телепорта", "0 сек"], ["Особенности", "Сохранение 100% опыта при смерти"]]
-      },
-      {
-        id: "god", name: "Бог", color: "#FF0033", prefix: "[Бог]", badge: "Топ", homes: 8, regs: 15, auc: 25, tp: "0 сек", fly: true, fix: "all (1ч)", exp: "100%",
-        tier: 11, pvp: 100, eco: 100, comf: 100, p30: 249, p90: 549, pFor: 999,
-        cmds: [
-          { c: "Все честные команды сервера!", d: "Полный игровой функционал" },
-          { c: "/salary 15.000.000$ (3ч) | /exp 50 lvl (1ч)", d: "Максимальная зарплата и опыт" },
-          { c: "/fix all (кд 1ч) | /near 200м (15с)", d: "Полная починка и максимальный радар" }
-        ],
-        other: [["Точек домов", "8 домов"], ["Регионов", "15 блоков привата"], ["Слоты Аукциона", "25"], ["Задержка телепорта", "0 сек"], ["Особенности", "Максимальный статус Анархии"]]
-      },
-      {
-        id: "player", name: "Игрок", color: "#94a3b8", prefix: "[Игрок]", tier: 0, pvp: 15, eco: 15, comf: 15,
-        special: true, priceLabel: "Бесплатно", from: "БЕСПЛАТНО", note: "Базовый статус каждого выживающего",
+      { id: "baron", name: "Барон", color: "#84FF00", prefix: "[Барон]", homes: 1, regs: 3, auc: 6, tp: "7 сек", fly: false, fix: "—", exp: "0%", tier: 1, pvp: 25, eco: 30, comf: 25, p30: 5, p90: 12, pFor: 25,
+        cmds: [{ c: "/kit baron", d: "Стартовый набор" }, { c: "/salary", d: "Зарплата 100.000$" }, { c: "/near 105м", d: "Поиск игроков рядом (кд 2м 30с)" }],
+        other: [["Точек домов", "1 дом"], ["Регионов", "3 блока привата"], ["Слотов Аукциона", "6"], ["Задержка телепорта", "7 сек"], ["Особенности", "Базовые привилегии"]] },
+      { id: "fighter", name: "Боец", color: "#FF7700", prefix: "[Боец]", homes: 2, regs: 3, auc: 7, tp: "6 сек", fly: false, fix: "—", exp: "0%", tier: 2, pvp: 32, eco: 35, comf: 32, p30: 10, p90: 22, pFor: 45,
+        cmds: [{ c: "/kit fighter", d: "Боевой набор" }, { c: "/dchat | /suicide", d: "Донат-чат и самоубийство" }, { c: "/near 110м", d: "Поиск игроков рядом (кд 2м 20с)" }],
+        other: [["Точек домов", "2 дома"], ["Регионов", "3 блока привата"], ["Слоты Аукциона", "7"], ["Задержка телепорта", "6 сек"], ["Особенности", "Все права ранга Барон"]] },
+      { id: "guardian", name: "Страж", color: "#7C4DFF", prefix: "[Страж]", homes: 2, regs: 4, auc: 8, tp: "5 сек", fly: false, fix: "—", exp: "0%", tier: 3, pvp: 40, eco: 42, comf: 45, p30: 15, p90: 35, pFor: 69,
+        cmds: [{ c: "/kit guardian", d: "Защитный кит" }, { c: "/stonecutter | /anvil | /hat | /craft", d: "Камнерез, наковальня, верстак" }, { c: "/near 120м", d: "Поиск игроков рядом (кд 2м 10с)" }],
+        other: [["Точек домов", "2 дома"], ["Регионов", "4 блока привата"], ["Слоты Аукциона", "8"], ["Задержка телепорта", "5 сек"], ["Особенности", "Иммунитет к яду пещерных пауков"]] },
+      { id: "knight", name: "Рыцарь", color: "#FF4081", prefix: "[Рыцарь]", homes: 3, regs: 5, auc: 9, tp: "5 сек", fly: false, fix: "—", exp: "0%", tier: 4, pvp: 48, eco: 48, comf: 55, p30: 25, p90: 59, pFor: 109,
+        cmds: [{ c: "/kit knight", d: "Рыцарский кит" }, { c: "/ec | /condense | /clear | /me", d: "Эндер-сундук, сжатие и очистка" }, { c: "/eext (1м) | /feed и /heal (2м)", d: "Тушение, еда и здоровье" }, { c: "/near 130м", d: "Поиск игроков рядом (кд 1м 50с)" }],
+        other: [["Точек домов", "3 дома"], ["Регионов", "5 блоков привата"], ["Слоты Аукциона", "9"], ["Задержка телепорта", "5 сек"], ["Особенности", "Иммунитет к иссушению"]] },
+      { id: "berserk", name: "Берсерк", color: "#FF0033", prefix: "[Берсерк]", homes: 4, regs: 5, auc: 10, tp: "4 сек", fly: false, fix: "—", exp: "25%", tier: 5, pvp: 58, eco: 54, comf: 62, p30: 39, p90: 89, pFor: 169,
+        cmds: [{ c: "/kit berserk", d: "Топор и зелья" }, { c: "/back | /ad | /buy | /name", d: "Возврат, объявления и имя" }, { c: "/near 140м", d: "Поиск игроков рядом (кд 1м 25с)" }],
+        other: [["Точек домов", "4 дома"], ["Регионов", "5 блоков привата"], ["Слоты Аукциона", "10"], ["Задержка телепорта", "4 сек"], ["Особенности", "Сохранение 25% опыта • Цветной чат"]] },
+      { id: "champion", name: "Чемпион", color: "#F72585", prefix: "[Чемпион]", homes: 4, regs: 6, auc: 11, tp: "4 сек", fly: false, fix: "—", exp: "25%", tier: 6, pvp: 65, eco: 60, comf: 68, p30: 55, p90: 125, pFor: 229,
+        cmds: [{ c: "/kit champion", d: "Набор чемпиона" }, { c: "/smithtable | /feed и /heal (1м 30с)", d: "Стол кузнеца, еда и здоровье" }, { c: "/near 145м", d: "Поиск игроков рядом (кд 1м 10с)" }],
+        other: [["Точек домов", "4 дома"], ["Регионов", "6 блоков привата"], ["Слоты Аукциона", "11"], ["Задержка телепорта", "4 сек"], ["Особенности", "Префикс Чемпиона в чате и TAB"]] },
+      { id: "milord", name: "Милорд", color: "#FF85A1", prefix: "[Милорд]", homes: 4, regs: 7, auc: 12, tp: "4 сек", fly: false, fix: "3 вещи", exp: "25%", tier: 7, pvp: 72, eco: 68, comf: 75, p30: 75, p90: 169, pFor: 299,
+        cmds: [{ c: "/kit milord", d: "Незерит и яблоки" }, { c: "/time | /weather | /loom | /firework", d: "Погода, время и фейерверки" }, { c: "/name цветной | /fix 3 вещи (2ч)", d: "Починка и цветное имя" }, { c: "/near 150м", d: "Поиск игроков рядом (кд 1м)" }],
+        other: [["Точек домов", "4 дома"], ["Регионов", "7 блоков привата"], ["Слоты Аукциона", "12"], ["Задержка телепорта", "4 сек"], ["Особенности", "Вход на полный сервер"]] },
+      { id: "duke", name: "Герцог", color: "#C77DFF", prefix: "[Герцог]", homes: 4, regs: 8, auc: 13, tp: "3 сек", fly: false, fix: "all (2ч)", exp: "65%", tier: 8, pvp: 80, eco: 76, comf: 82, p30: 99, p90: 219, pFor: 399,
+        cmds: [{ c: "/kit duke", d: "Броня Герцога" }, { c: "/repair all (кд 2ч) | /feed и /heal (1м 15с)", d: "Починка всех вещей, еда и здоровье" }, { c: "/near 158м", d: "Поиск игроков рядом (кд 50с)" }],
+        other: [["Точек домов", "4 дома"], ["Регионов", "8 блоков привата"], ["Слоты Аукциона", "13"], ["Задержка телепорта", "3 сек"], ["Особенности", "Сохранение 65% опыта"]] },
+      { id: "knyaz", name: "Князь", color: "#FF9E00", prefix: "[Князь]", badge: "Выбор", homes: 5, regs: 9, auc: 15, tp: "2 сек", fly: true, fix: "9 вещей", exp: "75%", tier: 9, pvp: 88, eco: 84, comf: 90, p30: 129, p90: 289, pFor: 499,
+        cmds: [{ c: "/kit knyaz", d: "Элитры и бур 3x3" }, { c: "/jump | /afk | /fly | /speed", d: "Полёт, прыжок и скорость" }, { c: "/fix 9 вещей (3ч) | /near 165м (45с)", d: "Массовая починка и радар" }],
+        other: [["Точек домов", "5 домов"], ["Регионов", "9 блоков привата"], ["Слоты Аукциона", "15"], ["Задержка телепорта", "2 сек"], ["Особенности", "Сохранение 75% опыта"]] },
+      { id: "absolute", name: "Абсолют", color: "#FFE259", prefix: "[Абсолют]", badge: "Хит", homes: 7, regs: 12, auc: 20, tp: "0 сек", fly: true, fix: "18 вещей", exp: "100%", tier: 10, pvp: 94, eco: 92, comf: 96, p30: 169, p90: 379, pFor: 699,
+        cmds: [{ c: "/kit absolute", d: "Топ-сет" }, { c: "/salary 5.000.000$ (5ч) | /exp 25 lvl (2ч)", d: "Крупная зарплата и опыт" }, { c: "/msgtoggle | /paytoggle | /feeds | /heals", d: "Настройки чата и лечение" }, { c: "/fix 18 вещей (3ч 45м) | /near 175м (25с)", d: "Починка 18 вещей и радар" }],
+        other: [["Точек домов", "7 домов"], ["Регионов", "12 блоков привата"], ["Слоты Аукциона", "20"], ["Задержка телепорта", "0 сек"], ["Особенности", "Сохранение 100% опыта при смерти"]] },
+      { id: "god", name: "Бог", color: "#FF0033", prefix: "[Бог]", badge: "Топ", homes: 8, regs: 15, auc: 25, tp: "0 сек", fly: true, fix: "all (1ч)", exp: "100%", tier: 11, pvp: 100, eco: 100, comf: 100, p30: 249, p90: 549, pFor: 999,
+        cmds: [{ c: "Все честные команды сервера!", d: "Полный игровой функционал" }, { c: "/salary 15.000.000$ (3ч) | /exp 50 lvl (1ч)", d: "Максимальная зарплата и опыт" }, { c: "/fix all (кд 1ч) | /near 200м (15с)", d: "Полная починка и максимальный радар" }],
+        other: [["Точек домов", "8 домов"], ["Регионов", "15 блоков привата"], ["Слоты Аукциона", "25"], ["Задержка телепорта", "0 сек"], ["Особенности", "Максимальный статус Анархии"]] },
+      { id: "player", name: "Игрок", color: "#94a3b8", prefix: "[Игрок]", tier: 0, pvp: 15, eco: 15, comf: 15, special: true, priceLabel: "Бесплатно", from: "БЕСПЛАТНО", note: "Базовый статус каждого выживающего",
         cmds: [{ c: "/kit player", d: "Стартовый набор" }, { c: "/salary 50.000$ | /spawn | /home | /tpa", d: "Базовые команды" }],
-        other: [["Точек домов", "1 дом"], ["Регионов", "1 блок привата"], ["Слоты Аукциона", "3"], ["Задержка телепорта", "8 сек"]]
-      },
-      {
-        id: "tiktok", name: "TikTok • Медиа", color: "#00E5FF", prefix: "[TikTok]", tier: 10, pvp: 92, eco: 90, comf: 95,
-        special: true, priceLabel: "За контент", from: "МЕДИА", note: "Выдаётся за съёмку контента (тикеты Discord)",
+        other: [["Точек домов", "1 дом"], ["Регионов", "1 блок привата"], ["Слоты Аукциона", "3"], ["Задержка телепорта", "8 сек"]] },
+      { id: "tiktok", name: "TikTok • Медиа", color: "#00E5FF", prefix: "[TikTok]", tier: 10, pvp: 92, eco: 90, comf: 95, special: true, priceLabel: "За контент", from: "МЕДИА", note: "Выдаётся за съёмку контента (тикеты Discord)",
         cmds: [{ c: "/kit tiktok | /salary 10kk (4.5ч)", d: "Медиа-набор" }, { c: "/exp 50 lvl | /fix 22 вещи | /near 200м", d: "Расширенные возможности" }],
-        other: [["Точек домов", "10 домов"], ["Регионов", "13 блоков привата"], ["Слоты Аукциона", "20"], ["Получение", "Тикеты Discord"]]
-      },
-      {
-        id: "staff", name: "Staff • Модерация", color: "#38bdf8", prefix: "[Staff]", tier: 11, pvp: 95, eco: 95, comf: 100,
-        special: true, priceLabel: "Набор", from: "ПЕРСОНАЛ", note: "Набор в команду открыт в Discord",
+        other: [["Точек домов", "10 домов"], ["Регионов", "13 блоков привата"], ["Слоты Аукциона", "20"], ["Получение", "Тикеты Discord"]] },
+      { id: "staff", name: "Staff • Модерация", color: "#38bdf8", prefix: "[Staff]", tier: 11, pvp: 95, eco: 95, comf: 100, special: true, priceLabel: "Набор", from: "ПЕРСОНАЛ", note: "Набор в команду открыт в Discord",
         cmds: [{ c: "/kit staff | /salary 15kk | /exp 75 lvl", d: "Набор персонала" }, { c: "/spec | /revise | /push | /ban | /mute", d: "Модерация" }],
-        other: [["Должность", "Модерация сервера"], ["Радар", "/near 215м (кд 15с)"]]
-      },
-      {
-        id: "admin", name: "Admin • Владелец", color: "#ef4444", prefix: "[Admin]", tier: 11, pvp: 100, eco: 100, comf: 100,
-        special: true, priceLabel: "xFrizzy", from: "ВЛАДЕЛЕЦ", note: "Статус Создателя закреплён за xFrizzy",
+        other: [["Должность", "Модерация сервера"], ["Радар", "/near 215м (кд 15с)"]] },
+      { id: "admin", name: "Admin • Владелец", color: "#ef4444", prefix: "[Admin]", tier: 11, pvp: 100, eco: 100, comf: 100, special: true, priceLabel: "xFrizzy", from: "ВЛАДЕЛЕЦ", note: "Статус Создателя закреплён за xFrizzy",
         cmds: [{ c: "/kit admin | /salary 30kk | /exp 100 lvl", d: "Права основателя" }, { c: "/near 250м (5с) | Полный доступ", d: "Управление" }],
-        other: [["Создатель сервера", "xFrizzy"], ["Режим", "Cyan Anarchy NewTime"]]
-      }
+        other: [["Создатель сервера", "xFrizzy"], ["Режим", "Cyan Anarchy NewTime"]] }
     ];
 
     const ok = [
-      "TapeMouse", "AutoClanInvest", "AutoTrade", "AutoTransfer", "TopkaAutoDrop",
-      "AutoDrop", "AutoEat", "MacroKeybinds", "PulseVisuals", "TopkaVisuals",
-      "CustomBlockOverlay", "TrajectoryGuard", "ViewModel-Changer", "RainVisuals",
-      "Do a Barrel Roll", "MoonLightClient", "SoupApi (SoupVisuals)", "SoupBetter",
-      "PhantomVisuals", "Mytheria", "KastrixVisuals", "RivalVisuals", "DestraVisuals",
-      "ReallyVisuals", "GammaUtils", "Stark Helper", "FlyVisuals", "TheCartel",
-      "FillVisuals", "rct", "PRIME PARTS", "Chunks fade in", "berdinskiybear's armor hud",
-      "AntiGhost", "TopkaTags", "ContainerSearcher", "ItemLocks",
-      "Giselbaer's Durability Viewer", "MiniHUD", "TopkaHealth", "ExitLag", "Abstract",
-      "Custom FOV", "Show Yourself", "Jade", "JJElytraSwap", "InventoryCleaner",
-      "VisualRatio", "AxolotlClient", "ItemScroller", "NoHurtCam", "LavaClearWater",
-      "BetterHitReg", "ZakoHealthIndicator", "Pearl Trajectory", "wWaypoints",
+      "TapeMouse", "AutoClanInvest", "AutoTrade", "AutoTransfer", "TopkaAutoDrop", "AutoDrop", "AutoEat", "MacroKeybinds",
+      "PulseVisuals", "TopkaVisuals", "CustomBlockOverlay", "TrajectoryGuard", "ViewModel-Changer", "RainVisuals",
+      "Do a Barrel Roll", "MoonLightClient", "SoupApi (SoupVisuals)", "SoupBetter", "PhantomVisuals", "Mytheria",
+      "KastrixVisuals", "RivalVisuals", "DestraVisuals", "ReallyVisuals", "GammaUtils", "Stark Helper", "FlyVisuals",
+      "TheCartel", "FillVisuals", "rct", "PRIME PARTS", "Chunks fade in", "berdinskiybear's armor hud", "AntiGhost",
+      "TopkaTags", "ContainerSearcher", "ItemLocks", "Giselbaer's Durability Viewer", "MiniHUD", "TopkaHealth", "ExitLag",
+      "Abstract", "Custom FOV", "Show Yourself", "Jade", "JJElytraSwap", "InventoryCleaner", "VisualRatio", "AxolotlClient",
+      "ItemScroller", "NoHurtCam", "LavaClearWater", "BetterHitReg", "ZakoHealthIndicator", "Pearl Trajectory", "wWaypoints",
       "Feather Client", "Opponent Armor Indicator", "ZakoOpt", "Recorder Ingame", "Streake"
     ];
 
     const no = [
-      "ReplayMod", "IsometricRender", "CmdCam", "WorldDownloader", "Flashback",
-      "AutoMining", "ReplantingCrops", "AutoHarvest", "Reap", "Tweakeroo", "AutoFish",
-      "Accurate Block Placement", "Baritone", "Player Spotlight", "AucHelper",
-      "ChestTracker", "Friend Highlighter", "Donut Auctions", "XRay", "DiamondGen",
-      "FreeCam", "BaseFinder", "TrueSight", "МиниКарты (Исключения для карт от Lunar Client)",
-      "Neat", "ChunkAnimator", "MobHealthBar", "Litematica\\Schematica",
-      "block-entity-tooltip", "WorldEdit", "Better PVP", "RemoveBlindness (и его аналоги)",
-      "Re:Entity Outline", "AntiInvis", "Cooldowns HUD (UseTracker)", "CheatUtils",
-      "No Darkness Effect (removewardeneffect)", "InventoryControlTweaks", "AutoLeave",
-      "Foodslot", "Quickstack", "ItemSwap", "AutoTool", "Movement in GUI",
-      "FasterBlockPlacement", "Firework Helper", "Effortless Building", "InvMove",
-      "Inventory Profiles Next", "autojumpreset", "Dont Heat Teammates",
-      "Don't hit teammates", "CleanCut", "AutoAttack", "AutoAim", "FeverVisuals",
-      "LuminarVisuals", "Ascart", "Badlion Client",
-      "Эмуляторы/лаунчеры для мобильных устройств (Pojav, FCL и т.п.)",
-      "SimpleVisuals", "SoupApi (Версии ниже 3.0.0)", "WaveVisuals", "ClientCommands",
-      "Взломанные версии мультимодификаций", "Самостоятельно модифицированные мультимодификации"
+      "ReplayMod", "IsometricRender", "CmdCam", "WorldDownloader", "Flashback", "AutoMining", "ReplantingCrops",
+      "AutoHarvest", "Reap", "Tweakeroo", "AutoFish", "Accurate Block Placement", "Baritone", "Player Spotlight",
+      "AucHelper", "ChestTracker", "Friend Highlighter", "Donut Auctions", "XRay", "DiamondGen", "FreeCam", "BaseFinder",
+      "TrueSight", "МиниКарты (Исключения для карт от Lunar Client)", "Neat", "ChunkAnimator", "MobHealthBar",
+      "Litematica\\Schematica", "block-entity-tooltip", "WorldEdit", "Better PVP", "RemoveBlindness (и его аналоги)",
+      "Re:Entity Outline", "AntiInvis", "Cooldowns HUD (UseTracker)", "CheatUtils", "No Darkness Effect (removewardeneffect)",
+      "InventoryControlTweaks", "AutoLeave", "Foodslot", "Quickstack", "ItemSwap", "AutoTool", "Movement in GUI",
+      "FasterBlockPlacement", "Firework Helper", "Effortless Building", "InvMove", "Inventory Profiles Next",
+      "autojumpreset", "Dont Heat Teammates", "Don't hit teammates", "CleanCut", "AutoAttack", "AutoAim",
+      "FeverVisuals", "LuminarVisuals", "Ascart", "Badlion Client", "Эмуляторы/лаунчеры для мобильных устройств (Pojav, FCL и т.п.)",
+      "SimpleVisuals", "SoupApi (Версии ниже 3.0.0)", "WaveVisuals", "ClientCommands", "Взломанные версии мультимодификаций",
+      "Самостоятельно модифицированные мультимодификации"
     ];
 
-    const defaultSettings = {
-      theme: "cyan",
-      bgMode: "aurora",
-      glow: "norm",
-      anim: "high",
-      fontSize: "14px",
-      blur: true,
-      scanlines: true
-    };
+    const defaultSettings = { theme: "cyan", bgMode: "aurora", glow: "norm", anim: "high", fontSize: "14px", blur: true, scanlines: true, sfx: true };
     let siteSettings = Object.assign({}, defaultSettings, JSON.parse(localStorage.getItem("nt_settings") || "{}"));
 
     let selectedId = "baron";
@@ -1596,6 +1542,58 @@
     let isSpinning = false;
     let recentViewed = JSON.parse(localStorage.getItem("nt_recent") || "[]");
     let favRules = JSON.parse(localStorage.getItem("nt_fav_rules") || "[]");
+    let wishlist = JSON.parse(localStorage.getItem("nt_wishlist") || "[]");
+
+    // ---------- ЗВУКОВОЙ ДВИЖОК (WEB AUDIO API) ----------
+    let audioCtx = null;
+    function playSfx(kind = "click") {
+      if (!siteSettings.sfx) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (kind === "pop") {
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(420, now);
+          osc.frequency.exponentialRampToValueAtTime(760, now + 0.06);
+          gain.gain.setValueAtTime(0.05, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+          osc.start(now); osc.stop(now + 0.075);
+        } else if (kind === "win") {
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(523, now);
+          osc.frequency.setValueAtTime(659, now + 0.08);
+          osc.frequency.setValueAtTime(784, now + 0.16);
+          gain.gain.setValueAtTime(0.06, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.32);
+          osc.start(now); osc.stop(now + 0.33);
+        } else if (kind === "err") {
+          osc.type = "sawtooth";
+          osc.frequency.setValueAtTime(220, now);
+          osc.frequency.linearRampToValueAtTime(140, now + 0.12);
+          gain.gain.setValueAtTime(0.04, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.13);
+          osc.start(now); osc.stop(now + 0.14);
+        } else {
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(580, now);
+          osc.frequency.exponentialRampToValueAtTime(460, now + 0.04);
+          gain.gain.setValueAtTime(0.04, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
+          osc.start(now); osc.stop(now + 0.05);
+        }
+      } catch {}
+    }
+
+    function toggleSfx() {
+      applySetting("sfx", !siteSettings.sfx);
+      if (siteSettings.sfx) playSfx("pop");
+    }
 
     // ---------- НАСТРОЙКИ САЙТА ----------
     function applyAllSettings() {
@@ -1608,6 +1606,10 @@
       document.body.classList.toggle("no-scanlines", !siteSettings.scanlines);
       document.documentElement.style.setProperty("--base-fs", siteSettings.fontSize);
 
+      const sfxBtn = document.getElementById("sfxBtn");
+      sfxBtn.textContent = siteSettings.sfx ? "🔊 Звук" : "🔇 Звук";
+      sfxBtn.classList.toggle("muted", !siteSettings.sfx);
+
       const markPills = (id, val) => {
         document.querySelectorAll(`#${id} .set-pill`).forEach(p => p.classList.toggle("act", p.dataset.val === val));
       };
@@ -1616,6 +1618,7 @@
       markPills("setGlowPills", siteSettings.glow);
       markPills("setAnimPills", siteSettings.anim);
       markPills("setFontPills", siteSettings.fontSize);
+      document.getElementById("chkSfx").checked = siteSettings.sfx;
       document.getElementById("chkBlur").checked = siteSettings.blur;
       document.getElementById("chkScan").checked = siteSettings.scanlines;
     }
@@ -1625,6 +1628,7 @@
       localStorage.setItem("nt_settings", JSON.stringify(siteSettings));
       applyAllSettings();
       if (key === "bgMode") initBgEngine();
+      playSfx("pop");
       showToast("Настройки применены");
     }
 
@@ -1636,8 +1640,158 @@
       showToast("Настройки сброшены");
     }
 
-    function openSettings() { document.getElementById("settingsBg").classList.add("open"); }
+    function openSettings() { playSfx("pop"); document.getElementById("settingsBg").classList.add("open"); }
     function closeSettings() { document.getElementById("settingsBg").classList.remove("open"); }
+
+    // ---------- АККАУНТЫ И ЖУРНАЛ ЛОГИНОВ ----------
+    let authMode = "reg";
+    function getUsers() { return JSON.parse(localStorage.getItem("nt_users") || "[]"); }
+    function getCurrentUser() { return JSON.parse(localStorage.getItem("nt_session") || "null"); }
+
+    async function hashPass(str) {
+      try {
+        const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+        return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+      } catch {
+        return btoa(unescape(encodeURIComponent(str)));
+      }
+    }
+
+    function openAccountModal() {
+      playSfx("pop");
+      const user = getCurrentUser();
+      switchAccTab(user ? "profile" : "auth");
+      renderAccountUI();
+      document.getElementById("accBg").classList.add("open");
+    }
+    function closeAccountModal() { document.getElementById("accBg").classList.remove("open"); }
+
+    function switchAccTab(tab) {
+      playSfx("click");
+      document.getElementById("accPaneProfile").style.display = tab === "profile" ? "block" : "none";
+      document.getElementById("accPaneAuth").style.display = tab === "auth" ? "block" : "none";
+      document.getElementById("accPaneLog").style.display = tab === "log" ? "block" : "none";
+      document.getElementById("accTabProfile").classList.toggle("act", tab === "profile");
+      document.getElementById("accTabAuth").classList.toggle("act", tab === "auth");
+      document.getElementById("accTabLog").classList.toggle("act", tab === "log");
+      renderAccountUI();
+    }
+
+    function setAuthMode(m) {
+      authMode = m;
+      document.getElementById("authModeReg").classList.toggle("act", m === "reg");
+      document.getElementById("authModeLog").classList.toggle("act", m === "log");
+      document.getElementById("authNickWrap").style.display = m === "reg" ? "block" : "none";
+      document.getElementById("authSubmitBtn").textContent = m === "reg" ? "СОЗДАТЬ АККАУНТ" : "ВОЙТИ В АККАУНТ";
+    }
+
+    async function submitAuth() {
+      const login = document.getElementById("authLogin").value.trim();
+      const mcNick = document.getElementById("authMcNick").value.trim();
+      const pass = document.getElementById("authPass").value;
+      if (!/^[a-zA-Z0-9_]{3,20}$/.test(login)) { playSfx("err"); return showToast("Логин: 3–20 латинских букв, цифр или _"); }
+      if (pass.length < 4) { playSfx("err"); return showToast("Пароль должен быть от 4 символов"); }
+
+      const users = getUsers();
+      const passHash = await hashPass(pass);
+
+      if (authMode === "reg") {
+        if (!/^[a-zA-Z0-9_]{3,16}$/.test(mcNick)) { playSfx("err"); return showToast("Укажите корректный ник Minecraft"); }
+        if (users.some(u => u.login.toLowerCase() === login.toLowerCase())) { playSfx("err"); return showToast("Этот логин уже занят!"); }
+
+        const newUser = {
+          login, mcNick, passHash,
+          createdAt: new Date().toLocaleString("ru-RU"),
+          synced: false
+        };
+
+        if (isWorkerReady()) {
+          try {
+            const res = await fetch(`${WORKER_URL}/api/register`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ login, mcNick, createdAt: newUser.createdAt })
+            });
+            if (res.ok) newUser.synced = true;
+          } catch {}
+        }
+
+        users.unshift(newUser);
+        localStorage.setItem("nt_users", JSON.stringify(users));
+        localStorage.setItem("nt_session", JSON.stringify({ login, mcNick }));
+        localStorage.setItem("nt_nick", mcNick);
+        document.getElementById("liveNickInp").value = mcNick;
+        renderDetails();
+        playSfx("win");
+        showToast(`Аккаунт ${login} создан!`);
+        switchAccTab("profile");
+      } else {
+        const found = users.find(u => u.login.toLowerCase() === login.toLowerCase() && u.passHash === passHash);
+        if (!found) { playSfx("err"); return showToast("Неверный логин или пароль"); }
+        localStorage.setItem("nt_session", JSON.stringify({ login: found.login, mcNick: found.mcNick }));
+        localStorage.setItem("nt_nick", found.mcNick);
+        document.getElementById("liveNickInp").value = found.mcNick;
+        renderDetails();
+        playSfx("win");
+        showToast(`С возвращением, ${found.login}!`);
+        switchAccTab("profile");
+      }
+    }
+
+    function logoutAccount() {
+      localStorage.removeItem("nt_session");
+      playSfx("click");
+      renderAccountUI();
+      showToast("Вы вышли из аккаунта");
+    }
+
+    function renderAccountUI() {
+      const cur = getCurrentUser();
+      const navBtn = document.getElementById("accNavBtn");
+      navBtn.textContent = cur ? `👤 ${cur.login}` : "👤 Аккаунт";
+
+      const box = document.getElementById("accLoggedBox");
+      if (!cur) {
+        box.innerHTML = `
+          <div style="text-align:center;padding:18px 8px;color:var(--mut);">
+            <div style="margin-bottom:12px;">Вы ещё не вошли в аккаунт на сайте.</div>
+            <button class="buy-btn" onclick="switchAccTab('auth')">Войти или создать</button>
+          </div>
+        `;
+      } else {
+        const wishNames = wishlist.map(id => {
+          const r = ranks.find(x => x.id === id);
+          return r ? `<span class="recent-pill" style="color:${r.color}" onclick="closeAccountModal();jumpToRank('${r.id}')">${r.name}</span>` : "";
+        }).join("");
+        box.innerHTML = `
+          <div class="acc-profile-card">
+            <img class="acc-avatar" src="https://mc-heads.net/avatar/${encodeURIComponent(cur.mcNick)}/64" onerror="this.style.display='none'" alt="">
+            <div style="flex:1;">
+              <div style="font-weight:900;font-size:17px;color:#fff;">${cur.login}</div>
+              <div style="font-family:var(--mono);font-size:12px;color:var(--cyan);">MC Ник: ${cur.mcNick}</div>
+            </div>
+            <button class="p-btn" onclick="logoutAccount()">Выйти</button>
+          </div>
+          <div style="font-size:12px;color:var(--mut);margin-bottom:8px;">❤️ Избранные привилегии (${wishlist.length}):</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;">${wishNames || '<span style="color:var(--mut);font-size:12px;">Пока пусто</span>'}</div>
+        `;
+      }
+
+      const users = getUsers();
+      const logList = document.getElementById("accLogList");
+      logList.innerHTML = users.length
+        ? users.map(u => `
+          <div class="acc-log-item">
+            <div>
+              <strong style="color:#fff;">${u.login}</strong>
+              <span style="color:var(--cyan);font-family:var(--mono);margin-left:6px;">(${u.mcNick})</span>
+              <div style="color:var(--mut);font-size:11px;">${u.createdAt}</div>
+            </div>
+            <span class="sec-tag" style="--sec-clr:${u.synced ? '#10b981' : '#f59e0b'}">${u.synced ? "SERVER" : "LOCAL"}</span>
+          </div>
+        `).join("")
+        : `<div style="text-align:center;color:var(--mut);padding:16px;">Зарегистрированных логинов пока нет.</div>`;
+    }
 
     // ---------- ВОЛНА КЛИКА И SPOTLIGHT ----------
     document.addEventListener("click", e => {
@@ -1664,10 +1818,10 @@
 
     // ---------- СМЕНЯЮЩИЙСЯ СЛОГАН ----------
     const slogans = [
-      "Анархия нового поколения: интеллектуальный баланс, авто-выдача и защита",
+      "Анархия нового поколения 1.21.4+: сбалансированные привилегии и честный PvP",
       "Мгновенная авто-выдача доната через CryptoBot и Telegram Stars 24/7",
       "Прозрачные правила, проверка ПО по стандарту и защита от читеров",
-      "Присоединяйся прямо сейчас: newtime.mcsh.gg • Версии 1.16.5 – 1.21+"
+      "Заходи на 1.21.4+: IP newtime.mcsh.gg • Свой аккаунт и гибкие настройки"
     ];
     let sloganIdx = 0;
     setInterval(() => {
@@ -1681,7 +1835,7 @@
       }, 340);
     }, 4200);
 
-    // ---------- ЦЕНА И ИКОНКИ ----------
+    // ---------- ЦЕНА, ЖЕЛАЕМОЕ И ИКОНКИ ----------
     function chestplateSVG(color, size = 24) {
       return `<svg class="rank-icon" style="width:${size}px;height:${size}px" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M2 2h4v2h4V2h4v5h-2v7H4V7H2V2z" fill="${color}" stroke="#070a0f" stroke-width="1"/><rect x="4" y="3" width="2" height="4" fill="#fff" fill-opacity="0.26"/><rect x="6" y="5" width="4" height="8" fill="#000" fill-opacity="0.18"/></svg>`;
     }
@@ -1702,8 +1856,18 @@
       requestAnimationFrame(step);
     }
 
+    function toggleWishlist() {
+      playSfx("pop");
+      if (wishlist.includes(selectedId)) wishlist = wishlist.filter(x => x !== selectedId);
+      else wishlist.push(selectedId);
+      localStorage.setItem("nt_wishlist", JSON.stringify(wishlist));
+      renderDetails();
+      showToast(wishlist.includes(selectedId) ? "Добавлено в желаемое ❤️" : "Убрано из желаемого");
+    }
+
     // ---------- МАГАЗИН ----------
     function setRankFilter(filter, btn) {
+      playSfx("click");
       rankFilter = filter;
       document.querySelectorAll(".rf-btn").forEach(b => b.classList.remove("act"));
       if (btn) btn.classList.add("act");
@@ -1774,7 +1938,8 @@
       document.getElementById("detailIcon").innerHTML = chestplateSVG(r.color, 38);
       document.getElementById("detailRankTitle").textContent = r.name;
       document.getElementById("detailRankTitle").style.color = r.color;
-      document.getElementById("detailTierSub").textContent = r.special ? r.note : `Привилегия Cyan Anarchy • Уровень ${r.tier}/11`;
+      document.getElementById("detailTierSub").textContent = r.special ? r.note : `Привилегия Cyan Anarchy 1.21.4+ • Уровень ${r.tier}/11`;
+      document.getElementById("wishBtn").textContent = wishlist.includes(r.id) ? "❤️" : "🤍";
 
       const savedNick = localStorage.getItem("nt_nick") || "ВашНик";
       document.getElementById("chatPreview").innerHTML =
@@ -1784,7 +1949,7 @@
         `<span class="mc-ping"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:11px"></i></span>`;
 
       const bossPct = Math.max(12, Math.round((r.tier / 11) * 100));
-      document.getElementById("bossbarTxt").innerHTML = `<span style="color:${r.color}">${r.prefix} ${savedNick}</span> • NEWTIME CYAN ANARCHY`;
+      document.getElementById("bossbarTxt").innerHTML = `<span style="color:${r.color}">${r.prefix} ${savedNick}</span> • NEWTIME 1.21.4+`;
       const bFill = document.getElementById("bossbarFill");
       bFill.style.width = bossPct + "%";
       bFill.style.background = `linear-gradient(90deg, ${r.color}, var(--cyan))`;
@@ -1820,9 +1985,7 @@
           nextBtn.style.display = "inline-flex";
           nextBtn.textContent = `⬆ ${nextR.name} (+${diff} ₽)`;
           nextBtn.dataset.next = nextR.id;
-        } else {
-          nextBtn.style.display = "none";
-        }
+        } else nextBtn.style.display = "none";
         buyBtn.textContent = "ПРИОБРЕСТИ";
       }
 
@@ -1832,20 +1995,15 @@
         r.other.map(o => `<li><span>${o[0]}</span><strong>${o[1]}</strong></li>`).join("");
     }
 
-    function jumpNextRank() {
-      const nextId = document.getElementById("nextTierBtn").dataset.next;
-      if (nextId) selectRank(nextId);
-    }
+    function jumpNextRank() { const nextId = document.getElementById("nextTierBtn").dataset.next; if (nextId) selectRank(nextId); }
 
     function initDuelSelects() {
       const paid = ranks.filter(r => !r.special);
       const opts = paid.map(r => `<option value="${r.id}">${r.name} (от ${r.p30} ₽)</option>`).join("");
       const a = document.getElementById("duelA");
       const b = document.getElementById("duelB");
-      a.innerHTML = opts;
-      b.innerHTML = opts;
-      a.value = "knight";
-      b.value = "knyaz";
+      a.innerHTML = opts; b.innerHTML = opts;
+      a.value = "knight"; b.value = "knyaz";
       renderDuel();
     }
 
@@ -1867,11 +2025,7 @@
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
             ${chestplateSVG(r.color, 26)}<strong style="font-size:18px;color:${r.color}">${r.name}</strong>
           </div>
-          ${metrics.map(m => {
-            const val = side === "a" ? m[1] : m[2];
-            const win = m[3] === side ? "duel-win" : "";
-            return `<div class="duel-row"><span style="color:var(--mut)">${m[0]}</span><span class="${win}">${val}</span></div>`;
-          }).join("")}
+          ${metrics.map(m => `<div class="duel-row"><span style="color:var(--mut)">${m[0]}</span><span class="${m[3] === side ? "duel-win" : ""}">${side === "a" ? m[1] : m[2]}</span></div>`).join("")}
         </div>`;
       }
       document.getElementById("duelGrid").innerHTML = buildCard(a, "a") + buildCard(b, "b");
@@ -1942,6 +2096,7 @@
     function spinRoulette() {
       if (isSpinning) return;
       isSpinning = true;
+      playSfx("pop");
       const btn = document.getElementById("spinBtn");
       const dropBox = document.getElementById("rouletteDrop");
       dropBox.classList.remove("show");
@@ -1969,6 +2124,7 @@
       });
 
       setTimeout(() => {
+        playSfx("win");
         dropBox.innerHTML = `
           <div style="font-size:12px;color:var(--cyan);font-weight:800;text-transform:uppercase;">🎉 Тестовый дроп:</div>
           <div style="font-size:20px;font-weight:900;color:${winRank.color};margin:4px 0;">${winRank.name}</div>
@@ -1983,15 +2139,17 @@
     }
 
     function switchShopTab(tabId, btn) {
+      playSfx("click");
       document.querySelectorAll(".subview").forEach(v => v.classList.remove("act"));
       document.getElementById("shop-" + tabId).classList.add("act");
       document.querySelectorAll(".subtab-btn").forEach(b => b.classList.remove("act"));
       if (btn) btn.classList.add("act");
     }
-    function selectRank(id) { selectedId = id; pushRecent(id); renderList(); renderDetails(); }
-    function selectTerm(term) { selectedTerm = term; document.querySelectorAll(".term-btn").forEach(b => b.classList.toggle("act", b.dataset.term === term)); renderDetails(); }
+    function selectRank(id) { playSfx("click"); selectedId = id; pushRecent(id); renderList(); renderDetails(); }
+    function selectTerm(term) { playSfx("click"); selectedTerm = term; document.querySelectorAll(".term-btn").forEach(b => b.classList.toggle("act", b.dataset.term === term)); renderDetails(); }
     function jumpToRank(id) { selectedId = id; pushRecent(id); renderList(); renderDetails(); switchView("shop"); }
     function switchView(view) {
+      playSfx("click");
       document.querySelectorAll(".view").forEach(v => v.classList.remove("act"));
       document.getElementById("view-" + view).classList.add("act");
       document.querySelectorAll(".nav-btn").forEach(b => b.classList.toggle("act", b.dataset.view === view));
@@ -2016,6 +2174,7 @@
     function getNick() {
       const nick = document.getElementById("mNick").value.trim();
       if (!/^[a-zA-Z0-9_]{3,16}$/.test(nick)) {
+        playSfx("err");
         showToast("Введите корректный ник (3–16 латинских букв, цифр или _)");
         document.getElementById("mNick").focus();
         return null;
@@ -2026,6 +2185,7 @@
       return nick;
     }
     function openBuyModal() {
+      playSfx("pop");
       const r = ranks.find(x => x.id === selectedId);
       if (!r) return;
       if (r.special) { r.id === "player" ? copyIP() : showToast(r.note); return; }
@@ -2049,7 +2209,7 @@
     async function payCrypto() {
       const nick = getNick();
       if (!nick) return;
-      if (!isWorkerReady()) return showToast("Подключите WORKER_URL в коде сайта для авто-счёта CryptoBot!");
+      if (!isWorkerReady()) { playSfx("err"); return showToast("Подключите WORKER_URL в коде сайта для авто-счёта CryptoBot!"); }
       showToast("Создаём счёт в CryptoBot...");
       try {
         const res = await fetch(`${WORKER_URL}/api/order`, {
@@ -2068,6 +2228,7 @@
       closeModal();
     }
     async function toggleSbp() {
+      playSfx("click");
       const box = document.getElementById("sbpBox");
       box.classList.toggle("open");
       if (!box.classList.contains("open")) return;
@@ -2097,13 +2258,18 @@
           body: JSON.stringify({ nick, rank: selectedId, term: selectedTerm })
         });
         const data = await res.json();
-        if (data.ok) { showToast("Заявка отправлена! Донат выдастся после подтверждения."); closeModal(); }
+        if (data.ok) { playSfx("win"); showToast("Заявка отправлена! Донат выдастся после подтверждения."); closeModal(); }
         else showToast(data.error || "Ошибка отправки");
       } catch { showToast("Ошибка соединения с сервером"); }
     }
 
     // ---------- ПРАВИЛА, ИЗБРАННОЕ, МОДЫ И FAQ ----------
+    function toggleRuleSec(hdr) {
+      playSfx("click");
+      hdr.closest(".rule-sec").classList.toggle("collapsed");
+    }
     function copyRule(btn) {
+      playSfx("pop");
       const row = btn.closest(".rule-row");
       const badge = row.querySelector(".r-badge").textContent;
       const text = row.querySelector(".r-text").innerText.trim();
@@ -2111,6 +2277,7 @@
       showToast(`Скопирован пункт ${badge}`);
     }
     function toggleFavRule(btn) {
+      playSfx("pop");
       const row = btn.closest(".rule-row");
       const code = row.querySelector(".r-badge").textContent;
       const text = row.querySelector(".r-text").innerText.trim();
@@ -2138,10 +2305,11 @@
       `).join("");
     }
     function updateReadyBar() {
+      playSfx("click");
       const checks = document.querySelectorAll(".ready-chk input");
       const done = [...checks].filter(c => c.checked).length;
       document.getElementById("readyFill").style.width = (done / checks.length * 100) + "%";
-      if (done === checks.length) showToast("Отлично! Вы готовы к игре на Cyan Anarchy!");
+      if (done === checks.length) { playSfx("win"); showToast("Отлично! Вы готовы к игре на Cyan Anarchy 1.21.4+!"); }
     }
 
     function renderMods() {
@@ -2155,16 +2323,18 @@
       onSearch();
     }
     function toggleModSort() {
+      playSfx("click");
       modsSorted = !modsSorted;
       document.getElementById("sortModsBtn").textContent = modsSorted ? "🔁 Исходный порядок" : "🔤 Сортировать А–Я";
       renderMods();
     }
     function copyAllMods(type) {
+      playSfx("pop");
       const list = type === "ok" ? ok : no;
       if (navigator.clipboard) navigator.clipboard.writeText(list.join(", "));
       showToast(`Скопирован список (${list.length} модов)`);
     }
-    function quickCheckMod(name) { document.getElementById("modCheckerInp").value = name; checkModName(); }
+    function quickCheckMod(name) { playSfx("click"); document.getElementById("modCheckerInp").value = name; checkModName(); }
     function checkModName() {
       const val = document.getElementById("modCheckerInp").value.trim().toLowerCase().replace(/\.jar$/i, "");
       const resBox = document.getElementById("modCheckerRes");
@@ -2176,13 +2346,14 @@
       else { resBox.className = "mod-chk-result warn"; resBox.textContent = "⚠️ Нет в списке 4.4 — уточните у Staff!"; }
     }
     function filterModGroup(grp, btn) {
+      playSfx("click");
       document.querySelectorAll(".mf-btn").forEach(b => b.classList.remove("act"));
       btn.classList.add("act");
       document.getElementById("okBox").style.display = grp === "no" ? "none" : "block";
       document.getElementById("noBox").style.display = grp === "ok" ? "none" : "block";
       document.getElementById("modsGrid").style.gridTemplateColumns = grp === "all" ? "" : "1fr";
     }
-    function toggleFaq(btn) { btn.closest(".faq-item").classList.toggle("open"); }
+    function toggleFaq(btn) { playSfx("click"); btn.closest(".faq-item").classList.toggle("open"); }
 
     // ---------- ПОИСК ----------
     function setBadge(id, count, active) {
@@ -2234,8 +2405,8 @@
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
     }
-    function copyIP() { if (navigator.clipboard) navigator.clipboard.writeText("newtime.mcsh.gg"); showToast("IP newtime.mcsh.gg скопирован!"); }
-    function copyMod(name) { if (navigator.clipboard) navigator.clipboard.writeText(name); showToast(`Скопировано: ${name}`); }
+    function copyIP() { playSfx("pop"); if (navigator.clipboard) navigator.clipboard.writeText("newtime.mcsh.gg"); showToast("IP newtime.mcsh.gg скопирован!"); }
+    function copyMod(name) { playSfx("pop"); if (navigator.clipboard) navigator.clipboard.writeText(name); showToast(`Скопировано: ${name}`); }
 
     async function fetchServerStatus() {
       const txt = document.getElementById("onlineText");
@@ -2246,11 +2417,11 @@
           const online = data.players ? data.players.online : 0;
           const max = data.players ? data.players.max : 100;
           txt.textContent = `Онлайн: ${online}/${max}`;
-        } else txt.textContent = "Онлайн • Java";
-      } catch { txt.textContent = "Онлайн • Java"; }
+        } else txt.textContent = "Онлайн • 1.21.4+";
+      } catch { txt.textContent = "Онлайн • 1.21.4+"; }
     }
 
-    // ---------- МНОГОРЕЖИМНЫЙ ФОНОВЫЙ ДВИЖОК (AURORA / MATRIX / WARP) ----------
+    // ---------- 5-РЕЖИМНЫЙ ФОНОВЫЙ ДВИЖОК ----------
     let bgRaf = null;
     function initBgEngine() {
       if (bgRaf) cancelAnimationFrame(bgRaf);
@@ -2259,14 +2430,14 @@
       let w = canvas.width = window.innerWidth;
       let h = canvas.height = window.innerHeight;
       const mode = siteSettings.bgMode;
-
       if (mode === "none") { ctx.clearRect(0, 0, w, h); return; }
 
       let t = 0;
       const cols = Math.floor(w / 18);
       const drops = Array(cols).fill(1);
       const stars = Array.from({ length: 90 }, () => ({ x: (Math.random() - 0.5) * w, y: (Math.random() - 0.5) * h, z: Math.random() * w }));
-      const nodes = Array.from({ length: 28 }, () => ({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 2.2 + 1, s: Math.random() * 0.4 + 0.15 }));
+      const nodes = Array.from({ length: 30 }, () => ({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 2.2 + 1, s: Math.random() * 0.45 + 0.15 }));
+      const embers = Array.from({ length: 45 }, () => ({ x: Math.random() * w, y: Math.random() * h, vy: Math.random() * 1.1 + 0.4, vx: (Math.random() - 0.5) * 0.5, s: Math.random() * 3 + 1.5 }));
 
       function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
       window.onresize = resize;
@@ -2283,7 +2454,7 @@
               ctx.beginPath();
               ctx.lineWidth = 1.6;
               ctx.strokeStyle = wave % 2 === 0 ? accent : blue;
-              ctx.globalAlpha = 0.18 - wave * 0.03;
+              ctx.globalAlpha = 0.19 - wave * 0.03;
               for (let x = 0; x <= w; x += 24) {
                 const y = h * (0.35 + wave * 0.18) + Math.sin(x * 0.004 + t + wave * 1.4) * 55 + Math.cos(x * 0.002 - t * 0.7) * 35;
                 if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
@@ -2294,7 +2465,7 @@
             nodes.forEach(n => {
               n.y -= n.s;
               if (n.y < -10) { n.y = h + 10; n.x = Math.random() * w; }
-              ctx.globalAlpha = 0.25;
+              ctx.globalAlpha = 0.28;
               ctx.beginPath();
               ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
               ctx.fill();
@@ -2307,8 +2478,7 @@
             ctx.font = "13px JetBrains Mono, monospace";
             ctx.globalAlpha = 0.38;
             for (let i = 0; i < drops.length; i++) {
-              const ch = Math.random() > 0.5 ? "1" : "0";
-              ctx.fillText(ch, i * 18, drops[i] * 18);
+              ctx.fillText(Math.random() > 0.5 ? "1" : "0", i * 18, drops[i] * 18);
               if (drops[i] * 18 > h && Math.random() > 0.975) drops[i] = 0;
               drops[i]++;
             }
@@ -2325,6 +2495,40 @@
               const r = Math.max(0.6, (1 - s.z / w) * 3.2);
               ctx.globalAlpha = Math.min(0.8, 1 - s.z / w);
               ctx.fillRect(sx, sy, r, r);
+            });
+          } else if (mode === "hex") {
+            ctx.clearRect(0, 0, w, h);
+            t += 0.02;
+            const size = 46;
+            const dx = size * 1.5;
+            const dy = size * Math.sqrt(3);
+            ctx.strokeStyle = accent;
+            ctx.lineWidth = 1;
+            for (let x = 0; x < w + dx; x += dx) {
+              for (let y = 0; y < h + dy; y += dy) {
+                const offsetY = (Math.round(x / dx) % 2) * (dy / 2);
+                const pulse = 0.05 + 0.09 * Math.sin(t + (x + y) * 0.01);
+                ctx.globalAlpha = Math.max(0.02, pulse);
+                ctx.beginPath();
+                for (let k = 0; k < 6; k++) {
+                  const ang = (Math.PI / 3) * k;
+                  const px = x + (size * 0.55) * Math.cos(ang);
+                  const py = y + offsetY + (size * 0.55) * Math.sin(ang);
+                  if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+                }
+                ctx.closePath();
+                ctx.stroke();
+              }
+            }
+          } else if (mode === "embers") {
+            ctx.clearRect(0, 0, w, h);
+            ctx.fillStyle = accent;
+            embers.forEach(p => {
+              p.y -= p.vy;
+              p.x += p.vx;
+              if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; }
+              ctx.globalAlpha = 0.38;
+              ctx.fillRect(p.x, p.y, p.s, p.s);
             });
           }
         }
@@ -2347,7 +2551,7 @@
     });
 
     document.addEventListener("keydown", e => {
-      if (e.key === "Escape") { closeModal(); closeSettings(); }
+      if (e.key === "Escape") { closeModal(); closeSettings(); closeAccountModal(); }
       if (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "SELECT") return;
       if (e.key === "/") { e.preventDefault(); document.getElementById("globalSearch").focus(); }
       if (e.key === "1") switchView("shop");
@@ -2362,6 +2566,7 @@
 
     applyAllSettings();
     initBgEngine();
+    renderAccountUI();
     renderRecent();
     renderList();
     renderDetails();
