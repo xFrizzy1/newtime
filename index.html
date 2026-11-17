@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NewTime — Флагманский портал | Cyan Anarchy</title>
+  <title>NewTime — Официальный портал | Cyan Anarchy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
@@ -13,9 +13,9 @@
        ========================================================================== */
     :root {
       --bg: #050810;
-      --card: rgba(12, 19, 34, 0.84);
+      --card: rgba(12, 19, 34, 0.86);
       --card-solid: #0c1322;
-      --card-hdr: linear-gradient(180deg, rgba(25, 39, 67, 0.95) 0%, rgba(14, 23, 42, 0.95) 100%);
+      --card-hdr: linear-gradient(180deg, rgba(25, 39, 67, 0.96) 0%, rgba(14, 23, 42, 0.96) 100%);
       --hov: rgba(29, 46, 78, 0.62);
       --brd: rgba(255, 255, 255, 0.08);
       --brd-strong: rgba(255, 255, 255, 0.16);
@@ -33,6 +33,7 @@
       --no: #ef4444;
 
       --rank-accent: #00e5ff;
+      --glow-mult: 1;
       --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
       --radius: 13px;
       --shadow: 0 16px 42px rgba(0, 0, 0, 0.5);
@@ -45,7 +46,6 @@
       --cyan-dim: rgba(255, 59, 107, 0.14);
       --cyan-brd: rgba(255, 59, 107, 0.38);
     }
-
     body[data-theme="emerald"] {
       --blue: #059669;
       --blue-hov: #10b981;
@@ -53,6 +53,14 @@
       --cyan-dim: rgba(52, 211, 153, 0.14);
       --cyan-brd: rgba(52, 211, 153, 0.38);
     }
+    body[data-theme="amethyst"] {
+      --blue: #7c3aed;
+      --blue-hov: #8b5cf6;
+      --cyan: #c084fc;
+      --cyan-dim: rgba(192, 132, 252, 0.14);
+      --cyan-brd: rgba(192, 132, 252, 0.38);
+    }
+    body.low-glow { --glow-mult: 0.25; }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -69,19 +77,18 @@
       overflow-x: hidden;
     }
 
-    #bgCanvas {
-      position: fixed; inset: 0; width: 100%; height: 100%;
-      z-index: -2; pointer-events: none;
-    }
-
+    #bgCanvas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; }
     .scanlines {
       position: fixed; inset: 0; z-index: -1; pointer-events: none;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0) 0px,
-        rgba(255, 255, 255, 0) 3px,
-        rgba(0, 229, 255, 0.015) 4px
-      );
+      background: repeating-linear-gradient(to bottom, transparent 0px, transparent 3px, rgba(0, 229, 255, 0.014) 4px);
+    }
+
+    /* Прогресс-бар прокрутки */
+    .scroll-progress {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0%; z-index: 999;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      box-shadow: 0 0 12px var(--cyan);
+      transition: width 0.08s linear;
     }
 
     ::-webkit-scrollbar { width: 7px; height: 7px; }
@@ -90,10 +97,10 @@
     ::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
 
     /* ==========================================================================
-       2. ПРОМО-СТРОКА И КИБЕР-HERO БАННЕР
+       2. ПРОМО-СТРОКА И HERO БАННЕР
        ========================================================================== */
     .promo-strip {
-      background: linear-gradient(90deg, rgba(30, 120, 255, 0.22), var(--cyan-dim), rgba(30, 120, 255, 0.22));
+      background: linear-gradient(90deg, rgba(30, 120, 255, 0.2), var(--cyan-dim), rgba(30, 120, 255, 0.2));
       border-bottom: 1px solid var(--cyan-brd);
       padding: 6px 16px; font-size: 12px; font-weight: 600; color: #dbeafe;
       display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; text-align: center;
@@ -103,10 +110,7 @@
     .promo-close:hover { color: #fff; }
 
     .hero-banner {
-      position: relative;
-      min-height: 290px;
-      width: 100%;
-      overflow: hidden;
+      position: relative; min-height: 295px; width: 100%; overflow: hidden;
       background:
         radial-gradient(circle at 50% 42%, var(--cyan-dim), transparent 56%),
         radial-gradient(circle at 15% 85%, rgba(30, 120, 255, 0.24), transparent 50%),
@@ -120,23 +124,20 @@
         linear-gradient(rgba(0, 229, 255, 0.065) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 229, 255, 0.065) 1px, transparent 1px);
       background-size: 40px 40px;
-      transform: perspective(500px) rotateX(22deg);
+      transform: perspective(520px) rotateX(24deg);
       transform-origin: top center;
       mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, transparent 92%);
       -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, transparent 92%);
       animation: gridMove 14s linear infinite;
       pointer-events: none;
     }
-    @keyframes gridMove {
-      0% { background-position: 0 0, 0 0; }
-      100% { background-position: 0 40px, 0 0; }
-    }
+    @keyframes gridMove { 0% { background-position: 0 0, 0 0; } 100% { background-position: 0 40px, 0 0; } }
 
     .hero-bg-svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.42; pointer-events: none; }
-    .hero-vignette { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5, 8, 16, 0.15) 0%, rgba(5, 8, 16, 0.96) 100%); pointer-events: none; }
+    .hero-vignette { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5, 8, 16, 0.12) 0%, rgba(5, 8, 16, 0.96) 100%); pointer-events: none; }
 
-    .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: 840px; }
-    .hero-top-badges { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; animation: heroEnter 0.6s ease both; }
+    .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 11px; max-width: 840px; }
+    .hero-top-badges { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; animation: heroEnter 0.55s ease both; }
     .hero-badge {
       font-size: 11px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase;
       color: var(--cyan); background: var(--cyan-dim); border: 1px solid var(--cyan-brd);
@@ -144,18 +145,13 @@
     }
     .hero-badge.ver { color: #cbd5e1; background: rgba(255, 255, 255, 0.06); border-color: var(--brd); box-shadow: none; }
 
-    .hero-logo-row { display: flex; align-items: center; gap: 16px; animation: heroEnter 0.7s ease both; }
+    .hero-logo-row { display: flex; align-items: center; gap: 16px; animation: heroEnter 0.68s ease both; }
     .hero-crown { filter: drop-shadow(0 0 18px var(--cyan-brd)); animation: crownFloat 3.4s ease-in-out infinite; }
     @keyframes crownFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-6px) rotate(-2deg); } }
 
     .hero-title {
-      margin: 0;
-      font-size: clamp(40px, 6.2vw, 62px);
-      font-weight: 900;
-      letter-spacing: 0.09em;
-      color: #fff;
-      text-shadow: 0 0 38px var(--cyan-dim), 0 4px 0 #040914;
-      line-height: 1;
+      margin: 0; font-size: clamp(40px, 6.2vw, 62px); font-weight: 900; letter-spacing: 0.09em;
+      color: #fff; text-shadow: 0 0 38px var(--cyan-dim), 0 4px 0 #040914; line-height: 1;
     }
     .hero-title span {
       background: linear-gradient(110deg, #e0fbff 0%, var(--cyan) 35%, var(--blue) 65%, #e0fbff 100%);
@@ -166,13 +162,14 @@
     }
     @keyframes shimmerText { to { background-position: 220% center; } }
 
-    .hero-desc { margin: 0; color: #b7c5dc; font-size: 13.5px; max-width: 580px; animation: heroEnter 0.8s ease both; }
-    .hero-pills { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 4px; animation: heroEnter 0.9s ease both; }
-
-    @keyframes heroEnter {
-      from { opacity: 0; transform: translateY(12px); }
-      to { opacity: 1; transform: translateY(0); }
+    .hero-ticker {
+      min-height: 24px; color: #b7c5dc; font-size: 13.5px; font-weight: 500;
+      transition: opacity 0.35s ease, transform 0.35s ease;
     }
+    .hero-ticker.fade { opacity: 0; transform: translateY(4px); }
+
+    .hero-pills { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 4px; animation: heroEnter 0.85s ease both; }
+    @keyframes heroEnter { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
     .hero-sub {
       display: inline-flex; align-items: center; gap: 10px;
@@ -193,7 +190,7 @@
     @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } }
 
     /* ==========================================================================
-       3. НАВИГАЦИЯ, ПЕРЕКЛЮЧАТЕЛИ И ПОИСК
+       3. НАВИГАЦИЯ И ПАНЕЛЬ ИНСТРУМЕНТОВ
        ========================================================================== */
     .navbar-wrap {
       position: sticky; top: 0; z-index: 100;
@@ -211,6 +208,7 @@
     }
     .nav-brand span { color: var(--cyan); }
     .nav-btn {
+      position: relative; overflow: hidden;
       display: inline-flex; align-items: center; gap: 7px;
       background: transparent; border: 1px solid transparent; color: #cbd5e1;
       font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
@@ -230,13 +228,13 @@
     .nav-btn.act .nav-count { background: rgba(5, 8, 16, 0.45); color: #fff; border-color: rgba(255, 255, 255, 0.35); }
     .nav-count.show { display: inline-block; }
 
-    .nav-right { display: flex; align-items: center; gap: 9px; }
-    .sfx-btn {
-      background: #070b14; border: 1px solid var(--brd); color: var(--mut);
-      padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 700;
+    .nav-right { display: flex; align-items: center; gap: 8px; }
+    .glow-btn {
+      background: #070b14; border: 1px solid var(--brd); color: var(--cyan);
+      padding: 6px 10px; border-radius: 8px; font-size: 11.5px; font-weight: 700;
       cursor: pointer; transition: 0.16s; white-space: nowrap;
     }
-    .sfx-btn.on { color: var(--cyan); border-color: var(--cyan-brd); background: var(--cyan-dim); }
+    .glow-btn:hover { border-color: var(--cyan); background: var(--cyan-dim); }
     .theme-dots { display: flex; align-items: center; gap: 6px; background: #070b14; padding: 6px 9px; border-radius: 8px; border: 1px solid var(--brd); }
     .t-dot { width: 13px; height: 13px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: 0.15s; }
     .t-dot:hover { transform: scale(1.18); }
@@ -245,14 +243,14 @@
     .search-box { position: relative; display: flex; align-items: center; }
     .nav-search {
       background: #070b14; border: 1px solid var(--brd-strong); color: #fff;
-      padding: 8px 34px 8px 13px; border-radius: 8px; font-size: 12.5px; width: 225px; outline: none; transition: 0.2s;
+      padding: 8px 34px 8px 13px; border-radius: 8px; font-size: 12.5px; width: 220px; outline: none; transition: 0.2s;
     }
-    .nav-search:focus { border-color: var(--cyan); width: 260px; box-shadow: 0 0 0 3px var(--cyan-dim); }
+    .nav-search:focus { border-color: var(--cyan); width: 255px; box-shadow: 0 0 0 3px var(--cyan-dim); }
     .search-clear { position: absolute; right: 8px; background: none; border: none; color: var(--mut); cursor: pointer; font-size: 13px; display: none; }
     .search-clear.show { display: block; }
 
     /* ==========================================================================
-       4. КОНТЕЙНЕР И HUD-КАРТОЧКИ С SPOTLIGHT-СВЕЧЕНИЕМ
+       4. КОНТЕЙНЕР, HUD-КАРТОЧКИ, SPOTLIGHT, 3D TILT И RIPPLE
        ========================================================================== */
     .container { flex: 1; width: 100%; max-width: 1280px; margin: 0 auto; padding: 26px 20px 52px; }
     .view { display: none; }
@@ -264,6 +262,7 @@
     .page-sub { color: var(--mut); font-size: 13px; margin-top: 3px; }
     .page-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
+    .p-btn, .buy-btn { position: relative; overflow: hidden; }
     .p-btn {
       background: rgba(18, 28, 48, 0.88); border: 1px solid var(--brd-strong);
       color: #e2e8f0; padding: 8px 14px; border-radius: 9px; font-size: 12.5px;
@@ -274,6 +273,12 @@
     .p-btn.primary { background: var(--blue); border-color: transparent; color: #fff; box-shadow: 0 4px 16px var(--cyan-dim); }
     .p-btn.primary:hover { background: var(--blue-hov); }
 
+    .ripple-wave {
+      position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.38);
+      transform: scale(0); animation: rippleAnim 0.55s ease-out forwards; pointer-events: none;
+    }
+    @keyframes rippleAnim { to { transform: scale(3.6); opacity: 0; } }
+
     .st-card {
       position: relative;
       background: var(--card);
@@ -283,15 +288,16 @@
       overflow: hidden;
       box-shadow: var(--shadow);
       margin-bottom: 18px;
-      transition: border-color 0.25s ease, transform 0.2s ease;
+      transition: border-color 0.25s ease, transform 0.22s ease;
     }
     .st-card::before {
-      content: "";
-      position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(0, 229, 255, 0.08), transparent 60%);
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(0, 229, 255, calc(0.08 * var(--glow-mult))), transparent 60%);
       opacity: 0; transition: opacity 0.3s;
     }
     .st-card:hover::before { opacity: 1; }
+
+    .tilt-card { transform-style: preserve-3d; will-change: transform; }
 
     .hud-corners::after {
       content: ""; position: absolute; inset: 6px; pointer-events: none;
@@ -304,7 +310,7 @@
         linear-gradient(var(--cyan), var(--cyan)) 0 100% / 1.5px 10px no-repeat,
         linear-gradient(var(--cyan), var(--cyan)) 100% 100% / 10px 1.5px no-repeat,
         linear-gradient(var(--cyan), var(--cyan)) 100% 100% / 1.5px 10px no-repeat;
-      opacity: 0.35;
+      opacity: calc(0.38 * var(--glow-mult));
     }
 
     .st-card-hdr {
@@ -314,7 +320,7 @@
     }
     .st-card-hdr.center { justify-content: center; }
 
-    .subtabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+    .subtabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
     .subtab-btn {
       background: var(--card); border: 1px solid var(--brd); color: var(--mut);
       padding: 9px 16px; border-radius: 9px; font-size: 13px; font-weight: 700;
@@ -326,10 +332,43 @@
     .subview.act { display: block; animation: viewReveal 0.24s ease; }
 
     /* ==========================================================================
-       5. МАГАЗИН: РАНГИ, MINECRAFT KIT GUI, ЧАТ И TAB-ПРЕВЬЮ
+       5. МАГАЗИН: ФИЛЬТРЫ, ИСТОРИЯ, ЖИВОЙ НИК, ПРЕВЬЮ И ШКАЛА МОЩИ
        ========================================================================== */
+    .shop-tools-bar {
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+      margin-bottom: 16px;
+    }
+    .rank-filters { display: flex; gap: 6px; flex-wrap: wrap; }
+    .rf-btn {
+      background: var(--card); border: 1px solid var(--brd); color: var(--mut);
+      padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.15s;
+    }
+    .rf-btn:hover { color: #fff; border-color: var(--brd-strong); }
+    .rf-btn.act { background: var(--blue); border-color: var(--cyan); color: #fff; }
+
+    .nick-live-box {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--card); border: 1px solid var(--brd); padding: 5px 12px; border-radius: 9px;
+    }
+    .nick-live-box span { font-size: 12px; color: var(--mut); font-weight: 600; }
+    .nick-live-inp {
+      background: #060911; border: 1px solid var(--brd-strong); color: var(--cyan);
+      padding: 5px 10px; border-radius: 6px; font-family: var(--mono); font-size: 12.5px; width: 150px; outline: none;
+    }
+    .nick-live-inp:focus { border-color: var(--cyan); }
+
+    .recent-strip {
+      display: none; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; font-size: 12px; color: var(--mut);
+    }
+    .recent-strip.show { display: flex; }
+    .recent-pill {
+      background: var(--card); border: 1px solid var(--brd); color: #e2e8f0;
+      padding: 3px 10px; border-radius: 999px; cursor: pointer; font-weight: 700; transition: 0.14s;
+    }
+    .recent-pill:hover { border-color: var(--cyan); color: var(--cyan); }
+
     .shop-grid { display: grid; grid-template-columns: 375px 1fr; gap: 20px; align-items: stretch; margin-bottom: 22px; }
-    .rank-list { max-height: 600px; overflow-y: auto; padding: 6px 0; }
+    .rank-list { max-height: 580px; overflow-y: auto; padding: 6px 0; }
     .rank-div {
       font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
       color: var(--mut); padding: 12px 18px 5px; display: flex; align-items: center; gap: 8px;
@@ -356,9 +395,9 @@
     .rank-from { font-weight: 800; font-size: 12.5px; color: var(--cyan); white-space: nowrap; font-family: var(--mono); }
 
     .detail-card {
-      display: flex; flex-direction: column; justify-content: space-between; min-height: 620px;
+      display: flex; flex-direction: column; justify-content: space-between; min-height: 615px;
       border-top: 2px solid var(--rank-accent);
-      box-shadow: var(--shadow), 0 0 46px -18px var(--rank-accent);
+      box-shadow: var(--shadow), 0 0 calc(46px * var(--glow-mult)) -16px var(--rank-accent);
     }
     .term-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
     .term-btn {
@@ -380,7 +419,7 @@
     .rank-hero-title h3 { margin: 0; font-size: 24px; font-weight: 900; line-height: 1.1; }
     .rank-tier-sub { font-size: 12px; color: var(--mut); margin-top: 2px; }
 
-    .mc-previews { display: flex; flex-direction: column; gap: 6px; min-width: 260px; }
+    .mc-previews { display: flex; flex-direction: column; gap: 6px; min-width: 265px; }
     .mc-bar {
       background: rgba(5, 8, 14, 0.92); border: 1px solid rgba(255, 255, 255, 0.11);
       border-radius: 8px; padding: 6px 12px; font-family: var(--mono); font-size: 12px;
@@ -390,52 +429,22 @@
     .mc-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--mut); font-family: "Inter", sans-serif; font-weight: 800; margin-right: 4px; }
     .mc-ping { display: inline-flex; align-items: flex-end; gap: 2px; height: 11px; }
     .mc-ping i { display: block; width: 2.5px; background: #10b981; border-radius: 1px; }
+    .mc-bossbar-wrap { margin-bottom: 16px; }
+    .mc-bossbar-txt { font-family: var(--mono); font-size: 11.5px; text-align: center; margin-bottom: 5px; font-weight: 700; }
+    .mc-bossbar-track { height: 7px; border-radius: 999px; background: #070a12; border: 1px solid rgba(255, 255, 255, 0.09); overflow: hidden; }
+    .mc-bossbar-fill { height: 100%; border-radius: 999px; transition: width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
 
-    /* Minecraft Chest GUI */
-    .mc-kit-box {
-      background: #161b26;
-      border: 2px solid #2b354b;
-      box-shadow: inset 0 0 0 2px #0b0e15, 0 8px 20px rgba(0, 0, 0, 0.45);
-      border-radius: 10px;
-      padding: 12px 14px;
-      margin-bottom: 18px;
+    /* Шкалы характеристик */
+    .power-meters {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px;
     }
-    .mc-kit-title {
-      font-family: var(--mono); font-size: 12px; font-weight: 700; color: #cbd5e1;
-      margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;
+    .pm-box {
+      background: rgba(7, 11, 20, 0.72); border: 1px solid var(--brd); border-radius: 9px; padding: 9px 12px;
     }
-    .mc-slots {
-      display: grid; grid-template-columns: repeat(9, minmax(36px, 1fr)); gap: 6px;
-    }
-    .mc-slot {
-      position: relative;
-      aspect-ratio: 1;
-      background: #0d111a;
-      border-top: 2px solid #06080d;
-      border-left: 2px solid #06080d;
-      border-right: 2px solid #293246;
-      border-bottom: 2px solid #293246;
-      border-radius: 4px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: 0.12s;
-    }
-    .mc-slot:hover { background: #1c263b; border-color: var(--cyan); transform: scale(1.07); z-index: 10; }
-    .mc-slot svg { width: 72%; height: 72%; filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.7)); }
-    .mc-cnt {
-      position: absolute; bottom: 1px; right: 3px;
-      font-family: var(--mono); font-size: 10px; font-weight: 800; color: #fff;
-      text-shadow: 1px 1px 0 #000;
-    }
-    .mc-enchant { position: absolute; inset: 2px; border-radius: 2px; background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), transparent); pointer-events: none; }
-    .mc-tip {
-      display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
-      background: rgba(16, 0, 24, 0.96); border: 2px solid #6b21a8; border-radius: 6px;
-      padding: 7px 10px; min-width: 175px; pointer-events: none; z-index: 30;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8); text-align: left;
-    }
-    .mc-slot:hover .mc-tip { display: block; animation: fadeIn 0.1s ease; }
-    .mc-tip-name { font-family: var(--mono); font-size: 12px; font-weight: 800; color: #38bdf8; margin-bottom: 2px; }
-    .mc-tip-lore { font-family: var(--mono); font-size: 10.5px; color: #c084fc; line-height: 1.35; }
+    .pm-top { display: flex; justify-content: space-between; font-size: 11.5px; font-weight: 700; color: var(--mut); margin-bottom: 6px; }
+    .pm-top strong { color: #fff; font-family: var(--mono); }
+    .pm-track { height: 5px; background: #050810; border-radius: 999px; overflow: hidden; }
+    .pm-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--cyan)); border-radius: 999px; transition: width 0.45s ease; }
 
     .d-sec-title {
       color: var(--cyan); font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em;
@@ -445,8 +454,7 @@
     .perm-list li {
       padding: 8px 12px; border-radius: 8px; background: rgba(255, 255, 255, 0.025);
       border: 1px solid rgba(255, 255, 255, 0.045); color: #e2e8f0;
-      display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px;
-      transition: 0.14s;
+      display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px; transition: 0.14s;
     }
     .perm-list li:hover { background: rgba(0, 229, 255, 0.05); border-color: rgba(0, 229, 255, 0.22); }
     .cmd { color: var(--cyan); font-weight: 700; font-family: var(--mono); font-size: 12.5px; }
@@ -463,12 +471,14 @@
       padding: 16px 24px; border-top: 1px solid var(--brd); background: rgba(5, 9, 17, 0.76);
       display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;
     }
+    .price-col { display: flex; flex-direction: column; }
     .price-wrap { display: flex; align-items: baseline; gap: 10px; }
     .price-lbl { color: var(--mut); font-weight: 700; font-size: 13px; }
     .price-val { color: #fff; font-weight: 900; font-size: 28px; font-family: var(--mono); }
-    .foot-actions { display: flex; gap: 9px; flex-wrap: wrap; }
+    .price-per-day { font-size: 11.5px; color: var(--ok); font-weight: 700; font-family: var(--mono); }
+
+    .foot-actions { display: flex; gap: 9px; flex-wrap: wrap; align-items: center; }
     .buy-btn {
-      position: relative; overflow: hidden;
       background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
       border: none; color: #fff; font-size: 13px; font-weight: 800; letter-spacing: 0.06em;
       text-transform: uppercase; padding: 12px 28px; border-radius: 9px; cursor: pointer;
@@ -477,46 +487,30 @@
     .buy-btn::after {
       content: ""; position: absolute; top: -50%; left: -75%; width: 50%; height: 200%;
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
-      transform: skewX(-22deg); animation: btnShine 4s infinite;
+      transform: skewX(-22deg); animation: btnShine 4.2s infinite;
     }
     @keyframes btnShine { 0%, 75% { left: -75%; } 100% { left: 135%; } }
     .buy-btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
 
     /* ==========================================================================
-       6. ДЕМО-РУЛЕТКА КЕЙСОВ, СРАВНЕНИЕ И ПОДБОР
+       6. СРАВНЕНИЕ, ДУЭЛЬ РАНГОВ, ПОДБОР И РУЛЕТКА
        ========================================================================== */
-    .roulette-wrap { padding: 22px; text-align: center; }
-    .roulette-stage {
-      position: relative; overflow: hidden; height: 124px;
-      background: #060911; border: 2px solid var(--cyan-brd); border-radius: 12px;
-      box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.85); margin: 16px 0 20px;
+    .duel-bar {
+      padding: 16px 18px; display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px; border-bottom: 1px solid var(--brd); background: rgba(7, 11, 20, 0.55);
     }
-    .roulette-pointer {
-      position: absolute; top: 0; bottom: 0; left: 50%; width: 3px; transform: translateX(-50%);
-      background: var(--cyan); box-shadow: 0 0 16px var(--cyan); z-index: 5;
+    .duel-select {
+      background: #060911; border: 1px solid var(--brd-strong); color: #fff;
+      padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 700; outline: none;
     }
-    .roulette-pointer::before, .roulette-pointer::after {
-      content: ""; position: absolute; left: 50%; transform: translateX(-50%);
-      border-left: 7px solid transparent; border-right: 7px solid transparent;
+    .duel-select:focus { border-color: var(--cyan); }
+    .duel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 18px; }
+    .duel-card {
+      background: rgba(7, 11, 20, 0.75); border: 1px solid var(--brd); border-radius: 10px; padding: 16px;
     }
-    .roulette-pointer::before { top: 0; border-top: 9px solid var(--cyan); }
-    .roulette-pointer::after { bottom: 0; border-bottom: 9px solid var(--cyan); }
-    .roulette-track {
-      display: flex; align-items: center; gap: 10px; height: 100%; padding: 10px;
-      will-change: transform;
-    }
-    .r-card {
-      flex: 0 0 132px; height: 96px; border-radius: 9px; background: #0e1628;
-      border: 1px solid var(--brd); border-bottom: 3px solid var(--rc, var(--cyan));
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
-      font-weight: 800; font-size: 13px; color: #fff;
-    }
-    .roulette-drop {
-      display: none; margin: 14px auto 0; max-width: 440px; padding: 14px 18px;
-      border-radius: 10px; background: var(--cyan-dim); border: 1px solid var(--cyan);
-      animation: viewReveal 0.3s ease;
-    }
-    .roulette-drop.show { display: block; }
+    .duel-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 13px; }
+    .duel-row:last-child { border-bottom: none; }
+    .duel-win { color: var(--ok); font-weight: 800; }
 
     .table-wrap { overflow-x: auto; }
     .cmp-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 820px; }
@@ -534,32 +528,49 @@
     .range-wrap label { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 8px; }
     .range-wrap input[type="range"] { width: 100%; accent-color: var(--cyan); cursor: pointer; }
     .wiz-checks { display: grid; gap: 8px; }
-    .wiz-chk {
-      display: flex; align-items: center; gap: 10px; padding: 9px 12px;
-      border-radius: 8px; background: rgba(7, 11, 20, 0.65); border: 1px solid var(--brd); cursor: pointer; font-size: 13px;
-    }
+    .wiz-chk { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; background: rgba(7, 11, 20, 0.65); border: 1px solid var(--brd); cursor: pointer; font-size: 13px; }
     .wiz-chk input { accent-color: var(--cyan); width: 16px; height: 16px; cursor: pointer; }
     .wiz-results { padding: 18px; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
-    .wiz-card {
-      background: rgba(7, 11, 20, 0.78); border: 1px solid var(--brd); border-radius: 10px;
-      padding: 15px; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; transition: 0.16s;
-    }
+    .wiz-card { background: rgba(7, 11, 20, 0.78); border: 1px solid var(--brd); border-radius: 10px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; transition: 0.16s; }
     .wiz-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
 
+    .roulette-wrap { padding: 22px; text-align: center; }
+    .roulette-stage {
+      position: relative; overflow: hidden; height: 124px;
+      background: #060911; border: 2px solid var(--cyan-brd); border-radius: 12px;
+      box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.85); margin: 16px 0 20px;
+    }
+    .roulette-pointer { position: absolute; top: 0; bottom: 0; left: 50%; width: 3px; transform: translateX(-50%); background: var(--cyan); box-shadow: 0 0 16px var(--cyan); z-index: 5; }
+    .roulette-track { display: flex; align-items: center; gap: 10px; height: 100%; padding: 10px; will-change: transform; }
+    .r-card {
+      flex: 0 0 132px; height: 96px; border-radius: 9px; background: #0e1628;
+      border: 1px solid var(--brd); border-bottom: 3px solid var(--rc, var(--cyan));
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+      font-weight: 800; font-size: 13px; color: #fff;
+    }
+    .roulette-drop { display: none; margin: 14px auto 0; max-width: 440px; padding: 14px 18px; border-radius: 10px; background: var(--cyan-dim); border: 1px solid var(--cyan); animation: viewReveal 0.3s ease; }
+    .roulette-drop.show { display: block; }
+
     /* ==========================================================================
-       7. ПРАВИЛА, МОДЫ, FAQ И МОДАЛКА
+       7. ПРАВИЛА, ИЗБРАННОЕ, ЧЕК-ЛИСТ И МОДЫ
        ========================================================================== */
     .rules-toc { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 18px; }
     .toc-chip {
       background: var(--card); border: 1px solid var(--brd); color: #cbd5e1;
-      padding: 6px 13px; border-radius: 999px; font-size: 12px; font-weight: 600;
-      text-decoration: none; transition: 0.15s;
+      padding: 6px 13px; border-radius: 999px; font-size: 12px; font-weight: 600; text-decoration: none; transition: 0.15s;
     }
     .toc-chip:hover, .toc-chip.act { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
 
-    .portal-grid { display: grid; grid-template-columns: 1fr 320px; gap: 20px; align-items: start; }
+    .search-banner {
+      display: none; align-items: center; justify-content: space-between; gap: 10px;
+      padding: 10px 16px; border-radius: 10px; background: var(--cyan-dim); border: 1px solid var(--cyan-brd);
+      margin-bottom: 16px; font-size: 13px;
+    }
+    .search-banner.show { display: flex; }
+
+    .portal-grid { display: grid; grid-template-columns: 1fr 325px; gap: 20px; align-items: start; }
     .rule-row {
-      display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
       padding: 12px 18px; border-bottom: 1px solid var(--brd); transition: 0.12s;
     }
     .rule-row:last-child { border-bottom: none; }
@@ -571,12 +582,16 @@
       color: var(--cyan); background: var(--cyan-dim); border: 1px solid var(--cyan-brd);
       border-radius: 6px; padding: 2px 6px; flex-shrink: 0;
     }
-    .r-copy {
+    .r-actions { display: flex; gap: 4px; flex-shrink: 0; }
+    .r-act-btn {
       background: transparent; border: 1px solid transparent; color: var(--mut);
-      border-radius: 6px; padding: 3px 7px; font-size: 11px; cursor: pointer; opacity: 0.45; transition: 0.15s; flex-shrink: 0;
+      border-radius: 6px; padding: 3px 6px; font-size: 11.5px; cursor: pointer; opacity: 0.45; transition: 0.15s;
     }
-    .rule-row:hover .r-copy { opacity: 1; border-color: var(--brd); }
-    .r-copy:hover { color: var(--cyan); border-color: var(--cyan); background: var(--cyan-dim); }
+    .rule-row:hover .r-act-btn, .r-act-btn.fav-on { opacity: 1; }
+    .r-act-btn:hover { color: var(--cyan); border-color: var(--cyan); background: var(--cyan-dim); }
+    .r-act-btn.fav-on { color: #facc15; }
+    mark.hl { background: var(--cyan-dim); color: #fff; border-bottom: 1px solid var(--cyan); padding: 0 2px; border-radius: 3px; }
+
     .r-info { margin-top: 8px; padding: 10px 13px; border-radius: 8px; background: rgba(30, 120, 255, 0.12); border: 1px solid rgba(30, 120, 255, 0.35); color: #bfdbfe; font-size: 12.5px; }
     .r-alert { padding: 13px 16px; border-radius: 10px; background: rgba(239, 68, 68, 0.11); border: 1px solid rgba(239, 68, 68, 0.35); color: #fca5a5; font-size: 13px; margin-bottom: 18px; }
 
@@ -589,7 +604,14 @@
     .sb-link { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-radius: 8px; color: #e2e8f0; cursor: pointer; transition: 0.14s; }
     .sb-link:hover { background: var(--hov); color: var(--cyan); }
 
-    .mod-checker-card { padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+    .ready-list { display: grid; gap: 7px; }
+    .ready-chk { display: flex; align-items: center; gap: 9px; font-size: 12.5px; cursor: pointer; color: #cbd5e1; }
+    .ready-chk input { accent-color: var(--ok); cursor: pointer; }
+    .ready-bar { height: 6px; background: #060911; border-radius: 999px; overflow: hidden; margin-top: 10px; }
+    .ready-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--blue), var(--ok)); transition: width 0.3s ease; }
+
+    .mod-checker-card { padding: 16px 18px; display: grid; gap: 12px; }
+    .mod-chk-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
     .mod-chk-input-wrap { display: flex; gap: 10px; flex: 1; min-width: 260px; }
     .mod-chk-input {
       flex: 1; background: #060911; border: 1px solid var(--brd-strong); color: #fff;
@@ -598,11 +620,17 @@
     .mod-chk-input:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px var(--cyan-dim); }
     .mod-chk-result {
       font-size: 13px; font-weight: 700; padding: 9px 14px; border-radius: 9px;
-      background: rgba(255, 255, 255, 0.04); border: 1px solid var(--brd); min-width: 250px; text-align: center;
+      background: rgba(255, 255, 255, 0.04); border: 1px solid var(--brd); min-width: 255px; text-align: center;
     }
     .mod-chk-result.ok { background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.4); color: #34d399; }
     .mod-chk-result.no { background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.4); color: #f87171; }
     .mod-chk-result.warn { background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.4); color: #fbbf24; }
+    .mod-quick-chips { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 12px; color: var(--mut); }
+    .mq-chip {
+      background: #070b14; border: 1px solid var(--brd); color: #cbd5e1;
+      padding: 3px 9px; border-radius: 999px; cursor: pointer; font-family: var(--mono); font-size: 11px; transition: 0.14s;
+    }
+    .mq-chip:hover { border-color: var(--cyan); color: var(--cyan); }
 
     .mods-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
     .mods-filter { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -619,6 +647,9 @@
     .tno { border-color: rgba(239, 68, 68, 0.38); color: #f87171; }
     .tno:hover { background: rgba(239, 68, 68, 0.12); }
 
+    /* ==========================================================================
+       8. FAQ, КОНТАКТЫ И МОДАЛКА С 3-ШАГОВЫМ ТРЕКЕРОМ
+       ========================================================================== */
     .cgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 22px; }
     .c-body { padding: 18px; }
     .c-body p { color: var(--mut); margin: 0 0 14px; font-size: 13.5px; }
@@ -640,12 +671,22 @@
     .modal-bg.open { display: flex; animation: fadeIn 0.16s ease; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     .modal {
-      width: 100%; max-width: 475px; background: var(--card-solid);
+      width: 100%; max-width: 485px; background: var(--card-solid);
       border: 1px solid var(--cyan-brd); border-radius: 14px; padding: 24px;
       position: relative; box-shadow: 0 28px 65px rgba(0, 0, 0, 0.8), 0 0 42px var(--cyan-dim);
     }
     .m-close { position: absolute; top: 14px; right: 14px; background: #162136; border: 1px solid var(--brd); color: var(--mut); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; transition: 0.15s; }
     .m-close:hover { color: #fff; border-color: var(--cyan); }
+
+    .m-steps {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 12px 0 16px;
+    }
+    .m-step {
+      background: #070b14; border: 1px solid var(--brd); border-radius: 7px; padding: 6px 8px;
+      font-size: 11px; font-weight: 700; color: var(--mut); text-align: center;
+    }
+    .m-step.act { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
+
     .m-inp {
       width: 100%; background: #060911; border: 1px solid var(--brd-strong);
       color: #fff; padding: 11px 13px; border-radius: 9px; font-size: 14px; font-family: var(--mono);
@@ -692,10 +733,9 @@
     .toast.show { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 980px) {
-      .portal-grid, .shop-grid, .mgrid, .wizard-grid { grid-template-columns: 1fr; }
+      .portal-grid, .shop-grid, .mgrid, .wizard-grid, .duel-grid, .power-meters { grid-template-columns: 1fr; }
       .detail-card { min-height: auto; }
       .sb-sticky { position: static; }
-      .mc-slots { grid-template-columns: repeat(5, 1fr); }
       .nav-right { width: 100%; justify-content: space-between; }
       .search-box { flex: 1; }
       .nav-search, .nav-search:focus { width: 100%; }
@@ -704,12 +744,13 @@
 </head>
 <body data-theme="cyan">
 
+  <div class="scroll-progress" id="scrollProgress"></div>
   <canvas id="bgCanvas"></canvas>
   <div class="scanlines"></div>
 
   <!-- ПРОМО-СТРОКА -->
   <div class="promo-strip" id="promoStrip">
-    <span>⚡ Режим <strong>Cyan Anarchy</strong> открыт! Нажмите <strong>/</strong> для поиска • Доступен <strong>Minecraft Kit GUI</strong> и демо-рулетка кейсов</span>
+    <span>⚡ <strong>Cyan Anarchy</strong> • Клавиши <strong>1–4</strong> переключают вкладки, <strong>/</strong> открывает поиск • Авто-выдача CryptoBot и Stars</span>
     <button class="promo-close" onclick="document.getElementById('promoStrip').style.display='none'" title="Скрыть">✕</button>
   </div>
 
@@ -743,10 +784,10 @@
         </svg>
         <h1 class="hero-title">NEW<span>TIME</span></h1>
       </div>
-      <p class="hero-desc">Анархия нового поколения: сбалансированные привилегии, честный PvP-баланс, прозрачный список модификаций и авто-выдача доната.</p>
+      <div class="hero-ticker" id="heroTicker">Анархия нового поколения: сбалансированные привилегии и честный PvP</div>
       <div class="hero-pills">
         <div class="hero-sub" onclick="copyIP()" title="Нажмите, чтобы скопировать IP">
-          <span class="dot" id="srvDot"></span>
+          <span class="dot"></span>
           <span>IP: <code>newtime.mcsh.gg</code> 📋</span>
         </div>
         <div class="online-pill">
@@ -778,11 +819,12 @@
       </div>
 
       <div class="nav-right">
-        <button class="sfx-btn" id="sfxBtn" onclick="toggleSfx()" title="Включить звуки интерфейса">🔇 Звук</button>
-        <div class="theme-dots" title="Сменить акцент интерфейса">
+        <button class="glow-btn" id="glowBtn" onclick="toggleGlow()" title="Интенсивность свечения">✨ Неон</button>
+        <div class="theme-dots" title="Сменить тему интерфейса">
           <div class="t-dot act" style="background:#00e5ff;color:#00e5ff;" onclick="setTheme('cyan', this)" title="Cyan Anarchy"></div>
           <div class="t-dot" style="background:#ff3b6b;color:#ff3b6b;" onclick="setTheme('crimson', this)" title="Crimson Blood"></div>
           <div class="t-dot" style="background:#34d399;color:#34d399;" onclick="setTheme('emerald', this)" title="Toxic Emerald"></div>
+          <div class="t-dot" style="background:#c084fc;color:#c084fc;" onclick="setTheme('amethyst', this)" title="Amethyst Neon"></div>
         </div>
         <div class="search-box">
           <input type="text" id="globalSearch" class="nav-search" oninput="onSearch()" placeholder="🔍 Поиск доната, правил, модов...">
@@ -798,7 +840,7 @@
       <div class="page-head">
         <div>
           <h2 class="page-title">Магазин привилегий</h2>
-          <div class="page-sub">Интерактивный Minecraft GUI • Мгновенная автовыдача после оплаты</div>
+          <div class="page-sub">Мгновенная автовыдача после оплаты • Настраиваемый живой предпросмотр</div>
         </div>
         <div class="page-actions">
           <button class="p-btn" onclick="copyIP()">📋 IP: newtime.mcsh.gg</button>
@@ -807,14 +849,30 @@
       </div>
 
       <div class="subtabs">
-        <button class="subtab-btn act" onclick="switchShopTab('catalog', this)">💎 Каталог и Kit GUI</button>
-        <button class="subtab-btn" onclick="switchShopTab('compare', this)">📊 Сравнение рангов</button>
+        <button class="subtab-btn act" onclick="switchShopTab('catalog', this)">💎 Каталог привилегий</button>
+        <button class="subtab-btn" onclick="switchShopTab('compare', this)">📊 Сравнение и Дуэль</button>
         <button class="subtab-btn" onclick="switchShopTab('wizard', this)">🎯 Подбор по бюджету</button>
         <button class="subtab-btn" onclick="switchShopTab('roulette', this)">🎰 Демо-рулетка кейса</button>
       </div>
 
       <!-- Подвкладка 1: Каталог -->
       <div class="subview act" id="shop-catalog">
+        <div class="shop-tools-bar">
+          <div class="rank-filters">
+            <button class="rf-btn act" onclick="setRankFilter('all', this)">Все (15)</button>
+            <button class="rf-btn" onclick="setRankFilter('paid', this)">Платные (11)</button>
+            <button class="rf-btn" onclick="setRankFilter('fly', this)">🕊️ С /fly</button>
+            <button class="rf-btn" onclick="setRankFilter('tp0', this)">⚡ 0 сек ТП</button>
+            <button class="rf-btn" onclick="setRankFilter('special', this)">👑 Особые (4)</button>
+          </div>
+          <div class="nick-live-box">
+            <span>Ваш ник для превью:</span>
+            <input type="text" id="liveNickInp" class="nick-live-inp" maxlength="16" oninput="onLiveNickChange()" placeholder="Steve_228">
+          </div>
+        </div>
+
+        <div class="recent-strip" id="recentStrip"></div>
+
         <div class="shop-grid">
           <div class="st-card hud-corners">
             <div class="st-card-hdr">
@@ -849,14 +907,14 @@
                 </div>
               </div>
 
-              <!-- Minecraft Chest Kit GUI -->
-              <div class="mc-kit-box">
-                <div class="mc-kit-title">
-                  <span id="kitTitle">🧰 Сундук набора /kit baron (наведите на предмет)</span>
-                  <span style="color:var(--cyan);font-size:10.5px;">MINECRAFT GUI</span>
-                </div>
-                <div class="mc-slots" id="kitSlots"></div>
+              <!-- Minecraft BossBar превью -->
+              <div class="mc-bossbar-wrap">
+                <div class="mc-bossbar-txt" id="bossbarTxt"></div>
+                <div class="mc-bossbar-track"><div class="mc-bossbar-fill" id="bossbarFill"></div></div>
               </div>
+
+              <!-- Шкалы характеристик -->
+              <div class="power-meters" id="powerMeters"></div>
 
               <div class="d-sec-title">Возможности и команды</div>
               <ul class="perm-list" id="detailPerms"></ul>
@@ -865,12 +923,15 @@
             </div>
 
             <div class="detail-foot">
-              <div class="price-wrap">
-                <span class="price-lbl">Стоимость:</span>
-                <span class="price-val" id="detailPrice">5 руб</span>
+              <div class="price-col">
+                <div class="price-wrap">
+                  <span class="price-lbl">Стоимость:</span>
+                  <span class="price-val" id="detailPrice">5 руб</span>
+                </div>
+                <div class="price-per-day" id="pricePerDay"></div>
               </div>
               <div class="foot-actions">
-                <button class="p-btn" onclick="switchShopTab('compare', document.querySelectorAll('.subtab-btn')[1])">📊 Сравнить</button>
+                <button class="p-btn" id="nextTierBtn" onclick="jumpNextRank()" style="display:none;"></button>
                 <button class="buy-btn" id="buyBtn" onclick="openBuyModal()">ПРИОБРЕСТИ</button>
               </div>
             </div>
@@ -878,12 +939,28 @@
         </div>
       </div>
 
-      <!-- Подвкладка 2: Сравнение -->
+      <!-- Подвкладка 2: Сравнение и Дуэль -->
       <div class="subview" id="shop-compare">
         <div class="st-card hud-corners">
           <div class="st-card-hdr">
-            <span>Сравнительная матрица привилегий</span>
-            <span style="color:var(--mut);font-size:11px;">Кликните по строке, чтобы перейти к покупке</span>
+            <span>⚔️ Дуэль двух привилегий</span>
+            <span style="color:var(--mut);font-size:11px;">Сравните любые 2 ранга лицом к лицу</span>
+          </div>
+          <div class="duel-bar">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+              <select id="duelA" class="duel-select" onchange="renderDuel()"></select>
+              <strong style="color:var(--cyan);font-family:var(--mono);">VS</strong>
+              <select id="duelB" class="duel-select" onchange="renderDuel()"></select>
+            </div>
+            <span style="font-size:12px;color:var(--mut);">Зелёным отмечен лучший показатель</span>
+          </div>
+          <div class="duel-grid" id="duelGrid"></div>
+        </div>
+
+        <div class="st-card">
+          <div class="st-card-hdr">
+            <span>Общая матрица привилегий</span>
+            <span style="color:var(--mut);font-size:11px;">Кликните по строке для выбора</span>
           </div>
           <div class="table-wrap">
             <table class="cmp-table">
@@ -960,9 +1037,9 @@
       <!-- Раздел 6 -->
       <div class="st-card">
         <div class="st-card-hdr center">Платные услуги (Раздел 6 правил)</div>
-        <div class="rule-row"><div class="rule-main"><span class="r-badge">6.1</span><div>Попытки махинаций оплатами, или ввод Администрации в заблуждение наказываются баном без возврата средств;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-        <div class="rule-row"><div class="rule-main"><span class="r-badge">6.2</span><div>Предоставьте чек оплаты, если хотите написать Администрации о пропаже, непоявлении доната после покупки. Без данного подтверждения администрация вправе отказать Вам в предоставлении купленной услуги;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-        <div class="rule-row"><div class="rule-main"><span class="r-badge">6.3</span><div>Администрация не обязана предоставлять доказательства нарушений донатера у которого сняли привилегию за нарушение выше указанных правил.</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
+        <div class="rule-row"><div class="rule-main"><span class="r-badge">6.1</span><div>Попытки махинаций оплатами, или ввод Администрации в заблуждение наказываются баном без возврата средств;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)" title="В избранное">⭐</button><button class="r-act-btn" onclick="copyRule(this)" title="Копировать">📋</button></div></div>
+        <div class="rule-row"><div class="rule-main"><span class="r-badge">6.2</span><div>Предоставьте чек оплаты, если хотите написать Администрации о пропаже, непоявлении доната после покупки. Без данного подтверждения администрация вправе отказать Вам в предоставлении купленной услуги;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)" title="В избранное">⭐</button><button class="r-act-btn" onclick="copyRule(this)" title="Копировать">📋</button></div></div>
+        <div class="rule-row"><div class="rule-main"><span class="r-badge">6.3</span><div>Администрация не обязана предоставлять доказательства нарушений донатера у которого сняли привилегию за нарушение выше указанных правил.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)" title="В избранное">⭐</button><button class="r-act-btn" onclick="copyRule(this)" title="Копировать">📋</button></div></div>
       </div>
     </section>
 
@@ -971,12 +1048,17 @@
       <div class="page-head">
         <div>
           <h2 class="page-title">Правила проекта NewTime</h2>
-          <div class="page-sub">Нажмите 📋 на любом пункте, чтобы скопировать его в буфер обмена</div>
+          <div class="page-sub">Нажмите ⭐ для закладок или 📋 для копирования пункта</div>
         </div>
         <div class="page-actions">
           <button class="p-btn" onclick="switchView('mods')">Список модов (4.4)</button>
           <button class="p-btn primary" onclick="switchView('shop')">💎 Донат-магазин</button>
         </div>
+      </div>
+
+      <div class="search-banner" id="rulesSearchBanner">
+        <span id="rulesSearchMsg">Найдено совпадений: 0</span>
+        <button class="p-btn" style="padding:4px 10px;" onclick="clearSearch()">Сбросить поиск</button>
       </div>
 
       <div class="rules-toc" id="rulesToc">
@@ -992,62 +1074,62 @@
         <div>
           <div class="st-card rule-sec" id="sec-1">
             <div class="st-card-hdr center">1. Основные правила</div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.1</span><div>Незнание правил не освобождает вас от ответственности;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.2</span><div>Начав играть на наших серверах, Вы автоматически подтверждаете своё согласие с данным сводом правил;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.3</span><div>Администрация не несет ответственности за временную или постоянную невозможность игры на сервере конкретным лицом или группой лиц;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.4</span><div>Администрация не несет ответственности за потерю игровых ценностей в следствии нарушения работоспособности сервера или его плагинов;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.5</span><div>Администрация не гарантирует работоспособность сервера, а также сохранность информации на нем и продолжение работы над ним;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.6</span><div>Администрация сервера не гарантирует надёжную работу в предоставлении услуг и сервисов, а также не несёт ответственность за ущерб, который может быть причинён пользователям вследствие сбоев в линиях связи, ошибочного использования предоставляемых услуг, дефектов программного обеспечения или других действий, которые могут привести к возникновению нежелательных ситуаций;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.7</span><div>Администрация имеет право корректировать данный свод правил без уведомления игрока;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.8</span><div>Оскорбление, провоцирование администрации запрещено.</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.1</span><div class="r-text">Незнание правил не освобождает вас от ответственности;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.2</span><div class="r-text">Начав играть на наших серверах, Вы автоматически подтверждаете своё согласие с данным сводом правил;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.3</span><div class="r-text">Администрация не несет ответственности за временную или постоянную невозможность игры на сервере конкретным лицом или группой лиц;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.4</span><div class="r-text">Администрация не несет ответственности за потерю игровых ценностей в следствии нарушения работоспособности сервера или его плагинов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.5</span><div class="r-text">Администрация не гарантирует работоспособность сервера, а также сохранность информации на нем и продолжение работы над ним;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.6</span><div class="r-text">Администрация сервера не гарантирует надёжную работу в предоставлении услуг и сервисов, а также не несёт ответственность за ущерб, который может быть причинён пользователям вследствие сбоев в линиях связи, ошибочного использования предоставляемых услуг, дефектов программного обеспечения или других действий, которые могут привести к возникновению нежелательных ситуаций;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.7</span><div class="r-text">Администрация имеет право корректировать данный свод правил без уведомления игрока;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">1.8</span><div class="r-text">Оскорбление, провоцирование администрации запрещено.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
           </div>
 
           <div class="st-card rule-sec" id="sec-2">
             <div class="st-card-hdr center">2. Правила чата</div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.1</span><div>Запрещен Капс/Спам/Флуд в любом из чатов;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.2</span><div>Запрещены унижения, оскорбления игроков;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.3</span><div>Запрещена нецензурная лексика (маты, скрытые маты);</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.4</span><div>Запрещено рекламировать/упоминать посторонние ресурсы, которые не связаны с проектом или его ресурсами;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.5</span><div>Чатами для рекламы/покупки/продажи разрешено пользоваться только в их тематичных целях;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.6</span><div>Запрещено упоминать/оскорблять родных и близких игроков;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.7</span><div>Запрещается розжиг межнациональной розни, подстрекательство на конфликт этой темы, расизм;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.8</span><div>Запрещено как-либо обходить блокировку чата;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.9</span><div>Запрещено вызывать игроков на проверку читов;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.10</span><div>Запрещено отправлять свои контактные данные (дискорд, вк и т.д) в чатах (исключение: личные сообщения);</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.11</span><div>Запрещено продавать ресурсы или услуги ВНЕ серверного чата, например через дискорд;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.12</span><div>Самопризнание в нарушении правил проекта является поводом для бана.</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.1</span><div class="r-text">Запрещен Капс/Спам/Флуд в любом из чатов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.2</span><div class="r-text">Запрещены унижения, оскорбления игроков;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.3</span><div class="r-text">Запрещена нецензурная лексика (маты, скрытые маты);</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.4</span><div class="r-text">Запрещено рекламировать/упоминать посторонние ресурсы, которые не связаны с проектом или его ресурсами;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.5</span><div class="r-text">Чатами для рекламы/покупки/продажи разрешено пользоваться только в их тематичных целях;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.6</span><div class="r-text">Запрещено упоминать/оскорблять родных и близких игроков;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.7</span><div class="r-text">Запрещается розжиг межнациональной розни, подстрекательство на конфликт этой темы, расизм;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.8</span><div class="r-text">Запрещено как-либо обходить блокировку чата;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.9</span><div class="r-text">Запрещено вызывать игроков на проверку читов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.10</span><div class="r-text">Запрещено отправлять свои контактные данные (дискорд, вк и т.д) в чатах (исключение: личные сообщения);</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.11</span><div class="r-text">Запрещено продавать ресурсы или услуги ВНЕ серверного чата, например через дискорд;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">2.12</span><div class="r-text">Самопризнание в нарушении правил проекта является поводом для бана.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
           </div>
 
           <div class="st-card rule-sec" id="sec-3">
             <div class="st-card-hdr center">3. Аккаунт</div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">3.1</span><div><strong>Ник не должен содержать:</strong></div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.1</span><div>Мата, скрытого мата, унижений, оскорблений;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.2</span><div>Схожесть с названием других проектов/чит клиентов;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.3</span><div>Схожесть с Администраторами, Ютуберами проекта;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.4</span><div>Схожесть с никами пользователей из ЧС Проекта;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">3.2</span><div>Запрещается предоставлять свой аккаунт другим людям;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">3.3</span><div>Ответственность несет владелец аккаунта, независимо от того, кто совершал действия под данным аккаунтом;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">3.4</span><div>Запрещена продажа/передача аккаунтов, продажа привилегий;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">3.5</span><div>Донат невозможно перенести на другой аккаунт.</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">3.1</span><div class="r-text"><strong>Ник не должен содержать:</strong></div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.1</span><div class="r-text">Мата, скрытого мата, унижений, оскорблений;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.2</span><div class="r-text">Схожесть с названием других проектов/чит клиентов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.3</span><div class="r-text">Схожесть с Администраторами, Ютуберами проекта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.4</span><div class="r-text">Схожесть с никами пользователей из ЧС Проекта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">3.2</span><div class="r-text">Запрещается предоставлять свой аккаунт другим людям;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">3.3</span><div class="r-text">Ответственность несет владелец аккаунта, независимо от того, кто совершал действия под данным аккаунтом;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">3.4</span><div class="r-text">Запрещена продажа/передача аккаунтов, продажа привилегий;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">3.5</span><div class="r-text">Донат невозможно перенести на другой аккаунт.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
           </div>
 
           <div class="st-card rule-sec" id="sec-4">
             <div class="st-card-hdr center">4. Игровые правила</div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.1</span><div>Запрещено мошенничество, обман администрации;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.2</span><div>Запрещено продавать/покупать у игроков игровые ценности за реальную валюту;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.3</span><div>Запрещено пользоваться всем, что упрощает процесс игры, а именно:</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">4.3.1</span><div>Сторонними программами, читами, кликерами, автоматизациями и некоторыми модами (Кроме разрешенных пунктом 4.4);</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.4</span><div>Список разрешённых (61) и запрещённых (66) модификаций во вкладке <a href="#" onclick="switchView('mods');return false;" style="color:var(--cyan);font-weight:700;">Модификации</a>.</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.5</span><div>На сервере допускается одновременное использование не более 4 аккаунтов включительно на всех игровых режимах.</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">4.5.1</span><div>Запрещено как-либо помогать, укрывать нарушителя или способствовать в его неправомерных действиях;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.6</span><div>Запрещено играть на проекте, если Ваши аккаунты были неоднократно блокированы пунктом 1.4 и его подпунктам;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.7</span><div>Запрещено вызывание неполадок в работе сервера или попытки обрушить сервер, путем специально вызванных лагов или подобного;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.8</span><div>Запрещено выдавать себя за Администрацию, устанавливать ники похожие на Администрацию или их префиксы;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.9</span><div>Запрещено использование/скрытие багов/недоработок сервера;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.10</span><div>Запрещено играть/взаимодействовать и помогать на режиме с игроками в количестве больше, чем разрешено на режиме.</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.11</span><div>Запрещено строительство половых органов, нацистских символик, лавакастов;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.12</span><div>Запрещено подстрекать третьих лиц на нарушение правил;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.13</span><div>Запрещён намеренный таргетинг официальных медийных лиц проекта. Умышленная помеха съемки игрового контента/слив игровых никнеймов;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.1</span><div class="r-text">Запрещено мошенничество, обман администрации;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.2</span><div class="r-text">Запрещено продавать/покупать у игроков игровые ценности за реальную валюту;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.3</span><div class="r-text">Запрещено пользоваться всем, что упрощает процесс игры, а именно:</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">4.3.1</span><div class="r-text">Сторонними программами, читами, кликерами, автоматизациями и некоторыми модами (Кроме разрешенных пунктом 4.4);</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.4</span><div class="r-text">Список разрешённых (61) и запрещённых (66) модификаций во вкладке <a href="#" onclick="switchView('mods');return false;" style="color:var(--cyan);font-weight:700;">Модификации</a>.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.5</span><div class="r-text">На сервере допускается одновременное использование не более 4 аккаунтов включительно на всех игровых режимах.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row sub"><div class="rule-main"><span class="r-badge">4.5.1</span><div class="r-text">Запрещено как-либо помогать, укрывать нарушителя или способствовать в его неправомерных действиях;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.6</span><div class="r-text">Запрещено играть на проекте, если Ваши аккаунты были неоднократно блокированы пунктом 1.4 и его подпунктам;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.7</span><div class="r-text">Запрещено вызывание неполадок в работе сервера или попытки обрушить сервер, путем специально вызванных лагов или подобного;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.8</span><div class="r-text">Запрещено выдавать себя за Администрацию, устанавливать ники похожие на Администрацию или их префиксы;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.9</span><div class="r-text">Запрещено использование/скрытие багов/недоработок сервера;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.10</span><div class="r-text">Запрещено играть/взаимодействовать и помогать на режиме с игроками в количестве больше, чем разрешено на режиме.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.11</span><div class="r-text">Запрещено строительство половых органов, нацистских символик, лавакастов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.12</span><div class="r-text">Запрещено подстрекать третьих лиц на нарушение правил;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">4.13</span><div class="r-text">Запрещён намеренный таргетинг официальных медийных лиц проекта. Умышленная помеха съемки игрового контента/слив игровых никнеймов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
           </div>
 
           <div class="r-alert">
@@ -1059,58 +1141,57 @@
             <div class="rule-row">
               <div class="rule-main">
                 <span class="r-badge">5.1</span>
-                <div>
+                <div class="r-text">
                   Вы обязаны выполнять требования Проверяющего
                   <div class="r-info"><strong>Важно!</strong> Проверка проводится исключительно в целях поиска читов, запрещённых модификаций, программ и другого запрещённого ПО, поэтому если Проверяющий просит Вас выполнить нелогичные для проверки действия, например: включить веб-камеру, дать ему ресурсы — отключайтесь от проверки и срочно сообщите об этом Администрации.</div>
                 </div>
               </div>
-              <button class="r-copy" onclick="copyRule(this)">📋</button>
+              <div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div>
             </div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.2</span><div>Данный свод правил не окончателен и может изменяться в зависимости от требований Проверяющего;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.3</span><div>Следите за чатом во время проверки, если Вы не увидели/проигнорировали сообщение от Проверяющего, это не будет расцениваться поводом для разблокировки аккаунта;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.4</span><div>В случае если у Вас возникли непредвиденные обстоятельства, необходимо обязательно сообщить об этом Проверяющему;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.5</span><div>Запрещается препятствовать проведению проверки: долго открывать папки, задавать неуместные вопросы, оскорблять/унижать Проверяющего, игнорировать его требования и так далее;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.6</span><div>Во время проверки запрещается удалять какие-либо файлы с Вашего ПК, в том числе очищать корзину;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.7</span><div>Во время проверки запрещается выходить из Minecraft, также не забывайте, «крашнул майн», «был в афк» — не расцениваются как повод для разблокировки аккаунта;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.8</span><div>Запрещается снимать ход проверки, исключение: личное разрешение Проверяющего;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.9</span><div>Проверяющий имеет право попросить Вас установить программы для эффективного и быстрого проведения проверки.</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.2</span><div class="r-text">Данный свод правил не окончателен и может изменяться в зависимости от требований Проверяющего;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.3</span><div class="r-text">Следите за чатом во время проверки, если Вы не увидели/проигнорировали сообщение от Проверяющего, это не будет расцениваться поводом для разблокировки аккаунта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.4</span><div class="r-text">В случае если у Вас возникли непредвиденные обстоятельства, необходимо обязательно сообщить об этом Проверяющему;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.5</span><div class="r-text">Запрещается препятствовать проведению проверки: долго открывать папки, задавать неуместные вопросы, оскорблять/унижать Проверяющего, игноровать его требования и так далее;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.6</span><div class="r-text">Во время проверки запрещается удалять какие-либо файлы с Вашего ПК, в том числе очищать корзину;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.7</span><div class="r-text">Во время проверки запрещается выходить из Minecraft, также не забывайте, «крашнул майн», «был в афк» — не расцениваются как повод для разблокировки аккаунта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.8</span><div class="r-text">Запрещается снимать ход проверки, исключение: личное разрешение Проверяющего;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.9</span><div class="r-text">Проверяющий имеет право попросить Вас установить программы для эффективного и быстрого проведения проверки.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
           </div>
 
           <div class="st-card rule-sec" id="sec-6">
             <div class="st-card-hdr center">6. Платные услуги</div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">6.1</span><div>Попытки махинаций оплатами, или ввод Администрации в заблуждение наказываются баном без возврата средств;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">6.2</span><div>Предоставьте чек оплаты, если хотите написать Администрации о пропаже, непоявлении доната после покупки. Без данного подтверждения администрация вправе отказать Вам в предоставлении купленной услуги;</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">6.3</span><div>Администрация не обязана предоставлять доказательства нарушений донатера у которого сняли привилегию за нарушение выше указанных правил.</div></div><button class="r-copy" onclick="copyRule(this)">📋</button></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">6.1</span><div class="r-text">Попытки махинаций оплатами, или ввод Администрации в заблуждение наказываются баном без возврата средств;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">6.2</span><div class="r-text">Предоставьте чек оплаты, если хотите написать Администрации о пропаже, непоявлении доната после покупки. Без данного подтверждения администрация вправе отказать Вам в предоставлении купленной услуги;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">6.3</span><div class="r-text">Администрация не обязана предоставлять доказательства нарушений донатера у которого сняли привилегию за нарушение выше указанных правил.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
           </div>
         </div>
 
         <aside class="sb-sticky">
           <div class="st-card hud-corners">
+            <div class="st-card-hdr">⭐ Избранные пункты</div>
+            <div class="sb-body" id="favRulesBox" style="color:var(--mut);font-size:12.5px;">Нажмите ⭐ на любом правиле, чтобы закрепить его здесь.</div>
+          </div>
+
+          <div class="st-card">
+            <div class="st-card-hdr">Готовность к игре</div>
+            <div class="sb-body">
+              <div class="ready-list">
+                <label class="ready-chk"><input type="checkbox" onchange="updateReadyBar()"> Ник без нарушений (п. 3.1)</label>
+                <label class="ready-chk"><input type="checkbox" onchange="updateReadyBar()"> Не более 4 аккаунтов (п. 4.5)</label>
+                <label class="ready-chk"><input type="checkbox" onchange="updateReadyBar()"> Моды проверены (п. 4.4)</label>
+                <label class="ready-chk"><input type="checkbox" onchange="updateReadyBar()"> Чек оплаты сохранён (п. 6.2)</label>
+              </div>
+              <div class="ready-bar"><div class="ready-fill" id="readyFill"></div></div>
+            </div>
+          </div>
+
+          <div class="st-card">
             <div class="st-card-hdr">Информация о сервере</div>
             <div class="sb-body">
               <div class="sb-stat"><span>IP адрес</span><strong style="color:var(--cyan);cursor:pointer;font-family:var(--mono);" onclick="copyIP()">newtime.mcsh.gg</strong></div>
               <div class="sb-stat"><span>Режим</span><strong>Cyan Anarchy</strong></div>
               <div class="sb-stat"><span>Макс. аккаунтов</span><strong>4</strong></div>
               <div class="sb-stat"><span>Разрешено модов</span><strong id="sbOkStat">61</strong></div>
-            </div>
-          </div>
-
-          <div class="st-card">
-            <div class="st-card-hdr">Памятка при проверке</div>
-            <div class="sb-body" style="color:#cbd5e1;font-size:12.5px;display:grid;gap:7px;">
-              <div>✅ Не выходите из игры и не чистите корзину</div>
-              <div>✅ Следите за чатом и выполняйте требования</div>
-              <div>⛔ Не давайте ресурсы, пароль или веб-камеру</div>
-            </div>
-          </div>
-
-          <div class="st-card">
-            <div class="st-card-hdr">Популярные привилегии</div>
-            <div class="sb-body" style="padding:8px;">
-              <div class="sb-link" onclick="jumpToRank('god')"><span>⚡ Бог</span><strong style="color:var(--cyan);font-family:var(--mono);">от 249 ₽</strong></div>
-              <div class="sb-link" onclick="jumpToRank('absolute')"><span>⚡ Абсолют</span><strong style="color:var(--cyan);font-family:var(--mono);">от 169 ₽</strong></div>
-              <div class="sb-link" onclick="jumpToRank('knyaz')"><span>⚡ Князь</span><strong style="color:var(--cyan);font-family:var(--mono);">от 129 ₽</strong></div>
-              <div class="sb-link" onclick="jumpToRank('baron')"><span>⚡ Барон</span><strong style="color:var(--cyan);font-family:var(--mono);">от 5 ₽</strong></div>
             </div>
           </div>
         </aside>
@@ -1130,10 +1211,21 @@
       <div class="st-card hud-corners">
         <div class="st-card-hdr">Быстрая проверка файла / названия мода</div>
         <div class="mod-checker-card">
-          <div class="mod-chk-input-wrap">
-            <input type="text" id="modCheckerInp" class="mod-chk-input" oninput="checkModName()" placeholder="Введите название мода, например: litematica или minihud...">
+          <div class="mod-chk-top">
+            <div class="mod-chk-input-wrap">
+              <input type="text" id="modCheckerInp" class="mod-chk-input" oninput="checkModName()" placeholder="Введите название мода, например: litematica или minihud...">
+            </div>
+            <div class="mod-chk-result" id="modCheckerRes">Введите название мода для проверки</div>
           </div>
-          <div class="mod-chk-result" id="modCheckerRes">Введите название мода для проверки</div>
+          <div class="mod-quick-chips">
+            <span>Частые проверки:</span>
+            <button class="mq-chip" onclick="quickCheckMod('Litematica')">Litematica</button>
+            <button class="mq-chip" onclick="quickCheckMod('MiniHUD')">MiniHUD</button>
+            <button class="mq-chip" onclick="quickCheckMod('FreeCam')">FreeCam</button>
+            <button class="mq-chip" onclick="quickCheckMod('Baritone')">Baritone</button>
+            <button class="mq-chip" onclick="quickCheckMod('Feather Client')">Feather Client</button>
+            <button class="mq-chip" onclick="quickCheckMod('ReplayMod')">ReplayMod</button>
+          </div>
         </div>
       </div>
 
@@ -1143,7 +1235,10 @@
           <button class="mf-btn" onclick="filterModGroup('ok', this)">✅ Разрешённые (61)</button>
           <button class="mf-btn" onclick="filterModGroup('no', this)">⛔ Запрещённые (66)</button>
         </div>
-        <button class="p-btn" id="sortModsBtn" onclick="toggleModSort()">🔤 Сортировать А–Я</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="p-btn" id="sortModsBtn" onclick="toggleModSort()">🔤 Сортировать А–Я</button>
+          <button class="p-btn" onclick="copyAllMods('ok')">📋 Копировать разрешённые</button>
+        </div>
       </div>
 
       <div class="mgrid" id="modsGrid">
@@ -1170,15 +1265,15 @@
       </div>
 
       <div class="cgrid">
-        <div class="st-card hud-corners">
+        <div class="st-card tilt-card hud-corners">
           <div class="st-card-hdr">Подключение</div>
           <div class="c-body"><p>Режим: <strong style="color:#fff;">Cyan Anarchy</strong>. Minecraft Java Edition.</p><button class="buy-btn" style="width:100%;" onclick="copyIP()">IP: newtime.mcsh.gg</button></div>
         </div>
-        <div class="st-card hud-corners">
+        <div class="st-card tilt-card hud-corners">
           <div class="st-card-hdr">Telegram проекта</div>
           <div class="c-body"><p>Вопросы по оплате, чекам (п. 6.2) и техподдержка NewTime.</p><a href="https://t.me/newtime_tg" target="_blank" class="buy-btn" style="display:block;text-align:center;text-decoration:none;">@newtime_tg</a></div>
         </div>
-        <div class="st-card hud-corners">
+        <div class="st-card tilt-card hud-corners">
           <div class="st-card-hdr">Администрация</div>
           <div class="c-body"><p>Создатель: <strong style="color:#ef4444;">xFrizzy</strong>.<br>Заявки в <strong>STAFF</strong> и <strong>TIKTOK</strong> — через тикеты Discord.</p><button class="p-btn primary" style="width:100%;padding:10px;justify-content:center;" onclick="switchView('rules')">Открыть правила</button></div>
         </div>
@@ -1215,7 +1310,7 @@
   <footer class="footer">
     <div class="footer-inner">
       <div>Сервер NewTime никак не относится к Mojang, AB. • IP: <strong>newtime.mcsh.gg</strong> • <a href="https://t.me/newtime_tg" target="_blank">@newtime_tg</a></div>
-      <div>© 2026 NewTime • Все Права Защищены</div>
+      <div>Горячие клавиши: <strong>1–4</strong> вкладки • <strong>/</strong> поиск • © 2026 NewTime</div>
     </div>
   </footer>
 
@@ -1225,10 +1320,16 @@
       <button class="m-close" onclick="closeModal()">✕</button>
       <div style="font-size:11px;font-weight:800;color:var(--cyan);letter-spacing:.08em;text-transform:uppercase;">Оплата привилегии</div>
       <h3 id="mRankName" style="margin:6px 0 4px;font-size:22px;font-weight:900;">Барон</h3>
-      <div id="mSummary" style="color:var(--mut);font-size:13px;margin-bottom:14px;">Срок: 30 дней • Стоимость: 5 руб</div>
+      <div id="mSummary" style="color:var(--mut);font-size:13px;">Срок: 30 дней • Стоимость: 5 руб</div>
+
+      <div class="m-steps">
+        <div class="m-step act" id="step1">1. Игровой ник</div>
+        <div class="m-step" id="step2">2. Способ оплаты</div>
+        <div class="m-step" id="step3">3. Авто-выдача</div>
+      </div>
 
       <label id="mNickLabel" style="font-size:12.5px;color:var(--mut);font-weight:600;">Ваш игровой ник на сервере:</label>
-      <input type="text" id="mNick" class="m-inp" oninput="saveNickPreview()" placeholder="Например: Steve_228">
+      <input type="text" id="mNick" class="m-inp" oninput="onModalNickInput()" placeholder="Например: Steve_228">
 
       <label class="gift-toggle">
         <input type="checkbox" id="giftCheck" onchange="toggleGiftMode()">
@@ -1271,7 +1372,7 @@
     const ranks = [
       {
         id: "baron", name: "Барон", color: "#84FF00", prefix: "[Барон]", homes: 1, regs: 3, auc: 6, tp: "7 сек", fly: false, fix: "—", exp: "0%",
-        tier: 1, p30: 5, p90: 12, pFor: 25,
+        tier: 1, pvp: 25, eco: 30, comf: 25, p30: 5, p90: 12, pFor: 25,
         cmds: [
           { c: "/kit baron", d: "Стартовый набор" },
           { c: "/salary", d: "Зарплата 100.000$" },
@@ -1281,7 +1382,7 @@
       },
       {
         id: "fighter", name: "Боец", color: "#FF7700", prefix: "[Боец]", homes: 2, regs: 3, auc: 7, tp: "6 сек", fly: false, fix: "—", exp: "0%",
-        tier: 2, p30: 10, p90: 22, pFor: 45,
+        tier: 2, pvp: 32, eco: 35, comf: 32, p30: 10, p90: 22, pFor: 45,
         cmds: [
           { c: "/kit fighter", d: "Боевой набор" },
           { c: "/dchat | /suicide", d: "Донат-чат и самоубийство" },
@@ -1291,7 +1392,7 @@
       },
       {
         id: "guardian", name: "Страж", color: "#7C4DFF", prefix: "[Страж]", homes: 2, regs: 4, auc: 8, tp: "5 сек", fly: false, fix: "—", exp: "0%",
-        tier: 3, p30: 15, p90: 35, pFor: 69,
+        tier: 3, pvp: 40, eco: 42, comf: 45, p30: 15, p90: 35, pFor: 69,
         cmds: [
           { c: "/kit guardian", d: "Защитный кит" },
           { c: "/stonecutter | /anvil | /hat | /craft", d: "Камнерез, наковальня, верстак" },
@@ -1301,7 +1402,7 @@
       },
       {
         id: "knight", name: "Рыцарь", color: "#FF4081", prefix: "[Рыцарь]", homes: 3, regs: 5, auc: 9, tp: "5 сек", fly: false, fix: "—", exp: "0%",
-        tier: 4, p30: 25, p90: 59, pFor: 109,
+        tier: 4, pvp: 48, eco: 48, comf: 55, p30: 25, p90: 59, pFor: 109,
         cmds: [
           { c: "/kit knight", d: "Рыцарский кит" },
           { c: "/ec | /condense | /clear | /me", d: "Эндер-сундук, сжатие и очистка" },
@@ -1312,7 +1413,7 @@
       },
       {
         id: "berserk", name: "Берсерк", color: "#FF0033", prefix: "[Берсерк]", homes: 4, regs: 5, auc: 10, tp: "4 сек", fly: false, fix: "—", exp: "25%",
-        tier: 5, p30: 39, p90: 89, pFor: 169,
+        tier: 5, pvp: 58, eco: 54, comf: 62, p30: 39, p90: 89, pFor: 169,
         cmds: [
           { c: "/kit berserk", d: "Топор и зелья" },
           { c: "/back | /ad | /buy | /name", d: "Возврат, объявления и имя" },
@@ -1322,7 +1423,7 @@
       },
       {
         id: "champion", name: "Чемпион", color: "#F72585", prefix: "[Чемпион]", homes: 4, regs: 6, auc: 11, tp: "4 сек", fly: false, fix: "—", exp: "25%",
-        tier: 6, p30: 55, p90: 125, pFor: 229,
+        tier: 6, pvp: 65, eco: 60, comf: 68, p30: 55, p90: 125, pFor: 229,
         cmds: [
           { c: "/kit champion", d: "Набор чемпиона" },
           { c: "/smithtable | /feed и /heal (1м 30с)", d: "Стол кузнеца, еда и здоровье" },
@@ -1332,7 +1433,7 @@
       },
       {
         id: "milord", name: "Милорд", color: "#FF85A1", prefix: "[Милорд]", homes: 4, regs: 7, auc: 12, tp: "4 сек", fly: false, fix: "3 вещи", exp: "25%",
-        tier: 7, p30: 75, p90: 169, pFor: 299,
+        tier: 7, pvp: 72, eco: 68, comf: 75, p30: 75, p90: 169, pFor: 299,
         cmds: [
           { c: "/kit milord", d: "Незерит и яблоки" },
           { c: "/time | /weather | /loom | /firework", d: "Погода, время и фейерверки" },
@@ -1343,7 +1444,7 @@
       },
       {
         id: "duke", name: "Герцог", color: "#C77DFF", prefix: "[Герцог]", homes: 4, regs: 8, auc: 13, tp: "3 сек", fly: false, fix: "all (2ч)", exp: "65%",
-        tier: 8, p30: 99, p90: 219, pFor: 399,
+        tier: 8, pvp: 80, eco: 76, comf: 82, p30: 99, p90: 219, pFor: 399,
         cmds: [
           { c: "/kit duke", d: "Броня Герцога" },
           { c: "/repair all (кд 2ч) | /feed и /heal (1м 15с)", d: "Починка всех вещей, еда и здоровье" },
@@ -1353,7 +1454,7 @@
       },
       {
         id: "knyaz", name: "Князь", color: "#FF9E00", prefix: "[Князь]", badge: "Выбор", homes: 5, regs: 9, auc: 15, tp: "2 сек", fly: true, fix: "9 вещей", exp: "75%",
-        tier: 9, p30: 129, p90: 289, pFor: 499,
+        tier: 9, pvp: 88, eco: 84, comf: 90, p30: 129, p90: 289, pFor: 499,
         cmds: [
           { c: "/kit knyaz", d: "Элитры и бур 3x3" },
           { c: "/jump | /afk | /fly | /speed", d: "Полёт, прыжок и скорость" },
@@ -1363,7 +1464,7 @@
       },
       {
         id: "absolute", name: "Абсолют", color: "#FFE259", prefix: "[Абсолют]", badge: "Хит", homes: 7, regs: 12, auc: 20, tp: "0 сек", fly: true, fix: "18 вещей", exp: "100%",
-        tier: 10, p30: 169, p90: 379, pFor: 699,
+        tier: 10, pvp: 94, eco: 92, comf: 96, p30: 169, p90: 379, pFor: 699,
         cmds: [
           { c: "/kit absolute", d: "Топ-сет" },
           { c: "/salary 5.000.000$ (5ч) | /exp 25 lvl (2ч)", d: "Крупная зарплата и опыт" },
@@ -1374,7 +1475,7 @@
       },
       {
         id: "god", name: "Бог", color: "#FF0033", prefix: "[Бог]", badge: "Топ", homes: 8, regs: 15, auc: 25, tp: "0 сек", fly: true, fix: "all (1ч)", exp: "100%",
-        tier: 11, p30: 249, p90: 549, pFor: 999,
+        tier: 11, pvp: 100, eco: 100, comf: 100, p30: 249, p90: 549, pFor: 999,
         cmds: [
           { c: "Все честные команды сервера!", d: "Полный игровой функционал" },
           { c: "/salary 15.000.000$ (3ч) | /exp 50 lvl (1ч)", d: "Максимальная зарплата и опыт" },
@@ -1383,25 +1484,25 @@
         other: [["Точек домов", "8 домов"], ["Регионов", "15 блоков привата"], ["Слоты Аукциона", "25"], ["Задержка телепорта", "0 сек"], ["Особенности", "Максимальный статус Анархии"]]
       },
       {
-        id: "player", name: "Игрок", color: "#94a3b8", prefix: "[Игрок]", tier: 0,
+        id: "player", name: "Игрок", color: "#94a3b8", prefix: "[Игрок]", tier: 0, pvp: 15, eco: 15, comf: 15,
         special: true, priceLabel: "Бесплатно", from: "БЕСПЛАТНО", note: "Базовый статус каждого выживающего",
         cmds: [{ c: "/kit player", d: "Стартовый набор" }, { c: "/salary 50.000$ | /spawn | /home | /tpa", d: "Базовые команды" }],
         other: [["Точек домов", "1 дом"], ["Регионов", "1 блок привата"], ["Слоты Аукциона", "3"], ["Задержка телепорта", "8 сек"]]
       },
       {
-        id: "tiktok", name: "TikTok • Медиа", color: "#00E5FF", prefix: "[TikTok]", tier: 10,
+        id: "tiktok", name: "TikTok • Медиа", color: "#00E5FF", prefix: "[TikTok]", tier: 10, pvp: 92, eco: 90, comf: 95,
         special: true, priceLabel: "За контент", from: "МЕДИА", note: "Выдаётся за съёмку контента (тикеты Discord)",
         cmds: [{ c: "/kit tiktok | /salary 10kk (4.5ч)", d: "Медиа-набор" }, { c: "/exp 50 lvl | /fix 22 вещи | /near 200м", d: "Расширенные возможности" }],
         other: [["Точек домов", "10 домов"], ["Регионов", "13 блоков привата"], ["Слоты Аукциона", "20"], ["Получение", "Тикеты Discord"]]
       },
       {
-        id: "staff", name: "Staff • Модерация", color: "#38bdf8", prefix: "[Staff]", tier: 11,
+        id: "staff", name: "Staff • Модерация", color: "#38bdf8", prefix: "[Staff]", tier: 11, pvp: 95, eco: 95, comf: 100,
         special: true, priceLabel: "Набор", from: "ПЕРСОНАЛ", note: "Набор в команду открыт в Discord",
         cmds: [{ c: "/kit staff | /salary 15kk | /exp 75 lvl", d: "Набор персонала" }, { c: "/spec | /revise | /push | /ban | /mute", d: "Модерация" }],
         other: [["Должность", "Модерация сервера"], ["Радар", "/near 215м (кд 15с)"]]
       },
       {
-        id: "admin", name: "Admin • Владелец", color: "#ef4444", prefix: "[Admin]", tier: 12,
+        id: "admin", name: "Admin • Владелец", color: "#ef4444", prefix: "[Admin]", tier: 11, pvp: 100, eco: 100, comf: 100,
         special: true, priceLabel: "xFrizzy", from: "ВЛАДЕЛЕЦ", note: "Статус Создателя закреплён за xFrizzy",
         cmds: [{ c: "/kit admin | /salary 30kk | /exp 100 lvl", d: "Права основателя" }, { c: "/near 250м (5с) | Полный доступ", d: "Управление" }],
         other: [["Создатель сервера", "xFrizzy"], ["Режим", "Cyan Anarchy NewTime"]]
@@ -1446,86 +1547,71 @@
 
     let selectedId = "baron";
     let selectedTerm = "p30";
+    let rankFilter = "all";
     let modsSorted = false;
     let lastPriceShown = 5;
-    let sfxEnabled = false;
-    let audioCtx = null;
     let isSpinning = false;
+    let recentViewed = JSON.parse(localStorage.getItem("nt_recent") || "[]");
+    let favRules = JSON.parse(localStorage.getItem("nt_fav_rules") || "[]");
 
-    // ---------- WEB AUDIO API (ЗВУКИ GUI) ----------
-    function toggleSfx() {
-      sfxEnabled = !sfxEnabled;
-      const btn = document.getElementById("sfxBtn");
-      btn.classList.toggle("on", sfxEnabled);
-      btn.textContent = sfxEnabled ? "🔊 Звук" : "🔇 Звук";
-      if (sfxEnabled) playBeep(620, 0.06, "sine");
-    }
+    // ---------- 1. ВОЛНА КЛИКА (RIPPLE) ----------
+    document.addEventListener("click", e => {
+      const btn = e.target.closest(".p-btn, .buy-btn, .nav-btn");
+      if (!btn) return;
+      const rect = btn.getBoundingClientRect();
+      const wave = document.createElement("span");
+      wave.className = "ripple-wave";
+      const size = Math.max(rect.width, rect.height);
+      wave.style.width = wave.style.height = size + "px";
+      wave.style.left = (e.clientX - rect.left - size / 2) + "px";
+      wave.style.top = (e.clientY - rect.top - size / 2) + "px";
+      btn.appendChild(wave);
+      setTimeout(() => wave.remove(), 580);
+    });
 
-    function playBeep(freq = 520, dur = 0.045, type = "triangle", vol = 0.04) {
-      if (!sfxEnabled) return;
-      try {
-        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioCtx.state === "suspended") audioCtx.resume();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(vol, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + dur);
-      } catch {}
-    }
+    // ---------- 2. 3D НАКЛОН И SPOTLIGHT ----------
+    document.addEventListener("mousemove", e => {
+      document.querySelectorAll(".st-card").forEach(card => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--mx", (e.clientX - rect.left) + "px");
+        card.style.setProperty("--my", (e.clientY - rect.top) + "px");
+        if (card.classList.contains("tilt-card")) {
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          if (Math.abs(x) <= 0.5 && Math.abs(y) <= 0.5) {
+            card.style.transform = `perspective(700px) rotateX(${(-y * 6).toFixed(2)}deg) rotateY(${(x * 6).toFixed(2)}deg)`;
+          }
+        }
+      });
+    });
+    document.querySelectorAll(".tilt-card").forEach(card => {
+      card.addEventListener("mouseleave", () => { card.style.transform = ""; });
+    });
 
-    // ---------- ПИКСЕЛЬНЫЕ SVG ПРЕДМЕТЫ ДЛЯ KIT GUI ----------
+    // ---------- 3. СМЕНЯЮЩИЙСЯ СЛОГАН В HERO ----------
+    const slogans = [
+      "Анархия нового поколения: сбалансированные привилегии и честный PvP",
+      "Мгновенная авто-выдача доната через CryptoBot и Telegram Stars 24/7",
+      "Прозрачные правила, проверка ПО по стандарту и защита от читеров",
+      "Присоединяйся прямо сейчас: newtime.mcsh.gg • Версии 1.16.5 – 1.21+"
+    ];
+    let sloganIdx = 0;
+    setInterval(() => {
+      const el = document.getElementById("heroTicker");
+      if (!el) return;
+      el.classList.add("fade");
+      setTimeout(() => {
+        sloganIdx = (sloganIdx + 1) % slogans.length;
+        el.textContent = slogans[sloganIdx];
+        el.classList.remove("fade");
+      }, 340);
+    }, 4200);
+
+    // ---------- 4. ЦЕНА И ИКОНКИ ----------
     function chestplateSVG(color, size = 24) {
       return `<svg class="rank-icon" style="width:${size}px;height:${size}px" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M2 2h4v2h4V2h4v5h-2v7H4V7H2V2z" fill="${color}" stroke="#070a0f" stroke-width="1"/><rect x="4" y="3" width="2" height="4" fill="#fff" fill-opacity="0.26"/><rect x="6" y="5" width="4" height="8" fill="#000" fill-opacity="0.18"/></svg>`;
     }
 
-    const itemIcons = {
-      sword: c => `<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M12 2h2v2l-5 5-2-2 5-5z" fill="${c}"/><path d="M5 7l4 4-1 1-4-4 1-1z" fill="#e2e8f0"/><path d="M3 11l2 2-2 1-1-1 1-2z" fill="#92400e"/></svg>`,
-      apple: () => `<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><rect x="7" y="2" width="2" height="2" fill="#78350f"/><path d="M4 5h8v2h1v5h-2v2H5v-2H3V7h1V5z" fill="#facc15"/><rect x="5" y="6" width="2" height="2" fill="#fef08a"/></svg>`,
-      pearl: () => `<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><rect x="5" y="3" width="6" height="10" fill="#0d9488"/><rect x="3" y="5" width="10" height="6" fill="#0d9488"/><rect x="5" y="5" width="4" height="4" fill="#2dd4bf"/><rect x="6" y="6" width="2" height="2" fill="#ccfbf1"/></svg>`,
-      totem: () => `<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><rect x="5" y="2" width="6" height="5" fill="#facc15"/><rect x="2" y="7" width="12" height="3" fill="#eab308"/><rect x="5" y="7" width="6" height="7" fill="#ca8a04"/><rect x="6" y="4" width="1" height="1" fill="#10b981"/><rect x="9" y="4" width="1" height="1" fill="#10b981"/></svg>`,
-      elytra: c => `<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M2 3h4v8H4v2H2V3zm12 0h-4v8h2v2h2V3z" fill="${c}" stroke="#0f172a" stroke-width="0.6"/></svg>`,
-      potion: () => `<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><rect x="6" y="2" width="4" height="2" fill="#94a3b8"/><rect x="5" y="4" width="6" height="2" fill="#cbd5e1"/><path d="M4 6h8v7H4V6z" fill="#ec4899"/><rect x="5" y="7" width="2" height="3" fill="#f9a8d4"/></svg>`,
-      xp: () => `<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><rect x="6" y="2" width="4" height="2" fill="#cbd5e1"/><path d="M4 5h8v8H4V5z" fill="#84cc16"/><rect x="6" y="7" width="3" height="3" fill="#fef08a"/></svg>`,
-      tnt: () => `<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><rect x="3" y="3" width="10" height="10" fill="#ef4444"/><rect x="3" y="6" width="10" height="4" fill="#f8fafc"/><rect x="5" y="7" width="6" height="2" fill="#0f172a"/></svg>`
-    };
-
-    function buildKitItems(r) {
-      const sharp = Math.min(5, 2 + Math.floor(r.tier / 3));
-      const prot = Math.min(4, 1 + Math.floor(r.tier / 3));
-      const appleCnt = r.tier >= 8 ? 8 : r.tier >= 4 ? 4 : 2;
-      const pearlCnt = r.tier >= 7 ? 16 : 8;
-      const tntCnt = r.tier >= 8 ? 32 : r.tier >= 5 ? 16 : 4;
-      const items = [
-        { svg: itemIcons.sword(r.tier >= 7 ? "#4c1d95" : "#38bdf8"), cnt: "", ench: true, name: `Меч ${r.name}`, lore: `Острота ${sharp} • Заговор огня II` },
-        { svg: chestplateSVG(r.color, 26), cnt: "", ench: true, name: `Кираса ${r.name}`, lore: `Защита ${prot} • Прочность III` },
-        { svg: r.tier >= 9 ? itemIcons.elytra(r.color) : itemIcons.potion(), cnt: r.tier >= 9 ? "" : "3", ench: r.tier >= 9, name: r.tier >= 9 ? "Элитры Анархии" : "Зелье Силы II", lore: r.tier >= 9 ? "Починка • Неразрушимость" : "Эффект: Сила II (1:30)" },
-        { svg: itemIcons.apple(), cnt: appleCnt, ench: r.tier >= 9, name: r.tier >= 9 ? "Чар. Золотое Яблоко" : "Золотое Яблоко", lore: "Регенерация и поглощение" },
-        { svg: itemIcons.totem(), cnt: r.tier >= 8 ? "2" : "1", ench: false, name: "Тотем Бессмертия", lore: "Спасёт от смертельного урона" },
-        { svg: itemIcons.pearl(), cnt: pearlCnt, ench: false, name: "Эндер-жемчуг", lore: "Мгновенная телепортация" },
-        { svg: itemIcons.potion(), cnt: "4", ench: false, name: "Зелье Исцеления II", lore: "Мгновенное лечение в PvP" },
-        { svg: itemIcons.xp(), cnt: r.tier >= 6 ? "64" : "32", ench: true, name: "Пузырёк опыта", lore: "Быстрая починка брони" },
-        { svg: itemIcons.tnt(), cnt: tntCnt, ench: false, name: "Динамит Анархии", lore: "Для рейда вражеских баз" }
-      ];
-      return items.map(it => `
-        <div class="mc-slot" onmouseenter="playBeep(740,0.025,'sine',0.02)">
-          ${it.ench ? '<div class="mc-enchant"></div>' : ''}
-          ${it.svg}
-          ${it.cnt ? `<span class="mc-cnt">${it.cnt}</span>` : ''}
-          <div class="mc-tip">
-            <div class="mc-tip-name">${it.name}</div>
-            <div class="mc-tip-lore">${it.lore}</div>
-          </div>
-        </div>
-      `).join("");
-    }
-
-    // ---------- ПЛАВНАЯ АНИМАЦИЯ ЦЕНЫ ----------
     function animatePrice(targetVal, suffix = " руб") {
       const el = document.getElementById("detailPrice");
       const start = Number(lastPriceShown) || 0;
@@ -1536,21 +1622,49 @@
       function step(now) {
         const p = Math.min(1, (now - startTime) / duration);
         const eased = 1 - Math.pow(1 - p, 3);
-        const cur = Math.round(start + (end - start) * eased);
-        el.textContent = `${cur}${suffix}`;
+        el.textContent = `${Math.round(start + (end - start) * eased)}${suffix}`;
         if (p < 1) requestAnimationFrame(step);
         else lastPriceShown = end;
       }
       requestAnimationFrame(step);
     }
 
-    // ---------- МАГАЗИН ----------
+    // ---------- 5. МАГАЗИН, ФИЛЬТРЫ, ИСТОРИЯ, BOSSBAR И ШКАЛЫ ----------
+    function setRankFilter(filter, btn) {
+      rankFilter = filter;
+      document.querySelectorAll(".rf-btn").forEach(b => b.classList.remove("act"));
+      if (btn) btn.classList.add("act");
+      renderList();
+    }
+
+    function pushRecent(id) {
+      recentViewed = [id, ...recentViewed.filter(x => x !== id)].slice(0, 5);
+      localStorage.setItem("nt_recent", JSON.stringify(recentViewed));
+      renderRecent();
+    }
+
+    function renderRecent() {
+      const strip = document.getElementById("recentStrip");
+      if (!recentViewed.length) { strip.classList.remove("show"); return; }
+      strip.classList.add("show");
+      strip.innerHTML = `<span>Вы смотрели:</span>` + recentViewed.map(id => {
+        const r = ranks.find(x => x.id === id);
+        if (!r) return "";
+        return `<span class="recent-pill" style="border-color:${r.color}55;color:${r.color}" onclick="selectRank('${r.id}')">${r.name}</span>`;
+      }).join("");
+    }
+
     function renderList() {
       const q = document.getElementById("globalSearch").value.trim().toLowerCase();
       let html = "";
       let count = 0;
       ranks.forEach((r, idx) => {
-        if (idx === 11 && !q) html += `<div class="rank-div">Особые статусы</div>`;
+        if (idx === 11 && !q && rankFilter === "all") html += `<div class="rank-div">Особые статусы</div>`;
+        if (rankFilter === "paid" && r.special) return;
+        if (rankFilter === "fly" && !r.fly) return;
+        if (rankFilter === "tp0" && r.tp !== "0 сек") return;
+        if (rankFilter === "special" && !r.special) return;
+
         const match = !q || r.name.toLowerCase().includes(q) || r.cmds.some(c => c.c.toLowerCase().includes(q) || c.d.toLowerCase().includes(q));
         if (!match) return;
         count++;
@@ -1566,6 +1680,13 @@
       return count;
     }
 
+    function onLiveNickChange() {
+      const val = document.getElementById("liveNickInp").value.trim();
+      if (val) localStorage.setItem("nt_nick", val);
+      else localStorage.removeItem("nt_nick");
+      renderDetails();
+    }
+
     function renderDetails() {
       const r = ranks.find(x => x.id === selectedId);
       if (!r) return;
@@ -1573,6 +1694,8 @@
       const termTabs = document.getElementById("termTabs");
       const termLabel = document.getElementById("termLabel");
       const buyBtn = document.getElementById("buyBtn");
+      const perDayEl = document.getElementById("pricePerDay");
+      const nextBtn = document.getElementById("nextTierBtn");
 
       detailCard.style.setProperty("--rank-accent", r.color);
       document.getElementById("detailIcon").innerHTML = chestplateSVG(r.color, 38);
@@ -1582,18 +1705,31 @@
 
       const savedNick = localStorage.getItem("nt_nick") || "ВашНик";
       document.getElementById("chatPreview").innerHTML =
-        `<div><span class="mc-lbl">Чат:</span><strong style="color:${r.color}">${r.prefix}</strong> <span style="color:#fff">${savedNick}:</span> <span style="color:#cbd5e1">gg!</span></div>`;
+        `<div><span class="mc-lbl">Чат:</span><strong style="color:${r.color}">${r.prefix}</strong> <span style="color:#fff">${savedNick}:</span> <span style="color:#cbd5e1">всем удачи!</span></div>`;
       document.getElementById("tabPreview").innerHTML =
         `<div><span class="mc-lbl">TAB:</span><strong style="color:${r.color}">${r.prefix}</strong> <span style="color:#fff">${savedNick}</span></div>` +
         `<span class="mc-ping"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:11px"></i></span>`;
 
-      document.getElementById("kitTitle").textContent = `🧰 Сундук набора /kit ${r.id} (наведите на слот)`;
-      document.getElementById("kitSlots").innerHTML = buildKitItems(r);
+      // BossBar
+      const bossPct = Math.max(12, Math.round((r.tier / 11) * 100));
+      document.getElementById("bossbarTxt").innerHTML = `<span style="color:${r.color}">${r.prefix} ${savedNick}</span> • NEWTIME CYAN ANARCHY`;
+      const bFill = document.getElementById("bossbarFill");
+      bFill.style.width = bossPct + "%";
+      bFill.style.background = `linear-gradient(90deg, ${r.color}, var(--cyan))`;
+
+      // Шкалы характеристик
+      document.getElementById("powerMeters").innerHTML = `
+        <div class="pm-box"><div class="pm-top"><span>⚔️ PvP-мощь</span><strong>${r.pvp}%</strong></div><div class="pm-track"><div class="pm-fill" style="width:${r.pvp}%"></div></div></div>
+        <div class="pm-box"><div class="pm-top"><span>💰 Экономика</span><strong>${r.eco}%</strong></div><div class="pm-track"><div class="pm-fill" style="width:${r.eco}%"></div></div></div>
+        <div class="pm-box"><div class="pm-top"><span>✨ Комфорт</span><strong>${r.comf}%</strong></div><div class="pm-track"><div class="pm-fill" style="width:${r.comf}%"></div></div></div>
+      `;
 
       if (r.special) {
         termLabel.textContent = `Статус: ${r.name}`;
         termTabs.style.display = "none";
         document.getElementById("detailPrice").textContent = r.priceLabel;
+        perDayEl.textContent = "";
+        nextBtn.style.display = "none";
         buyBtn.textContent = r.id === "player" ? "ИГРАТЬ БЕСПЛАТНО" : "ПОДРОБНЕЕ";
       } else {
         termLabel.textContent = "Выберите срок:";
@@ -1601,6 +1737,21 @@
         const save90 = Math.round((1 - r.p90 / (r.p30 * 3)) * 100);
         document.getElementById("save90").textContent = save90 > 0 ? `-${save90}%` : "";
         animatePrice(r[selectedTerm], " руб");
+
+        if (selectedTerm === "p30") perDayEl.textContent = `≈ ${(r.p30 / 30).toFixed(2)} ₽ в день`;
+        else if (selectedTerm === "p90") perDayEl.textContent = `≈ ${(r.p90 / 90).toFixed(2)} ₽ в день`;
+        else perDayEl.textContent = "∞ Вечный доступ без продлений";
+
+        const idx = ranks.findIndex(x => x.id === r.id);
+        const nextR = ranks[idx + 1];
+        if (nextR && !nextR.special) {
+          const diff = nextR[selectedTerm] - r[selectedTerm];
+          nextBtn.style.display = "inline-flex";
+          nextBtn.textContent = `⬆ ${nextR.name} (+${diff} ₽)`;
+          nextBtn.dataset.next = nextR.id;
+        } else {
+          nextBtn.style.display = "none";
+        }
         buyBtn.textContent = "ПРИОБРЕСТИ";
       }
 
@@ -1608,6 +1759,54 @@
         r.cmds.map(i => `<li><span class="cmd">› ${i.c}</span> <span class="arrow">⇒</span> <span>${i.d}</span></li>`).join("");
       document.getElementById("detailOther").innerHTML =
         r.other.map(o => `<li><span>${o[0]}</span><strong>${o[1]}</strong></li>`).join("");
+    }
+
+    function jumpNextRank() {
+      const nextId = document.getElementById("nextTierBtn").dataset.next;
+      if (nextId) selectRank(nextId);
+    }
+
+    // ---------- 6. СРАВНЕНИЕ И ДУЭЛЬ РАНГОВ ----------
+    function initDuelSelects() {
+      const paid = ranks.filter(r => !r.special);
+      const opts = paid.map(r => `<option value="${r.id}">${r.name} (от ${r.p30} ₽)</option>`).join("");
+      const a = document.getElementById("duelA");
+      const b = document.getElementById("duelB");
+      a.innerHTML = opts;
+      b.innerHTML = opts;
+      a.value = "knight";
+      b.value = "knyaz";
+      renderDuel();
+    }
+
+    function renderDuel() {
+      const a = ranks.find(x => x.id === document.getElementById("duelA").value);
+      const b = ranks.find(x => x.id === document.getElementById("duelB").value);
+      if (!a || !b) return;
+      const metrics = [
+        ["Цена (30 дней)", `${a.p30} ₽`, `${b.p30} ₽`, a.p30 < b.p30 ? "a" : b.p30 < a.p30 ? "b" : ""],
+        ["Цена (Навсегда)", `${a.pFor} ₽`, `${b.pFor} ₽`, a.pFor < b.pFor ? "a" : b.pFor < a.pFor ? "b" : ""],
+        ["Точки домов", a.homes, b.homes, a.homes > b.homes ? "a" : b.homes > a.homes ? "b" : ""],
+        ["Приваты", a.regs, b.regs, a.regs > b.regs ? "a" : b.regs > a.regs ? "b" : ""],
+        ["Аукцион", a.auc, b.auc, a.auc > b.auc ? "a" : b.auc > a.auc ? "b" : ""],
+        ["Полёт /fly", a.fly ? "Есть" : "Нет", b.fly ? "Есть" : "Нет", a.fly && !b.fly ? "a" : b.fly && !a.fly ? "b" : ""],
+        ["Мощь PvP", a.pvp + "%", b.pvp + "%", a.pvp > b.pvp ? "a" : b.pvp > a.pvp ? "b" : ""]
+      ];
+
+      function buildCard(r, side) {
+        return `<div class="duel-card" style="border-top:2px solid ${r.color}">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+            ${chestplateSVG(r.color, 26)}
+            <strong style="font-size:18px;color:${r.color}">${r.name}</strong>
+          </div>
+          ${metrics.map(m => {
+            const val = side === "a" ? m[1] : m[2];
+            const win = m[3] === side ? "duel-win" : "";
+            return `<div class="duel-row"><span style="color:var(--mut)">${m[0]}</span><span class="${win}">${val}</span></div>`;
+          }).join("")}
+        </div>`;
+      }
+      document.getElementById("duelGrid").innerHTML = buildCard(a, "a") + buildCard(b, "b");
     }
 
     function renderCompareTable() {
@@ -1664,7 +1863,7 @@
         : `<div style="grid-column:1/-1;text-align:center;color:var(--mut);padding:26px;">По заданным фильтрам и бюджету вариантов нет.</div>`;
     }
 
-    // ---------- ДЕМО-РУЛЕТКА КЕЙСА ----------
+    // ---------- 7. ДЕМО-РУЛЕТКА ----------
     function buildRoulettePool() {
       const paid = ranks.filter(r => !r.special);
       const track = document.getElementById("rouletteTrack");
@@ -1689,7 +1888,6 @@
       dropBox.classList.remove("show");
       btn.disabled = true;
       btn.textContent = "КРУТИМ КЕЙС...";
-      playBeep(440, 0.08, "sine");
 
       buildRoulettePool();
       const track = document.getElementById("rouletteTrack");
@@ -1703,7 +1901,7 @@
       cards[winIndex].innerHTML = `${chestplateSVG(winRank.color, 32)}<span style="color:${winRank.color}">${winRank.name}</span>`;
 
       const stageW = track.parentElement.clientWidth;
-      const cardStep = 142; // 132px + 10px gap
+      const cardStep = 142;
       const jitter = Math.floor((Math.random() - 0.5) * 40);
       const targetX = -(winIndex * cardStep + 66 - stageW / 2 + jitter);
 
@@ -1715,8 +1913,6 @@
       });
 
       setTimeout(() => {
-        playBeep(880, 0.14, "triangle", 0.06);
-        setTimeout(() => playBeep(1174, 0.2, "sine", 0.06), 110);
         dropBox.innerHTML = `
           <div style="font-size:12px;color:var(--cyan);font-weight:800;text-transform:uppercase;">🎉 Тестовый дроп:</div>
           <div style="font-size:20px;font-weight:900;color:${winRank.color};margin:4px 0;">${winRank.name}</div>
@@ -1731,7 +1927,6 @@
     }
 
     function switchShopTab(tabId, btn) {
-      playBeep(560, 0.04, "sine", 0.03);
       document.querySelectorAll(".subview").forEach(v => v.classList.remove("act"));
       document.getElementById("shop-" + tabId).classList.add("act");
       document.querySelectorAll(".subtab-btn").forEach(b => b.classList.remove("act"));
@@ -1739,31 +1934,34 @@
     }
 
     function selectRank(id) {
-      playBeep(520, 0.035, "triangle", 0.03);
       selectedId = id;
+      pushRecent(id);
       renderList();
       renderDetails();
     }
     function selectTerm(term) {
-      playBeep(640, 0.04, "sine", 0.03);
       selectedTerm = term;
       document.querySelectorAll(".term-btn").forEach(b => b.classList.toggle("act", b.dataset.term === term));
       renderDetails();
     }
-    function jumpToRank(id) { selectedId = id; renderList(); renderDetails(); switchView("shop"); }
+    function jumpToRank(id) { selectedId = id; pushRecent(id); renderList(); renderDetails(); switchView("shop"); }
     function switchView(view) {
-      playBeep(490, 0.04, "sine", 0.03);
       document.querySelectorAll(".view").forEach(v => v.classList.remove("act"));
       document.getElementById("view-" + view).classList.add("act");
       document.querySelectorAll(".nav-btn").forEach(b => b.classList.toggle("act", b.dataset.view === view));
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    // ---------- ОПЛАТА И МОДАЛКА ----------
-    function saveNickPreview() {
+    // ---------- 8. ОПЛАТА И МОДАЛКА ----------
+    function onModalNickInput() {
       const val = document.getElementById("mNick").value.trim();
-      if (val) localStorage.setItem("nt_nick", val);
-      renderDetails();
+      const valid = /^[a-zA-Z0-9_]{3,16}$/.test(val);
+      document.getElementById("step2").classList.toggle("act", valid);
+      if (!document.getElementById("giftCheck").checked) {
+        document.getElementById("liveNickInp").value = val;
+        if (val) localStorage.setItem("nt_nick", val);
+        renderDetails();
+      }
     }
 
     function toggleGiftMode() {
@@ -1781,11 +1979,12 @@
         return null;
       }
       if (!document.getElementById("giftCheck").checked) localStorage.setItem("nt_nick", nick);
+      document.getElementById("step2").classList.add("act");
+      document.getElementById("step3").classList.add("act");
       return nick;
     }
 
     function openBuyModal() {
-      playBeep(680, 0.05, "sine", 0.04);
       const r = ranks.find(x => x.id === selectedId);
       if (!r) return;
       if (r.special) { r.id === "player" ? copyIP() : showToast(r.note); return; }
@@ -1802,6 +2001,7 @@
       if (saved && !document.getElementById("mNick").value && !document.getElementById("giftCheck").checked) {
         document.getElementById("mNick").value = saved;
       }
+      onModalNickInput();
       document.getElementById("modalBg").classList.add("open");
     }
 
@@ -1886,13 +2086,54 @@
       }
     }
 
-    // ---------- ПРАВИЛА, МОДЫ, ЧЕКЕР И FAQ ----------
+    // ---------- 9. ПРАВИЛА, ИЗБРАННОЕ, ГОТОВНОСТЬ, МОДЫ И FAQ ----------
     function copyRule(btn) {
       const row = btn.closest(".rule-row");
       const badge = row.querySelector(".r-badge").textContent;
-      const text = row.querySelector(".rule-main > div").innerText.trim();
+      const text = row.querySelector(".rule-main > div:last-child").innerText.trim();
       if (navigator.clipboard) navigator.clipboard.writeText(`Пункт ${badge}: ${text}`);
       showToast(`Скопирован пункт ${badge}`);
+    }
+
+    function toggleFavRule(btn) {
+      const row = btn.closest(".rule-row");
+      const code = row.querySelector(".r-badge").textContent;
+      const text = row.querySelector(".rule-main > div:last-child").innerText.trim();
+      const exists = favRules.find(f => f.code === code);
+      if (exists) favRules = favRules.filter(f => f.code !== code);
+      else favRules.push({ code, text });
+      localStorage.setItem("nt_fav_rules", JSON.stringify(favRules));
+      syncFavButtons();
+      renderFavRules();
+    }
+
+    function syncFavButtons() {
+      document.querySelectorAll(".rule-row").forEach(row => {
+        const code = row.querySelector(".r-badge").textContent;
+        const star = row.querySelector(".r-act-btn");
+        if (star) star.classList.toggle("fav-on", favRules.some(f => f.code === code));
+      });
+    }
+
+    function renderFavRules() {
+      const box = document.getElementById("favRulesBox");
+      if (!favRules.length) {
+        box.innerHTML = "Нажмите ⭐ на любом правиле, чтобы закрепить его здесь.";
+        return;
+      }
+      box.innerHTML = favRules.map(f => `
+        <div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;gap:8px;align-items:flex-start;">
+          <span class="r-badge" style="min-width:40px;font-size:10.5px;">${f.code}</span>
+          <span style="color:#e2e8f0;font-size:12px;">${f.text.slice(0, 75)}${f.text.length > 75 ? "..." : ""}</span>
+        </div>
+      `).join("");
+    }
+
+    function updateReadyBar() {
+      const checks = document.querySelectorAll(".ready-chk input");
+      const done = [...checks].filter(c => c.checked).length;
+      document.getElementById("readyFill").style.width = (done / checks.length * 100) + "%";
+      if (done === checks.length) showToast("Отлично! Вы готовы к игре на Cyan Anarchy!");
     }
 
     function renderMods() {
@@ -1910,6 +2151,17 @@
       modsSorted = !modsSorted;
       document.getElementById("sortModsBtn").textContent = modsSorted ? "🔁 Исходный порядок" : "🔤 Сортировать А–Я";
       renderMods();
+    }
+
+    function copyAllMods(type) {
+      const list = type === "ok" ? ok : no;
+      if (navigator.clipboard) navigator.clipboard.writeText(list.join(", "));
+      showToast(`Скопирован список (${list.length} модов)`);
+    }
+
+    function quickCheckMod(name) {
+      document.getElementById("modCheckerInp").value = name;
+      checkModName();
     }
 
     function checkModName() {
@@ -1942,12 +2194,9 @@
       document.getElementById("modsGrid").style.gridTemplateColumns = grp === "all" ? "" : "1fr";
     }
 
-    function toggleFaq(btn) {
-      playBeep(540, 0.035, "sine", 0.025);
-      btn.closest(".faq-item").classList.toggle("open");
-    }
+    function toggleFaq(btn) { btn.closest(".faq-item").classList.toggle("open"); }
 
-    // ---------- ПОИСК, ТЕМА, УВЕДОМЛЕНИЯ, SPOTLIGHT ----------
+    // ---------- 10. ПОИСК С ПОДСВЕТКОЙ, ТЕМА, СВЕЧЕНИЕ И СТАТУС ----------
     function setBadge(id, count, active) {
       const el = document.getElementById(id);
       if (!el) return;
@@ -1955,18 +2204,37 @@
       el.classList.toggle("show", active);
     }
 
+    function escapeRegExp(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
     function onSearch() {
       const input = document.getElementById("globalSearch");
-      const v = input.value.trim().toLowerCase();
+      const raw = input.value.trim();
+      const v = raw.toLowerCase();
       document.getElementById("searchClear").classList.toggle("show", v.length > 0);
 
       const shopMatches = renderList();
       let ruleMatches = 0;
+      const re = v ? new RegExp(`(${escapeRegExp(raw)})`, "gi") : null;
+
       document.querySelectorAll("#view-rules .rule-row").forEach(r => {
-        const hit = r.innerText.toLowerCase().includes(v);
-        r.style.display = hit ? "flex" : "none";
-        if (hit) ruleMatches++;
+        const textEl = r.querySelector(".r-text");
+        if (textEl) {
+          if (!textEl.dataset.orig) textEl.dataset.orig = textEl.innerHTML;
+          const plain = textEl.innerText.toLowerCase();
+          const hit = plain.includes(v);
+          r.style.display = hit ? "flex" : "none";
+          if (hit) ruleMatches++;
+          if (v && hit && !textEl.dataset.orig.includes("<a") && !textEl.dataset.orig.includes("<div")) {
+            textEl.innerHTML = textEl.dataset.orig.replace(re, '<mark class="hl">$1</mark>');
+          } else {
+            textEl.innerHTML = textEl.dataset.orig;
+          }
+        }
       });
+
+      const banner = document.getElementById("rulesSearchBanner");
+      banner.classList.toggle("show", v.length > 0);
+      document.getElementById("rulesSearchMsg").textContent = `По запросу «${raw}» найдено пунктов: ${ruleMatches}`;
 
       let modMatches = 0;
       document.querySelectorAll(".tag").forEach(t => {
@@ -1986,16 +2254,20 @@
     }
 
     function setTheme(theme, dot) {
-      playBeep(660, 0.04, "sine", 0.03);
       document.body.setAttribute("data-theme", theme);
       localStorage.setItem("nt_theme", theme);
       document.querySelectorAll(".t-dot").forEach(d => d.classList.remove("act"));
       if (dot) dot.classList.add("act");
     }
 
+    function toggleGlow() {
+      document.body.classList.toggle("low-glow");
+      const low = document.body.classList.contains("low-glow");
+      document.getElementById("glowBtn").textContent = low ? "🌑 Тихий" : "✨ Неон";
+    }
+
     let toastTimer;
     function showToast(msg) {
-      playBeep(700, 0.045, "sine", 0.03);
       const t = document.getElementById("toast");
       t.textContent = msg;
       t.classList.add("show");
@@ -2013,7 +2285,6 @@
       showToast(`Скопировано: ${name}`);
     }
 
-    // ---------- ЖИВОЙ СТАТУС СЕРВЕРА ----------
     async function fetchServerStatus() {
       const txt = document.getElementById("onlineText");
       try {
@@ -2031,16 +2302,7 @@
       }
     }
 
-    // ---------- SPOTLIGHT НА КАРТОЧКАХ ----------
-    document.addEventListener("mousemove", e => {
-      document.querySelectorAll(".st-card").forEach(card => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty("--mx", (e.clientX - rect.left) + "px");
-        card.style.setProperty("--my", (e.clientY - rect.top) + "px");
-      });
-    });
-
-    // ---------- ИНТЕРАКТИВНЫЙ CANVAS ФОН С НИТЯМИ ----------
+    // ---------- 11. CANVAS ФОН ----------
     (function initCanvas() {
       const canvas = document.getElementById("bgCanvas");
       const ctx = canvas.getContext("2d");
@@ -2060,10 +2322,8 @@
 
       for (let i = 0; i < count; i++) {
         particles.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.42,
-          vy: (Math.random() - 0.5) * 0.42,
+          x: Math.random() * w, y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.42, vy: (Math.random() - 0.5) * 0.42,
           s: Math.random() * 2 + 1.2
         });
       }
@@ -2072,42 +2332,31 @@
         if (!document.hidden) {
           ctx.clearRect(0, 0, w, h);
           const accent = getComputedStyle(document.body).getPropertyValue("--cyan").trim() || "#00e5ff";
-
           for (let i = 0; i < particles.length; i++) {
             const p = particles[i];
-            p.x += p.vx;
-            p.y += p.vy;
+            p.x += p.vx; p.y += p.vy;
             if (p.x < 0 || p.x > w) p.vx *= -1;
             if (p.y < 0 || p.y > h) p.vy *= -1;
 
             ctx.fillStyle = accent;
-            ctx.globalAlpha = 0.3;
+            ctx.globalAlpha = 0.28;
             ctx.fillRect(p.x, p.y, p.s, p.s);
 
-            const mdx = p.x - mouse.x;
-            const mdy = p.y - mouse.y;
-            const mdist = Math.hypot(mdx, mdy);
+            const mdist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
             if (mdist < 145) {
               ctx.strokeStyle = accent;
               ctx.globalAlpha = (1 - mdist / 145) * 0.25;
               ctx.lineWidth = 1;
-              ctx.beginPath();
-              ctx.moveTo(p.x, p.y);
-              ctx.lineTo(mouse.x, mouse.y);
-              ctx.stroke();
+              ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
             }
-
             for (let j = i + 1; j < particles.length; j++) {
               const p2 = particles[j];
               const d = Math.hypot(p.x - p2.x, p.y - p2.y);
               if (d < 115) {
                 ctx.strokeStyle = accent;
-                ctx.globalAlpha = (1 - d / 115) * 0.1;
+                ctx.globalAlpha = (1 - d / 115) * 0.09;
                 ctx.lineWidth = 0.8;
-                ctx.beginPath();
-                ctx.moveTo(p.x, p.y);
-                ctx.lineTo(p2.x, p2.y);
-                ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
               }
             }
           }
@@ -2117,9 +2366,13 @@
       loop();
     })();
 
-    // ---------- SCROLL SPY И КЛАВИШИ ----------
+    // ---------- 12. ПРОГРЕСС-БАР СКРОЛЛА, SCROLL-SPY И КЛАВИШИ ----------
     window.addEventListener("scroll", () => {
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docH > 0 ? Math.min(100, (window.scrollY / docH) * 100) : 0;
+      document.getElementById("scrollProgress").style.width = pct + "%";
       document.getElementById("backTop").classList.toggle("show", window.scrollY > 360);
+
       const secs = document.querySelectorAll(".rule-sec");
       let current = "sec-1";
       secs.forEach(s => { if (window.scrollY >= s.offsetTop - 160) current = s.id; });
@@ -2130,24 +2383,33 @@
 
     document.addEventListener("keydown", e => {
       if (e.key === "Escape") closeModal();
-      if (e.key === "/" && document.activeElement.tagName !== "INPUT") {
-        e.preventDefault();
-        document.getElementById("globalSearch").focus();
-      }
+      if (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "SELECT") return;
+      if (e.key === "/") { e.preventDefault(); document.getElementById("globalSearch").focus(); }
+      if (e.key === "1") switchView("shop");
+      if (e.key === "2") switchView("rules");
+      if (e.key === "3") switchView("mods");
+      if (e.key === "4") switchView("contacts");
     });
 
-    // ---------- ИНИЦИАЛИЗАЦИЯ ----------
+    // ---------- 13. ИНИЦИАЛИЗАЦИЯ ----------
     const savedTheme = localStorage.getItem("nt_theme");
     if (savedTheme) {
-      const idx = savedTheme === "crimson" ? 1 : savedTheme === "emerald" ? 2 : 0;
-      setTheme(savedTheme, document.querySelectorAll(".t-dot")[idx]);
+      const map = { cyan: 0, crimson: 1, emerald: 2, amethyst: 3 };
+      setTheme(savedTheme, document.querySelectorAll(".t-dot")[map[savedTheme] ?? 0]);
     }
+    const savedNickInit = localStorage.getItem("nt_nick");
+    if (savedNickInit) document.getElementById("liveNickInp").value = savedNickInit;
+
+    renderRecent();
     renderList();
     renderDetails();
     renderCompareTable();
+    initDuelSelects();
     updateWizard();
     buildRoulettePool();
     renderMods();
+    syncFavButtons();
+    renderFavRules();
     fetchServerStatus();
   </script>
 </body>
