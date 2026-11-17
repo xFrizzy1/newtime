@@ -119,23 +119,30 @@
     .subtabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
     .subview { display: none; } .subview.act { display: block; animation: viewPop 0.28s var(--bounce); }
 
-    .mc-chest-panel { background: #4a4f59; border: 3px solid #1b1e24; box-shadow: inset 3px 3px 0 #7b8291, inset -3px -3px 0 #2d3138, 0 10px 26px rgba(0,0,0,0.65); border-radius: 8px; padding: 12px 14px; margin-bottom: 18px; }
+    /* MINECRAFT CHEST KIT GUI С ЦВЕТНЫМИ СЛОТАМИ КАК НА СКРИНШОТАХ */
+    .mc-chest-panel { background: #606570; border: 3px solid #16191f; box-shadow: inset 3px 3px 0 #9aa2b3, inset -3px -3px 0 #31343b, 0 10px 26px rgba(0,0,0,0.65); border-radius: 8px; padding: 12px 14px; margin-bottom: 18px; }
     .mc-chest-title { font-family: var(--mono); font-size: 13px; font-weight: 900; color: #00e5ff; text-shadow: 1.5px 1.5px 0 #071921; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-    .mc-chest-grid { display: grid; grid-template-columns: repeat(9, minmax(34px, 1fr)); gap: 5px; }
-    .mc-slot { position: relative; aspect-ratio: 1; background: #2d3138; border-top: 2px solid #17191d; border-left: 2px solid #17191d; border-right: 2px solid #6b7280; border-bottom: 2px solid #6b7280; border-radius: 3px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.12s; }
-    .mc-slot:hover { background: #3e4552; border-color: #00e5ff; transform: scale(1.08); z-index: 20; }
-    .mc-slot img { width: 74%; height: 74%; image-rendering: pixelated; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.7)); }
-    .mc-slot-cnt { position: absolute; bottom: 0; right: 2px; font-family: var(--mono); font-size: 10.5px; font-weight: 900; color: #fff; text-shadow: 1.5px 1.5px 0 #000; line-height: 1; }
+    .mc-chest-grid { display: grid; grid-template-columns: repeat(9, minmax(34px, 1fr)); gap: 4px; }
+    .mc-slot { position: relative; aspect-ratio: 1; background: var(--sbg, #464952); border-top: 2px solid #26282e; border-left: 2px solid #26282e; border-right: 2px solid #8a909e; border-bottom: 2px solid #8a909e; border-radius: 3px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.12s; }
+    .mc-slot.empty-slot { cursor: default; background: #43464f; }
+    .mc-slot:not(.empty-slot):hover { border-color: #00e5ff; transform: scale(1.09); z-index: 20; filter: brightness(1.12); }
+    .mc-slot img { width: 78%; height: 78%; image-rendering: pixelated; filter: var(--iflt, drop-shadow(0 2px 2px rgba(0,0,0,0.65))); pointer-events: none; }
+    .mc-slot-cnt { position: absolute; bottom: 1px; right: 2px; font-family: var(--mono); font-size: 11px; font-weight: 900; color: #fff; text-shadow: 1.5px 1.5px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000; line-height: 1; z-index: 2; }
     .mc-slot-glint { position: absolute; inset: 1px; background: linear-gradient(135deg, rgba(192,132,252,0.22), transparent 65%); pointer-events: none; }
-    .mc-slot-tip { display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: rgba(11,5,18,0.97); border: 2px solid #b45309; box-shadow: inset 0 0 0 1.5px #4c1d95, 0 10px 26px rgba(0,0,0,0.9); border-radius: 6px; padding: 8px 11px; min-width: 215px; max-width: 280px; pointer-events: none; z-index: 50; text-align: left; font-family: var(--mono); }
+    .mc-bundle-bar { position: absolute; left: 14%; right: 14%; bottom: 4px; height: 2.5px; background: #18181b; border-radius: 1px; overflow: hidden; z-index: 2; }
+    .mc-bundle-bar::after { content: ""; display: block; width: 100%; height: 100%; background: #ef4444; }
+    .mc-slot-tip { display: none; position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: rgba(11,5,18,0.97); border: 2px solid #b45309; box-shadow: inset 0 0 0 1.5px #4c1d95, 0 10px 26px rgba(0,0,0,0.9); border-radius: 6px; padding: 8px 11px; min-width: 225px; max-width: 290px; pointer-events: none; z-index: 50; text-align: left; font-family: var(--mono); }
     .mc-slot:hover .mc-slot-tip { display: block; animation: fadeIn 0.08s ease; }
 
-    .mc-items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; margin-bottom: 20px; }
+    .mc-items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(295px, 1fr)); gap: 16px; margin-bottom: 20px; }
     .mc-tooltip-card { position: relative; background: #0c0712; border: 2px solid #4c1d95; box-shadow: inset 0 0 0 2px #1a0b2e, 0 12px 28px rgba(0,0,0,0.65); border-radius: 10px; padding: 14px 16px; font-family: var(--mono); transition: transform 0.2s var(--bounce), border-color 0.2s; }
     .mc-tooltip-card.gold-frame { border-color: #b45309; box-shadow: inset 0 0 0 2px #2e1805, 0 12px 28px rgba(0,0,0,0.65); }
     .mc-tooltip-card:hover { transform: translateY(-4px) scale(1.015); border-color: var(--cyan); }
     .mc-tt-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
-    .mc-tt-title { font-size: 13.5px; font-weight: 800; } .mc-tt-tag { font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 5px; background: rgba(255,255,255,0.08); color: var(--mut); }
+    .mc-tt-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .mc-tt-icon-box { width: 34px; height: 34px; flex-shrink: 0; border-radius: 6px; border: 1.5px solid rgba(255,255,255,0.16); display: flex; align-items: center; justify-content: center; }
+    .mc-tt-icon { width: 26px; height: 26px; image-rendering: pixelated; }
+    .mc-tt-title { font-size: 13px; font-weight: 800; } .mc-tt-tag { font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 5px; background: rgba(255,255,255,0.08); color: var(--mut); flex-shrink: 0; }
     .mc-tt-lore { font-size: 11.5px; color: #94a3b8; margin-bottom: 8px; line-height: 1.4; }
     .mc-tt-stats { display: grid; gap: 3px; font-size: 11.5px; line-height: 1.4; }
     .st-pos { color: #60a5fa; } .st-neg { color: #f87171; } .st-ok { color: #34d399; } .st-gold { color: #fbbf24; }
@@ -338,7 +345,7 @@
   <canvas id="bgCanvas"></canvas><canvas id="fxCanvas"></canvas><div class="scanlines"></div>
 
   <div class="promo-strip" id="promoStrip">
-    <span>⚡ <strong>NEWTIME • CYAN ANARCHY 1.21.4+</strong> • Клавиши <strong>1–5</strong> вкладки, <strong>/</strong> поиск • Все киты доступны для просмотра!</span>
+    <span>⚡ <strong>NEWTIME • CYAN ANARCHY 1.21.4+</strong> • Клавиши <strong>1–5</strong> вкладки, <strong>/</strong> поиск • Официальные текстуры 1.21.4 и киты со скриншотов</span>
     <button class="promo-close" onclick="document.getElementById('promoStrip').style.display='none'" title="Скрыть">✕</button>
   </div>
 
@@ -433,11 +440,11 @@
 
     <!-- 2. ВСЕ КИТЫ И ПРЕДМЕТЫ -->
     <section class="view" id="view-items">
-      <div class="page-head"><div><h2 class="page-title">Все наборы (/kit) и кастомные предметы (1.21.4+)</h2><div class="page-sub">Реальные наборы для всех 15 статусов — от Игрока до Admin — и характеристики баффов</div></div><div class="page-actions"><button class="p-btn primary" onclick="switchView('shop')">💎 В магазин доната</button></div></div>
+      <div class="page-head"><div><h2 class="page-title">Все наборы (/kit) и кастомные предметы (1.21.4+)</h2><div class="page-sub">Реальные текстуры 1.21.4, цветные слоты со скриншотов и точные характеристики всех талисманов, сфер и зелий</div></div><div class="page-actions"><button class="p-btn primary" onclick="switchView('shop')">💎 В магазин доната</button></div></div>
       <div class="subtabs"><button class="subtab-btn act" onclick="switchItemsTab('allkits', this)">🎒 Все 15 наборов (/kit)</button><button class="subtab-btn" onclick="switchItemsTab('customs', this)">🔮 Сферы, Талисманы, Зелья</button></div>
       <div class="subview act" id="items-allkits"><div class="all-kits-grid" id="allKitsGrid"></div></div>
       <div class="subview" id="items-customs">
-        <div class="subtabs"><button class="rf-btn act" onclick="filterCustomItems('all', this)">Все (27)</button><button class="rf-btn" onclick="filterCustomItems('ability', this)">⚡ Способности</button><button class="rf-btn" onclick="filterCustomItems('talisman', this)">🗿 Талисманы</button><button class="rf-btn" onclick="filterCustomItems('sphere', this)">🔮 Сферы</button><button class="rf-btn" onclick="filterCustomItems('potion', this)">🧪 Зелья и Мешок</button><button class="rf-btn" onclick="filterCustomItems('gear', this)">⚔️ Оружие, Броня, Стрелы</button></div>
+        <div class="subtabs"><button class="rf-btn act" onclick="filterCustomItems('all', this)">Все (29)</button><button class="rf-btn" onclick="filterCustomItems('ability', this)">⚡ Способности</button><button class="rf-btn" onclick="filterCustomItems('talisman', this)">🗿 Талисманы</button><button class="rf-btn" onclick="filterCustomItems('sphere', this)">🔮 Сферы</button><button class="rf-btn" onclick="filterCustomItems('potion', this)">🧪 Зелья и Мешок</button><button class="rf-btn" onclick="filterCustomItems('gear', this)">⚔️ Оружие, Броня, Стрелы</button></div>
         <div class="mc-items-grid" id="customItemsGrid"></div>
       </div>
     </section>
@@ -535,6 +542,7 @@
 
   <script>
     const WORKER_URL = "https://newtime-bot.ВАШ-НИК.workers.dev", BOT_USERNAME = "newtime_donate_bot", SBP_FALLBACK = "Напишите в @newtime_tg для оплаты по СБП";
+    const MC_TEX = "https://assets.mcasset.cloud/1.21.4/assets/minecraft/textures/";
 
     const ranks = [
       { id:"baron", name:"Барон", color:"#84FF00", prefix:"[Барон]", homes:1, regs:3, auc:6, tp:"7 сек", fly:false, fix:"—", exp:"0%", tier:1, pvp:25, eco:30, comf:25, p30:5, p90:12, pFor:25, cmds:[{c:"/kit baron",d:"Стартовый набор"},{c:"/salary",d:"Зарплата 100.000$"},{c:"/near 105м",d:"Поиск игроков рядом (кд 2м 30с)"}], other:[["Точек домов","1 дом"],["Регионов","3 блока"],["Аукцион","6 слотов"],["Задержка ТП","7 сек"]] },
@@ -555,71 +563,79 @@
     ];
 
     const itemCatalog = {
-      sword:    { kind:"sword", clr:"#38bdf8", name:"Меч (Острота / Прочность)", lore:"Базовый / PvP-меч", stats:[["Острота • Прочность • Починка","pos"]] },
-      ripper:   { kind:"sword", clr:"#ef4444", ench:1, name:"Потрошитель богов", lore:"minecraft:netherite_sword", stats:[["Острота 8, Заговор огня 3, Добыча 4, Прочность 5, Починка","pos"],["Вампиризм II, Окисление II, Яд III, Детекция III, Опытный III (+8 урон)","ok"]] },
-      mace:     { kind:"mace", clr:"#94a3b8", ench:1, name:"Булава Анархии", lore:"Сокрушительный урон в падении", stats:[["Пробитие • Плотность • Починка","pos"]] },
-      crossbow: { kind:"crossbow", clr:"#f59e0b", ench:1, name:"✦ Арбалет Крушителя", lore:"minecraft:crossbow", stats:[["Пронзающая стрела 5, Тройной выстрел","pos"],["Быстрая перезарядка 3, Прочность 3, Починка","pos"]] },
-      pick:     { kind:"pick", clr:"#64748b", ench:1, name:"Незеритовая кирка", lore:"Эффективность • Шёлковое касание", stats:[["Быстрая добыча","pos"]] },
-      helmet:   { kind:"helmet", clr:"#00e5ff", ench:1, name:"Незеритовый шлем (Шпиль)", lore:"Отделка «Шпиль» • Алмазный материал", stats:[["Защита 6, Подвод. дыхание 3, Подводник, Прочность 5, Починка","pos"],["+3 Броня • +3 Твёрдость • +3 Кислород • +400% Подвод. добыча","ok"]] },
-      chest:    { kind:"chest", clr:"#00e5ff", ench:1, name:"Незеритовый нагрудник (Шпиль)", lore:"Отделка «Шпиль» • Алмазный материал", stats:[["Защита 6, Прочность 5, Починка","pos"],["+8 Броня • +3 Твёрдость • +1 Сопрот. отбрасыванию","ok"]] },
-      legs:     { kind:"legs", clr:"#00e5ff", ench:1, name:"Незеритовые поножи (Шпиль)", lore:"Отделка «Шпиль» • Алмазный материал", stats:[["Защита 6, Прочность 5, Починка","pos"],["+6 Броня • +3 Твёрдость • +1 Сопрот. отбрасыванию","ok"]] },
-      boots:    { kind:"boots", clr:"#00e5ff", ench:1, name:"Незеритовые ботинки (Шпиль)", lore:"Отделка «Шпиль» • Алмазный материал", stats:[["Защита 6, Невесомость 4, Подвод. ходьба 3, Прочность 5, Починка","pos"],["+3 Броня • +3 Твёрдость • +1 Эфф. в воде","ok"]] },
-      aura:     { kind:"aura", clr:"#2dd4bf", ench:1, name:"✦ АУРА НЕБЕС [ПКМ]", lore:"Каст: Божественная аура (4 блока)", stats:[["Снятие всех эффектов","ok"],["Невидимость (4м), Сила II и Скорость II (3м) | КД: 5с","gold"]] },
-      monolith: { kind:"monolith", clr:"#38bdf8", ench:1, name:"✦ МОНОЛИТ [ПКМ]", lore:"Каст: Стена 5x5x2 (Дракон 7x7x2, 8 напр.)", stats:[["Верт: 20–30с • Гориз: 60с | КД: 20с","gold"]] },
-      cage:     { kind:"web", clr:"#e2e8f0", ench:1, name:"✦ КЛЕТКА [ПКМ]", lore:"Каст: Нерушимая клетка", stats:[["Длительность: 15с | КД: 30с • Скины: /ts","pos"]] },
-      flash:    { kind:"sugar", clr:"#facc15", ench:1, name:"✦ ВСПЫШКА [ПКМ]", lore:"Каст: Световая волна (10 блоков)", stats:[["Снимает Невидимость + Свечение II (30с) • Слепота 1с | КД: 25с","neg"]] },
-      shock:    { kind:"eye", clr:"#818cf8", ench:1, name:"✦ ШОК-СФЕРА [ПКМ]", lore:"Каст: Звуковая волна (10 блоков)", stats:[["Иссушение III (10с), Утомление V (5с), Слепота II, Тошнота | КД: 60с","neg"]] },
-      snow:     { kind:"snow", clr:"#bae6fd", ench:1, name:"✦ КРИО-СНЕЖОК [БРОСОК]", lore:"Каст: Ледяная сфера (7 блоков)", stats:[["Заморозка (1с) • Замедление VI (6с) • Слабость I (1:30) | КД: 3с","neg"]] },
-      erid:     { kind:"sphere", clr:"#b45309", ench:1, name:"[★] Сфера Эрида", lore:"Холод Эриды приносит удачу", stats:[["+1 Удача • +2 Макс. здоровье • +1 Дальность","pos"]] },
-      ares:     { kind:"sphere", clr:"#dc2626", ench:1, name:"[★] Сфера Ареса", lore:"Дух Ареса дарует мощь", stats:[["+6 Урон при атаке","pos"],["-2 Броня • -2 Макс. здоровье","neg"]] },
-      chaos:    { kind:"sphere", clr:"#7c3aed", ench:1, name:"[★] Сфера Хаоса", lore:"Усиливает натиск ценой ХП", stats:[["+7% Скорость • +13% Атака • +1.5 Броня • +2.5 Урон","pos"],["-4 Макс. здоровье • -15% Прыжок","neg"]] },
-      hydra:    { kind:"sphere", clr:"#1d4ed8", ench:1, name:"[★] Сфера Гидры", lore:"Дарует силы в воде", stats:[["+4 Макс. здоровье • +2 Броня • +50% Подвод. добыча и Кислород","pos"]] },
-      beast:    { kind:"sphere", clr:"#15803d", ench:1, name:"[★] Сфера Бестии", lore:"Звериная дикая мощь", stats:[["+1 Броня • +4 Макс. здоровье • +10% Скорость и Атака","pos"]] },
-      vortex:   { kind:"talisman", clr:"#2563eb", ench:1, name:"[★] Талисман Вихря", lore:"Ускоряет владельца", stats:[["+2 Макс. здоровье • +15% Скорость • +15% Скорость атаки","pos"]] },
-      crusher:  { kind:"talisman", clr:"#dc2626", ench:1, name:"Талисман Крушителя", lore:"Несокрушимая мощь", stats:[["+4 Макс. здоровье • +5 Урон • +3 Броня • +3 Твёрдость","pos"]] },
-      punisher: { kind:"talisman", clr:"#a855f7", ench:1, name:"[★] Талисман Карателя", lore:"Карает всех врагов", stats:[["+7 Урон при атаке","pos"],["-4 Макс. здоровье","neg"]] },
-      discord:  { kind:"talisman", clr:"#14b8a6", ench:1, name:"[★] Талисман Раздора", lore:"Безумный темп боя", stats:[["+4 Урон • +2 ХП • +10% Скорость и Атака","pos"],["-3 Броня","neg"]] },
-      bundle:   { kind:"bundle", clr:"#06b6d4", ench:1, name:"Бирюзовый мешок", lore:"minecraft:cyan_bundle • Полный", stats:[["Внутри: 4×64 (256 шт.) пузырьков опыта","pos"]] },
-      potStr:   { kind:"potion", clr:"#f43f5e", ench:1, name:"✦ ЗЕЛЬЕ СИЛЫ И СКОРОСТИ", lore:"Сила III (3:00) • Скорость III (3:00)", stats:[["+9 Урон • +60% Скорость","pos"]] },
-      potHeal:  { kind:"potion", clr:"#ec4899", ench:1, name:"✦ ЗЕЛЬЕ ИСЦЕЛЕНИЯ И РЕГЕНА", lore:"Исцеление II (+4♥) • Регенерация II (0:30)", stats:[["Мгновенное лечение в бою","ok"]] },
-      potInvis: { kind:"potion", clr:"#cbd5e1", name:"Зелье невидимости", lore:"Инвиз (08:00)", stats:[["Дальность передачи маркера: -100%","neg"]] },
-      potRad:   { kind:"potion", clr:"#84cc16", ench:1, name:"[★] Зелье Радиации", lore:"Отравление II, Иссушение II, Замедление III, Голод V", stats:[["Скорость цели: -45%","neg"]] },
-      potHoly:  { kind:"potion", clr:"#f8fafc", ench:1, name:"[★] Святая вода", lore:"Реген II (0:45), Инвиз II (10:00), Исцеление II", stats:[["Маркер: -200%","neg"]] },
-      potAss:   { kind:"potion", clr:"#1e293b", ench:1, name:"[★] Зелье Ассасина", lore:"Сила IV (1м), Скорость III (5м), Спешка, Урон II", stats:[["+12 Урон • +60% Скорость • +10% Атака","pos"]] },
-      potPal:   { kind:"potion", clr:"#38bdf8", ench:1, name:"[★] Зелье Палладина", lore:"Сопротивление, Огнестой, Прилив III, Инвиз (15м)", stats:[["+12 Макс. здоровье • Маркер: -100%","pos"]] },
-      arrIce:   { kind:"arrow", clr:"#00e5ff", ench:1, name:"[★] Стрела обледенения", lore:"Замедление IX • Утомление III", stats:[["Скорость: -150% • Скорость атаки: -30%","neg"]] },
-      arrPain:  { kind:"arrow", clr:"#334155", ench:1, name:"[★] Мучительная стрела", lore:"Замедление III, Иссушение III, Отравление III", stats:[["Скорость: -45%","neg"]] },
-      arrBlood: { kind:"arrow", clr:"#ef4444", ench:1, name:"[★] Кровавая стрела", lore:"Слабость III, Слепота, Утомление, Тошнота", stats:[["-12 Урон • Скорость атаки: -10%","neg"]] },
-      pearl:    { kind:"pearl", clr:"#0d9488", name:"Эндер-жемчуг", lore:"Телепортация в бою", stats:[["Стандартный перл 1.21.4+","pos"]] },
-      gapple:   { kind:"apple", clr:"#facc15", name:"Золотое яблоко", lore:"Восстановление и поглощение", stats:[["Регенерация и 2 сердца поглощения","ok"]] },
-      egapple:  { kind:"apple", clr:"#c084fc", ench:1, name:"Зачарованное золотое яблоко", lore:"Топовый хил в PvP", stats:[["Мощная регенерация, огнестойкость и броня","gold"]] },
-      carrot:   { kind:"carrot", clr:"#fbbf24", name:"Золотая морковь", lore:"Лучшая еда", stats:[["Максимум насыщения","ok"]] },
-      feathers: { kind:"sugar", clr:"#f1f5f9", name:"Перья / Порох / Пыль", lore:"Ресурсы", stats:[["Для элитр и динамита","pos"]] },
-      charge:   { kind:"sphere", clr:"#f97316", name:"Огненный заряд", lore:"Снаряды и поджиг", stats:[["Для PvP и рейдов","pos"]] }
+      ripper:    { kind:"sword",    tex:"item/netherite_sword.png",      sbg:"#575b66", clr:"#ef4444", ench:1, flt:"drop-shadow(0 0 3px #2dd4bf)", name:"Потрошитель богов", lore:"minecraft:netherite_sword", stats:[["Острота 8, Заговор огня 3, Добыча 4, Прочность 5, Починка","pos"],["Вампиризм II, Окисление II, Яд III, Детекция III, Опытный III (+8 урон)","ok"]] },
+      crossbow:  { kind:"crossbow", tex:"item/crossbow_standby.png",     sbg:"#575b66", clr:"#f59e0b", ench:1, name:"✦ Арбалет Крушителя", lore:"minecraft:crossbow", stats:[["Пронзающая стрела 5, Тройной выстрел","pos"],["Быстрая перезарядка 3, Прочность 3, Починка","pos"]] },
+      mace:      { kind:"mace",     tex:"item/mace.png",                 sbg:"#575b66", clr:"#ef4444", ench:1, name:"✦ Булава Крушителя", lore:"minecraft:mace • +0.75 Коэфф. разящего удара", stats:[["Острота 7, Небесная кара 7, Бич членистоногих 7","pos"],["Плотность 5, Пробитие 3, Разящий клинок 3, Добыча 5, Прочность 5","pos"],["Яд III, Вампиризм II, Опытный III, Детекция III, Мощность III, Штопор III, Ступор III","ok"]] },
+      pick:      { kind:"pick",     tex:"item/netherite_pickaxe.png",    sbg:"#575b66", clr:"#94a3b8", ench:1, name:"Незеритовая кирка", lore:"minecraft:netherite_pickaxe", stats:[["Эффективность • Шёлковое касание • Починка","pos"]] },
+      helmet:    { kind:"helmet",   tex:"item/netherite_helmet.png",     sbg:"#575b66", clr:"#00e5ff", ench:1, flt:"drop-shadow(0 0 3px #00e5ff)", name:"Незеритовый шлем", lore:"Отделка «Шпиль» • Алмазный материал", stats:[["Защита 6, Подвод. дыхание 3, Подводник, Прочность 5, Починка","pos"],["+3 Броня • +3 Твёрдость • +3 Кислород • +400% Подвод. добыча","ok"]] },
+      chest:     { kind:"chest",    tex:"item/netherite_chestplate.png", sbg:"#575b66", clr:"#00e5ff", ench:1, flt:"drop-shadow(0 0 3px #00e5ff)", name:"Незеритовый нагрудник", lore:"Отделка «Шпиль» • Алмазный материал", stats:[["Защита 6, Прочность 5, Починка","pos"],["+8 Броня • +3 Твёрдость • +1 Сопрот. отбрасыванию","ok"]] },
+      legs:      { kind:"legs",     tex:"item/netherite_leggings.png",   sbg:"#575b66", clr:"#00e5ff", ench:1, flt:"drop-shadow(0 0 3px #00e5ff)", name:"Незеритовые поножи", lore:"Отделка «Шпиль» • Алмазный материал", stats:[["Защита 6, Прочность 5, Починка","pos"],["+6 Броня • +3 Твёрдость • +1 Сопрот. отбрасыванию","ok"]] },
+      boots:     { kind:"boots",    tex:"item/netherite_boots.png",      sbg:"#575b66", clr:"#00e5ff", ench:1, flt:"drop-shadow(0 0 3px #00e5ff)", name:"Незеритовые ботинки", lore:"Отделка «Шпиль» • Алмазный материал", stats:[["Защита 6, Невесомость 4, Подвод. ходьба 3, Прочность 5, Починка","pos"],["+3 Броня • +3 Твёрдость • +1 Эфф. в воде","ok"]] },
+
+      aura:      { kind:"aura",     tex:"item/ghast_tear.png",           sbg:"#575b66", clr:"#00f5d4", ench:1, tint:"#00f5d4", name:"✦ АУРА НЕБЕС [ПКМ]", lore:"Каст: Божественная аура (4 блока)", stats:[["Снятие всех эффектов","ok"],["Невидимость (4м), Сила II и Скорость II (3м) | КД: 5с","gold"]] },
+      monolith:  { kind:"monolith", tex:"item/prismarine_shard.png",     sbg:"#8a3e44", clr:"#38bdf8", ench:1, name:"✦ МОНОЛИТ [ПКМ]", lore:"Каст: Стена 5x5x2 (Дракон 7x7x2, 8 напр.)", stats:[["Верт: 20–30с • Гориз: 60с | КД: 20с","gold"]] },
+      cage:      { kind:"web",      tex:"item/netherite_scrap.png",      sbg:"#6e6fa8", clr:"#e2e8f0", ench:1, flt:"brightness(2.3) saturate(0.15) contrast(1.15)", name:"✦ КЛЕТКА [ПКМ]", lore:"Каст: Нерушимая клетка", stats:[["Длительность: 15с | КД: 30с • Скины: /ts","pos"]] },
+      flash:     { kind:"sugar",    tex:"item/sugar.png",                sbg:"#6e717a", clr:"#facc15", ench:1, name:"✦ ВСПЫШКА [ПКМ]", lore:"Каст: Световая волна (10 блоков)", stats:[["Снимает Невидимость + Свечение II (30с) • Слепота 1с | КД: 25с","neg"]] },
+      shock:     { kind:"eye",      tex:"item/ender_eye.png",            sbg:"#427d53", clr:"#818cf8", ench:1, name:"✦ ШОК-СФЕРА [ПКМ]", lore:"Каст: Звуковая волна (10 блоков)", stats:[["Иссушение III (10с), Утомление V (5с), Слепота II, Тошнота | КД: 60с","neg"]] },
+      snow:      { kind:"snow",     tex:"item/snowball.png",             sbg:"#73859c", clr:"#bae6fd", ench:1, name:"✦ КРИО-СНЕЖОК [БРОСОК]", lore:"Каст: Ледяная сфера (7 блоков)", stats:[["Заморозка (1с) • Замедление VI (6с) • Слабость I (1:30) | КД: 3с","neg"]] },
+
+      erid:      { kind:"sphere",   head:"#d97706", sbg:"#575b66", clr:"#d97706", ench:1, name:"[★] Сфера Эрида", lore:"Холод Эриды вечен, приносит удачу", stats:[["+1 Удача • +2 Макс. здоровье • +1 Дальность взаимодействия","pos"]] },
+      ares:      { kind:"sphere",   head:"#dc2626", sbg:"#575b66", clr:"#ef4444", ench:1, name:"[★] Сфера Ареса", lore:"Дух Ареса пылает внутри", stats:[["+6 Урон при атаке","pos"],["-2 Броня • -2 Макс. здоровье","neg"]] },
+      chaos:     { kind:"sphere",   head:"#9333ea", sbg:"#575b66", clr:"#c084fc", ench:1, name:"[★] Сфера Хаоса", lore:"Усиливает ваш натиск ценой жизненных сил", stats:[["+7% Скорость • +13% Скорость атаки • +1.5 Броня • +2.5 Урон","pos"],["-4 Макс. здоровье • -15% Сила прыжка","neg"]] },
+      hydra:     { kind:"sphere",   head:"#2563eb", sbg:"#575b66", clr:"#60a5fa", ench:1, name:"[★] Сфера Гидры", lore:"Живучесть темных глубин", stats:[["+4 Макс. здоровье • +2 Броня • +50% Подвод. добыча • +50% Кислород","pos"]] },
+      beast:     { kind:"sphere",   head:"#65a30d", sbg:"#575b66", clr:"#84cc16", ench:1, name:"[★] Сфера Бестии", lore:"Звериная дикая мощь", stats:[["+1 Броня • +4 Макс. здоровье • +10% Скорость и Скорость атаки","pos"]] },
+
+      vortex:    { kind:"talisman", tex:"item/totem_of_undying.png", sbg:"#8c7d2b", clr:"#3b82f6", ench:1, tint:"#1d4ed8", name:"[★] Талисман Вихря", lore:"Ускоряет владельца и закаляет дух", stats:[["+2 Макс. здоровье • +15% Скорость • +15% Скорость атаки","pos"]] },
+      crusher:   { kind:"talisman", tex:"item/totem_of_undying.png", sbg:"#8c7d2b", clr:"#ef4444", ench:1, tint:"#dc2626", name:"Талисман Крушителя", lore:"Несокрушимая мощь, ломающая преграды", stats:[["+4 Макс. здоровье • +5 Урон • +3 Броня • +3 Твёрдость","pos"]] },
+      punisher:  { kind:"talisman", tex:"item/totem_of_undying.png", sbg:"#8c7d2b", clr:"#a855f7", ench:1, tint:"#9333ea", name:"[★] Талисман Карателя", lore:"Карает всех врагов, но ослабляет тело", stats:[["+7 Урон при атаке","pos"],["-4 Макс. здоровье","neg"]] },
+      discord:   { kind:"talisman", tex:"item/totem_of_undying.png", sbg:"#8c7d2b", clr:"#14b8a6", ench:1, tint:"#0d9488", name:"[★] Талисман Раздора", lore:"Дарует безумный темп, разрушая броню", stats:[["+4 Урон • +2 Макс. здоровье • +10% Скорость и Атака","pos"],["-3 Броня","neg"]] },
+      fury:      { kind:"talisman", tex:"item/totem_of_undying.png", sbg:"#8c7d2b", clr:"#eab308", ench:1, tint:"#eab308", name:"[★] Талисман Ярости", lore:"Чистая дикая агрессия, меняет жизнь на урон", stats:[["+5 Урон при атаке","pos"],["-4 Макс. здоровье","neg"]] },
+
+      bundle:    { kind:"bundle",   tex:"item/cyan_bundle.png",      sbg:"#575b66", clr:"#06b6d4", ench:1, bar:1, name:"Бирюзовый мешок", lore:"minecraft:cyan_bundle • Полный", stats:[["Внутри: 4×64 (256 шт.) пузырьков опыта","pos"]] },
+      potStr:    { kind:"potion",   pot:"normal", potClr:"#ef4444",  sbg:"#6e717a", clr:"#f43f5e", ench:1, name:"✦ ЗЕЛЬЕ СИЛЫ И СКОРОСТИ", lore:"Сила III (03:00) • Скорость III (03:00)", stats:[["+9 Урон при атаке • +60% Скорость","pos"]] },
+      potHeal:   { kind:"potion",   pot:"normal", potClr:"#ec4899",  sbg:"#6e717a", clr:"#ec4899", ench:1, name:"✦ ЗЕЛЬЕ ИСЦЕЛЕНИЯ И РЕГЕНА", lore:"Исцеление II (+4♥) • Регенерация II (0:30)", stats:[["Мгновенное лечение в бою","ok"]] },
+      potInvis:  { kind:"potion",   pot:"normal", potClr:"#e2e8f0",  sbg:"#6e717a", clr:"#cbd5e1", name:"Зелье невидимости", lore:"Инвиз (08:00)", stats:[["Дальность передачи маркера: -100%","neg"]] },
+      potRad:    { kind:"potion",   pot:"splash", potClr:"#22c55e",  sbg:"#6e717a", clr:"#84cc16", ench:1, name:"[★] Зелье Радиации", lore:"Отравление II, Иссушение II, Замедление III, Голод V", stats:[["Скорость цели: -45% • Свечение (02:00)","neg"]] },
+      potHoly:   { kind:"potion",   pot:"splash", potClr:"#f1f5f9",  sbg:"#6e717a", clr:"#f8fafc", ench:1, name:"[★] Святая вода", lore:"Реген II (0:45), Инвиз II (10:00), Исцеление II", stats:[["Дальность передачи маркера: -200%","neg"]] },
+      potAss:    { kind:"potion",   pot:"splash", potClr:"#111827",  sbg:"#6e717a", clr:"#94a3b8", ench:1, name:"[★] Зелье Ассасина", lore:"Сила IV (1м), Скорость III (5м), Спешка, Урон II", stats:[["+12 Урон • +60% Скорость • +10% Атака","pos"]] },
+      potPal:    { kind:"potion",   pot:"splash", potClr:"#38bdf8",  sbg:"#6e717a", clr:"#38bdf8", ench:1, name:"[★] Зелье Палладина", lore:"Сопротивление, Огнестой, Прилив III, Инвиз (15м)", stats:[["+12 Макс. здоровье • Маркер: -100%","pos"]] },
+      potBlue:   { kind:"potion",   pot:"splash", potClr:"#1d4ed8",  sbg:"#6e717a", clr:"#3b82f6", ench:1, name:"[★] Зелье Черепашьей мощи", lore:"Взрывное зелье защиты", stats:[["Сопротивление и усиленная стойкость в PvP","pos"]] },
+
+      arrIce:    { kind:"arrow",    arrClr:"#00e5ff", sbg:"#575b66", clr:"#00e5ff", ench:1, name:"[★] Стрела обледенения", lore:"Замедление IX • Утомление III", stats:[["Скорость: -150% • Скорость атаки: -30%","neg"]] },
+      arrPain:   { kind:"arrow",    arrClr:"#1f2937", sbg:"#575b66", clr:"#94a3b8", ench:1, name:"[★] Мучительная стрела", lore:"Замедление III, Иссушение III, Отравление III", stats:[["Скорость: -45%","neg"]] },
+      arrBlood:  { kind:"arrow",    arrClr:"#ef4444", sbg:"#575b66", clr:"#ef4444", ench:1, name:"[★] Кровавая стрела", lore:"Слабость III, Слепота, Утомление, Тошнота", stats:[["-12 Урон • Скорость атаки: -10%","neg"]] },
+
+      pearl:     { kind:"pearl",    tex:"item/ender_pearl.png",    sbg:"#2f7a67", clr:"#14b8a6", name:"Эндер-жемчуг", lore:"Телепортация в бою", stats:[["Стандартный перл 1.21.4+","pos"]] },
+      gapple:    { kind:"apple",    tex:"item/golden_apple.png",   sbg:"#8a8132", clr:"#2dd4bf", tint:"#5eead4", name:"Золотое яблоко", lore:"Восстановление и поглощение", stats:[["Регенерация и 2 сердца поглощения","ok"]] },
+      egapple:   { kind:"apple",    tex:"item/golden_apple.png",   sbg:"#6e4175", clr:"#2dd4bf", ench:1, tint:"#14b8a6", name:"Зачарованное золотое яблоко", lore:"Топовый хил в PvP", stats:[["Мощная регенерация, огнестойкость и броня","gold"]] },
+      carrot:    { kind:"carrot",   tex:"item/golden_carrot.png",  sbg:"#575b66", clr:"#5eead4", tint:"#5eead4", name:"Золотая морковь", lore:"Лучшая еда", stats:[["Максимум насыщения","ok"]] },
+      wind:      { kind:"sugar",    tex:"item/wind_charge.png",    sbg:"#784987", clr:"#e9d5ff", name:"Заряд ветра", lore:"minecraft:wind_charge", stats:[["Импульс и мобильность 1.21.4+","pos"]] },
+      powder:    { kind:"sugar",    tex:"item/gunpowder.png",      sbg:"#575b66", clr:"#e2e8f0", flt:"brightness(1.7) saturate(0.2)", name:"Пыль / Порох", lore:"Ресурсы для крафта и взрывов", stats:[["Вспомогательный ресурс","pos"]] },
+      charge:    { kind:"sphere",   tex:"item/fire_charge.png",    sbg:"#8f5938", clr:"#f97316", name:"Огненный заряд", lore:"minecraft:fire_charge", stats:[["Для PvP и рейдов","pos"]] },
+      ironblock: { kind:"monolith", tex:"block/iron_block.png",    sbg:"#575b66", clr:"#e2e8f0", name:"Железный блок", lore:"minecraft:iron_block", stats:[["Ценный строительный ресурс","pos"]] }
     };
 
-    const baseHighKit = [["monolith",64],["ripper",1],["mace",1],["gapple",64],["egapple",64],["crossbow",1],["shock",64],["potStr",64],["cage",64],["arrIce",64],["arrPain",64],["arrBlood",64],["carrot",64],["aura",64],["pearl",16],["feathers",64],["pick",1],["helmet",1],["chest",1],["legs",1],["boots",1]];
     const rankKits = {
-      player:   [["sword",1],["mace",1],["crossbow",1],["pearl",8],["gapple",8],["carrot",16],["potStr",2],["potHeal",4],["feathers",16]],
-      baron:    [["feathers",16],["pearl",16],["cage",8],["monolith",8],["shock",8],["flash",8],["aura",2],["sword",1],["gapple",8]],
-      fighter:  [["charge",5],["aura",6],["cage",16],["monolith",16],["snow",4],["feathers",32],["pearl",16],["flash",16],["shock",16],["egapple",8],["gapple",16],["sword",1]],
-      guardian: [["erid",1],["snow",8],["charge",16],["shock",32],["pearl",16],["feathers",32],["potStr",16],["potHeal",16],["carrot",32],["flash",32],["bundle",1],["cage",48],["monolith",48],["aura",16],["egapple",32],["gapple",48]],
-      knight:   [["potInvis",16],["bundle",2],["pearl",16],["carrot",64],["feathers",64],["arrBlood",32],["arrPain",32],["arrIce",32],["snow",16],["vortex",1],["flash",32],["shock",32],["monolith",32],["potStr",32],["mace",1],["potHeal",32],["crossbow",1],["cage",32],["charge",16],["egapple",32],["erid",1],["gapple",64],["aura",32]],
-      berserk:  [["helmet",1],["chest",1],["legs",1],["boots",1],["sword",1],["mace",1],["crossbow",1],["vortex",1],["erid",1],["bundle",2],["arrBlood",48],["arrIce",48],["potStr",32],["potHeal",32],["egapple",32],["gapple",64],["aura",48],["monolith",48]],
-      champion: [["helmet",1],["chest",1],["legs",1],["boots",1],["sword",1],["mace",1],["crossbow",1],["vortex",1],["ares",1],["bundle",2],["arrBlood",48],["arrPain",48],["arrIce",48],["potStr",48],["potHeal",48],["egapple",32],["gapple",64],["aura",48],["monolith",48]],
-      milord:   [["monolith",64],["sword",1],["mace",1],["gapple",64],["egapple",32],["crossbow",1],["shock",64],["potStr",32],["cage",64],["arrIce",64],["arrPain",64],["arrBlood",64],["carrot",64],["bundle",2],["pearl",16],["aura",64],["charge",32],["vortex",1],["potHeal",32],["snow",16],["feathers",64],["flash",32],["pick",1],["ares",1],["helmet",1],["chest",1],["legs",1],["boots",1]],
-      duke:     [...baseHighKit,["ares",1],["chaos",1],["vortex",1],["bundle",2],["charge",64],["snow",16],["flash",64],["potHeal",64]],
-      knyaz:    [...baseHighKit,["ares",1],["crusher",1],["vortex",1],["chaos",2],["beast",1],["bundle",2],["potRad",1],["potHoly",1],["potPal",1],["potAss",1],["potHeal",64]],
-      absolute: [...baseHighKit,["punisher",1],["crusher",1],["vortex",1],["ares",1],["chaos",2],["beast",1],["bundle",3],["potAss",2],["potRad",2],["potHoly",2],["potPal",2]],
-      god:      [...baseHighKit,["punisher",1],["crusher",1],["vortex",1],["ares",1],["chaos",2],["hydra",1],["bundle",3],["potAss",2],["potHoly",2],["potRad",2],["potPal",2]],
-      tiktok:   [...baseHighKit,["punisher",1],["crusher",1],["vortex",1],["ares",1],["chaos",2],["bundle",3],["potAss",2],["potHoly",2],["potRad",2],["potPal",2]],
-      staff:    [...baseHighKit,["punisher",1],["discord",1],["crusher",1],["vortex",1],["ares",1],["chaos",2],["bundle",4],["potHoly",2],["potAss",2],["potPal",2],["potRad",2]],
-      admin:    [...baseHighKit,["punisher",1],["discord",1],["crusher",1],["vortex",1],["ares",1],["chaos",2],["bundle",4],["potHoly",2],["potAss",2],["potPal",2],["potRad",2]]
+      player:   [["ripper",1],["crossbow",1],["mace",1],["carrot",64],["egapple",32],["gapple",64],["cage",32],["potStr",32],["potHeal",32],["arrIce",64],["arrPain",64],["arrBlood",64],["chaos",1],["vortex",1],["potInvis",16],["potRad",1],["bundle",1],["bundle",1],["pick",1],["snow",16],["charge",32],["monolith",32],["fury",1],["potHoly",1],["potRad",1],["potBlue",1],["potBlue",1],["pearl",16],["wind",64],["powder",64],["aura",8],["flash",16],["shock",32],["potAss",1],["potPal",1],["potBlue",1],["helmet",1],["chest",1],["legs",1],["boots",1],null,["chaos",1]],
+      baron:    [["wind",16],["pearl",16],["cage",8],["monolith",8],["shock",8],["flash",8],["aura",2]],
+      fighter:  [["charge",5],["aura",6],["cage",16],["monolith",16],["powder",16],["snow",4],["wind",32],["pearl",16],["flash",16],["shock",16],["egapple",8],["gapple",16]],
+      guardian: [["erid",1],["snow",8],["charge",16],["shock",32],["pearl",16],["wind",32],["potHeal",16],["potStr",16],["carrot",32],["flash",32],["bundle",1],["cage",48],["monolith",48],["powder",48],["aura",8],["aura",8],["egapple",32],["gapple",48]],
+      knight:   [["potInvis",16],["bundle",1],["bundle",1],["pearl",16],["carrot",64],["wind",64],["arrBlood",32],["arrPain",32],["arrIce",32],null,null,null,null,null,null,null,null,null,null,["snow",16],["vortex",1],["flash",32],["discord",1],["shock",32],["powder",32],["monolith",32],["potHeal",32],["mace",1],["potStr",32],["crossbow",1],["cage",32],["charge",16],["egapple",32],["erid",1],["gapple",64],["aura",32]],
+      berserk:  [["helmet",1],["chest",1],["legs",1],["boots",1],["ripper",1],["mace",1],["crossbow",1],["vortex",1],["erid",1],["bundle",1],["bundle",1],["arrBlood",48],["arrIce",48],["potStr",32],["potHeal",32],["egapple",32],["gapple",64],["aura",48],["monolith",48],["cage",48],["shock",48],["flash",32],["snow",16],["pearl",16],["wind",64]],
+      champion: [["helmet",1],["chest",1],["legs",1],["boots",1],["ripper",1],["mace",1],["crossbow",1],["vortex",1],["ares",1],["bundle",1],["bundle",1],["arrBlood",48],["arrPain",48],["arrIce",48],["potStr",48],["potHeal",48],["egapple",32],["gapple",64],["aura",48],["monolith",48],["cage",48],["shock",48],["flash",48],["snow",16],["pearl",16],["wind",64]],
+      milord:   [["monolith",64],["ripper",1],["mace",1],["gapple",64],["egapple",32],["crossbow",1],["shock",64],["potHeal",32],["cage",64],["arrIce",64],["arrPain",64],["arrBlood",64],["carrot",64],["fury",1],null,null,["bundle",1],["bundle",1],["powder",64],["pearl",16],["aura",64],["charge",32],["vortex",1],null,null,["ironblock",1],["potInvis",32],["snow",16],["wind",64],["flash",32],["pick",1],["discord",1],null,null,["ironblock",1],["potStr",32],["helmet",1],["chest",1],["legs",1],["boots",1],null,["ares",1]],
+      duke:     [["monolith",64],["ripper",1],["mace",1],["gapple",64],["egapple",64],["crossbow",1],["shock",64],["potHeal",64],["cage",64],["arrPain",64],["arrIce",64],["arrBlood",64],["carrot",64],["ares",1],["vortex",1],null,["ironblock",1],["ironblock",1],["snow",16],["pearl",16],["aura",64],["charge",64],["chaos",1],["discord",1],null,["bundle",1],["potInvis",64],["powder",64],["wind",64],["flash",64],["pick",1],["fury",1],null,null,["bundle",1],["potStr",64],["helmet",1],["chest",1],["legs",1],["boots",1],null,["chaos",1]],
+      knyaz:    [["monolith",64],["ripper",1],["mace",1],["gapple",64],["egapple",64],["crossbow",1],["shock",64],["potHeal",64],["cage",64],["arrIce",64],["arrPain",64],["arrBlood",64],["carrot",64],["chaos",1],["fury",1],["potRad",1],["bundle",1],["bundle",1],["powder",64],["pearl",16],["flash",64],["charge",64],["hydra",1],["vortex",1],["potHoly",1],["ironblock",1],["potInvis",64],["snow",16],["wind",64],["aura",64],["pick",1],["ares",1],["potPal",1],["potAss",1],["ironblock",1],["potStr",64],["helmet",1],["chest",1],["legs",1],["boots",1],null,["crusher",1]],
+      absolute: [["monolith",64],["ripper",1],["mace",1],["gapple",64],["egapple",64],["crossbow",1],["shock",64],["potHeal",64],["cage",64],["arrIce",64],["arrPain",64],["arrBlood",64],["carrot",64],["punisher",1],["chaos",1],["bundle",1],["ironblock",1],["potAss",1],["powder",64],["wind",64],["flash",64],["charge",64],["fury",1],["ares",1],["bundle",1],["ironblock",1],["potInvis",64],["snow",16],["pearl",16],["aura",64],["pick",1],["vortex",1],["beast",1],["bundle",1],["ironblock",1],["potStr",64],["helmet",1],["chest",1],["legs",1],["boots",1],null,["crusher",1]],
+      god:      [["monolith",64],["ripper",1],["mace",1],["gapple",64],["egapple",64],["crossbow",1],["shock",64],["potHeal",64],["cage",64],["arrIce",64],["arrPain",64],["arrBlood",64],["carrot",64],["punisher",1],["chaos",1],["bundle",1],["ironblock",1],["potAss",1],["powder",64],["wind",64],["flash",64],["charge",64],["fury",1],["ares",1],["bundle",1],["ironblock",1],["potInvis",64],["snow",16],["pearl",16],["aura",64],["pick",1],["vortex",1],["hydra",1],["bundle",1],["ironblock",1],["potStr",64],["helmet",1],["chest",1],["legs",1],["boots",1],null,["crusher",1]],
+      tiktok:   [["monolith",64],["ripper",1],["mace",1],["gapple",64],["egapple",64],["crossbow",1],["shock",64],["potHeal",64],["cage",64],["arrIce",64],["arrPain",64],["arrBlood",64],["carrot",64],["punisher",1],["vortex",1],["ironblock",1],["bundle",1],["bundle",1],["snow",16],["wind",64],["aura",64],["charge",64],["crusher",1],["chaos",1],["ironblock",1],["bundle",1],["potInvis",64],["powder",64],["pearl",16],["flash",64],["pick",1],["fury",1],["chaos",1],["ironblock",1],["potAss",1],["potStr",64],["helmet",1],["chest",1],["legs",1],["boots",1],null,["crusher",1]],
+      staff:    [["monolith",64],["ripper",1],["mace",1],["gapple",64],["egapple",64],["crossbow",1],["shock",64],["potHeal",64],["cage",64],["arrBlood",64],["arrPain",64],["arrIce",64],["carrot",64],["punisher",1],["chaos",1],["ironblock",1],["bundle",1],["bundle",1],["powder",64],["pearl",16],["flash",64],["charge",64],["crusher",1],["hydra",1],["ironblock",1],["bundle",1],["potInvis",64],["snow",16],["wind",64],["aura",64],["pick",1],["fury",1],["vortex",1],["ironblock",1],["potBlue",1],["potStr",64],["helmet",1],["chest",1],["legs",1],["boots",1],null,["crusher",1]],
+      admin:    [["monolith",64],["ripper",1],["mace",1],["gapple",64],["egapple",64],["crossbow",1],["shock",64],["potHeal",64],["cage",64],["arrBlood",64],["arrPain",64],["arrIce",64],["carrot",64],["punisher",1],["chaos",1],["ironblock",1],["bundle",1],["bundle",1],["powder",64],["pearl",16],["flash",64],["charge",64],["crusher",1],["hydra",1],["ironblock",1],["bundle",1],["potInvis",64],["snow",16],["wind",64],["aura",64],["pick",1],["fury",1],["vortex",1],["ironblock",1],["potBlue",1],["potStr",64],["helmet",1],["chest",1],["legs",1],["boots",1],null,["crusher",1]]
     };
 
-    const customItems = Object.entries(itemCatalog).filter(([k])=>!["pearl","gapple","egapple","carrot","feathers","charge"].includes(k)).map(([id,it])=>{
-      const cat=["aura","monolith","cage","flash","shock","snow"].includes(id)?"ability":["vortex","crusher","punisher","discord"].includes(id)?"talisman":["erid","ares","chaos","hydra","beast"].includes(id)?"sphere":["bundle","potStr","potHeal","potInvis","potRad","potHoly","potAss","potPal"].includes(id)?"potion":"gear";
-      return { id, cat, gold:!!it.ench, name:it.name, clr:it.clr, lore:it.lore, stats:it.stats };
+    const customItems = Object.entries(itemCatalog).filter(([k])=>!["pearl","gapple","egapple","carrot","wind","powder","charge","ironblock"].includes(k)).map(([id,it])=>{
+      const cat=["aura","monolith","cage","flash","shock","snow"].includes(id)?"ability":["vortex","crusher","punisher","discord","fury"].includes(id)?"talisman":["erid","ares","chaos","hydra","beast"].includes(id)?"sphere":["bundle","potStr","potHeal","potInvis","potRad","potHoly","potAss","potPal","potBlue"].includes(id)?"potion":"gear";
+      return { id, cat, gold:!!it.ench, name:it.name, clr:it.clr, lore:it.lore, stats:it.stats, it };
     });
 
     const rulesData = [
@@ -671,7 +687,7 @@
       else if(kind==="talisman"){px(5,2,6,5,color);px(2,7,12,3,color);px(5,7,6,7,color);px(6,4,1,1,"#fff");px(9,4,1,1,"#fff");}
       else if(kind==="sphere"||kind==="pearl"||kind==="eye"){px(4,3,8,10,color);px(3,5,10,6,color);px(5,5,3,3,"rgba(255,255,255,0.45)");}
       else if(kind==="potion"){px(6,2,4,2,"#cbd5e1");px(4,5,8,8,color);px(5,6,2,4,"rgba(255,255,255,0.4)");}
-      else if(kind==="bundle"){px(5,2,6,2,"#92400e");px(4,4,8,9,color);px(4,12,8,2,"#10b981");}
+      else if(kind==="bundle"){px(5,2,6,2,"#92400e");px(4,4,8,9,color);px(4,12,8,2,"#ef4444");}
       else if(kind==="apple"){px(7,2,2,2,"#78350f");px(4,4,8,8,color);px(5,5,2,2,"#fef08a");}
       else if(kind==="arrow"){px(11,2,3,3,color);px(9,4,2,2,"#78350f");px(7,6,2,2,"#78350f");px(5,8,2,2,"#78350f");px(2,11,3,3,"#cbd5e1");}
       else if(kind==="aura"){px(7,2,2,4,color);px(5,6,6,6,color);px(6,7,2,3,"#fff");}
@@ -681,16 +697,90 @@
       return (pngCache[key]=c.toDataURL("image/png"));
     }
 
+    function makeSphereHeadPng(accentClr){
+      const key="sh_"+accentClr; if(pngCache[key]) return pngCache[key];
+      const c=document.createElement("canvas"); c.width=32; c.height=32; const g=c.getContext("2d");
+      g.fillStyle="#18122b"; g.beginPath(); g.moveTo(16,3); g.lineTo(29,9); g.lineTo(29,23); g.lineTo(16,29); g.lineTo(3,23); g.lineTo(3,9); g.closePath(); g.fill();
+      g.fillStyle="#241b3d"; g.beginPath(); g.moveTo(16,3); g.lineTo(29,9); g.lineTo(16,15); g.lineTo(3,9); g.closePath(); g.fill();
+      g.fillStyle="#0f0b1c"; g.beginPath(); g.moveTo(16,15); g.lineTo(29,9); g.lineTo(29,23); g.lineTo(16,29); g.closePath(); g.fill();
+      g.fillStyle=accentClr;
+      [[13,6,3,2],[17,8,3,2],[10,9,2,2],[6,13,3,3],[11,16,3,4],[6,19,4,2],[19,15,3,3],[23,12,3,2],[20,21,4,2],[17,24,2,2]].forEach(([x,y,w,h])=>g.fillRect(x,y,w,h));
+      g.fillStyle="rgba(255,255,255,0.45)"; g.fillRect(14,7,2,1); g.fillRect(11,17,1,2);
+      g.strokeStyle="#07050c"; g.lineWidth=1.5; g.beginPath(); g.moveTo(16,3); g.lineTo(29,9); g.lineTo(29,23); g.lineTo(16,29); g.lineTo(3,23); g.lineTo(3,9); g.closePath(); g.stroke();
+      return (pngCache[key]=c.toDataURL("image/png"));
+    }
+
+    const composedCache = {};
+    function loadImg(url){ return new Promise((res,rej)=>{ const img=new Image(); img.crossOrigin="anonymous"; img.onload=()=>res(img); img.onerror=rej; img.src=url; }); }
+    function tintLayer(img, hex){
+      const c=document.createElement("canvas"); c.width=img.width||16; c.height=img.height||16; const g=c.getContext("2d");
+      g.drawImage(img,0,0); g.globalCompositeOperation="multiply"; g.fillStyle=hex; g.fillRect(0,0,c.width,c.height);
+      g.globalCompositeOperation="destination-in"; g.drawImage(img,0,0); return c;
+    }
+    async function resolveItemDataUrl(key){
+      if(composedCache[key]) return composedCache[key];
+      const it=itemCatalog[key]; if(!it) return makeItemPng("pearl","#14b8a6");
+      try{
+        if(it.head) return (composedCache[key]=makeSphereHeadPng(it.head));
+        if(it.pot){
+          const bf=it.pot==="splash"?"item/splash_potion.png":"item/potion.png";
+          const [ov,bt]=await Promise.all([loadImg(MC_TEX+"item/potion_overlay.png"), loadImg(MC_TEX+bf)]);
+          const c=document.createElement("canvas"); c.width=16; c.height=16; const g=c.getContext("2d");
+          g.drawImage(tintLayer(ov,it.potClr),0,0); g.drawImage(bt,0,0);
+          return (composedCache[key]=c.toDataURL("image/png"));
+        }
+        if(it.arrClr){
+          const [bs,hd]=await Promise.all([loadImg(MC_TEX+"item/tipped_arrow_base.png"), loadImg(MC_TEX+"item/tipped_arrow_head.png")]);
+          const c=document.createElement("canvas"); c.width=16; c.height=16; const g=c.getContext("2d");
+          g.drawImage(bs,0,0); g.drawImage(tintLayer(hd,it.arrClr),0,0);
+          return (composedCache[key]=c.toDataURL("image/png"));
+        }
+        if(it.tint && it.tex){
+          const img=await loadImg(MC_TEX+it.tex), c=document.createElement("canvas"); c.width=img.width||16; c.height=img.height||16;
+          c.getContext("2d").drawImage(tintLayer(img,it.tint),0,0);
+          return (composedCache[key]=c.toDataURL("image/png"));
+        }
+      }catch{}
+      return makeItemPng(it.kind,it.clr);
+    }
+    function getDirectItemSrc(key){
+      const it=itemCatalog[key]; if(!it) return makeItemPng("pearl","#14b8a6");
+      if(composedCache[key]) return composedCache[key];
+      if(it.head) return makeSphereHeadPng(it.head);
+      if(it.tex && !it.tint) return MC_TEX+it.tex;
+      return makeItemPng(it.kind,it.clr);
+    }
+    function hydrateDynamicTextures(){
+      document.querySelectorAll("img[data-item-key]").forEach(async imgEl=>{
+        const key=imgEl.dataset.itemKey, it=itemCatalog[key];
+        if(!it || (!it.pot && !it.arrClr && !it.tint)) return;
+        const url=await resolveItemDataUrl(key);
+        if(url && imgEl.isConnected) imgEl.src=url;
+      });
+    }
+
     function renderChestHtml(rankId, compact=false){
       const r=ranks.find(x=>x.id===rankId), list=rankKits[rankId]||rankKits.player;
-      const slots=list.map(([k,q])=>{ const it=itemCatalog[k]||itemCatalog.pearl; return `<div class="mc-slot">${it.ench?'<div class="mc-slot-glint"></div>':''}<img src="${makeItemPng(it.kind,it.clr)}" alt="${it.name}">${q>1?`<span class="mc-slot-cnt">${q}</span>`:''}<div class="mc-slot-tip"><div style="font-size:12px;font-weight:800;color:${it.clr};margin-bottom:3px;">${it.name}</div><div style="font-size:10.5px;color:#94a3b8;margin-bottom:4px;">${it.lore}</div>${it.stats.map(s=>`<div class="st-${s[1]}" style="font-size:10.5px;">${s[0]}</div>`).join("")}</div></div>`; }).join("");
+      const slots=list.map(entry=>{
+        if(!entry) return `<div class="mc-slot empty-slot"></div>`;
+        const [k,q]=entry, it=itemCatalog[k]||itemCatalog.pearl, fb=makeItemPng(it.kind,it.clr), src=getDirectItemSrc(k);
+        const sty=`--sbg:${it.sbg||'#464952'};${it.flt?`--iflt:${it.flt};`:''}`;
+        return `<div class="mc-slot" style="${sty}">${it.ench?'<div class="mc-slot-glint"></div>':''}<img src="${src}" data-item-key="${k}" onerror="this.onerror=null;this.src='${fb}'" alt="${it.name}">${it.bar?'<div class="mc-bundle-bar"></div>':''}${q>1?`<span class="mc-slot-cnt">${q}</span>`:''}<div class="mc-slot-tip"><div style="font-size:12px;font-weight:800;color:${it.clr};margin-bottom:3px;">${it.name}</div><div style="font-size:10.5px;color:#94a3b8;margin-bottom:4px;">${it.lore}</div>${it.stats.map(s=>`<div class="st-${s[1]}" style="font-size:10.5px;">${s[0]}</div>`).join("")}</div></div>`;
+      }).join("");
       return `<div class="mc-chest-panel"><div class="mc-chest-title"><span>ПРЕДПРОСМОТР ДОНАТ-КИТА <strong style="color:${r.color}">${r.id}</strong></span><span style="font-size:10.5px;color:#cbd5e1;">${compact?r.name:'Наведите на предмет'}</span></div><div class="mc-chest-grid">${slots}</div></div>`;
     }
-    function renderAllKitsGrid(){ document.getElementById("allKitsGrid").innerHTML=ranks.map(r=>`<div class="st-card"><div class="st-card-hdr"><span style="color:${r.color}">Набор: ${r.name} (/kit ${r.id})</span><button class="rf-btn" onclick="jumpToRank('${r.id}')">К рангу →</button></div><div style="padding:14px;">${renderChestHtml(r.id,true)}</div></div>`).join(""); }
+    function renderAllKitsGrid(){ document.getElementById("allKitsGrid").innerHTML=ranks.map(r=>`<div class="st-card"><div class="st-card-hdr"><span style="color:${r.color}">Набор: ${r.name} (/kit ${r.id})</span><button class="rf-btn" onclick="jumpToRank('${r.id}')">К рангу →</button></div><div style="padding:14px;">${renderChestHtml(r.id,true)}</div></div>`).join(""); hydrateDynamicTextures(); }
     function renderRules(){ document.getElementById("rulesMount").innerHTML=rulesData.map((sec,idx)=>`<div class="st-card rule-sec ${idx===0?'act-sec':''}" id="${sec.id}" style="--sec-clr:${sec.clr}"><div class="st-card-hdr"><span>${sec.title}</span><span class="sec-tag">${sec.tag}</span></div><div class="rule-body">${sec.items.map(it=>`<div class="rule-row ${it[2]?'sub':''}"><div class="rule-main"><span class="r-badge">${it[0]}</span><div class="r-text">${it[1]}</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>`).join("")}</div></div>`).join(""); }
-    function switchItemsTab(tabId,btn){ playSfx("click"); document.querySelectorAll("#view-items .subview").forEach(v=>v.classList.remove("act")); document.getElementById("items-"+tabId).classList.add("act"); document.querySelectorAll("#view-items .subtab-btn").forEach(b=>b.classList.remove("act")); if(btn) btn.classList.add("act"); }
+    function switchItemsTab(tabId,btn){ playSfx("click"); document.querySelectorAll("#view-items .subview").forEach(v=>v.classList.remove("act")); document.getElementById("items-"+tabId).classList.add("act"); document.querySelectorAll("#view-items .subtab-btn").forEach(b=>b.classList.remove("act")); if(btn) btn.classList.add("act"); hydrateDynamicTextures(); }
     function filterCustomItems(cat,btn){ playSfx("click"); itemCatFilter=cat; document.querySelectorAll("#items-customs .rf-btn").forEach(b=>b.classList.remove("act")); if(btn) btn.classList.add("act"); renderCustomItems(); }
-    function renderCustomItems(){ const list=itemCatFilter==="all"?customItems:customItems.filter(i=>i.cat===itemCatFilter); document.getElementById("customItemsGrid").innerHTML=list.map(it=>`<div class="mc-tooltip-card ${it.gold?'gold-frame':''}"><div class="mc-tt-head"><span class="mc-tt-title" style="color:${it.clr}">${it.name}</span><span class="mc-tt-tag">${it.cat.toUpperCase()}</span></div><div class="mc-tt-lore">${it.lore}</div><div class="mc-tt-stats">${it.stats.map(s=>`<div class="st-${s[1]}">${s[0]}</div>`).join("")}</div></div>`).join(""); }
+    function renderCustomItems(){
+      const list=itemCatFilter==="all"?customItems:customItems.filter(i=>i.cat===itemCatFilter);
+      document.getElementById("customItemsGrid").innerHTML=list.map(c=>{
+        const it=c.it, fb=makeItemPng(it.kind,it.clr), src=getDirectItemSrc(c.id);
+        return `<div class="mc-tooltip-card ${c.gold?'gold-frame':''}"><div class="mc-tt-head"><div class="mc-tt-left"><div class="mc-tt-icon-box" style="background:${it.sbg||'#2d3138'}"><img class="mc-tt-icon" src="${src}" data-item-key="${c.id}" style="${it.flt?`filter:${it.flt};`:''}" onerror="this.onerror=null;this.src='${fb}'" alt="${c.name}"></div><span class="mc-tt-title" style="color:${c.clr}">${c.name}</span></div><span class="mc-tt-tag">${c.cat.toUpperCase()}</span></div><div class="mc-tt-lore">${c.lore}</div><div class="mc-tt-stats">${c.stats.map(s=>`<div class="st-${s[1]}">${s[0]}</div>`).join("")}</div></div>`;
+      }).join("");
+      hydrateDynamicTextures();
+    }
 
     let fxParticles=[], confettiActive=false;
     function spawnConfetti(color="#00e5ff"){
@@ -776,7 +866,7 @@
       if(!cur){ box.innerHTML=`<div style="text-align:center;padding:24px 10px;color:var(--mut);"><div style="margin-bottom:14px;font-size:14px;">Создайте профиль, чтобы видеть карточку игрока с 3D-скином, статистикой и желаемыми донатами.</div><button class="buy-btn" onclick="switchAccTab('auth')">Войти или создать</button></div>`; }
       else {
         const filled=Math.min(10,Math.max(1,spinCounter+favRules.length)), sq=Array.from({length:10},(_,i)=>`<div class="f-sq ${i<filled?'':'empty'}"></div>`).join(""), lvlPct=Math.min(100,filled*10);
-        box.innerHTML=`<div class="carbon-profile"><div class="carbon-skin-pedestal"><img class="profile-body-png" style="height:175px;" src="https://mc-heads.net/body/${encodeURIComponent(cur.mcNick)}/175" onerror="this.src='https://mc-heads.net/avatar/Steve/110'" alt="Skin"><div class="carbon-skin-shadow"></div></div><div><div class="carbon-top-row"><div><div class="carbon-nick-pill">${cur.mcNick}</div><div style="font-size:12px;color:#8b949e;margin-top:8px;">● Логин: <strong style="color:#e2e8f0">${cur.login}</strong> • Создан: ${cur.createdAt||'Сегодня'}</div><div style="font-size:12px;margin-top:5px;display:flex;align-items:center;gap:8px;"><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#f43f5e;"></span><strong style="color:#fff;">Игрок NewTime</strong><span style="color:#38bdf8;font-weight:700;">• Java 1.21.4+</span></div></div><div style="display:flex;gap:7px;"><button class="carbon-copy-btn" onclick="copyText('NewTime Профиль: ${cur.login} (${cur.mcNick})')">🔗 Скопировать ссылку</button><button class="carbon-copy-btn" onclick="logoutAccount()">Выйти</button></div></div><div class="carbon-stat-strip"><div class="carbon-stat-cell"><div class="carbon-stat-lbl">Прокрутов кейса</div><div class="carbon-stat-val">${spinCounter}</div><div class="carbon-stat-sub">рулетка на сайте</div></div><div class="carbon-stat-cell"><div class="carbon-stat-lbl">Лучший дроп</div><div class="carbon-stat-val" style="font-size:17px;color:var(--cyan);">${bestDrop}</div><div class="carbon-stat-sub">макс. редкость</div></div><div class="carbon-stat-cell"><div class="carbon-stat-lbl">Желаемое</div><div class="carbon-stat-val">${wishlist.length}</div><div class="carbon-stat-sub">привилегий ❤️</div></div><div class="carbon-stat-cell"><div class="carbon-stat-lbl">Закладки</div><div class="carbon-stat-val">${favRules.length}</div><div class="carbon-stat-sub">пунктов правил ⭐</div></div></div><div class="carbon-bottom-grid"><div><div style="font-size:11.5px;color:#8b949e;">Активность • последние 10</div><div class="form-squares">${sq}</div></div><div><div style="font-size:11.5px;color:#8b949e;display:flex;justify-content:space-between;"><span>Уровень профиля</span><strong style="color:#fff;">${lvlPct}%</strong></div><div class="lvl-bar-bg"><div class="lvl-bar-fill" style="width:${lvlPct}%"></div></div></div></div><div style="font-size:11.5px;color:#6e7681;margin-top:10px;">Сервер: Cyan Anarchy 1.21.4+ • Промокод: <strong style="color:${promoCodeActive?'#10b981':'#8b949e'}">${promoCodeActive?'Lent9i (-20% активен)':'Не активирован'}</strong></div></div></div>`;
+        box.innerHTML=`<div class="carbon-profile"><div class="carbon-skin-pedestal"><img style="height:175px;" src="https://mc-heads.net/body/${encodeURIComponent(cur.mcNick)}/175" onerror="this.src='https://mc-heads.net/avatar/Steve/110'" alt="Skin"><div class="carbon-skin-shadow"></div></div><div><div class="carbon-top-row"><div><div class="carbon-nick-pill">${cur.mcNick}</div><div style="font-size:12px;color:#8b949e;margin-top:8px;">● Логин: <strong style="color:#e2e8f0">${cur.login}</strong> • Создан: ${cur.createdAt||'Сегодня'}</div><div style="font-size:12px;margin-top:5px;display:flex;align-items:center;gap:8px;"><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#f43f5e;"></span><strong style="color:#fff;">Игрок NewTime</strong><span style="color:#38bdf8;font-weight:700;">• Java 1.21.4+</span></div></div><div style="display:flex;gap:7px;"><button class="carbon-copy-btn" onclick="copyText('NewTime Профиль: ${cur.login} (${cur.mcNick})')">🔗 Скопировать ссылку</button><button class="carbon-copy-btn" onclick="logoutAccount()">Выйти</button></div></div><div class="carbon-stat-strip"><div class="carbon-stat-cell"><div class="carbon-stat-lbl">Прокрутов кейса</div><div class="carbon-stat-val">${spinCounter}</div><div class="carbon-stat-sub">рулетка на сайте</div></div><div class="carbon-stat-cell"><div class="carbon-stat-lbl">Лучший дроп</div><div class="carbon-stat-val" style="font-size:17px;color:var(--cyan);">${bestDrop}</div><div class="carbon-stat-sub">макс. редкость</div></div><div class="carbon-stat-cell"><div class="carbon-stat-lbl">Желаемое</div><div class="carbon-stat-val">${wishlist.length}</div><div class="carbon-stat-sub">привилегий ❤️</div></div><div class="carbon-stat-cell"><div class="carbon-stat-lbl">Закладки</div><div class="carbon-stat-val">${favRules.length}</div><div class="carbon-stat-sub">пунктов правил ⭐</div></div></div><div class="carbon-bottom-grid"><div><div style="font-size:11.5px;color:#8b949e;">Активность • последние 10</div><div class="form-squares">${sq}</div></div><div><div style="font-size:11.5px;color:#8b949e;display:flex;justify-content:space-between;"><span>Уровень профиля</span><strong style="color:#fff;">${lvlPct}%</strong></div><div class="lvl-bar-bg"><div class="lvl-bar-fill" style="width:${lvlPct}%"></div></div></div></div><div style="font-size:11.5px;color:#6e7681;margin-top:10px;">Сервер: Cyan Anarchy 1.21.4+ • Промокод: <strong style="color:${promoCodeActive?'#10b981':'#8b949e'}">${promoCodeActive?'Lent9i (-20% активен)':'Не активирован'}</strong></div></div></div>`;
       }
       renderUsersDirectory();
     }
@@ -818,7 +908,7 @@
       document.getElementById("tabPreview").innerHTML=`<div><span class="mc-lbl">TAB:</span><strong style="color:${r.color}">${r.prefix}</strong> <span style="color:#fff">${nick}</span></div><span class="mc-ping"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:11px"></i></span>`;
       const bp=Math.max(12,Math.round((r.tier/11)*100)); document.getElementById("bossbarTxt").innerHTML=`<span style="color:${r.color}">${r.prefix} ${nick}</span> • NEWTIME 1.21.4+`;
       const bf=document.getElementById("bossbarFill"); bf.style.width=bp+"%"; bf.style.background=`linear-gradient(90deg,${r.color},var(--cyan))`;
-      document.getElementById("rankChestMount").innerHTML=renderChestHtml(r.id);
+      document.getElementById("rankChestMount").innerHTML=renderChestHtml(r.id); hydrateDynamicTextures();
       document.getElementById("powerMeters").innerHTML=`<div class="pm-box"><div class="pm-top"><span>⚔️ PvP-мощь</span><strong>${r.pvp}%</strong></div><div class="pm-track"><div class="pm-fill" style="width:${r.pvp}%"></div></div></div><div class="pm-box"><div class="pm-top"><span>💰 Экономика</span><strong>${r.eco}%</strong></div><div class="pm-track"><div class="pm-fill" style="width:${r.eco}%"></div></div></div><div class="pm-box"><div class="pm-top"><span>✨ Комфорт</span><strong>${r.comf}%</strong></div><div class="pm-track"><div class="pm-fill" style="width:${r.comf}%"></div></div></div>`;
       if(r.special){ tl.textContent=`Статус: ${r.name}`; tt.style.display="none"; document.getElementById("detailPrice").textContent=r.priceLabel; pd.textContent=""; nb.style.display="none"; bb.textContent=r.id==="player"?"ИГРАТЬ БЕСПЛАТНО":"ПОДРОБНЕЕ"; }
       else {
@@ -871,7 +961,7 @@
     function selectRank(id){ playSfx("click"); selectedId=id; pushRecent(id); renderList(); renderDetails(); }
     function selectTerm(t){ playSfx("click"); selectedTerm=t; document.querySelectorAll(".term-btn").forEach(b=>b.classList.toggle("act",b.dataset.term===t)); renderDetails(); }
     function jumpToRank(id){ selectedId=id; pushRecent(id); renderList(); renderDetails(); switchView("shop"); }
-    function switchView(v){ playSfx("click"); document.querySelectorAll(".view").forEach(x=>x.classList.remove("act")); document.getElementById("view-"+v).classList.add("act"); document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("act",b.dataset.view===v)); window.scrollTo({top:0,behavior:"smooth"}); }
+    function switchView(v){ playSfx("click"); document.querySelectorAll(".view").forEach(x=>x.classList.remove("act")); document.getElementById("view-"+v).classList.add("act"); document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("act",b.dataset.view===v)); window.scrollTo({top:0,behavior:"smooth"}); if(v==="items") hydrateDynamicTextures(); }
 
     const secOrder=["sec-1","sec-2","sec-3","sec-4","sec-5","sec-6"];
     function selectRuleSec(s){ playSfx("click"); activeRuleSec=s; document.querySelectorAll(".rule-tab-btn").forEach(b=>b.classList.toggle("act",b.dataset.sec===s)); document.querySelectorAll(".rule-sec").forEach(el=>el.classList.toggle("act-sec",s==="all"||el.id===s)); const p=document.getElementById("rulePager"); if(s==="all") p.style.display="none"; else { p.style.display="flex"; const i=secOrder.indexOf(s); document.getElementById("prevRuleBtn").style.visibility=i>0?"visible":"hidden"; document.getElementById("nextRuleBtn").style.visibility=i<secOrder.length-1?"visible":"hidden"; } }
@@ -885,72 +975,4 @@
     function openBuyModal(){ playSfx("pop"); const r=ranks.find(x=>x.id===selectedId); if(!r) return; if(r.special){r.id==="player"?copyIP():showToast(r.note);return;} document.getElementById("mRankName").textContent=r.name; document.getElementById("mRankName").style.color=r.color; updateModalPrice(); document.getElementById("sbpBox").classList.remove("open"); const s=localStorage.getItem("nt_nick"); if(s&&!document.getElementById("mNick").value&&!document.getElementById("giftCheck").checked) document.getElementById("mNick").value=s; onModalNickInput(); document.getElementById("modalBg").classList.add("open"); }
     function closeModal(){ document.getElementById("modalBg").classList.remove("open"); }
     function isWorkerReady(){ return WORKER_URL&&!WORKER_URL.includes("ВАШ-НИК"); }
-    async function payCrypto(){ const n=getNick(); if(!n) return; if(!isWorkerReady()){playSfx("err");return showToast("Подключите WORKER_URL для авто-счёта CryptoBot!");} showToast("Создаём счёт в CryptoBot..."); try{const r=await fetch(`${WORKER_URL}/api/order`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({nick:n,rank:selectedId,term:selectedTerm,promo:promoCodeActive?"Lent9i":""})}), d=await r.json(); if(d.ok&&d.pay_url){window.open(d.pay_url,"_blank");closeModal();}else showToast(d.error||"Ошибка счёта");}catch{showToast("Ошибка связи с ботом");} }
-    function payStars(){ const n=getNick(); if(!n) return; window.open(`https://t.me/${BOT_USERNAME}?start=stars-${selectedId}-${selectedTerm}-${n}`,"_blank"); closeModal(); }
-    async function toggleSbp(){ playSfx("click"); const b=document.getElementById("sbpBox"); b.classList.toggle("open"); if(!b.classList.contains("open")) return; if(!isWorkerReady()){document.getElementById("sbpDetails").textContent=SBP_FALLBACK;return;} try{const r=await fetch(`${WORKER_URL}/api/config`), c=await r.json(); document.getElementById("sbpDetails").textContent=c.sbp_info||SBP_FALLBACK;}catch{document.getElementById("sbpDetails").textContent=SBP_FALLBACK;} }
-    async function sendSbpRequest(){ const n=getNick(); if(!n) return; const r=ranks.find(x=>x.id===selectedId), fp=getEffectivePrice(r), tn={p30:"30 дней",p90:"90 дней",pFor:"Навсегда"}; if(!isWorkerReady()){const msg=`NewTime СБП: ${r.name} (${tn[selectedTerm]} — ${fp} ₽)${promoCodeActive?" [Промо: Lent9i]":""}, Ник: ${n}`;if(navigator.clipboard)navigator.clipboard.writeText(msg);showToast("Заявка скопирована! Отправьте чек в @newtime_tg");window.open("https://t.me/newtime_tg","_blank");closeModal();return;} try{const res=await fetch(`${WORKER_URL}/api/sbp`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({nick:n,rank:selectedId,term:selectedTerm,promo:promoCodeActive?"Lent9i":""})}), d=await res.json(); if(d.ok){playSfx("win");showToast("Заявка отправлена!");closeModal();}else showToast(d.error||"Ошибка");}catch{showToast("Ошибка соединения");} }
-
-    function copyRule(b){ playSfx("pop"); const r=b.closest(".rule-row"); if(navigator.clipboard) navigator.clipboard.writeText(`Пункт ${r.querySelector(".r-badge").textContent}: ${r.querySelector(".r-text").innerText.trim()}`); showToast(`Скопирован пункт ${r.querySelector(".r-badge").textContent}`); }
-    function toggleFavRule(b){ playSfx("pop"); const r=b.closest(".rule-row"), code=r.querySelector(".r-badge").textContent, text=r.querySelector(".r-text").innerText.trim(); favRules=favRules.some(f=>f.code===code)?favRules.filter(f=>f.code!==code):[...favRules,{code,text}]; localStorage.setItem("nt_fav_rules",JSON.stringify(favRules)); syncFavButtons(); renderFavRules(); }
-    function syncFavButtons(){ document.querySelectorAll(".rule-row").forEach(r=>{ const s=r.querySelector(".r-act-btn"); if(s) s.classList.toggle("fav-on",favRules.some(f=>f.code===r.querySelector(".r-badge").textContent)); }); }
-    function renderFavRules(){ document.getElementById("favRulesBox").innerHTML=favRules.length?favRules.map(f=>`<div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;gap:8px;align-items:flex-start;"><span class="r-badge" style="min-width:40px;font-size:10.5px;">${f.code}</span><span style="color:#e2e8f0;font-size:12px;">${f.text.slice(0,75)}${f.text.length>75?"...":""}</span></div>`).join(""):"Нажмите ⭐ на любом правиле, чтобы закрепить его здесь."; }
-    function updateReadyBar(){ playSfx("click"); const c=document.querySelectorAll(".ready-chk input"), d=[...c].filter(x=>x.checked).length; document.getElementById("readyFill").style.width=(d/c.length*100)+"%"; if(d===c.length){playSfx("win");showToast("Отлично! Вы готовы к игре на Cyan Anarchy 1.21.4+!");} }
-
-    function renderMods(){ const od=modsSorted?[...ok].sort((a,b)=>a.localeCompare(b)):ok, nd=modsSorted?[...no].sort((a,b)=>a.localeCompare(b)):no; document.getElementById("okList").innerHTML=od.map(m=>`<span class="tag tok" onclick="copyMod(this.textContent)">${m}</span>`).join(""); document.getElementById("noList").innerHTML=nd.map(m=>`<span class="tag tno" onclick="copyMod(this.textContent)">${m}</span>`).join(""); document.getElementById("okCount").textContent=ok.length+" шт."; document.getElementById("noCount").textContent=no.length+" шт."; document.getElementById("sbOkStat").textContent=ok.length; onSearch(); }
-    function toggleModSort(){ playSfx("click"); modsSorted=!modsSorted; document.getElementById("sortModsBtn").textContent=modsSorted?"🔁 Исходный порядок":"🔤 Сортировать А–Я"; renderMods(); }
-    function copyAllMods(t){ playSfx("pop"); const l=t==="ok"?ok:no; if(navigator.clipboard) navigator.clipboard.writeText(l.join(", ")); showToast(`Скопировано (${l.length} модов)`); }
-    function quickCheckMod(n){ playSfx("click"); document.getElementById("modCheckerInp").value=n; checkModName(); }
-    function checkModName(){ const v=document.getElementById("modCheckerInp").value.trim().toLowerCase().replace(/\.jar$/i,""), rb=document.getElementById("modCheckerRes"); if(!v){rb.className="mod-chk-result";rb.textContent="Введите название мода для проверки";return;} const hn=no.find(m=>m.toLowerCase().includes(v)), ho=ok.find(m=>m.toLowerCase().includes(v)); if(hn){rb.className="mod-chk-result no";rb.textContent=`⛔ ЗАПРЕЩЁН: ${hn}`;} else if(ho){rb.className="mod-chk-result ok";rb.textContent=`✅ РАЗРЕШЁН: ${ho}`;} else {rb.className="mod-chk-result warn";rb.textContent="⚠️ Нет в списке 4.4 — уточните у Staff!";} }
-    function filterModGroup(g,b){ playSfx("click"); document.querySelectorAll(".mf-btn").forEach(x=>x.classList.remove("act")); b.classList.add("act"); document.getElementById("okBox").style.display=g==="no"?"none":"block"; document.getElementById("noBox").style.display=g==="ok"?"none":"block"; document.getElementById("modsGrid").style.gridTemplateColumns=g==="all"?"":"1fr"; }
-    function toggleFaq(b){ playSfx("click"); b.closest(".faq-item").classList.toggle("open"); }
-
-    function setBadge(id,c,a){ const e=document.getElementById(id); if(e){e.textContent=c;e.classList.toggle("show",a);} }
-    function escapeRegExp(s){ return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"); }
-    function onSearch(){
-      const i=document.getElementById("globalSearch"), raw=i.value.trim(), v=raw.toLowerCase();
-      document.getElementById("searchClear").classList.toggle("show",v.length>0);
-      const sm=renderList(); let rm=0; const re=v?new RegExp(`(${escapeRegExp(raw)})`,"gi"):null;
-      if(v) selectRuleSec("all");
-      document.querySelectorAll("#view-rules .rule-row").forEach(r=>{ const te=r.querySelector(".r-text"); if(te){ if(!te.dataset.orig) te.dataset.orig=te.innerHTML; const h=te.innerText.toLowerCase().includes(v); r.style.display=h?"flex":"none"; if(h) rm++; te.innerHTML=(v&&h&&!te.dataset.orig.includes("<a")&&!te.dataset.orig.includes("<div"))?te.dataset.orig.replace(re,'<mark class="hl">$1</mark>'):te.dataset.orig; } });
-      document.getElementById("rulesSearchBanner").classList.toggle("show",v.length>0); document.getElementById("rulesSearchMsg").textContent=`По запросу «${raw}» найдено пунктов: ${rm}`;
-      let mm=0; document.querySelectorAll(".tag").forEach(t=>{const h=t.innerText.toLowerCase().includes(v);t.style.display=h?"inline-block":"none";if(h)mm++;});
-      setBadge("cnt-shop",sm,v.length>0); setBadge("cnt-rules",rm,v.length>0); setBadge("cnt-mods",mm,v.length>0);
-    }
-    function clearSearch(){ document.getElementById("globalSearch").value=""; onSearch(); selectRuleSec("sec-1"); }
-
-    let toastTimer; function showToast(m){ const t=document.getElementById("toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"),2600); }
-    function copyIP(){ playSfx("pop"); if(navigator.clipboard) navigator.clipboard.writeText("newtime.mcsh.gg"); showToast("IP newtime.mcsh.gg скопирован!"); }
-    function copyMod(n){ playSfx("pop"); if(navigator.clipboard) navigator.clipboard.writeText(n); showToast(`Скопировано: ${n}`); }
-    async function fetchServerStatus(){ const t=document.getElementById("onlineText"); try{const r=await fetch("https://api.mcsrvstat.us/3/newtime.mcsh.gg"),d=await r.json();t.textContent=d&&d.online?`Онлайн: ${d.players?.online||0}/${d.players?.max||100}`:"Онлайн • 1.21.4+";}catch{t.textContent="Онлайн • 1.21.4+";} }
-
-    let bgRaf=null;
-    function initBgEngine(){
-      if(bgRaf) cancelAnimationFrame(bgRaf);
-      const c=document.getElementById("bgCanvas"), ctx=c.getContext("2d"); let w=c.width=window.innerWidth, h=c.height=window.innerHeight; const m=siteSettings.bgMode;
-      if(m==="none"){ctx.clearRect(0,0,w,h);return;}
-      let t=0; const dr=Array(Math.floor(w/18)).fill(1), st=Array.from({length:110},()=>({x:(Math.random()-0.5)*w,y:(Math.random()-0.5)*h,z:Math.random()*w})), nd=Array.from({length:45},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5)*0.5,vy:(Math.random()-0.5)*0.5,r:Math.random()*2.2+1})), em=Array.from({length:55},()=>({x:Math.random()*w,y:Math.random()*h,vy:Math.random()*1.3+0.5,vx:(Math.random()-0.5)*0.6,s:Math.random()*3.5+1.5}));
-      window.onresize=()=>{w=c.width=window.innerWidth;h=c.height=window.innerHeight;};
-      (function rf(){
-        if(!document.hidden){
-          const ac=getComputedStyle(document.body).getPropertyValue("--cyan").trim()||"#00e5ff", bl=getComputedStyle(document.body).getPropertyValue("--blue").trim()||"#1e78ff";
-          if(m==="aurora"){ ctx.clearRect(0,0,w,h); t+=0.014; for(let b=0;b<3;b++){const gx=w*(0.25+b*0.25)+Math.sin(t+b)*90,gy=h*(0.35+(b%2)*0.28)+Math.cos(t*0.8+b)*60,g=ctx.createRadialGradient(gx,gy,10,gx,gy,340);g.addColorStop(0,b%2===0?ac:bl);g.addColorStop(1,"transparent");ctx.globalAlpha=0.14;ctx.fillStyle=g;ctx.fillRect(0,0,w,h);} for(let wv=0;wv<2;wv++){ctx.beginPath();ctx.lineWidth=2;ctx.strokeStyle=wv===0?ac:bl;ctx.globalAlpha=0.22;for(let x=0;x<=w;x+=24){const y=h*(0.45+wv*0.22)+Math.sin(x*0.0035+t+wv*1.5)*60;if(x===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.stroke();} ctx.fillStyle=ac; nd.forEach(n=>{n.y-=0.45;if(n.y<-10){n.y=h+10;n.x=Math.random()*w;}ctx.globalAlpha=0.42;ctx.fillRect(n.x,n.y,n.r,n.r);}); }
-          else if(m==="matrix"){ ctx.fillStyle="rgba(4,8,19,0.14)";ctx.globalAlpha=1;ctx.fillRect(0,0,w,h);ctx.fillStyle=ac;ctx.font="14px JetBrains Mono, monospace";ctx.globalAlpha=0.48;for(let i=0;i<dr.length;i++){ctx.fillText(Math.random()>0.5?"1":"0",i*18,dr[i]*18);if(dr[i]*18>h&&Math.random()>0.975)dr[i]=0;dr[i]++;} }
-          else if(m==="warp"){ ctx.fillStyle="rgba(4,8,19,0.3)";ctx.globalAlpha=1;ctx.fillRect(0,0,w,h);ctx.fillStyle=ac;st.forEach(s=>{s.z-=6.5;if(s.z<=1){s.z=w;s.x=(Math.random()-0.5)*w;s.y=(Math.random()-0.5)*h;}const sx=(s.x/s.z)*w+w/2,sy=(s.y/s.z)*h+h/2,r=Math.max(0.8,(1-s.z/w)*3.6);ctx.globalAlpha=Math.min(0.88,1-s.z/w);ctx.fillRect(sx,sy,r,r);}); }
-          else if(m==="hex"){ ctx.clearRect(0,0,w,h);t+=0.025;const sz=46,dx=sz*1.5,dy=sz*Math.sqrt(3);ctx.strokeStyle=ac;ctx.lineWidth=1.2;for(let x=0;x<w+dx;x+=dx)for(let y=0;y<h+dy;y+=dy){const off=(Math.round(x/dx)%2)*(dy/2);ctx.globalAlpha=Math.max(0.04,0.08+0.1*Math.sin(t+(x+y)*0.01));ctx.beginPath();for(let k=0;k<6;k++){const ang=(Math.PI/3)*k,px=x+sz*0.56*Math.cos(ang),py=y+off+sz*0.56*Math.sin(ang);if(k===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);}ctx.closePath();ctx.stroke();} }
-          else if(m==="embers"){ ctx.clearRect(0,0,w,h);ctx.fillStyle=ac;em.forEach(p=>{p.y-=p.vy;p.x+=p.vx;if(p.y<-10){p.y=h+10;p.x=Math.random()*w;}ctx.globalAlpha=0.5;ctx.fillRect(p.x,p.y,p.s,p.s);}); }
-          else if(m==="net"){ ctx.clearRect(0,0,w,h);ctx.fillStyle=ac;ctx.strokeStyle=ac;for(let i=0;i<nd.length;i++){const p=nd[i];p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;ctx.globalAlpha=0.35;ctx.fillRect(p.x,p.y,p.r,p.r);for(let j=i+1;j<nd.length;j++){const d=Math.hypot(p.x-nd[j].x,p.y-nd[j].y);if(d<130){ctx.globalAlpha=(1-d/130)*0.16;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(nd[j].x,nd[j].y);ctx.stroke();}}} }
-        }
-        bgRaf=requestAnimationFrame(rf);
-      })();
-    }
-
-    window.addEventListener("scroll",()=>{ const dh=document.documentElement.scrollHeight-window.innerHeight; document.getElementById("scrollProgress").style.width=(dh>0?Math.min(100,(window.scrollY/dh)*100):0)+"%"; document.getElementById("backTop").classList.toggle("show",window.scrollY>360); });
-    document.addEventListener("keydown",e=>{ if(e.key==="Escape"){closeModal();closeSettings();closeAccountModal();} if(document.activeElement.tagName==="INPUT"||document.activeElement.tagName==="SELECT") return; if(e.key==="/"){e.preventDefault();document.getElementById("globalSearch").focus();} if(e.key==="1")switchView("shop"); if(e.key==="2")switchView("items"); if(e.key==="3")switchView("rules"); if(e.key==="4")switchView("mods"); if(e.key==="5")switchView("contacts"); });
-
-    const savedNickInit=localStorage.getItem("nt_nick"); if(savedNickInit) document.getElementById("liveNickInp").value=savedNickInit;
-    renderRules(); applyAllSettings(); initBgEngine(); renderAccountUI(); renderRecent(); renderList(); renderDetails();
-    renderAllKitsGrid(); renderCustomItems(); renderCompareTable(); initDuelSelects(); updateWizard(); renderDropTable();
-    buildRoulettePool(); renderMods(); syncFavButtons(); renderFavRules(); fetchServerStatus();
-  </script>
-</body>
-</html>
+    async function payCrypto(){ const n=getNick(); if(!n) return; if(!isWorkerReady()){playSfx("err");return showToast("Подключите WORKER_URL для авто-счёта CryptoBot!");} showToast("Создаём счёт в CryptoBot..."); try{const r=await fetch(`${WORKER_URL}/api/order`,{method:"POST",headers:{"Content-Type":"application/json"},
