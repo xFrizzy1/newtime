@@ -3,22 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NewTime — Официальный портал | Cyan Anarchy</title>
+  <title>NewTime — Neural Cyber Portal | Cyan Anarchy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
   <style>
     /* ==========================================================================
-       1. ТЕМА, ПЕРЕМЕННЫЕ И БАЗОВЫЕ СТИЛИ
+       1. ПЕРЕМЕННЫЕ, ТЕМЫ И АНИМИРОВАННЫЕ ГРАДИЕНТЫ
        ========================================================================== */
+    @property --border-angle {
+      syntax: "<angle>";
+      initial-value: 0deg;
+      inherits: false;
+    }
+
     :root {
-      --bg: #050810;
-      --card: rgba(12, 19, 34, 0.86);
-      --card-solid: #0c1322;
-      --card-hdr: linear-gradient(180deg, rgba(25, 39, 67, 0.96) 0%, rgba(14, 23, 42, 0.96) 100%);
-      --hov: rgba(29, 46, 78, 0.62);
+      --bg: #04070e;
+      --card: rgba(10, 16, 30, 0.82);
+      --card-solid: #0a101e;
+      --card-hdr: linear-gradient(180deg, rgba(22, 35, 62, 0.94) 0%, rgba(12, 20, 38, 0.94) 100%);
+      --hov: rgba(27, 45, 78, 0.62);
       --brd: rgba(255, 255, 255, 0.08);
-      --brd-strong: rgba(255, 255, 255, 0.16);
+      --brd-strong: rgba(255, 255, 255, 0.17);
 
       --blue: #1e78ff;
       --blue-hov: #3b8bff;
@@ -34,33 +40,34 @@
 
       --rank-accent: #00e5ff;
       --glow-mult: 1;
+      --blur-px: 14px;
+      --base-fs: 14px;
       --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-      --radius: 13px;
-      --shadow: 0 16px 42px rgba(0, 0, 0, 0.5);
+      --radius: 14px;
+      --shadow: 0 18px 46px rgba(0, 0, 0, 0.55);
     }
 
     body[data-theme="crimson"] {
-      --blue: #e11d48;
-      --blue-hov: #f43f5e;
-      --cyan: #ff3b6b;
-      --cyan-dim: rgba(255, 59, 107, 0.14);
-      --cyan-brd: rgba(255, 59, 107, 0.38);
+      --blue: #e11d48; --blue-hov: #f43f5e; --cyan: #ff3b6b;
+      --cyan-dim: rgba(255, 59, 107, 0.14); --cyan-brd: rgba(255, 59, 107, 0.38);
     }
     body[data-theme="emerald"] {
-      --blue: #059669;
-      --blue-hov: #10b981;
-      --cyan: #34d399;
-      --cyan-dim: rgba(52, 211, 153, 0.14);
-      --cyan-brd: rgba(52, 211, 153, 0.38);
+      --blue: #059669; --blue-hov: #10b981; --cyan: #34d399;
+      --cyan-dim: rgba(52, 211, 153, 0.14); --cyan-brd: rgba(52, 211, 153, 0.38);
     }
     body[data-theme="amethyst"] {
-      --blue: #7c3aed;
-      --blue-hov: #8b5cf6;
-      --cyan: #c084fc;
-      --cyan-dim: rgba(192, 132, 252, 0.14);
-      --cyan-brd: rgba(192, 132, 252, 0.38);
+      --blue: #7c3aed; --blue-hov: #8b5cf6; --cyan: #c084fc;
+      --cyan-dim: rgba(192, 132, 252, 0.14); --cyan-brd: rgba(192, 132, 252, 0.38);
     }
-    body.low-glow { --glow-mult: 0.25; }
+
+    body.glow-max { --glow-mult: 1.5; }
+    body.glow-low { --glow-mult: 0.25; }
+    body.no-blur { --blur-px: 0px; }
+    body.no-scanlines .scanlines { display: none; }
+    body.anim-min *, body.anim-min *::before, body.anim-min *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.05s !important;
+    }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -70,7 +77,7 @@
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: var(--bg);
       color: var(--txt);
-      font-size: 14px;
+      font-size: var(--base-fs);
       line-height: 1.55;
       display: flex;
       flex-direction: column;
@@ -82,83 +89,89 @@
       position: fixed; inset: 0; z-index: -1; pointer-events: none;
       background: repeating-linear-gradient(to bottom, transparent 0px, transparent 3px, rgba(0, 229, 255, 0.014) 4px);
     }
-
-    /* Прогресс-бар прокрутки */
     .scroll-progress {
       position: fixed; top: 0; left: 0; height: 3px; width: 0%; z-index: 999;
-      background: linear-gradient(90deg, var(--blue), var(--cyan));
-      box-shadow: 0 0 12px var(--cyan);
+      background: linear-gradient(90deg, var(--blue), var(--cyan), #fff);
+      box-shadow: 0 0 14px var(--cyan);
       transition: width 0.08s linear;
     }
 
     ::-webkit-scrollbar { width: 7px; height: 7px; }
-    ::-webkit-scrollbar-track { background: #060a12; }
+    ::-webkit-scrollbar-track { background: #050912; }
     ::-webkit-scrollbar-thumb { background: #243658; border-radius: 5px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
 
     /* ==========================================================================
-       2. ПРОМО-СТРОКА И HERO БАННЕР
+       2. AI TELEMETRY STRIP И HERO С ОРБИТАЛЬНЫМ ЯДРОМ
        ========================================================================== */
     .promo-strip {
       background: linear-gradient(90deg, rgba(30, 120, 255, 0.2), var(--cyan-dim), rgba(30, 120, 255, 0.2));
       border-bottom: 1px solid var(--cyan-brd);
-      padding: 6px 16px; font-size: 12px; font-weight: 600; color: #dbeafe;
-      display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; text-align: center;
+      padding: 6px 16px; font-size: 11.5px; font-weight: 700; font-family: var(--mono); color: #dbeafe;
+      display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; text-align: center;
     }
     .promo-strip strong { color: var(--cyan); }
     .promo-close { background: none; border: none; color: var(--mut); cursor: pointer; font-size: 13px; }
     .promo-close:hover { color: #fff; }
 
     .hero-banner {
-      position: relative; min-height: 295px; width: 100%; overflow: hidden;
+      position: relative; min-height: 315px; width: 100%; overflow: hidden;
       background:
-        radial-gradient(circle at 50% 42%, var(--cyan-dim), transparent 56%),
-        radial-gradient(circle at 15% 85%, rgba(30, 120, 255, 0.24), transparent 50%),
-        linear-gradient(180deg, #060e1f 0%, #0a1832 65%, #050810 100%);
+        radial-gradient(circle at 50% 42%, var(--cyan-dim), transparent 58%),
+        radial-gradient(circle at 18% 85%, rgba(30, 120, 255, 0.22), transparent 50%),
+        linear-gradient(180deg, rgba(6, 13, 28, 0.92) 0%, rgba(9, 20, 42, 0.72) 65%, #04070e 100%);
       display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
-      padding: 30px 20px;
+      padding: 32px 20px;
     }
     .hero-grid {
       position: absolute; inset: -40px 0 0 0;
       background-image:
-        linear-gradient(rgba(0, 229, 255, 0.065) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 229, 255, 0.065) 1px, transparent 1px);
-      background-size: 40px 40px;
-      transform: perspective(520px) rotateX(24deg);
-      transform-origin: top center;
+        linear-gradient(rgba(0, 229, 255, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.06) 1px, transparent 1px);
+      background-size: 42px 42px;
+      transform: perspective(520px) rotateX(26deg); transform-origin: top center;
       mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, transparent 92%);
       -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, transparent 92%);
-      animation: gridMove 14s linear infinite;
-      pointer-events: none;
+      animation: gridMove 12s linear infinite; pointer-events: none;
     }
-    @keyframes gridMove { 0% { background-position: 0 0, 0 0; } 100% { background-position: 0 40px, 0 0; } }
+    @keyframes gridMove { 0% { background-position: 0 0, 0 0; } 100% { background-position: 0 42px, 0 0; } }
 
-    .hero-bg-svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.42; pointer-events: none; }
-    .hero-vignette { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5, 8, 16, 0.12) 0%, rgba(5, 8, 16, 0.96) 100%); pointer-events: none; }
+    /* Орбитальное AI-кольцо в Hero */
+    .ai-orbit {
+      position: absolute; width: 340px; height: 340px; border-radius: 50%;
+      border: 1px dashed var(--cyan-brd); opacity: 0.35;
+      animation: orbitSpin 28s linear infinite; pointer-events: none;
+    }
+    .ai-orbit.inner {
+      width: 245px; height: 245px; border-style: solid; border-color: rgba(30, 120, 255, 0.25);
+      border-top-color: var(--cyan); animation: orbitSpinRev 18s linear infinite;
+    }
+    @keyframes orbitSpin { to { transform: rotate(360deg); } }
+    @keyframes orbitSpinRev { to { transform: rotate(-360deg); } }
 
-    .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 11px; max-width: 840px; }
+    .hero-vignette { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(4, 7, 14, 0.1) 0%, rgba(4, 7, 14, 0.96) 100%); pointer-events: none; }
+
+    .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: 840px; }
     .hero-top-badges { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; animation: heroEnter 0.55s ease both; }
     .hero-badge {
-      font-size: 11px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase;
+      font-size: 10.5px; font-weight: 800; font-family: var(--mono); letter-spacing: 0.12em; text-transform: uppercase;
       color: var(--cyan); background: var(--cyan-dim); border: 1px solid var(--cyan-brd);
-      padding: 4px 13px; border-radius: 999px; box-shadow: 0 0 16px var(--cyan-dim);
+      padding: 4px 13px; border-radius: 999px; box-shadow: 0 0 calc(16px * var(--glow-mult)) var(--cyan-dim);
     }
-    .hero-badge.ver { color: #cbd5e1; background: rgba(255, 255, 255, 0.06); border-color: var(--brd); box-shadow: none; }
+    .hero-badge.ver { color: #cbd5e1; background: rgba(255, 255, 255, 0.05); border-color: var(--brd); box-shadow: none; }
 
     .hero-logo-row { display: flex; align-items: center; gap: 16px; animation: heroEnter 0.68s ease both; }
-    .hero-crown { filter: drop-shadow(0 0 18px var(--cyan-brd)); animation: crownFloat 3.4s ease-in-out infinite; }
-    @keyframes crownFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-6px) rotate(-2deg); } }
+    .hero-crown { filter: drop-shadow(0 0 calc(18px * var(--glow-mult)) var(--cyan-brd)); animation: crownFloat 3.4s ease-in-out infinite; }
+    @keyframes crownFloat { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-6px) scale(1.04); } }
 
     .hero-title {
-      margin: 0; font-size: clamp(40px, 6.2vw, 62px); font-weight: 900; letter-spacing: 0.09em;
-      color: #fff; text-shadow: 0 0 38px var(--cyan-dim), 0 4px 0 #040914; line-height: 1;
+      margin: 0; font-size: clamp(42px, 6.4vw, 64px); font-weight: 900; letter-spacing: 0.09em;
+      color: #fff; text-shadow: 0 0 calc(40px * var(--glow-mult)) var(--cyan-dim), 0 4px 0 #040914; line-height: 1;
     }
     .hero-title span {
       background: linear-gradient(110deg, #e0fbff 0%, var(--cyan) 35%, var(--blue) 65%, #e0fbff 100%);
-      background-size: 220% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shimmerText 4.5s linear infinite;
+      background-size: 220% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      animation: shimmerText 4.2s linear infinite;
     }
     @keyframes shimmerText { to { background-position: 220% center; } }
 
@@ -166,38 +179,38 @@
       min-height: 24px; color: #b7c5dc; font-size: 13.5px; font-weight: 500;
       transition: opacity 0.35s ease, transform 0.35s ease;
     }
-    .hero-ticker.fade { opacity: 0; transform: translateY(4px); }
+    .hero-ticker.fade { opacity: 0; transform: translateY(5px); }
 
     .hero-pills { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 4px; animation: heroEnter 0.85s ease both; }
-    @keyframes heroEnter { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes heroEnter { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
     .hero-sub {
       display: inline-flex; align-items: center; gap: 10px;
-      background: rgba(11, 18, 33, 0.88); backdrop-filter: blur(12px);
+      background: rgba(10, 16, 30, 0.86); backdrop-filter: blur(var(--blur-px));
       border: 1px solid var(--cyan-brd); padding: 8px 18px; border-radius: 999px;
       font-size: 13px; font-weight: 700; color: #dbeafe; cursor: pointer; transition: 0.2s;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.42);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
     }
     .hero-sub:hover { border-color: var(--cyan); transform: translateY(-2px) scale(1.02); box-shadow: 0 8px 28px var(--cyan-dim); }
     .hero-sub code { font-family: var(--mono); color: var(--cyan); }
     .online-pill {
       display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(11, 18, 33, 0.78); border: 1px solid var(--brd);
+      background: rgba(10, 16, 30, 0.78); border: 1px solid var(--brd);
       padding: 8px 16px; border-radius: 999px; font-size: 12.5px; font-weight: 700; color: #cbd5e1;
     }
     .online-pill strong { color: #fff; font-family: var(--mono); }
     .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 10px var(--ok); display: inline-block; animation: pulseDot 2s infinite; }
-    @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } }
+    @keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.45; transform: scale(1.35); } }
 
     /* ==========================================================================
-       3. НАВИГАЦИЯ И ПАНЕЛЬ ИНСТРУМЕНТОВ
+       3. НАВИГАЦИЯ И КНОПКА НАСТРОЕК
        ========================================================================== */
     .navbar-wrap {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(8, 13, 24, 0.88); backdrop-filter: blur(16px);
+      background: rgba(7, 12, 22, 0.86); backdrop-filter: blur(var(--blur-px));
       border-top: 1px solid rgba(255, 255, 255, 0.06);
       border-bottom: 1px solid var(--cyan-brd);
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.65);
     }
     .navbar { max-width: 1280px; margin: 0 auto; padding: 9px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
     .nav-left { display: flex; align-items: center; gap: 6px; overflow-x: auto; scrollbar-width: none; }
@@ -229,33 +242,41 @@
     .nav-count.show { display: inline-block; }
 
     .nav-right { display: flex; align-items: center; gap: 8px; }
-    .glow-btn {
-      background: #070b14; border: 1px solid var(--brd); color: var(--cyan);
-      padding: 6px 10px; border-radius: 8px; font-size: 11.5px; font-weight: 700;
-      cursor: pointer; transition: 0.16s; white-space: nowrap;
+    .settings-trigger {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #070b14; border: 1px solid var(--cyan-brd); color: var(--cyan);
+      padding: 7px 12px; border-radius: 8px; font-size: 12px; font-weight: 700;
+      cursor: pointer; transition: 0.18s; white-space: nowrap;
     }
-    .glow-btn:hover { border-color: var(--cyan); background: var(--cyan-dim); }
-    .theme-dots { display: flex; align-items: center; gap: 6px; background: #070b14; padding: 6px 9px; border-radius: 8px; border: 1px solid var(--brd); }
-    .t-dot { width: 13px; height: 13px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: 0.15s; }
-    .t-dot:hover { transform: scale(1.18); }
-    .t-dot.act { border-color: #fff; box-shadow: 0 0 9px currentColor; }
+    .settings-trigger:hover { background: var(--cyan-dim); transform: translateY(-1px); box-shadow: 0 0 14px var(--cyan-dim); }
+    .settings-trigger svg { transition: transform 0.4s ease; }
+    .settings-trigger:hover svg { transform: rotate(90deg); }
 
     .search-box { position: relative; display: flex; align-items: center; }
     .nav-search {
-      background: #070b14; border: 1px solid var(--brd-strong); color: #fff;
-      padding: 8px 34px 8px 13px; border-radius: 8px; font-size: 12.5px; width: 220px; outline: none; transition: 0.2s;
+      background: #060a12; border: 1px solid var(--brd-strong); color: #fff;
+      padding: 8px 34px 8px 13px; border-radius: 8px; font-size: 12.5px; width: 225px; outline: none; transition: 0.2s;
     }
-    .nav-search:focus { border-color: var(--cyan); width: 255px; box-shadow: 0 0 0 3px var(--cyan-dim); }
+    .nav-search:focus { border-color: var(--cyan); width: 260px; box-shadow: 0 0 0 3px var(--cyan-dim); }
     .search-clear { position: absolute; right: 8px; background: none; border: none; color: var(--mut); cursor: pointer; font-size: 13px; display: none; }
     .search-clear.show { display: block; }
 
     /* ==========================================================================
-       4. КОНТЕЙНЕР, HUD-КАРТОЧКИ, SPOTLIGHT, 3D TILT И RIPPLE
+       4. КОНТЕЙНЕР, КАРТОЧКИ, ВРАЩАЮЩАЯСЯ AI-РАМКА И АНИМАЦИИ
        ========================================================================== */
     .container { flex: 1; width: 100%; max-width: 1280px; margin: 0 auto; padding: 26px 20px 52px; }
     .view { display: none; }
-    .view.act { display: block; animation: viewReveal 0.28s cubic-bezier(0.2, 0.8, 0.2, 1); }
-    @keyframes viewReveal { from { opacity: 0; transform: translateY(10px) scale(0.992); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    .view.act { display: block; animation: viewReveal 0.34s cubic-bezier(0.16, 1, 0.3, 1); }
+    @keyframes viewReveal {
+      from { opacity: 0; transform: translateY(14px) scale(0.988); filter: blur(3px); }
+      to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+
+    body.anim-high .st-card { animation: cardFloatIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+    @keyframes cardFloatIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
     .page-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; }
     .page-title { margin: 0; font-size: 24px; font-weight: 900; color: #fff; letter-spacing: -0.01em; }
@@ -264,7 +285,7 @@
 
     .p-btn, .buy-btn { position: relative; overflow: hidden; }
     .p-btn {
-      background: rgba(18, 28, 48, 0.88); border: 1px solid var(--brd-strong);
+      background: rgba(16, 26, 46, 0.9); border: 1px solid var(--brd-strong);
       color: #e2e8f0; padding: 8px 14px; border-radius: 9px; font-size: 12.5px;
       font-weight: 600; cursor: pointer; text-decoration: none; transition: 0.16s;
       display: inline-flex; align-items: center; gap: 7px;
@@ -274,7 +295,7 @@
     .p-btn.primary:hover { background: var(--blue-hov); }
 
     .ripple-wave {
-      position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.38);
+      position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.36);
       transform: scale(0); animation: rippleAnim 0.55s ease-out forwards; pointer-events: none;
     }
     @keyframes rippleAnim { to { transform: scale(3.6); opacity: 0; } }
@@ -282,40 +303,48 @@
     .st-card {
       position: relative;
       background: var(--card);
-      backdrop-filter: blur(14px);
+      backdrop-filter: blur(var(--blur-px));
       border: 1px solid var(--brd);
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
       margin-bottom: 18px;
-      transition: border-color 0.25s ease, transform 0.22s ease;
+      transition: border-color 0.25s ease, transform 0.22s ease, box-shadow 0.25s ease;
     }
     .st-card::before {
       content: ""; position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(0, 229, 255, calc(0.08 * var(--glow-mult))), transparent 60%);
+      background: radial-gradient(430px circle at var(--mx, 50%) var(--my, 0%), rgba(0, 229, 255, calc(0.09 * var(--glow-mult))), transparent 60%);
       opacity: 0; transition: opacity 0.3s;
     }
     .st-card:hover::before { opacity: 1; }
 
-    .tilt-card { transform-style: preserve-3d; will-change: transform; }
+    /* Анимированная коническая AI-рамка для ключевых панелей */
+    .ai-frame {
+      border: 1px solid transparent;
+      background:
+        linear-gradient(var(--card), var(--card)) padding-box,
+        conic-gradient(from var(--border-angle), transparent 20%, var(--cyan) 50%, var(--blue) 70%, transparent 90%) border-box;
+      animation: spinBorder 7s linear infinite;
+    }
+    @keyframes spinBorder { to { --border-angle: 360deg; } }
 
     .hud-corners::after {
       content: ""; position: absolute; inset: 6px; pointer-events: none;
       background:
-        linear-gradient(var(--cyan), var(--cyan)) 0 0 / 10px 1.5px no-repeat,
-        linear-gradient(var(--cyan), var(--cyan)) 0 0 / 1.5px 10px no-repeat,
-        linear-gradient(var(--cyan), var(--cyan)) 100% 0 / 10px 1.5px no-repeat,
-        linear-gradient(var(--cyan), var(--cyan)) 100% 0 / 1.5px 10px no-repeat,
-        linear-gradient(var(--cyan), var(--cyan)) 0 100% / 10px 1.5px no-repeat,
-        linear-gradient(var(--cyan), var(--cyan)) 0 100% / 1.5px 10px no-repeat,
-        linear-gradient(var(--cyan), var(--cyan)) 100% 100% / 10px 1.5px no-repeat,
-        linear-gradient(var(--cyan), var(--cyan)) 100% 100% / 1.5px 10px no-repeat;
-      opacity: calc(0.38 * var(--glow-mult));
+        linear-gradient(var(--cyan), var(--cyan)) 0 0 / 11px 1.5px no-repeat,
+        linear-gradient(var(--cyan), var(--cyan)) 0 0 / 1.5px 11px no-repeat,
+        linear-gradient(var(--cyan), var(--cyan)) 100% 0 / 11px 1.5px no-repeat,
+        linear-gradient(var(--cyan), var(--cyan)) 100% 0 / 1.5px 11px no-repeat,
+        linear-gradient(var(--cyan), var(--cyan)) 0 100% / 11px 1.5px no-repeat,
+        linear-gradient(var(--cyan), var(--cyan)) 0 100% / 1.5px 11px no-repeat,
+        linear-gradient(var(--cyan), var(--cyan)) 100% 100% / 11px 1.5px no-repeat,
+        linear-gradient(var(--cyan), var(--cyan)) 100% 100% / 1.5px 11px no-repeat;
+      opacity: calc(0.42 * var(--glow-mult));
     }
 
     .st-card-hdr {
       background: var(--card-hdr); padding: 13px 18px; font-size: 12px; font-weight: 800;
-      letter-spacing: 0.07em; text-transform: uppercase; color: #fff;
+      letter-spacing: 0.08em; text-transform: uppercase; color: #fff;
       border-bottom: 1px solid var(--brd); display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
     }
     .st-card-hdr.center { justify-content: center; }
@@ -329,15 +358,96 @@
     .subtab-btn:hover { color: #fff; border-color: var(--brd-strong); transform: translateY(-1px); }
     .subtab-btn.act { background: var(--cyan-dim); border-color: var(--cyan); color: var(--cyan); box-shadow: 0 4px 18px var(--cyan-dim); }
     .subview { display: none; }
-    .subview.act { display: block; animation: viewReveal 0.24s ease; }
+    .subview.act { display: block; animation: viewReveal 0.25s ease; }
 
     /* ==========================================================================
-       5. МАГАЗИН: ФИЛЬТРЫ, ИСТОРИЯ, ЖИВОЙ НИК, ПРЕВЬЮ И ШКАЛА МОЩИ
+       5. КРУТЫЕ КИБЕР-РАМКИ ДЛЯ ПРАВИЛ (РАЗДЕЛЫ 1–6)
        ========================================================================== */
-    .shop-tools-bar {
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-      margin-bottom: 16px;
+    .rule-sec {
+      --sec-clr: var(--cyan);
+      position: relative;
+      border: 1px solid color-mix(in srgb, var(--sec-clr) 36%, transparent);
+      border-left: 3px solid var(--sec-clr);
+      box-shadow: var(--shadow), inset 0 0 28px -18px var(--sec-clr);
+      margin-bottom: 24px;
+      overflow: visible;
     }
+    .rule-sec::after {
+      content: ""; position: absolute; inset: -1px; border-radius: var(--radius); pointer-events: none;
+      background:
+        linear-gradient(var(--sec-clr), var(--sec-clr)) 0 0 / 22px 2px no-repeat,
+        linear-gradient(var(--sec-clr), var(--sec-clr)) 0 0 / 2px 22px no-repeat,
+        linear-gradient(var(--sec-clr), var(--sec-clr)) 100% 0 / 22px 2px no-repeat,
+        linear-gradient(var(--sec-clr), var(--sec-clr)) 100% 0 / 2px 22px no-repeat,
+        linear-gradient(var(--sec-clr), var(--sec-clr)) 0 100% / 22px 2px no-repeat,
+        linear-gradient(var(--sec-clr), var(--sec-clr)) 0 100% / 2px 22px no-repeat,
+        linear-gradient(var(--sec-clr), var(--sec-clr)) 100% 100% / 22px 2px no-repeat,
+        linear-gradient(var(--sec-clr), var(--sec-clr)) 100% 100% / 2px 22px no-repeat;
+      filter: drop-shadow(0 0 6px var(--sec-clr));
+    }
+    .rule-sec .st-card-hdr {
+      border-radius: var(--radius) var(--radius) 0 0;
+      background: linear-gradient(90deg, color-mix(in srgb, var(--sec-clr) 22%, #0d1629) 0%, rgba(12, 19, 34, 0.96) 100%);
+      border-bottom: 1px solid color-mix(in srgb, var(--sec-clr) 35%, transparent);
+      justify-content: space-between;
+    }
+    .sec-tag {
+      font-family: var(--mono); font-size: 10.5px; font-weight: 800;
+      color: var(--sec-clr); background: rgba(4, 7, 14, 0.72);
+      border: 1px solid color-mix(in srgb, var(--sec-clr) 50%, transparent);
+      padding: 2px 9px; border-radius: 999px;
+    }
+
+    #sec-1 { --sec-clr: #00e5ff; }
+    #sec-2 { --sec-clr: #3b82f6; }
+    #sec-3 { --sec-clr: #a855f7; }
+    #sec-4 { --sec-clr: #f59e0b; }
+    #sec-5 { --sec-clr: #10b981; }
+    #sec-6 { --sec-clr: #facc15; }
+
+    .rule-row {
+      position: relative;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.055);
+      border-left: 2px solid transparent;
+      transition: background 0.16s, border-color 0.16s, padding-left 0.16s;
+    }
+    .rule-row:last-child { border-bottom: none; border-radius: 0 0 var(--radius) var(--radius); }
+    .rule-row:hover {
+      background: color-mix(in srgb, var(--sec-clr, var(--cyan)) 8%, transparent);
+      border-left-color: var(--sec-clr, var(--cyan));
+      padding-left: 22px;
+    }
+    .rule-row.sub { padding-left: 40px; background: rgba(255, 255, 255, 0.015); }
+    .rule-row.sub:hover { padding-left: 44px; }
+    .rule-main { display: flex; align-items: flex-start; gap: 14px; flex: 1; }
+    .r-badge {
+      min-width: 52px; text-align: center; font-size: 12px; font-weight: 800; font-family: var(--mono);
+      color: var(--sec-clr, var(--cyan));
+      background: color-mix(in srgb, var(--sec-clr, var(--cyan)) 14%, #060a12);
+      border: 1px solid color-mix(in srgb, var(--sec-clr, var(--cyan)) 48%, transparent);
+      clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+      padding: 3px 8px; flex-shrink: 0;
+      box-shadow: 0 0 12px -4px var(--sec-clr, var(--cyan));
+    }
+    .r-actions { display: flex; gap: 4px; flex-shrink: 0; }
+    .r-act-btn {
+      background: transparent; border: 1px solid transparent; color: var(--mut);
+      border-radius: 6px; padding: 3px 6px; font-size: 11.5px; cursor: pointer; opacity: 0.45; transition: 0.15s;
+    }
+    .rule-row:hover .r-act-btn, .r-act-btn.fav-on { opacity: 1; }
+    .r-act-btn:hover { color: var(--cyan); border-color: var(--cyan); background: var(--cyan-dim); }
+    .r-act-btn.fav-on { color: #facc15; }
+    mark.hl { background: var(--cyan-dim); color: #fff; border-bottom: 1px solid var(--cyan); padding: 0 2px; border-radius: 3px; }
+
+    .r-info { margin-top: 8px; padding: 10px 13px; border-radius: 8px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.35); color: #a7f3d0; font-size: 12.5px; }
+    .r-alert { padding: 13px 16px; border-radius: 10px; background: rgba(239, 68, 68, 0.11); border: 1px solid rgba(239, 68, 68, 0.38); color: #fca5a5; font-size: 13px; margin-bottom: 20px; }
+
+    /* ==========================================================================
+       6. МАГАЗИН (БЕЗ КИТОВ), СРАВНЕНИЕ, ДУЭЛЬ, ПОДБОР И РУЛЕТКА
+       ========================================================================== */
+    .shop-tools-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
     .rank-filters { display: flex; gap: 6px; flex-wrap: wrap; }
     .rf-btn {
       background: var(--card); border: 1px solid var(--brd); color: var(--mut);
@@ -346,10 +456,7 @@
     .rf-btn:hover { color: #fff; border-color: var(--brd-strong); }
     .rf-btn.act { background: var(--blue); border-color: var(--cyan); color: #fff; }
 
-    .nick-live-box {
-      display: flex; align-items: center; gap: 8px;
-      background: var(--card); border: 1px solid var(--brd); padding: 5px 12px; border-radius: 9px;
-    }
+    .nick-live-box { display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--brd); padding: 5px 12px; border-radius: 9px; }
     .nick-live-box span { font-size: 12px; color: var(--mut); font-weight: 600; }
     .nick-live-inp {
       background: #060911; border: 1px solid var(--brd-strong); color: var(--cyan);
@@ -357,45 +464,28 @@
     }
     .nick-live-inp:focus { border-color: var(--cyan); }
 
-    .recent-strip {
-      display: none; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; font-size: 12px; color: var(--mut);
-    }
+    .recent-strip { display: none; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; font-size: 12px; color: var(--mut); }
     .recent-strip.show { display: flex; }
-    .recent-pill {
-      background: var(--card); border: 1px solid var(--brd); color: #e2e8f0;
-      padding: 3px 10px; border-radius: 999px; cursor: pointer; font-weight: 700; transition: 0.14s;
-    }
-    .recent-pill:hover { border-color: var(--cyan); color: var(--cyan); }
+    .recent-pill { background: var(--card); border: 1px solid var(--brd); padding: 3px 10px; border-radius: 999px; cursor: pointer; font-weight: 700; transition: 0.14s; }
+    .recent-pill:hover { border-color: var(--cyan); transform: translateY(-1px); }
 
     .shop-grid { display: grid; grid-template-columns: 375px 1fr; gap: 20px; align-items: stretch; margin-bottom: 22px; }
     .rank-list { max-height: 580px; overflow-y: auto; padding: 6px 0; }
-    .rank-div {
-      font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
-      color: var(--mut); padding: 12px 18px 5px; display: flex; align-items: center; gap: 8px;
-    }
+    .rank-div { font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mut); padding: 12px 18px 5px; display: flex; align-items: center; gap: 8px; }
     .rank-div::after { content: ""; flex: 1; height: 1px; background: var(--brd); }
 
-    .rank-item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 18px; cursor: pointer; border-left: 3px solid transparent; transition: 0.16s;
-    }
+    .rank-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 18px; cursor: pointer; border-left: 3px solid transparent; transition: 0.16s; }
     .rank-item:hover { background: var(--hov); padding-left: 22px; }
-    .rank-item.act {
-      background: linear-gradient(90deg, rgba(0, 229, 255, 0.14) 0%, rgba(30, 120, 255, 0.02) 100%);
-      border-left-color: var(--item-color, var(--cyan));
-    }
+    .rank-item.act { background: linear-gradient(90deg, rgba(0, 229, 255, 0.14) 0%, rgba(30, 120, 255, 0.02) 100%); border-left-color: var(--item-color, var(--cyan)); }
     .rank-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
     .rank-icon { width: 25px; height: 25px; flex-shrink: 0; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6)); transition: transform 0.2s; }
     .rank-item:hover .rank-icon, .rank-item.act .rank-icon { transform: scale(1.15) rotate(-4deg); }
     .rank-name { font-weight: 700; font-size: 14px; color: #fff; white-space: nowrap; }
-    .rank-badge {
-      font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
-      padding: 2px 6px; border-radius: 4px; background: rgba(250, 204, 21, 0.14); color: #fde047; border: 1px solid rgba(250, 204, 21, 0.35);
-    }
+    .rank-badge { font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 6px; border-radius: 4px; background: rgba(250, 204, 21, 0.14); color: #fde047; border: 1px solid rgba(250, 204, 21, 0.35); }
     .rank-from { font-weight: 800; font-size: 12.5px; color: var(--cyan); white-space: nowrap; font-family: var(--mono); }
 
     .detail-card {
-      display: flex; flex-direction: column; justify-content: space-between; min-height: 615px;
+      display: flex; flex-direction: column; justify-content: space-between; min-height: 600px;
       border-top: 2px solid var(--rank-accent);
       box-shadow: var(--shadow), 0 0 calc(46px * var(--glow-mult)) -16px var(--rank-accent);
     }
@@ -411,10 +501,7 @@
     .term-btn.act .term-save { background: rgba(255, 255, 255, 0.22); color: #fff; }
 
     .detail-body { padding: 20px 24px; flex: 1; }
-    .rank-hero-strip {
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-      padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid var(--brd);
-    }
+    .rank-hero-strip { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid var(--brd); }
     .rank-hero-title { display: flex; align-items: center; gap: 14px; }
     .rank-hero-title h3 { margin: 0; font-size: 24px; font-weight: 900; line-height: 1.1; }
     .rank-tier-sub { font-size: 12px; color: var(--mut); margin-top: 2px; }
@@ -423,8 +510,7 @@
     .mc-bar {
       background: rgba(5, 8, 14, 0.92); border: 1px solid rgba(255, 255, 255, 0.11);
       border-radius: 8px; padding: 6px 12px; font-family: var(--mono); font-size: 12px;
-      display: flex; align-items: center; justify-content: space-between; gap: 10px;
-      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.65);
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.65);
     }
     .mc-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--mut); font-family: "Inter", sans-serif; font-weight: 800; margin-right: 4px; }
     .mc-ping { display: inline-flex; align-items: flex-end; gap: 2px; height: 11px; }
@@ -434,22 +520,14 @@
     .mc-bossbar-track { height: 7px; border-radius: 999px; background: #070a12; border: 1px solid rgba(255, 255, 255, 0.09); overflow: hidden; }
     .mc-bossbar-fill { height: 100%; border-radius: 999px; transition: width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
 
-    /* Шкалы характеристик */
-    .power-meters {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px;
-    }
-    .pm-box {
-      background: rgba(7, 11, 20, 0.72); border: 1px solid var(--brd); border-radius: 9px; padding: 9px 12px;
-    }
+    .power-meters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+    .pm-box { background: rgba(7, 11, 20, 0.72); border: 1px solid var(--brd); border-radius: 9px; padding: 9px 12px; }
     .pm-top { display: flex; justify-content: space-between; font-size: 11.5px; font-weight: 700; color: var(--mut); margin-bottom: 6px; }
     .pm-top strong { color: #fff; font-family: var(--mono); }
     .pm-track { height: 5px; background: #050810; border-radius: 999px; overflow: hidden; }
     .pm-fill { height: 100%; background: linear-gradient(90deg, var(--blue), var(--cyan)); border-radius: 999px; transition: width 0.45s ease; }
 
-    .d-sec-title {
-      color: var(--cyan); font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em;
-      text-transform: uppercase; margin: 0 0 9px;
-    }
+    .d-sec-title { color: var(--cyan); font-size: 11.5px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 9px; }
     .perm-list { list-style: none; padding: 0; margin: 0 0 18px; font-size: 13.5px; display: grid; gap: 6px; }
     .perm-list li {
       padding: 8px 12px; border-radius: 8px; background: rgba(255, 255, 255, 0.025);
@@ -461,23 +539,17 @@
     .arrow { color: var(--mut); }
 
     .other-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; }
-    .other-grid li {
-      background: rgba(7, 11, 20, 0.72); border: 1px solid var(--brd); border-radius: 9px;
-      padding: 9px 13px; font-size: 12px; color: var(--mut); display: flex; flex-direction: column; gap: 2px;
-    }
+    .other-grid li { background: rgba(7, 11, 20, 0.72); border: 1px solid var(--brd); border-radius: 9px; padding: 9px 13px; font-size: 12px; color: var(--mut); display: flex; flex-direction: column; gap: 2px; }
     .other-grid strong { color: #fff; font-size: 13.5px; }
 
-    .detail-foot {
-      padding: 16px 24px; border-top: 1px solid var(--brd); background: rgba(5, 9, 17, 0.76);
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;
-    }
+    .detail-foot { padding: 16px 24px; border-top: 1px solid var(--brd); background: rgba(5, 9, 17, 0.76); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
     .price-col { display: flex; flex-direction: column; }
     .price-wrap { display: flex; align-items: baseline; gap: 10px; }
     .price-lbl { color: var(--mut); font-weight: 700; font-size: 13px; }
     .price-val { color: #fff; font-weight: 900; font-size: 28px; font-family: var(--mono); }
     .price-per-day { font-size: 11.5px; color: var(--ok); font-weight: 700; font-family: var(--mono); }
-
     .foot-actions { display: flex; gap: 9px; flex-wrap: wrap; align-items: center; }
+
     .buy-btn {
       background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
       border: none; color: #fff; font-size: 13px; font-weight: 800; letter-spacing: 0.06em;
@@ -492,22 +564,10 @@
     @keyframes btnShine { 0%, 75% { left: -75%; } 100% { left: 135%; } }
     .buy-btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
 
-    /* ==========================================================================
-       6. СРАВНЕНИЕ, ДУЭЛЬ РАНГОВ, ПОДБОР И РУЛЕТКА
-       ========================================================================== */
-    .duel-bar {
-      padding: 16px 18px; display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 12px; border-bottom: 1px solid var(--brd); background: rgba(7, 11, 20, 0.55);
-    }
-    .duel-select {
-      background: #060911; border: 1px solid var(--brd-strong); color: #fff;
-      padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 700; outline: none;
-    }
-    .duel-select:focus { border-color: var(--cyan); }
+    .duel-bar { padding: 16px 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid var(--brd); background: rgba(7, 11, 20, 0.55); }
+    .duel-select { background: #060911; border: 1px solid var(--brd-strong); color: #fff; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 700; outline: none; }
     .duel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 18px; }
-    .duel-card {
-      background: rgba(7, 11, 20, 0.75); border: 1px solid var(--brd); border-radius: 10px; padding: 16px;
-    }
+    .duel-card { background: rgba(7, 11, 20, 0.75); border: 1px solid var(--brd); border-radius: 10px; padding: 16px; }
     .duel-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 13px; }
     .duel-row:last-child { border-bottom: none; }
     .duel-win { color: var(--ok); font-weight: 800; }
@@ -535,75 +595,29 @@
     .wiz-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
 
     .roulette-wrap { padding: 22px; text-align: center; }
-    .roulette-stage {
-      position: relative; overflow: hidden; height: 124px;
-      background: #060911; border: 2px solid var(--cyan-brd); border-radius: 12px;
-      box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.85); margin: 16px 0 20px;
-    }
+    .roulette-stage { position: relative; overflow: hidden; height: 124px; background: #060911; border: 2px solid var(--cyan-brd); border-radius: 12px; box-shadow: inset 0 0 35px rgba(0, 0, 0, 0.85); margin: 16px 0 20px; }
     .roulette-pointer { position: absolute; top: 0; bottom: 0; left: 50%; width: 3px; transform: translateX(-50%); background: var(--cyan); box-shadow: 0 0 16px var(--cyan); z-index: 5; }
     .roulette-track { display: flex; align-items: center; gap: 10px; height: 100%; padding: 10px; will-change: transform; }
-    .r-card {
-      flex: 0 0 132px; height: 96px; border-radius: 9px; background: #0e1628;
-      border: 1px solid var(--brd); border-bottom: 3px solid var(--rc, var(--cyan));
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
-      font-weight: 800; font-size: 13px; color: #fff;
-    }
+    .r-card { flex: 0 0 132px; height: 96px; border-radius: 9px; background: #0e1628; border: 1px solid var(--brd); border-bottom: 3px solid var(--rc, var(--cyan)); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-weight: 800; font-size: 13px; color: #fff; }
     .roulette-drop { display: none; margin: 14px auto 0; max-width: 440px; padding: 14px 18px; border-radius: 10px; background: var(--cyan-dim); border: 1px solid var(--cyan); animation: viewReveal 0.3s ease; }
     .roulette-drop.show { display: block; }
 
     /* ==========================================================================
-       7. ПРАВИЛА, ИЗБРАННОЕ, ЧЕК-ЛИСТ И МОДЫ
+       7. ОГЛАВЛЕНИЕ, САЙДБАР, МОДЫ, FAQ И МОДАЛКИ
        ========================================================================== */
     .rules-toc { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 18px; }
-    .toc-chip {
-      background: var(--card); border: 1px solid var(--brd); color: #cbd5e1;
-      padding: 6px 13px; border-radius: 999px; font-size: 12px; font-weight: 600; text-decoration: none; transition: 0.15s;
-    }
+    .toc-chip { background: var(--card); border: 1px solid var(--brd); color: #cbd5e1; padding: 6px 13px; border-radius: 999px; font-size: 12px; font-weight: 600; text-decoration: none; transition: 0.15s; }
     .toc-chip:hover, .toc-chip.act { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
-
-    .search-banner {
-      display: none; align-items: center; justify-content: space-between; gap: 10px;
-      padding: 10px 16px; border-radius: 10px; background: var(--cyan-dim); border: 1px solid var(--cyan-brd);
-      margin-bottom: 16px; font-size: 13px;
-    }
+    .search-banner { display: none; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 16px; border-radius: 10px; background: var(--cyan-dim); border: 1px solid var(--cyan-brd); margin-bottom: 16px; font-size: 13px; }
     .search-banner.show { display: flex; }
 
     .portal-grid { display: grid; grid-template-columns: 1fr 325px; gap: 20px; align-items: start; }
-    .rule-row {
-      display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;
-      padding: 12px 18px; border-bottom: 1px solid var(--brd); transition: 0.12s;
-    }
-    .rule-row:last-child { border-bottom: none; }
-    .rule-row:hover { background: var(--hov); }
-    .rule-row.sub { padding-left: 38px; background: rgba(255, 255, 255, 0.015); }
-    .rule-main { display: flex; align-items: flex-start; gap: 14px; flex: 1; }
-    .r-badge {
-      min-width: 50px; text-align: center; font-size: 12px; font-weight: 700; font-family: var(--mono);
-      color: var(--cyan); background: var(--cyan-dim); border: 1px solid var(--cyan-brd);
-      border-radius: 6px; padding: 2px 6px; flex-shrink: 0;
-    }
-    .r-actions { display: flex; gap: 4px; flex-shrink: 0; }
-    .r-act-btn {
-      background: transparent; border: 1px solid transparent; color: var(--mut);
-      border-radius: 6px; padding: 3px 6px; font-size: 11.5px; cursor: pointer; opacity: 0.45; transition: 0.15s;
-    }
-    .rule-row:hover .r-act-btn, .r-act-btn.fav-on { opacity: 1; }
-    .r-act-btn:hover { color: var(--cyan); border-color: var(--cyan); background: var(--cyan-dim); }
-    .r-act-btn.fav-on { color: #facc15; }
-    mark.hl { background: var(--cyan-dim); color: #fff; border-bottom: 1px solid var(--cyan); padding: 0 2px; border-radius: 3px; }
-
-    .r-info { margin-top: 8px; padding: 10px 13px; border-radius: 8px; background: rgba(30, 120, 255, 0.12); border: 1px solid rgba(30, 120, 255, 0.35); color: #bfdbfe; font-size: 12.5px; }
-    .r-alert { padding: 13px 16px; border-radius: 10px; background: rgba(239, 68, 68, 0.11); border: 1px solid rgba(239, 68, 68, 0.35); color: #fca5a5; font-size: 13px; margin-bottom: 18px; }
-
     .sb-sticky { position: sticky; top: 76px; }
     .sb-body { padding: 14px 16px; font-size: 13px; }
     .sb-stat { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
     .sb-stat:last-child { border-bottom: none; }
     .sb-stat span { color: var(--mut); }
     .sb-stat strong { color: #fff; }
-    .sb-link { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; border-radius: 8px; color: #e2e8f0; cursor: pointer; transition: 0.14s; }
-    .sb-link:hover { background: var(--hov); color: var(--cyan); }
-
     .ready-list { display: grid; gap: 7px; }
     .ready-chk { display: flex; align-items: center; gap: 9px; font-size: 12.5px; cursor: pointer; color: #cbd5e1; }
     .ready-chk input { accent-color: var(--ok); cursor: pointer; }
@@ -613,23 +627,14 @@
     .mod-checker-card { padding: 16px 18px; display: grid; gap: 12px; }
     .mod-chk-top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
     .mod-chk-input-wrap { display: flex; gap: 10px; flex: 1; min-width: 260px; }
-    .mod-chk-input {
-      flex: 1; background: #060911; border: 1px solid var(--brd-strong); color: #fff;
-      padding: 10px 14px; border-radius: 9px; font-size: 13.5px; font-family: var(--mono); outline: none; transition: 0.16s;
-    }
+    .mod-chk-input { flex: 1; background: #060911; border: 1px solid var(--brd-strong); color: #fff; padding: 10px 14px; border-radius: 9px; font-size: 13.5px; font-family: var(--mono); outline: none; transition: 0.16s; }
     .mod-chk-input:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px var(--cyan-dim); }
-    .mod-chk-result {
-      font-size: 13px; font-weight: 700; padding: 9px 14px; border-radius: 9px;
-      background: rgba(255, 255, 255, 0.04); border: 1px solid var(--brd); min-width: 255px; text-align: center;
-    }
+    .mod-chk-result { font-size: 13px; font-weight: 700; padding: 9px 14px; border-radius: 9px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--brd); min-width: 255px; text-align: center; }
     .mod-chk-result.ok { background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.4); color: #34d399; }
     .mod-chk-result.no { background: rgba(239, 68, 68, 0.12); border-color: rgba(239, 68, 68, 0.4); color: #f87171; }
     .mod-chk-result.warn { background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.4); color: #fbbf24; }
     .mod-quick-chips { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 12px; color: var(--mut); }
-    .mq-chip {
-      background: #070b14; border: 1px solid var(--brd); color: #cbd5e1;
-      padding: 3px 9px; border-radius: 999px; cursor: pointer; font-family: var(--mono); font-size: 11px; transition: 0.14s;
-    }
+    .mq-chip { background: #070b14; border: 1px solid var(--brd); color: #cbd5e1; padding: 3px 9px; border-radius: 999px; cursor: pointer; font-family: var(--mono); font-size: 11px; transition: 0.14s; }
     .mq-chip:hover { border-color: var(--cyan); color: var(--cyan); }
 
     .mods-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
@@ -637,7 +642,6 @@
     .mf-btn { background: var(--card); border: 1px solid var(--brd); color: var(--mut); padding: 8px 15px; border-radius: 8px; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: 0.15s; }
     .mf-btn:hover { color: #fff; border-color: var(--brd-strong); }
     .mf-btn.act { background: var(--blue); border-color: var(--cyan); color: #fff; box-shadow: 0 4px 14px var(--cyan-dim); }
-
     .mgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
     .tags { display: flex; flex-wrap: wrap; gap: 7px; padding: 16px; }
     .tag { font-size: 12px; padding: 5px 10px; border-radius: 7px; background: #080d18; border: 1px solid var(--brd); cursor: pointer; transition: 0.14s; font-family: var(--mono); }
@@ -647,73 +651,64 @@
     .tno { border-color: rgba(239, 68, 68, 0.38); color: #f87171; }
     .tno:hover { background: rgba(239, 68, 68, 0.12); }
 
-    /* ==========================================================================
-       8. FAQ, КОНТАКТЫ И МОДАЛКА С 3-ШАГОВЫМ ТРЕКЕРОМ
-       ========================================================================== */
     .cgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 22px; }
     .c-body { padding: 18px; }
     .c-body p { color: var(--mut); margin: 0 0 14px; font-size: 13.5px; }
 
     .faq-item { border-bottom: 1px solid var(--brd); }
     .faq-item:last-child { border-bottom: none; }
-    .faq-q {
-      width: 100%; background: none; border: none; color: #fff; padding: 15px 18px;
-      text-align: left; font-size: 14px; font-weight: 700; cursor: pointer;
-      display: flex; align-items: center; justify-content: space-between; gap: 12px; transition: 0.15s;
-    }
+    .faq-q { width: 100%; background: none; border: none; color: #fff; padding: 15px 18px; text-align: left; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; transition: 0.15s; }
     .faq-q:hover { background: var(--hov); color: var(--cyan); }
     .faq-q span { transition: transform 0.2s; color: var(--cyan); font-family: var(--mono); }
     .faq-item.open .faq-q span { transform: rotate(45deg); }
     .faq-a { display: none; padding: 0 18px 16px; color: #cbd5e1; font-size: 13.5px; line-height: 1.6; }
     .faq-item.open .faq-a { display: block; animation: viewReveal 0.18s ease; }
 
+    /* Модалки (Оплата и Настройки) */
     .modal-bg { position: fixed; inset: 0; z-index: 200; background: rgba(3, 6, 12, 0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; padding: 16px; }
     .modal-bg.open { display: flex; animation: fadeIn 0.16s ease; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     .modal {
-      width: 100%; max-width: 485px; background: var(--card-solid);
+      width: 100%; max-width: 495px; background: var(--card-solid);
       border: 1px solid var(--cyan-brd); border-radius: 14px; padding: 24px;
-      position: relative; box-shadow: 0 28px 65px rgba(0, 0, 0, 0.8), 0 0 42px var(--cyan-dim);
+      position: relative; box-shadow: 0 28px 65px rgba(0, 0, 0, 0.82), 0 0 42px var(--cyan-dim);
+      max-height: 92vh; overflow-y: auto;
     }
     .m-close { position: absolute; top: 14px; right: 14px; background: #162136; border: 1px solid var(--brd); color: var(--mut); width: 32px; height: 32px; border-radius: 8px; cursor: pointer; transition: 0.15s; }
     .m-close:hover { color: #fff; border-color: var(--cyan); }
-
-    .m-steps {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 12px 0 16px;
-    }
-    .m-step {
-      background: #070b14; border: 1px solid var(--brd); border-radius: 7px; padding: 6px 8px;
-      font-size: 11px; font-weight: 700; color: var(--mut); text-align: center;
-    }
+    .m-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 12px 0 16px; }
+    .m-step { background: #070b14; border: 1px solid var(--brd); border-radius: 7px; padding: 6px 8px; font-size: 11px; font-weight: 700; color: var(--mut); text-align: center; }
     .m-step.act { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim); }
-
-    .m-inp {
-      width: 100%; background: #060911; border: 1px solid var(--brd-strong);
-      color: #fff; padding: 11px 13px; border-radius: 9px; font-size: 14px; font-family: var(--mono);
-      outline: none; margin: 8px 0 12px; transition: 0.16s;
-    }
+    .m-inp { width: 100%; background: #060911; border: 1px solid var(--brd-strong); color: #fff; padding: 11px 13px; border-radius: 9px; font-size: 14px; font-family: var(--mono); outline: none; margin: 8px 0 12px; transition: 0.16s; }
     .m-inp:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px var(--cyan-dim); }
     .gift-toggle { display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--mut); margin-bottom: 14px; cursor: pointer; user-select: none; }
     .gift-toggle input { accent-color: var(--cyan); cursor: pointer; }
     .pay-methods { display: grid; gap: 9px; }
-    .pm-btn {
-      display: flex; align-items: center; justify-content: space-between;
-      width: 100%; padding: 12px 14px; border-radius: 9px;
-      background: #141f34; border: 1px solid var(--brd-strong);
-      color: #fff; font-weight: 700; font-size: 13px; cursor: pointer; transition: 0.16s;
-    }
+    .pm-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 12px 14px; border-radius: 9px; background: #141f34; border: 1px solid var(--brd-strong); color: #fff; font-weight: 700; font-size: 13px; cursor: pointer; transition: 0.16s; }
     .pm-btn:hover { border-color: var(--cyan); background: #1a2944; transform: translateY(-1px); }
     .pm-btn small { color: var(--cyan); font-weight: 800; font-family: var(--mono); }
     .sbp-box { margin-top: 12px; padding: 14px; border-radius: 9px; background: #070b14; border: 1px solid var(--cyan-brd); display: none; font-size: 13px; }
     .sbp-box.open { display: block; animation: viewReveal 0.18s ease; }
 
+    /* Стили панели настроек */
+    .set-group { margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid var(--brd); }
+    .set-group:last-of-type { border-bottom: none; margin-bottom: 10px; }
+    .set-lbl { font-size: 11.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--cyan); margin-bottom: 9px; display: block; }
+    .set-pills { display: grid; grid-template-columns: repeat(2, 1fr); gap: 7px; }
+    .set-pill {
+      background: #070b14; border: 1px solid var(--brd-strong); color: #cbd5e1;
+      padding: 8px 10px; border-radius: 8px; font-size: 12.5px; font-weight: 600; cursor: pointer; transition: 0.15s; text-align: center;
+    }
+    .set-pill:hover { border-color: var(--cyan); color: #fff; }
+    .set-pill.act { background: var(--cyan-dim); border-color: var(--cyan); color: var(--cyan); font-weight: 800; }
+    .set-toggles { display: grid; gap: 8px; }
+    .set-row { display: flex; align-items: center; justify-content: space-between; background: #070b14; border: 1px solid var(--brd); padding: 9px 12px; border-radius: 8px; font-size: 13px; cursor: pointer; }
+    .set-row input { accent-color: var(--cyan); width: 16px; height: 16px; cursor: pointer; }
+
     .back-top {
-      position: fixed; bottom: 22px; left: 22px; z-index: 150;
-      width: 42px; height: 42px; border-radius: 10px;
-      background: rgba(12, 19, 34, 0.92); border: 1px solid var(--cyan-brd);
-      color: var(--cyan); font-size: 17px; font-weight: 800; cursor: pointer;
-      display: none; align-items: center; justify-content: center;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); transition: 0.16s;
+      position: fixed; bottom: 22px; left: 22px; z-index: 150; width: 42px; height: 42px; border-radius: 10px;
+      background: rgba(12, 19, 34, 0.92); border: 1px solid var(--cyan-brd); color: var(--cyan); font-size: 17px; font-weight: 800;
+      cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); transition: 0.16s;
     }
     .back-top.show { display: flex; }
     .back-top:hover { background: var(--blue); color: #fff; transform: translateY(-2px); }
@@ -724,11 +719,9 @@
     .footer a:hover { text-decoration: underline; }
 
     .toast {
-      position: fixed; bottom: 22px; right: 22px; z-index: 300;
-      background: #0c1424; border: 1px solid var(--cyan); color: #fff;
+      position: fixed; bottom: 22px; right: 22px; z-index: 300; background: #0c1424; border: 1px solid var(--cyan); color: #fff;
       padding: 11px 18px; border-radius: 9px; font-size: 13px; font-weight: 600;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), 0 0 24px var(--cyan-dim);
-      opacity: 0; transform: translateY(10px); pointer-events: none; transition: 0.2s;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65), 0 0 24px var(--cyan-dim); opacity: 0; transform: translateY(10px); pointer-events: none; transition: 0.2s;
     }
     .toast.show { opacity: 1; transform: translateY(0); }
 
@@ -750,30 +743,20 @@
 
   <!-- ПРОМО-СТРОКА -->
   <div class="promo-strip" id="promoStrip">
-    <span>⚡ <strong>Cyan Anarchy</strong> • Клавиши <strong>1–4</strong> переключают вкладки, <strong>/</strong> открывает поиск • Авто-выдача CryptoBot и Stars</span>
+    <span>AI CORE v5.0 • <strong>CYAN ANARCHY</strong> • Нажмите <strong>1–4</strong> для навигации, <strong>/</strong> для поиска • Настройте интерфейс в <strong>⚙️ Настройки</strong></span>
     <button class="promo-close" onclick="document.getElementById('promoStrip').style.display='none'" title="Скрыть">✕</button>
   </div>
 
   <!-- HERO БАННЕР -->
   <header class="hero-banner">
     <div class="hero-grid"></div>
-    <svg class="hero-bg-svg" viewBox="0 0 1440 320" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0b2447"/><stop offset="100%" stop-color="#050810"/></linearGradient>
-      </defs>
-      <rect width="1440" height="320" fill="url(#skyG)"/>
-      <path d="M0 240H120V190H210V150H320V210H450V170H580V220H720V160H860V200H990V140H1120V190H1280V160H1440V320H0Z" fill="#0f294a" opacity="0.72"/>
-      <path d="M0 270H180V230H340V250H520V210H680V260H890V220H1080V250H1260V215H1440V320H0Z" fill="#13345e" opacity="0.65"/>
-      <rect x="140" y="60" width="22" height="22" fill="#00e5ff" opacity="0.25"/>
-      <rect x="260" y="105" width="14" height="14" fill="#1e78ff" opacity="0.35"/>
-      <rect x="1150" y="75" width="26" height="26" fill="#00e5ff" opacity="0.22"/>
-      <rect x="1260" y="120" width="16" height="16" fill="#38bdf8" opacity="0.3"/>
-    </svg>
+    <div class="ai-orbit"></div>
+    <div class="ai-orbit inner"></div>
     <div class="hero-vignette"></div>
 
     <div class="hero-content">
       <div class="hero-top-badges">
-        <span class="hero-badge">Cyan Anarchy</span>
+        <span class="hero-badge">Neural UI • Cyan Anarchy</span>
         <span class="hero-badge ver">Java Edition • 1.16.5 – 1.21+</span>
       </div>
       <div class="hero-logo-row">
@@ -784,7 +767,7 @@
         </svg>
         <h1 class="hero-title">NEW<span>TIME</span></h1>
       </div>
-      <div class="hero-ticker" id="heroTicker">Анархия нового поколения: сбалансированные привилегии и честный PvP</div>
+      <div class="hero-ticker" id="heroTicker">Анархия нового поколения: интеллектуальный баланс, авто-выдача и защита</div>
       <div class="hero-pills">
         <div class="hero-sub" onclick="copyIP()" title="Нажмите, чтобы скопировать IP">
           <span class="dot"></span>
@@ -819,13 +802,10 @@
       </div>
 
       <div class="nav-right">
-        <button class="glow-btn" id="glowBtn" onclick="toggleGlow()" title="Интенсивность свечения">✨ Неон</button>
-        <div class="theme-dots" title="Сменить тему интерфейса">
-          <div class="t-dot act" style="background:#00e5ff;color:#00e5ff;" onclick="setTheme('cyan', this)" title="Cyan Anarchy"></div>
-          <div class="t-dot" style="background:#ff3b6b;color:#ff3b6b;" onclick="setTheme('crimson', this)" title="Crimson Blood"></div>
-          <div class="t-dot" style="background:#34d399;color:#34d399;" onclick="setTheme('emerald', this)" title="Toxic Emerald"></div>
-          <div class="t-dot" style="background:#c084fc;color:#c084fc;" onclick="setTheme('amethyst', this)" title="Amethyst Neon"></div>
-        </div>
+        <button class="settings-trigger" onclick="openSettings()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.26.6.85 1 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Настройки
+        </button>
         <div class="search-box">
           <input type="text" id="globalSearch" class="nav-search" oninput="onSearch()" placeholder="🔍 Поиск доната, правил, модов...">
           <button class="search-clear" id="searchClear" onclick="clearSearch()" title="Очистить поиск">✕</button>
@@ -882,7 +862,7 @@
             <div class="rank-list" id="rankList"></div>
           </div>
 
-          <div class="st-card detail-card hud-corners" id="detailCard">
+          <div class="st-card detail-card ai-frame hud-corners" id="detailCard">
             <div class="st-card-hdr">
               <span id="termLabel">Выберите срок:</span>
               <div class="term-tabs" id="termTabs">
@@ -907,13 +887,11 @@
                 </div>
               </div>
 
-              <!-- Minecraft BossBar превью -->
               <div class="mc-bossbar-wrap">
                 <div class="mc-bossbar-txt" id="bossbarTxt"></div>
                 <div class="mc-bossbar-track"><div class="mc-bossbar-fill" id="bossbarFill"></div></div>
               </div>
 
-              <!-- Шкалы характеристик -->
               <div class="power-meters" id="powerMeters"></div>
 
               <div class="d-sec-title">Возможности и команды</div>
@@ -941,7 +919,7 @@
 
       <!-- Подвкладка 2: Сравнение и Дуэль -->
       <div class="subview" id="shop-compare">
-        <div class="st-card hud-corners">
+        <div class="st-card ai-frame">
           <div class="st-card-hdr">
             <span>⚔️ Дуэль двух привилегий</span>
             <span style="color:var(--mut);font-size:11px;">Сравните любые 2 ранга лицом к лицу</span>
@@ -1015,9 +993,9 @@
         </div>
       </div>
 
-      <!-- Подвкладка 4: Демо-рулетка кейса -->
+      <!-- Подвкладка 4: Демо-рулетка -->
       <div class="subview" id="shop-roulette">
-        <div class="st-card hud-corners">
+        <div class="st-card ai-frame">
           <div class="st-card-hdr">
             <span>🎰 Донат-кейс NewTime (Интерактивное демо)</span>
             <span style="color:var(--cyan);font-size:11px;">TEST GUI</span>
@@ -1033,22 +1011,14 @@
           </div>
         </div>
       </div>
-
-      <!-- Раздел 6 -->
-      <div class="st-card">
-        <div class="st-card-hdr center">Платные услуги (Раздел 6 правил)</div>
-        <div class="rule-row"><div class="rule-main"><span class="r-badge">6.1</span><div>Попытки махинаций оплатами, или ввод Администрации в заблуждение наказываются баном без возврата средств;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)" title="В избранное">⭐</button><button class="r-act-btn" onclick="copyRule(this)" title="Копировать">📋</button></div></div>
-        <div class="rule-row"><div class="rule-main"><span class="r-badge">6.2</span><div>Предоставьте чек оплаты, если хотите написать Администрации о пропаже, непоявлении доната после покупки. Без данного подтверждения администрация вправе отказать Вам в предоставлении купленной услуги;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)" title="В избранное">⭐</button><button class="r-act-btn" onclick="copyRule(this)" title="Копировать">📋</button></div></div>
-        <div class="rule-row"><div class="rule-main"><span class="r-badge">6.3</span><div>Администрация не обязана предоставлять доказательства нарушений донатера у которого сняли привилегию за нарушение выше указанных правил.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)" title="В избранное">⭐</button><button class="r-act-btn" onclick="copyRule(this)" title="Копировать">📋</button></div></div>
-      </div>
     </section>
 
-    <!-- ==================== 2. ПРАВИЛА ПРОЕКТА ==================== -->
+    <!-- ==================== 2. ПРАВИЛА ПРОЕКТА (С КРУТЫМИ РАМКАМИ) ==================== -->
     <section class="view" id="view-rules">
       <div class="page-head">
         <div>
           <h2 class="page-title">Правила проекта NewTime</h2>
-          <div class="page-sub">Нажмите ⭐ для закладок или 📋 для копирования пункта</div>
+          <div class="page-sub">Кибер-контур правил • Нажмите ⭐ для закладок или 📋 для копирования</div>
         </div>
         <div class="page-actions">
           <button class="p-btn" onclick="switchView('mods')">Список модов (4.4)</button>
@@ -1073,7 +1043,7 @@
       <div class="portal-grid">
         <div>
           <div class="st-card rule-sec" id="sec-1">
-            <div class="st-card-hdr center">1. Основные правила</div>
+            <div class="st-card-hdr"><span>1. Основные правила</span><span class="sec-tag">PROTOCOL // 01</span></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">1.1</span><div class="r-text">Незнание правил не освобождает вас от ответственности;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">1.2</span><div class="r-text">Начав играть на наших серверах, Вы автоматически подтверждаете своё согласие с данным сводом правил;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">1.3</span><div class="r-text">Администрация не несет ответственности за временную или постоянную невозможность игры на сервере конкретным лицом или группой лиц;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
@@ -1085,7 +1055,7 @@
           </div>
 
           <div class="st-card rule-sec" id="sec-2">
-            <div class="st-card-hdr center">2. Правила чата</div>
+            <div class="st-card-hdr"><span>2. Правила чата</span><span class="sec-tag">COMMS // 02</span></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">2.1</span><div class="r-text">Запрещен Капс/Спам/Флуд в любом из чатов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">2.2</span><div class="r-text">Запрещены унижения, оскорбления игроков;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">2.3</span><div class="r-text">Запрещена нецензурная лексика (маты, скрытые маты);</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
@@ -1101,7 +1071,7 @@
           </div>
 
           <div class="st-card rule-sec" id="sec-3">
-            <div class="st-card-hdr center">3. Аккаунт</div>
+            <div class="st-card-hdr"><span>3. Аккаунт</span><span class="sec-tag">IDENTITY // 03</span></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">3.1</span><div class="r-text"><strong>Ник не должен содержать:</strong></div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
             <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.1</span><div class="r-text">Мата, скрытого мата, унижений, оскорблений;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
             <div class="rule-row sub"><div class="rule-main"><span class="r-badge">3.1.2</span><div class="r-text">Схожесть с названием других проектов/чит клиентов;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
@@ -1114,7 +1084,7 @@
           </div>
 
           <div class="st-card rule-sec" id="sec-4">
-            <div class="st-card-hdr center">4. Игровые правила</div>
+            <div class="st-card-hdr"><span>4. Игровые правила</span><span class="sec-tag">GAMEPLAY // 04</span></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">4.1</span><div class="r-text">Запрещено мошенничество, обман администрации;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">4.2</span><div class="r-text">Запрещено продавать/покупать у игроков игровые ценности за реальную валюту;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">4.3</span><div class="r-text">Запрещено пользоваться всем, что упрощает процесс игры, а именно:</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
@@ -1137,7 +1107,7 @@
           </div>
 
           <div class="st-card rule-sec" id="sec-5">
-            <div class="st-card-hdr center">5. Правила проверки ПО</div>
+            <div class="st-card-hdr"><span>5. Правила проверки ПО</span><span class="sec-tag">SECURITY // 05</span></div>
             <div class="rule-row">
               <div class="rule-main">
                 <span class="r-badge">5.1</span>
@@ -1151,7 +1121,7 @@
             <div class="rule-row"><div class="rule-main"><span class="r-badge">5.2</span><div class="r-text">Данный свод правил не окончателен и может изменяться в зависимости от требований Проверяющего;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">5.3</span><div class="r-text">Следите за чатом во время проверки, если Вы не увидели/проигнорировали сообщение от Проверяющего, это не будет расцениваться поводом для разблокировки аккаунта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">5.4</span><div class="r-text">В случае если у Вас возникли непредвиденные обстоятельства, необходимо обязательно сообщить об этом Проверяющему;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
-            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.5</span><div class="r-text">Запрещается препятствовать проведению проверки: долго открывать папки, задавать неуместные вопросы, оскорблять/унижать Проверяющего, игноровать его требования и так далее;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
+            <div class="rule-row"><div class="rule-main"><span class="r-badge">5.5</span><div class="r-text">Запрещается препятствовать проведению проверки: долго открывать папки, задавать неуместные вопросы, оскорблять/унижать Проверяющего, игнорировать его требования и так далее;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">5.6</span><div class="r-text">Во время проверки запрещается удалять какие-либо файлы с Вашего ПК, в том числе очищать корзину;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">5.7</span><div class="r-text">Во время проверки запрещается выходить из Minecraft, также не забывайте, «крашнул майн», «был в афк» — не расцениваются как повод для разблокировки аккаунта;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">5.8</span><div class="r-text">Запрещается снимать ход проверки, исключение: личное разрешение Проверяющего;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
@@ -1159,7 +1129,7 @@
           </div>
 
           <div class="st-card rule-sec" id="sec-6">
-            <div class="st-card-hdr center">6. Платные услуги</div>
+            <div class="st-card-hdr"><span>6. Платные услуги</span><span class="sec-tag">BILLING // 06</span></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">6.1</span><div class="r-text">Попытки махинаций оплатами, или ввод Администрации в заблуждение наказываются баном без возврата средств;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">6.2</span><div class="r-text">Предоставьте чек оплаты, если хотите написать Администрации о пропаже, непоявлении доната после покупки. Без данного подтверждения администрация вправе отказать Вам в предоставлении купленной услуги;</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
             <div class="rule-row"><div class="rule-main"><span class="r-badge">6.3</span><div class="r-text">Администрация не обязана предоставлять доказательства нарушений донатера у которого сняли привилегию за нарушение выше указанных правил.</div></div><div class="r-actions"><button class="r-act-btn" onclick="toggleFavRule(this)">⭐</button><button class="r-act-btn" onclick="copyRule(this)">📋</button></div></div>
@@ -1208,7 +1178,7 @@
         <div class="page-actions"><button class="p-btn" onclick="switchView('rules')">К правилам проекта</button></div>
       </div>
 
-      <div class="st-card hud-corners">
+      <div class="st-card ai-frame">
         <div class="st-card-hdr">Быстрая проверка файла / названия мода</div>
         <div class="mod-checker-card">
           <div class="mod-chk-top">
@@ -1265,15 +1235,15 @@
       </div>
 
       <div class="cgrid">
-        <div class="st-card tilt-card hud-corners">
+        <div class="st-card hud-corners">
           <div class="st-card-hdr">Подключение</div>
           <div class="c-body"><p>Режим: <strong style="color:#fff;">Cyan Anarchy</strong>. Minecraft Java Edition.</p><button class="buy-btn" style="width:100%;" onclick="copyIP()">IP: newtime.mcsh.gg</button></div>
         </div>
-        <div class="st-card tilt-card hud-corners">
+        <div class="st-card hud-corners">
           <div class="st-card-hdr">Telegram проекта</div>
           <div class="c-body"><p>Вопросы по оплате, чекам (п. 6.2) и техподдержка NewTime.</p><a href="https://t.me/newtime_tg" target="_blank" class="buy-btn" style="display:block;text-align:center;text-decoration:none;">@newtime_tg</a></div>
         </div>
-        <div class="st-card tilt-card hud-corners">
+        <div class="st-card hud-corners">
           <div class="st-card-hdr">Администрация</div>
           <div class="c-body"><p>Создатель: <strong style="color:#ef4444;">xFrizzy</strong>.<br>Заявки в <strong>STAFF</strong> и <strong>TIKTOK</strong> — через тикеты Discord.</p><button class="p-btn primary" style="width:100%;padding:10px;justify-content:center;" onclick="switchView('rules')">Открыть правила</button></div>
         </div>
@@ -1316,7 +1286,7 @@
 
   <!-- МОДАЛЬНОЕ ОКНО ОПЛАТЫ -->
   <div class="modal-bg" id="modalBg" onclick="if(event.target===this) closeModal()">
-    <div class="modal hud-corners">
+    <div class="modal ai-frame">
       <button class="m-close" onclick="closeModal()">✕</button>
       <div style="font-size:11px;font-weight:800;color:var(--cyan);letter-spacing:.08em;text-transform:uppercase;">Оплата привилегии</div>
       <h3 id="mRankName" style="margin:6px 0 4px;font-size:22px;font-weight:900;">Барон</h3>
@@ -1357,6 +1327,68 @@
         <div style="color:var(--mut);font-size:12px;margin-bottom:10px;">Укажите ник получателя в комментарии к переводу, затем нажмите кнопку ниже:</div>
         <button class="buy-btn" style="width:100%;padding:10px;" onclick="sendSbpRequest()">✅ Я ОПЛАТИЛ ПО СБП</button>
       </div>
+    </div>
+  </div>
+
+  <!-- МОДАЛЬНОЕ ОКНО НАСТРОЕК САЙТА -->
+  <div class="modal-bg" id="settingsBg" onclick="if(event.target===this) closeSettings()">
+    <div class="modal ai-frame">
+      <button class="m-close" onclick="closeSettings()">✕</button>
+      <div style="font-size:11px;font-weight:800;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;font-family:var(--mono);">NEWTIME // CONTROL CENTER</div>
+      <h3 style="margin:6px 0 16px;font-size:21px;font-weight:900;">⚙️ Настройки интерфейса</h3>
+
+      <div class="set-group">
+        <span class="set-lbl">Цветовая схема</span>
+        <div class="set-pills" id="setThemePills">
+          <button class="set-pill" data-val="cyan" onclick="applySetting('theme','cyan')">💠 Cyan Anarchy</button>
+          <button class="set-pill" data-val="crimson" onclick="applySetting('theme','crimson')">🔥 Crimson Blood</button>
+          <button class="set-pill" data-val="emerald" onclick="applySetting('theme','emerald')">🧪 Toxic Emerald</button>
+          <button class="set-pill" data-val="amethyst" onclick="applySetting('theme','amethyst')">🔮 Amethyst Neon</button>
+        </div>
+      </div>
+
+      <div class="set-group">
+        <span class="set-lbl">Анимация фона</span>
+        <div class="set-pills" id="setBgPills">
+          <button class="set-pill" data-val="aurora" onclick="applySetting('bgMode','aurora')">🌊 Нейро-волны</button>
+          <button class="set-pill" data-val="matrix" onclick="applySetting('bgMode','matrix')">🟩 Кибер-матрица</button>
+          <button class="set-pill" data-val="warp" onclick="applySetting('bgMode','warp')">🚀 Варп-звёзды</button>
+          <button class="set-pill" data-val="none" onclick="applySetting('bgMode','none')">⬛ Выключить фон</button>
+        </div>
+      </div>
+
+      <div class="set-group">
+        <span class="set-lbl">Интенсивность неона и анимаций</span>
+        <div class="set-pills" style="grid-template-columns:repeat(3,1fr);margin-bottom:8px;" id="setGlowPills">
+          <button class="set-pill" data-val="max" onclick="applySetting('glow','max')">✨ Макс</button>
+          <button class="set-pill" data-val="norm" onclick="applySetting('glow','norm')">⚡ Норма</button>
+          <button class="set-pill" data-val="low" onclick="applySetting('glow','low')">🌑 Тихий</button>
+        </div>
+        <div class="set-pills" style="grid-template-columns:repeat(3,1fr);" id="setAnimPills">
+          <button class="set-pill" data-val="high" onclick="applySetting('anim','high')">🚀 Плавные+</button>
+          <button class="set-pill" data-val="norm" onclick="applySetting('anim','norm')">⚙️ Обычные</button>
+          <button class="set-pill" data-val="min" onclick="applySetting('anim','min')">⚡ Минимум</button>
+        </div>
+      </div>
+
+      <div class="set-group">
+        <span class="set-lbl">Размер шрифта</span>
+        <div class="set-pills" style="grid-template-columns:repeat(3,1fr);" id="setFontPills">
+          <button class="set-pill" data-val="13px" onclick="applySetting('fontSize','13px')">Компакт (13)</button>
+          <button class="set-pill" data-val="14px" onclick="applySetting('fontSize','14px')">Стандарт (14)</button>
+          <button class="set-pill" data-val="15.5px" onclick="applySetting('fontSize','15.5px')">Крупный (15.5)</button>
+        </div>
+      </div>
+
+      <div class="set-group">
+        <span class="set-lbl">Визуальные эффекты</span>
+        <div class="set-toggles">
+          <label class="set-row"><span>Стеклянное размытие (Blur)</span><input type="checkbox" id="chkBlur" onchange="applySetting('blur', this.checked)"></label>
+          <label class="set-row"><span>Голографические скан-линии</span><input type="checkbox" id="chkScan" onchange="applySetting('scanlines', this.checked)"></label>
+        </div>
+      </div>
+
+      <button class="p-btn" style="width:100%;justify-content:center;" onclick="resetAllSettings()">🔄 Сбросить настройки по умолчанию</button>
     </div>
   </div>
 
@@ -1545,6 +1577,17 @@
       "Взломанные версии мультимодификаций", "Самостоятельно модифицированные мультимодификации"
     ];
 
+    const defaultSettings = {
+      theme: "cyan",
+      bgMode: "aurora",
+      glow: "norm",
+      anim: "high",
+      fontSize: "14px",
+      blur: true,
+      scanlines: true
+    };
+    let siteSettings = Object.assign({}, defaultSettings, JSON.parse(localStorage.getItem("nt_settings") || "{}"));
+
     let selectedId = "baron";
     let selectedTerm = "p30";
     let rankFilter = "all";
@@ -1554,10 +1597,52 @@
     let recentViewed = JSON.parse(localStorage.getItem("nt_recent") || "[]");
     let favRules = JSON.parse(localStorage.getItem("nt_fav_rules") || "[]");
 
-    // ---------- 1. ВОЛНА КЛИКА (RIPPLE) ----------
+    // ---------- НАСТРОЙКИ САЙТА ----------
+    function applyAllSettings() {
+      document.body.setAttribute("data-theme", siteSettings.theme);
+      document.body.classList.toggle("glow-max", siteSettings.glow === "max");
+      document.body.classList.toggle("glow-low", siteSettings.glow === "low");
+      document.body.classList.toggle("anim-high", siteSettings.anim === "high");
+      document.body.classList.toggle("anim-min", siteSettings.anim === "min");
+      document.body.classList.toggle("no-blur", !siteSettings.blur);
+      document.body.classList.toggle("no-scanlines", !siteSettings.scanlines);
+      document.documentElement.style.setProperty("--base-fs", siteSettings.fontSize);
+
+      const markPills = (id, val) => {
+        document.querySelectorAll(`#${id} .set-pill`).forEach(p => p.classList.toggle("act", p.dataset.val === val));
+      };
+      markPills("setThemePills", siteSettings.theme);
+      markPills("setBgPills", siteSettings.bgMode);
+      markPills("setGlowPills", siteSettings.glow);
+      markPills("setAnimPills", siteSettings.anim);
+      markPills("setFontPills", siteSettings.fontSize);
+      document.getElementById("chkBlur").checked = siteSettings.blur;
+      document.getElementById("chkScan").checked = siteSettings.scanlines;
+    }
+
+    function applySetting(key, val) {
+      siteSettings[key] = val;
+      localStorage.setItem("nt_settings", JSON.stringify(siteSettings));
+      applyAllSettings();
+      if (key === "bgMode") initBgEngine();
+      showToast("Настройки применены");
+    }
+
+    function resetAllSettings() {
+      siteSettings = Object.assign({}, defaultSettings);
+      localStorage.setItem("nt_settings", JSON.stringify(siteSettings));
+      applyAllSettings();
+      initBgEngine();
+      showToast("Настройки сброшены");
+    }
+
+    function openSettings() { document.getElementById("settingsBg").classList.add("open"); }
+    function closeSettings() { document.getElementById("settingsBg").classList.remove("open"); }
+
+    // ---------- ВОЛНА КЛИКА И SPOTLIGHT ----------
     document.addEventListener("click", e => {
       const btn = e.target.closest(".p-btn, .buy-btn, .nav-btn");
-      if (!btn) return;
+      if (!btn || siteSettings.anim === "min") return;
       const rect = btn.getBoundingClientRect();
       const wave = document.createElement("span");
       wave.className = "ripple-wave";
@@ -1569,28 +1654,17 @@
       setTimeout(() => wave.remove(), 580);
     });
 
-    // ---------- 2. 3D НАКЛОН И SPOTLIGHT ----------
     document.addEventListener("mousemove", e => {
       document.querySelectorAll(".st-card").forEach(card => {
         const rect = card.getBoundingClientRect();
         card.style.setProperty("--mx", (e.clientX - rect.left) + "px");
         card.style.setProperty("--my", (e.clientY - rect.top) + "px");
-        if (card.classList.contains("tilt-card")) {
-          const x = (e.clientX - rect.left) / rect.width - 0.5;
-          const y = (e.clientY - rect.top) / rect.height - 0.5;
-          if (Math.abs(x) <= 0.5 && Math.abs(y) <= 0.5) {
-            card.style.transform = `perspective(700px) rotateX(${(-y * 6).toFixed(2)}deg) rotateY(${(x * 6).toFixed(2)}deg)`;
-          }
-        }
       });
     });
-    document.querySelectorAll(".tilt-card").forEach(card => {
-      card.addEventListener("mouseleave", () => { card.style.transform = ""; });
-    });
 
-    // ---------- 3. СМЕНЯЮЩИЙСЯ СЛОГАН В HERO ----------
+    // ---------- СМЕНЯЮЩИЙСЯ СЛОГАН ----------
     const slogans = [
-      "Анархия нового поколения: сбалансированные привилегии и честный PvP",
+      "Анархия нового поколения: интеллектуальный баланс, авто-выдача и защита",
       "Мгновенная авто-выдача доната через CryptoBot и Telegram Stars 24/7",
       "Прозрачные правила, проверка ПО по стандарту и защита от читеров",
       "Присоединяйся прямо сейчас: newtime.mcsh.gg • Версии 1.16.5 – 1.21+"
@@ -1607,7 +1681,7 @@
       }, 340);
     }, 4200);
 
-    // ---------- 4. ЦЕНА И ИКОНКИ ----------
+    // ---------- ЦЕНА И ИКОНКИ ----------
     function chestplateSVG(color, size = 24) {
       return `<svg class="rank-icon" style="width:${size}px;height:${size}px" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M2 2h4v2h4V2h4v5h-2v7H4V7H2V2z" fill="${color}" stroke="#070a0f" stroke-width="1"/><rect x="4" y="3" width="2" height="4" fill="#fff" fill-opacity="0.26"/><rect x="6" y="5" width="4" height="8" fill="#000" fill-opacity="0.18"/></svg>`;
     }
@@ -1616,11 +1690,10 @@
       const el = document.getElementById("detailPrice");
       const start = Number(lastPriceShown) || 0;
       const end = Number(targetVal);
-      if (isNaN(end)) { el.textContent = targetVal; return; }
+      if (isNaN(end) || siteSettings.anim === "min") { el.textContent = targetVal + suffix; lastPriceShown = end; return; }
       const startTime = performance.now();
-      const duration = 260;
       function step(now) {
-        const p = Math.min(1, (now - startTime) / duration);
+        const p = Math.min(1, (now - startTime) / 260);
         const eased = 1 - Math.pow(1 - p, 3);
         el.textContent = `${Math.round(start + (end - start) * eased)}${suffix}`;
         if (p < 1) requestAnimationFrame(step);
@@ -1629,7 +1702,7 @@
       requestAnimationFrame(step);
     }
 
-    // ---------- 5. МАГАЗИН, ФИЛЬТРЫ, ИСТОРИЯ, BOSSBAR И ШКАЛЫ ----------
+    // ---------- МАГАЗИН ----------
     function setRankFilter(filter, btn) {
       rankFilter = filter;
       document.querySelectorAll(".rf-btn").forEach(b => b.classList.remove("act"));
@@ -1710,14 +1783,12 @@
         `<div><span class="mc-lbl">TAB:</span><strong style="color:${r.color}">${r.prefix}</strong> <span style="color:#fff">${savedNick}</span></div>` +
         `<span class="mc-ping"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:11px"></i></span>`;
 
-      // BossBar
       const bossPct = Math.max(12, Math.round((r.tier / 11) * 100));
       document.getElementById("bossbarTxt").innerHTML = `<span style="color:${r.color}">${r.prefix} ${savedNick}</span> • NEWTIME CYAN ANARCHY`;
       const bFill = document.getElementById("bossbarFill");
       bFill.style.width = bossPct + "%";
       bFill.style.background = `linear-gradient(90deg, ${r.color}, var(--cyan))`;
 
-      // Шкалы характеристик
       document.getElementById("powerMeters").innerHTML = `
         <div class="pm-box"><div class="pm-top"><span>⚔️ PvP-мощь</span><strong>${r.pvp}%</strong></div><div class="pm-track"><div class="pm-fill" style="width:${r.pvp}%"></div></div></div>
         <div class="pm-box"><div class="pm-top"><span>💰 Экономика</span><strong>${r.eco}%</strong></div><div class="pm-track"><div class="pm-fill" style="width:${r.eco}%"></div></div></div>
@@ -1766,7 +1837,6 @@
       if (nextId) selectRank(nextId);
     }
 
-    // ---------- 6. СРАВНЕНИЕ И ДУЭЛЬ РАНГОВ ----------
     function initDuelSelects() {
       const paid = ranks.filter(r => !r.special);
       const opts = paid.map(r => `<option value="${r.id}">${r.name} (от ${r.p30} ₽)</option>`).join("");
@@ -1792,12 +1862,10 @@
         ["Полёт /fly", a.fly ? "Есть" : "Нет", b.fly ? "Есть" : "Нет", a.fly && !b.fly ? "a" : b.fly && !a.fly ? "b" : ""],
         ["Мощь PvP", a.pvp + "%", b.pvp + "%", a.pvp > b.pvp ? "a" : b.pvp > a.pvp ? "b" : ""]
       ];
-
       function buildCard(r, side) {
         return `<div class="duel-card" style="border-top:2px solid ${r.color}">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-            ${chestplateSVG(r.color, 26)}
-            <strong style="font-size:18px;color:${r.color}">${r.name}</strong>
+            ${chestplateSVG(r.color, 26)}<strong style="font-size:18px;color:${r.color}">${r.name}</strong>
           </div>
           ${metrics.map(m => {
             const val = side === "a" ? m[1] : m[2];
@@ -1816,10 +1884,7 @@
           <td><div class="cmp-rank-cell">${chestplateSVG(r.color, 20)}<span style="color:${r.color}">${r.name}</span></div></td>
           <td style="font-family:var(--mono);font-weight:700;">${r.p30} ₽</td>
           <td style="font-family:var(--mono);font-weight:800;color:var(--cyan);">${r.pFor} ₽</td>
-          <td>${r.homes}</td>
-          <td>${r.regs}</td>
-          <td>${r.auc}</td>
-          <td>${r.tp}</td>
+          <td>${r.homes}</td><td>${r.regs}</td><td>${r.auc}</td><td>${r.tp}</td>
           <td>${r.fly ? '<span class="cmp-yes">✔ Да</span>' : '<span class="cmp-no">—</span>'}</td>
           <td>${r.fix !== "—" ? `<span style="color:var(--cyan);font-weight:700;">${r.fix}</span>` : '<span class="cmp-no">—</span>'}</td>
         </tr>
@@ -1842,15 +1907,13 @@
         if (needExp && r.exp !== "100%") return false;
         return true;
       });
-
       document.getElementById("wizCount").textContent = `${matched.length} вариант(а)`;
       document.getElementById("wizResults").innerHTML = matched.length
         ? matched.map(r => `
           <div class="wiz-card" style="border-top:2px solid ${r.color}">
             <div>
               <div style="display:flex;align-items:center;gap:9px;margin-bottom:6px;">
-                ${chestplateSVG(r.color, 22)}
-                <strong style="font-size:16px;color:${r.color}">${r.name}</strong>
+                ${chestplateSVG(r.color, 22)}<strong style="font-size:16px;color:${r.color}">${r.name}</strong>
               </div>
               <div style="font-size:12px;color:var(--mut);">Дома: ${r.homes} • ТП: ${r.tp} • Починка: ${r.fix}</div>
             </div>
@@ -1863,17 +1926,13 @@
         : `<div style="grid-column:1/-1;text-align:center;color:var(--mut);padding:26px;">По заданным фильтрам и бюджету вариантов нет.</div>`;
     }
 
-    // ---------- 7. ДЕМО-РУЛЕТКА ----------
     function buildRoulettePool() {
       const paid = ranks.filter(r => !r.special);
       const track = document.getElementById("rouletteTrack");
       let html = "";
       for (let i = 0; i < 42; i++) {
         const r = paid[Math.floor(Math.random() * paid.length)];
-        html += `<div class="r-card" data-id="${r.id}" style="--rc:${r.color}">
-          ${chestplateSVG(r.color, 30)}
-          <span style="color:${r.color}">${r.name}</span>
-        </div>`;
+        html += `<div class="r-card" data-id="${r.id}" style="--rc:${r.color}">${chestplateSVG(r.color, 30)}<span style="color:${r.color}">${r.name}</span></div>`;
       }
       track.style.transition = "none";
       track.style.transform = "translateX(0px)";
@@ -1893,7 +1952,6 @@
       const track = document.getElementById("rouletteTrack");
       const paid = ranks.filter(r => !r.special);
       const winRank = paid[Math.floor(Math.random() * paid.length)];
-
       const winIndex = 31;
       const cards = track.querySelectorAll(".r-card");
       cards[winIndex].dataset.id = winRank.id;
@@ -1901,9 +1959,7 @@
       cards[winIndex].innerHTML = `${chestplateSVG(winRank.color, 32)}<span style="color:${winRank.color}">${winRank.name}</span>`;
 
       const stageW = track.parentElement.clientWidth;
-      const cardStep = 142;
-      const jitter = Math.floor((Math.random() - 0.5) * 40);
-      const targetX = -(winIndex * cardStep + 66 - stageW / 2 + jitter);
+      const targetX = -(winIndex * 142 + 66 - stageW / 2 + Math.floor((Math.random() - 0.5) * 40));
 
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
@@ -1932,18 +1988,8 @@
       document.querySelectorAll(".subtab-btn").forEach(b => b.classList.remove("act"));
       if (btn) btn.classList.add("act");
     }
-
-    function selectRank(id) {
-      selectedId = id;
-      pushRecent(id);
-      renderList();
-      renderDetails();
-    }
-    function selectTerm(term) {
-      selectedTerm = term;
-      document.querySelectorAll(".term-btn").forEach(b => b.classList.toggle("act", b.dataset.term === term));
-      renderDetails();
-    }
+    function selectRank(id) { selectedId = id; pushRecent(id); renderList(); renderDetails(); }
+    function selectTerm(term) { selectedTerm = term; document.querySelectorAll(".term-btn").forEach(b => b.classList.toggle("act", b.dataset.term === term)); renderDetails(); }
     function jumpToRank(id) { selectedId = id; pushRecent(id); renderList(); renderDetails(); switchView("shop"); }
     function switchView(view) {
       document.querySelectorAll(".view").forEach(v => v.classList.remove("act"));
@@ -1952,7 +1998,7 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    // ---------- 8. ОПЛАТА И МОДАЛКА ----------
+    // ---------- ОПЛАТА ----------
     function onModalNickInput() {
       const val = document.getElementById("mNick").value.trim();
       const valid = /^[a-zA-Z0-9_]{3,16}$/.test(val);
@@ -1963,14 +2009,10 @@
         renderDetails();
       }
     }
-
     function toggleGiftMode() {
       const isGift = document.getElementById("giftCheck").checked;
-      document.getElementById("mNickLabel").textContent = isGift
-        ? "Игровой ник друга (получателя подарка):"
-        : "Ваш игровой ник на сервере:";
+      document.getElementById("mNickLabel").textContent = isGift ? "Игровой ник друга (получателя подарка):" : "Ваш игровой ник на сервере:";
     }
-
     function getNick() {
       const nick = document.getElementById("mNick").value.trim();
       if (!/^[a-zA-Z0-9_]{3,16}$/.test(nick)) {
@@ -1983,7 +2025,6 @@
       document.getElementById("step3").classList.add("act");
       return nick;
     }
-
     function openBuyModal() {
       const r = ranks.find(x => x.id === selectedId);
       if (!r) return;
@@ -1998,13 +2039,10 @@
       document.getElementById("sbpPriceLbl").textContent = `${price} ₽`;
       document.getElementById("sbpBox").classList.remove("open");
       const saved = localStorage.getItem("nt_nick");
-      if (saved && !document.getElementById("mNick").value && !document.getElementById("giftCheck").checked) {
-        document.getElementById("mNick").value = saved;
-      }
+      if (saved && !document.getElementById("mNick").value && !document.getElementById("giftCheck").checked) document.getElementById("mNick").value = saved;
       onModalNickInput();
       document.getElementById("modalBg").classList.add("open");
     }
-
     function closeModal() { document.getElementById("modalBg").classList.remove("open"); }
     function isWorkerReady() { return WORKER_URL && !WORKER_URL.includes("ВАШ-НИК"); }
 
@@ -2015,46 +2053,31 @@
       showToast("Создаём счёт в CryptoBot...");
       try {
         const res = await fetch(`${WORKER_URL}/api/order`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ nick, rank: selectedId, term: selectedTerm })
         });
         const data = await res.json();
-        if (data.ok && data.pay_url) {
-          window.open(data.pay_url, "_blank");
-          closeModal();
-        } else {
-          showToast(data.error || "Ошибка создания счёта");
-        }
-      } catch {
-        showToast("Не удалось связаться с ботом");
-      }
+        if (data.ok && data.pay_url) { window.open(data.pay_url, "_blank"); closeModal(); }
+        else showToast(data.error || "Ошибка создания счёта");
+      } catch { showToast("Не удалось связаться с ботом"); }
     }
-
     function payStars() {
       const nick = getNick();
       if (!nick) return;
       window.open(`https://t.me/${BOT_USERNAME}?start=stars-${selectedId}-${selectedTerm}-${nick}`, "_blank");
       closeModal();
     }
-
     async function toggleSbp() {
       const box = document.getElementById("sbpBox");
       box.classList.toggle("open");
       if (!box.classList.contains("open")) return;
-      if (!isWorkerReady()) {
-        document.getElementById("sbpDetails").textContent = SBP_FALLBACK;
-        return;
-      }
+      if (!isWorkerReady()) { document.getElementById("sbpDetails").textContent = SBP_FALLBACK; return; }
       try {
         const res = await fetch(`${WORKER_URL}/api/config`);
         const cfg = await res.json();
         document.getElementById("sbpDetails").textContent = cfg.sbp_info || SBP_FALLBACK;
-      } catch {
-        document.getElementById("sbpDetails").textContent = SBP_FALLBACK;
-      }
+      } catch { document.getElementById("sbpDetails").textContent = SBP_FALLBACK; }
     }
-
     async function sendSbpRequest() {
       const nick = getNick();
       if (!nick) return;
@@ -2070,43 +2093,33 @@
       }
       try {
         const res = await fetch(`${WORKER_URL}/api/sbp`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+          method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ nick, rank: selectedId, term: selectedTerm })
         });
         const data = await res.json();
-        if (data.ok) {
-          showToast("Заявка отправлена! Донат выдастся после подтверждения.");
-          closeModal();
-        } else {
-          showToast(data.error || "Ошибка отправки");
-        }
-      } catch {
-        showToast("Ошибка соединения с сервером");
-      }
+        if (data.ok) { showToast("Заявка отправлена! Донат выдастся после подтверждения."); closeModal(); }
+        else showToast(data.error || "Ошибка отправки");
+      } catch { showToast("Ошибка соединения с сервером"); }
     }
 
-    // ---------- 9. ПРАВИЛА, ИЗБРАННОЕ, ГОТОВНОСТЬ, МОДЫ И FAQ ----------
+    // ---------- ПРАВИЛА, ИЗБРАННОЕ, МОДЫ И FAQ ----------
     function copyRule(btn) {
       const row = btn.closest(".rule-row");
       const badge = row.querySelector(".r-badge").textContent;
-      const text = row.querySelector(".rule-main > div:last-child").innerText.trim();
+      const text = row.querySelector(".r-text").innerText.trim();
       if (navigator.clipboard) navigator.clipboard.writeText(`Пункт ${badge}: ${text}`);
       showToast(`Скопирован пункт ${badge}`);
     }
-
     function toggleFavRule(btn) {
       const row = btn.closest(".rule-row");
       const code = row.querySelector(".r-badge").textContent;
-      const text = row.querySelector(".rule-main > div:last-child").innerText.trim();
-      const exists = favRules.find(f => f.code === code);
-      if (exists) favRules = favRules.filter(f => f.code !== code);
+      const text = row.querySelector(".r-text").innerText.trim();
+      if (favRules.some(f => f.code === code)) favRules = favRules.filter(f => f.code !== code);
       else favRules.push({ code, text });
       localStorage.setItem("nt_fav_rules", JSON.stringify(favRules));
       syncFavButtons();
       renderFavRules();
     }
-
     function syncFavButtons() {
       document.querySelectorAll(".rule-row").forEach(row => {
         const code = row.querySelector(".r-badge").textContent;
@@ -2114,13 +2127,9 @@
         if (star) star.classList.toggle("fav-on", favRules.some(f => f.code === code));
       });
     }
-
     function renderFavRules() {
       const box = document.getElementById("favRulesBox");
-      if (!favRules.length) {
-        box.innerHTML = "Нажмите ⭐ на любом правиле, чтобы закрепить его здесь.";
-        return;
-      }
+      if (!favRules.length) { box.innerHTML = "Нажмите ⭐ на любом правиле, чтобы закрепить его здесь."; return; }
       box.innerHTML = favRules.map(f => `
         <div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;gap:8px;align-items:flex-start;">
           <span class="r-badge" style="min-width:40px;font-size:10.5px;">${f.code}</span>
@@ -2128,7 +2137,6 @@
         </div>
       `).join("");
     }
-
     function updateReadyBar() {
       const checks = document.querySelectorAll(".ready-chk input");
       const done = [...checks].filter(c => c.checked).length;
@@ -2146,46 +2154,27 @@
       document.getElementById("sbOkStat").textContent = ok.length;
       onSearch();
     }
-
     function toggleModSort() {
       modsSorted = !modsSorted;
       document.getElementById("sortModsBtn").textContent = modsSorted ? "🔁 Исходный порядок" : "🔤 Сортировать А–Я";
       renderMods();
     }
-
     function copyAllMods(type) {
       const list = type === "ok" ? ok : no;
       if (navigator.clipboard) navigator.clipboard.writeText(list.join(", "));
       showToast(`Скопирован список (${list.length} модов)`);
     }
-
-    function quickCheckMod(name) {
-      document.getElementById("modCheckerInp").value = name;
-      checkModName();
-    }
-
+    function quickCheckMod(name) { document.getElementById("modCheckerInp").value = name; checkModName(); }
     function checkModName() {
       const val = document.getElementById("modCheckerInp").value.trim().toLowerCase().replace(/\.jar$/i, "");
       const resBox = document.getElementById("modCheckerRes");
-      if (!val) {
-        resBox.className = "mod-chk-result";
-        resBox.textContent = "Введите название мода для проверки";
-        return;
-      }
+      if (!val) { resBox.className = "mod-chk-result"; resBox.textContent = "Введите название мода для проверки"; return; }
       const hitNo = no.find(m => m.toLowerCase().includes(val));
       const hitOk = ok.find(m => m.toLowerCase().includes(val));
-      if (hitNo) {
-        resBox.className = "mod-chk-result no";
-        resBox.textContent = `⛔ ЗАПРЕЩЁН: ${hitNo}`;
-      } else if (hitOk) {
-        resBox.className = "mod-chk-result ok";
-        resBox.textContent = `✅ РАЗРЕШЁН: ${hitOk}`;
-      } else {
-        resBox.className = "mod-chk-result warn";
-        resBox.textContent = "⚠️ Нет в списке 4.4 — уточните у Staff!";
-      }
+      if (hitNo) { resBox.className = "mod-chk-result no"; resBox.textContent = `⛔ ЗАПРЕЩЁН: ${hitNo}`; }
+      else if (hitOk) { resBox.className = "mod-chk-result ok"; resBox.textContent = `✅ РАЗРЕШЁН: ${hitOk}`; }
+      else { resBox.className = "mod-chk-result warn"; resBox.textContent = "⚠️ Нет в списке 4.4 — уточните у Staff!"; }
     }
-
     function filterModGroup(grp, btn) {
       document.querySelectorAll(".mf-btn").forEach(b => b.classList.remove("act"));
       btn.classList.add("act");
@@ -2193,78 +2182,49 @@
       document.getElementById("noBox").style.display = grp === "ok" ? "none" : "block";
       document.getElementById("modsGrid").style.gridTemplateColumns = grp === "all" ? "" : "1fr";
     }
-
     function toggleFaq(btn) { btn.closest(".faq-item").classList.toggle("open"); }
 
-    // ---------- 10. ПОИСК С ПОДСВЕТКОЙ, ТЕМА, СВЕЧЕНИЕ И СТАТУС ----------
+    // ---------- ПОИСК ----------
     function setBadge(id, count, active) {
       const el = document.getElementById(id);
       if (!el) return;
       el.textContent = count;
       el.classList.toggle("show", active);
     }
-
     function escapeRegExp(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
-
     function onSearch() {
       const input = document.getElementById("globalSearch");
       const raw = input.value.trim();
       const v = raw.toLowerCase();
       document.getElementById("searchClear").classList.toggle("show", v.length > 0);
-
       const shopMatches = renderList();
       let ruleMatches = 0;
       const re = v ? new RegExp(`(${escapeRegExp(raw)})`, "gi") : null;
-
       document.querySelectorAll("#view-rules .rule-row").forEach(r => {
         const textEl = r.querySelector(".r-text");
         if (textEl) {
           if (!textEl.dataset.orig) textEl.dataset.orig = textEl.innerHTML;
-          const plain = textEl.innerText.toLowerCase();
-          const hit = plain.includes(v);
+          const hit = textEl.innerText.toLowerCase().includes(v);
           r.style.display = hit ? "flex" : "none";
           if (hit) ruleMatches++;
           if (v && hit && !textEl.dataset.orig.includes("<a") && !textEl.dataset.orig.includes("<div")) {
             textEl.innerHTML = textEl.dataset.orig.replace(re, '<mark class="hl">$1</mark>');
-          } else {
-            textEl.innerHTML = textEl.dataset.orig;
-          }
+          } else textEl.innerHTML = textEl.dataset.orig;
         }
       });
-
-      const banner = document.getElementById("rulesSearchBanner");
-      banner.classList.toggle("show", v.length > 0);
+      document.getElementById("rulesSearchBanner").classList.toggle("show", v.length > 0);
       document.getElementById("rulesSearchMsg").textContent = `По запросу «${raw}» найдено пунктов: ${ruleMatches}`;
-
       let modMatches = 0;
       document.querySelectorAll(".tag").forEach(t => {
         const hit = t.innerText.toLowerCase().includes(v);
         t.style.display = hit ? "inline-block" : "none";
         if (hit) modMatches++;
       });
-
       setBadge("cnt-shop", shopMatches, v.length > 0);
       setBadge("cnt-rules", ruleMatches, v.length > 0);
       setBadge("cnt-mods", modMatches, v.length > 0);
     }
-
-    function clearSearch() {
-      document.getElementById("globalSearch").value = "";
-      onSearch();
-    }
-
-    function setTheme(theme, dot) {
-      document.body.setAttribute("data-theme", theme);
-      localStorage.setItem("nt_theme", theme);
-      document.querySelectorAll(".t-dot").forEach(d => d.classList.remove("act"));
-      if (dot) dot.classList.add("act");
-    }
-
-    function toggleGlow() {
-      document.body.classList.toggle("low-glow");
-      const low = document.body.classList.contains("low-glow");
-      document.getElementById("glowBtn").textContent = low ? "🌑 Тихий" : "✨ Неон";
-    }
+    function clearSearch() { document.getElementById("globalSearch").value = ""; onSearch(); }
 
     let toastTimer;
     function showToast(msg) {
@@ -2274,16 +2234,8 @@
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
     }
-
-    function copyIP() {
-      if (navigator.clipboard) navigator.clipboard.writeText("newtime.mcsh.gg");
-      showToast("IP newtime.mcsh.gg скопирован!");
-    }
-
-    function copyMod(name) {
-      if (navigator.clipboard) navigator.clipboard.writeText(name);
-      showToast(`Скопировано: ${name}`);
-    }
+    function copyIP() { if (navigator.clipboard) navigator.clipboard.writeText("newtime.mcsh.gg"); showToast("IP newtime.mcsh.gg скопирован!"); }
+    function copyMod(name) { if (navigator.clipboard) navigator.clipboard.writeText(name); showToast(`Скопировано: ${name}`); }
 
     async function fetchServerStatus() {
       const txt = document.getElementById("onlineText");
@@ -2294,79 +2246,94 @@
           const online = data.players ? data.players.online : 0;
           const max = data.players ? data.players.max : 100;
           txt.textContent = `Онлайн: ${online}/${max}`;
-        } else {
-          txt.textContent = "Онлайн • Java";
-        }
-      } catch {
-        txt.textContent = "Онлайн • Java";
-      }
+        } else txt.textContent = "Онлайн • Java";
+      } catch { txt.textContent = "Онлайн • Java"; }
     }
 
-    // ---------- 11. CANVAS ФОН ----------
-    (function initCanvas() {
+    // ---------- МНОГОРЕЖИМНЫЙ ФОНОВЫЙ ДВИЖОК (AURORA / MATRIX / WARP) ----------
+    let bgRaf = null;
+    function initBgEngine() {
+      if (bgRaf) cancelAnimationFrame(bgRaf);
       const canvas = document.getElementById("bgCanvas");
       const ctx = canvas.getContext("2d");
-      let w, h, particles = [];
-      const mouse = { x: -999, y: -999 };
-      const count = 52;
+      let w = canvas.width = window.innerWidth;
+      let h = canvas.height = window.innerHeight;
+      const mode = siteSettings.bgMode;
 
-      window.addEventListener("mousemove", e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-      window.addEventListener("mouseleave", () => { mouse.x = -999; mouse.y = -999; });
+      if (mode === "none") { ctx.clearRect(0, 0, w, h); return; }
 
-      function resize() {
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
-      }
-      window.addEventListener("resize", resize);
-      resize();
+      let t = 0;
+      const cols = Math.floor(w / 18);
+      const drops = Array(cols).fill(1);
+      const stars = Array.from({ length: 90 }, () => ({ x: (Math.random() - 0.5) * w, y: (Math.random() - 0.5) * h, z: Math.random() * w }));
+      const nodes = Array.from({ length: 28 }, () => ({ x: Math.random() * w, y: Math.random() * h, r: Math.random() * 2.2 + 1, s: Math.random() * 0.4 + 0.15 }));
 
-      for (let i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * w, y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.42, vy: (Math.random() - 0.5) * 0.42,
-          s: Math.random() * 2 + 1.2
-        });
-      }
+      function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+      window.onresize = resize;
 
-      function loop() {
+      function renderFrame() {
         if (!document.hidden) {
-          ctx.clearRect(0, 0, w, h);
           const accent = getComputedStyle(document.body).getPropertyValue("--cyan").trim() || "#00e5ff";
-          for (let i = 0; i < particles.length; i++) {
-            const p = particles[i];
-            p.x += p.vx; p.y += p.vy;
-            if (p.x < 0 || p.x > w) p.vx *= -1;
-            if (p.y < 0 || p.y > h) p.vy *= -1;
+          const blue = getComputedStyle(document.body).getPropertyValue("--blue").trim() || "#1e78ff";
 
-            ctx.fillStyle = accent;
-            ctx.globalAlpha = 0.28;
-            ctx.fillRect(p.x, p.y, p.s, p.s);
-
-            const mdist = Math.hypot(p.x - mouse.x, p.y - mouse.y);
-            if (mdist < 145) {
-              ctx.strokeStyle = accent;
-              ctx.globalAlpha = (1 - mdist / 145) * 0.25;
-              ctx.lineWidth = 1;
-              ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
-            }
-            for (let j = i + 1; j < particles.length; j++) {
-              const p2 = particles[j];
-              const d = Math.hypot(p.x - p2.x, p.y - p2.y);
-              if (d < 115) {
-                ctx.strokeStyle = accent;
-                ctx.globalAlpha = (1 - d / 115) * 0.09;
-                ctx.lineWidth = 0.8;
-                ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+          if (mode === "aurora") {
+            ctx.clearRect(0, 0, w, h);
+            t += 0.015;
+            for (let wave = 0; wave < 3; wave++) {
+              ctx.beginPath();
+              ctx.lineWidth = 1.6;
+              ctx.strokeStyle = wave % 2 === 0 ? accent : blue;
+              ctx.globalAlpha = 0.18 - wave * 0.03;
+              for (let x = 0; x <= w; x += 24) {
+                const y = h * (0.35 + wave * 0.18) + Math.sin(x * 0.004 + t + wave * 1.4) * 55 + Math.cos(x * 0.002 - t * 0.7) * 35;
+                if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
               }
+              ctx.stroke();
             }
+            ctx.fillStyle = accent;
+            nodes.forEach(n => {
+              n.y -= n.s;
+              if (n.y < -10) { n.y = h + 10; n.x = Math.random() * w; }
+              ctx.globalAlpha = 0.25;
+              ctx.beginPath();
+              ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+              ctx.fill();
+            });
+          } else if (mode === "matrix") {
+            ctx.fillStyle = "rgba(4, 7, 14, 0.12)";
+            ctx.globalAlpha = 1;
+            ctx.fillRect(0, 0, w, h);
+            ctx.fillStyle = accent;
+            ctx.font = "13px JetBrains Mono, monospace";
+            ctx.globalAlpha = 0.38;
+            for (let i = 0; i < drops.length; i++) {
+              const ch = Math.random() > 0.5 ? "1" : "0";
+              ctx.fillText(ch, i * 18, drops[i] * 18);
+              if (drops[i] * 18 > h && Math.random() > 0.975) drops[i] = 0;
+              drops[i]++;
+            }
+          } else if (mode === "warp") {
+            ctx.fillStyle = "rgba(4, 7, 14, 0.28)";
+            ctx.globalAlpha = 1;
+            ctx.fillRect(0, 0, w, h);
+            ctx.fillStyle = accent;
+            stars.forEach(s => {
+              s.z -= 5.5;
+              if (s.z <= 1) { s.z = w; s.x = (Math.random() - 0.5) * w; s.y = (Math.random() - 0.5) * h; }
+              const sx = (s.x / s.z) * w + w / 2;
+              const sy = (s.y / s.z) * h + h / 2;
+              const r = Math.max(0.6, (1 - s.z / w) * 3.2);
+              ctx.globalAlpha = Math.min(0.8, 1 - s.z / w);
+              ctx.fillRect(sx, sy, r, r);
+            });
           }
         }
-        requestAnimationFrame(loop);
+        bgRaf = requestAnimationFrame(renderFrame);
       }
-      loop();
-    })();
+      renderFrame();
+    }
 
-    // ---------- 12. ПРОГРЕСС-БАР СКРОЛЛА, SCROLL-SPY И КЛАВИШИ ----------
+    // ---------- СКРОЛЛ И КЛАВИШИ ----------
     window.addEventListener("scroll", () => {
       const docH = document.documentElement.scrollHeight - window.innerHeight;
       const pct = docH > 0 ? Math.min(100, (window.scrollY / docH) * 100) : 0;
@@ -2376,13 +2343,11 @@
       const secs = document.querySelectorAll(".rule-sec");
       let current = "sec-1";
       secs.forEach(s => { if (window.scrollY >= s.offsetTop - 160) current = s.id; });
-      document.querySelectorAll("#rulesToc .toc-chip").forEach(a => {
-        a.classList.toggle("act", a.getAttribute("href") === "#" + current);
-      });
+      document.querySelectorAll("#rulesToc .toc-chip").forEach(a => a.classList.toggle("act", a.getAttribute("href") === "#" + current));
     });
 
     document.addEventListener("keydown", e => {
-      if (e.key === "Escape") closeModal();
+      if (e.key === "Escape") { closeModal(); closeSettings(); }
       if (document.activeElement.tagName === "INPUT" || document.activeElement.tagName === "SELECT") return;
       if (e.key === "/") { e.preventDefault(); document.getElementById("globalSearch").focus(); }
       if (e.key === "1") switchView("shop");
@@ -2391,15 +2356,12 @@
       if (e.key === "4") switchView("contacts");
     });
 
-    // ---------- 13. ИНИЦИАЛИЗАЦИЯ ----------
-    const savedTheme = localStorage.getItem("nt_theme");
-    if (savedTheme) {
-      const map = { cyan: 0, crimson: 1, emerald: 2, amethyst: 3 };
-      setTheme(savedTheme, document.querySelectorAll(".t-dot")[map[savedTheme] ?? 0]);
-    }
+    // ---------- ИНИЦИАЛИЗАЦИЯ ----------
     const savedNickInit = localStorage.getItem("nt_nick");
     if (savedNickInit) document.getElementById("liveNickInp").value = savedNickInit;
 
+    applyAllSettings();
+    initBgEngine();
     renderRecent();
     renderList();
     renderDetails();
